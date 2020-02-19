@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "rtv1.h": "c",
+        "array": "c",
+        "string_view": "c",
+        "string": "c",
+        "vector": "c",
+        "chrono": "c"
+    }
+}
