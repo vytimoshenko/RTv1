@@ -6,12 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/19 03:26:25 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/19 18:34:23 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RTv1.h"
-void	core(t_mlx *mlx);
 
 void	loop(t_global *global)
 {
@@ -30,13 +29,13 @@ void	draw(t_global *global)
 
 	gettimeofday(&start, NULL);
 	mlx_clear_window(global->mlx->mlx, global->mlx->win);
-	get_image(global->mlx);
+	get_image(global->status, global->mlx);
 	mlx_put_image_to_window(global->mlx->mlx, global->mlx->win,
 	global->mlx->img, 0, 0);
-	// if (!(global->status->hide_info))
-	// 	put_info_to_window(global);
 	gettimeofday(&end, NULL);
 	count_frames(global->mlx, start, end);
+	if (!(global->status->hide_info))
+		put_info_to_window(global);
 }
 
 void	update_info_only(t_global *global)

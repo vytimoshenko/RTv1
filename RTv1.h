@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/19 03:25:57 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/20 01:18:18 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,26 @@
 # include "./libft/libft.h"
 # include "./mlx/mlx.h"
 # include <math.h>
-# include <OpenCL/opencl.h>
 # include <sys/time.h>
 
 # define PROGRAM_NAME			"fractol"
 
-# define WIN_SIZE_W 			500
-# define WIN_SIZE_H				500
-# define IMG_SIZE_W				500.0
-# define IMG_SIZE_H				500.0
+# define WIN_SIZE_W 			1000
+# define WIN_SIZE_H				1000
+# define IMG_SIZE_W				1000.0
+# define IMG_SIZE_H				1000.0
 
-# define VIEWPORT_SIZE_W		1.0
-# define VIEWPORT_SIZE_H		1.0
-# define VIEWPORT_DISTANCE		1.0
+# define VIEWPORT_SIZE_W		1
+# define VIEWPORT_SIZE_H		1
+# define VIEWPORT_DISTANCE		1
+
+# define DRAW_DISTANCE_MIN		1
+# define DRAW_DISTANCE_MAX		1000000
 
 # define TEXT_COLOR  			0xFFFFFF
 # define BACK_COLOR  			0x555555
 
-# define CPU					0
-# define GPU					1
+
 
 # define SOURCE_NAME			"fractol.cl"
 # define KERNEL_NAME			"fractol"
@@ -89,53 +90,56 @@ typedef struct			s_mlx
 	int					frames;
 	int					fps;
 	float				frame_time;
-
-	float					t1;
-	float					t2;
 }						t_mlx;
 
-typedef struct			s_open_cl
+// typedef struct			s_open_cl
+// {
+// 	cl_platform_id		platform_id;
+// 	cl_device_id		device_id;
+// 	cl_context			context;
+// 	cl_command_queue	command_queue;
+// 	cl_program			program;
+// 	cl_kernel			kernel;
+
+// 	char				*platform_name;
+// 	char				*device_name;
+// 	char				*driver_ver;
+// 	cl_uint				device_comp_units;
+// 	cl_uint				device_frequency;
+
+// 	size_t				source_size;
+// 	char				*source_str;
+// 	char				*program_build_log;
+
+// 	size_t				global_work_size;
+// 	size_t				local_work_size;
+
+// 	cl_mem				buf;
+
+// 	int					execution_time;
+// }						t_open_cl;
+
+typedef struct			s_sphere
 {
-	cl_platform_id		platform_id;
-	cl_device_id		device_id;
-	cl_context			context;
-	cl_command_queue	command_queue;
-	cl_program			program;
-	cl_kernel			kernel;
+	int					color;
+	double				radius;
+	t_vector 			center;
 
-	char				*platform_name;
-	char				*device_name;
-	char				*driver_ver;
-	cl_uint				device_comp_units;
-	cl_uint				device_frequency;
-
-	size_t				source_size;
-	char				*source_str;
-	char				*program_build_log;
-
-	size_t				global_work_size;
-	size_t				local_work_size;
-
-	cl_mem				buf;
-
-	int					execution_time;
-}						t_open_cl;
+	double				t1;
+	double				t2;
+}						t_sphere;
 
 typedef struct			s_status
 {
-	int					device;
-	int					fractal_type;
+	t_vector			camera;
+
+	int					spheres_quant;	
+	t_sphere			**spheres_arr;			
 
 	int					hide_info;
-	int					color_theme;
 	int					iter;
 	int					pause;
 	double				zoom;
-
-	double				x_center;
-	double				y_center;
-	double				x_shift;
-	double				y_shift;
 
 	int					x_mouse_position;
 	int					y_mouse_position;
@@ -143,16 +147,13 @@ typedef struct			s_status
 	int					middle_mouse_button;
 	double				x_move;
 	double				y_move;
-
-	double				x_julia;
-	double				y_julia;
 }						t_status;
+
 
 typedef struct			s_global
 {
 	t_status			*status;
 	t_mlx				*mlx;
-	t_open_cl			*open_cl;
 }						t_global;
 
 typedef struct			s_kernel_arg
@@ -175,16 +176,13 @@ typedef struct			s_kernel_arg
 	double				y_julia;
 }						t_kernel_arg;
 
-
-int						get_color(t_mlx *mlx, t_vector v);
+void					get_image(t_status *status, t_mlx *mlx);
+void					put_pixel(t_mlx *mlx, int x, int y, int color);
+int						get_color(t_sphere	**spheres_arr, t_vector camera, t_vector viewport_pixel);
 t_vector				canvas_to_viewport(int x, int y);
+void	    			sphere_intersect(t_sphere *sphere, t_vector camera, t_vector viewport_pixel);
 double 					dot(t_vector v1, t_vector v2);
 t_vector 				substract(t_vector v1, t_vector v2);
-void					find_intersection(t_mlx *mlx, t_vector v);
-void					get_image(t_mlx *mlx);
-void	put_pixel(t_mlx *mlx, int x, int y, int color);
-
-
 
 int						main(int argc, char **argv);
 
@@ -232,7 +230,7 @@ void					put_status_3(t_status *status, t_mlx *mlx);
 void					put_status_4(t_status *status, t_mlx *mlx);
 void					put_status_5(t_status *status, t_mlx *mlx);
 
-void					put_open_cl_info(t_open_cl *open_cl, t_mlx *mlx);
+// void					put_open_cl_info(t_open_cl *open_cl, t_mlx *mlx);
 void					put_render_info_1(t_mlx *mlx);
 void					put_render_info_2(t_mlx *mlx);
 void					put_control_keys_1(t_status *status, t_mlx *mlx);

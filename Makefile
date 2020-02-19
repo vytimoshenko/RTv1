@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/02/19 03:27:25 by mperseus         ###   ########.fr        #
+#    Updated: 2020/02/19 17:55:59 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,12 @@ NAME	= 	RTv1
 HDR		= 	RTv1.h
 
 SRC		= 	RTv1_main.c					\
+			RTv1_render.c				\
 			RTv1_mlx_init.c				\
 			RTv1_mlx_run.c				\
 			RTv1_mlx_hooks.c			\
-			RTv1_mlx_put_info_2.c
-			# fractol_status_init.c
+			RTv1_mlx_put_info_2.c		\
+			RTv1_status_init.c
 			# fractol_mlx_control_1.c
 			# fractol_mlx_control_2.c
 			# fractol_mlx_put_info_1.c
