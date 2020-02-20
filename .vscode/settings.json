@@ -5,6 +5,8 @@
         "string_view": "c",
         "string": "c",
         "vector": "c",
-        "chrono": "c"
+        "chrono": "c",
+        "__locale": "c",
+        "functional": "c"
     }
 }

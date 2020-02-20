@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/20 01:12:06 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/20 06:11:01 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,11 @@ void		reset_status(t_status *status)
 	status->camera.y = 0.0;
 	status->camera.z = 0.0;
 
-	status->spheres_quant = 3;
-	status->spheres_arr = (t_sphere **)ft_memalloc(sizeof(t_sphere *) * status->spheres_quant);
+	status->spheres_quantity = 4;
+	status->spheres_arr = (t_sphere **)ft_memalloc(sizeof(t_sphere *) * status->spheres_quantity);
 	i = -1;
-	while (++i < status->spheres_quant)
+	while (++i < status->spheres_quantity)
 		status->spheres_arr[i] = (t_sphere *)ft_memalloc(sizeof(t_sphere));
-
 	i = 0;
 	status->spheres_arr[i]->color = 0xFF0000;
 	status->spheres_arr[i]->center.x = 0.0;
@@ -70,4 +69,31 @@ void		reset_status(t_status *status)
 	status->spheres_arr[i]->center.y = 0.0;
 	status->spheres_arr[i]->center.z = 4.0;
 	status->spheres_arr[i]->radius = 1;
+	i++;
+	status->spheres_arr[i]->color = 0x00FFFF;
+	status->spheres_arr[i]->center.x = 0.0;
+	status->spheres_arr[i]->center.y = -5001.0;
+	status->spheres_arr[i]->center.z = 0.0;
+	status->spheres_arr[i]->radius = 5000;
+
+	status->lights_quantity = 3;
+	status->lights_arr = (t_light **)ft_memalloc(sizeof(t_light *) * status->lights_quantity);
+	i = -1;
+	while (++i < status->lights_quantity)
+		status->lights_arr[i] = (t_light *)ft_memalloc(sizeof(t_light));
+	i = 0;
+	status->lights_arr[i]->type = LIGHT_TYPE_AMBIENT;
+	status->lights_arr[i]->intensity = 0.2;
+	i++;
+	status->lights_arr[i]->type = LIGHT_TYPE_POINT;
+	status->lights_arr[i]->intensity = 0.6;
+	status->lights_arr[i]->position.x = 2;
+	status->lights_arr[i]->position.x = 1;
+	status->lights_arr[i]->position.x = 0;
+    i++;
+	status->lights_arr[i]->type = LIGHT_TYPE_DIRECTIONAL;
+	status->lights_arr[i]->intensity = 0.2;
+	status->lights_arr[i]->direction.x = 1;
+	status->lights_arr[i]->direction.x = 4;
+	status->lights_arr[i]->direction.x = 4;
 }

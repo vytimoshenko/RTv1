@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/20 01:18:18 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/20 06:21:02 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,12 @@
 # define DRAW_DISTANCE_MIN		1
 # define DRAW_DISTANCE_MAX		1000000
 
+# define LIGHT_TYPE_AMBIENT		0
+# define LIGHT_TYPE_POINT		1
+# define LIGHT_TYPE_DIRECTIONAL	2
+
 # define TEXT_COLOR  			0xFFFFFF
 # define BACK_COLOR  			0x555555
-
-
-
-# define SOURCE_NAME			"fractol.cl"
-# define KERNEL_NAME			"fractol"
-# define MAX_SOURCE_SIZE		8192
-# define LOCAL_WORK_SIZE		64
-
-# define MANDELBROT				1
-# define JULIA					2
-# define BURNING_SHIP			3
-# define SPIDER					4
-# define SIN					5
 
 # define MIDDLE_MOUSE_BUTTON	3
 # define MOUSE_SCROLL_UP		4
@@ -129,12 +120,24 @@ typedef struct			s_sphere
 	double				t2;
 }						t_sphere;
 
+typedef struct			s_light
+{
+	int					type;
+
+	double				intensity;
+	t_vector 			position;
+	t_vector 			direction;
+}						t_light;
+
 typedef struct			s_status
 {
 	t_vector			camera;
 
-	int					spheres_quant;	
-	t_sphere			**spheres_arr;			
+	int					lights_quantity;
+	t_light				**lights_arr;
+
+	int					spheres_quantity;
+	t_sphere			**spheres_arr;
 
 	int					hide_info;
 	int					iter;
@@ -178,10 +181,17 @@ typedef struct			s_kernel_arg
 
 void					get_image(t_status *status, t_mlx *mlx);
 void					put_pixel(t_mlx *mlx, int x, int y, int color);
-int						get_color(t_sphere	**spheres_arr, t_vector camera, t_vector viewport_pixel);
+int	        get_color(t_sphere	**spheres_arr, int spheres_quantity,
+			t_light **lights_arr, int lights_quantity,
+			t_vector camera, t_vector viewport_pixel);
 t_vector				canvas_to_viewport(int x, int y);
 void	    			sphere_intersect(t_sphere *sphere, t_vector camera, t_vector viewport_pixel);
+double					get_lightning(t_vector point, t_vector normal, t_light **lights_arr, int lights_quantity);
+
 double 					dot(t_vector v1, t_vector v2);
+double      			length(t_vector v1);
+t_vector    			multiply(double k, t_vector v);
+t_vector    			add(t_vector v1, t_vector v2);
 t_vector 				substract(t_vector v1, t_vector v2);
 
 int						main(int argc, char **argv);
