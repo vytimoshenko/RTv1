@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/20 06:11:01 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/20 20:50:37 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,25 +52,37 @@ void		reset_status(t_status *status)
 	while (++i < status->spheres_quantity)
 		status->spheres_arr[i] = (t_sphere *)ft_memalloc(sizeof(t_sphere));
 	i = 0;
-	status->spheres_arr[i]->color = 0xFF0000;
+	// status->spheres_arr[i]->color = 0x00FF00;
+	status->spheres_arr[i]->color.r = 0xFF;
+	status->spheres_arr[i]->color.g = 0x00;
+	status->spheres_arr[i]->color.b = 0x00;
 	status->spheres_arr[i]->center.x = 0.0;
 	status->spheres_arr[i]->center.y = -1.0;
 	status->spheres_arr[i]->center.z = 3.0;
 	status->spheres_arr[i]->radius = 1.25;
 	i++;
-	status->spheres_arr[i]->color = 0x00FF00;
+	// status->spheres_arr[i]->color = 0x00FF00;
+	status->spheres_arr[i]->color.r = 0x00;
+	status->spheres_arr[i]->color.g = 0xFF;
+	status->spheres_arr[i]->color.b = 0x00;
 	status->spheres_arr[i]->center.x = 2.0;
 	status->spheres_arr[i]->center.y = 0.0;
 	status->spheres_arr[i]->center.z = 4.0;
 	status->spheres_arr[i]->radius = 1;
 	i++;
-	status->spheres_arr[i]->color = 0x0000FF;
+	// status->spheres_arr[i]->color = 0x0000FF;
+	status->spheres_arr[i]->color.r = 0x00;
+	status->spheres_arr[i]->color.g = 0x00;
+	status->spheres_arr[i]->color.b = 0xFF;
 	status->spheres_arr[i]->center.x = -2.0;
 	status->spheres_arr[i]->center.y = 0.0;
 	status->spheres_arr[i]->center.z = 4.0;
 	status->spheres_arr[i]->radius = 1;
 	i++;
-	status->spheres_arr[i]->color = 0x00FFFF;
+	// status->spheres_arr[i]->color = 0x00FFFF;
+	status->spheres_arr[i]->color.r = 0x00;
+	status->spheres_arr[i]->color.g = 0xFF;
+	status->spheres_arr[i]->color.b = 0xFF;
 	status->spheres_arr[i]->center.x = 0.0;
 	status->spheres_arr[i]->center.y = -5001.0;
 	status->spheres_arr[i]->center.z = 0.0;

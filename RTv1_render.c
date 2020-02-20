@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/20 06:30:30 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/20 21:08:47 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	    get_image(t_status *status, t_mlx *mlx)
 	int	x;
 	int	y;
     int color;
+	// int color_int;
 	
 	x = -IMG_SIZE_W / 2;
 	while (++x < IMG_SIZE_W / 2)
@@ -26,10 +27,10 @@ void	    get_image(t_status *status, t_mlx *mlx)
         {
             color = get_color(status->spheres_arr, status->spheres_quantity,
 			status->lights_arr, status->lights_quantity, status->camera, canvas_to_viewport(x, y));
-			if (color > 0xFFFFFF)
-				color = 0xFFFFFF;
-			else if (color < 0)
-				color = 0;
+			// if (color > 0xFFFFFF)
+			// 	color = 0xFFFFFF;
+			// else if (color < 0)
+			// 	color = 0;
 			put_pixel(mlx, x, y, color);
         }
 	}
@@ -53,7 +54,7 @@ t_vector    canvas_to_viewport(int x, int y)
 	return (viewport_pixel);
 }
 
-int	        get_color(t_sphere	**spheres_arr, int spheres_quantity,
+int	      get_color(t_sphere	**spheres_arr, int spheres_quantity,
 			t_light **lights_arr, int lights_quantity,
 			t_vector camera, t_vector viewport_pixel)
 {
@@ -62,6 +63,7 @@ int	        get_color(t_sphere	**spheres_arr, int spheres_quantity,
 	t_sphere	closest_sphere;
 	t_vector	normal;
 	t_vector	point;
+	t_color		color;
 
 	i = -1;
 	closest = DRAW_DISTANCE_MAX;
@@ -88,7 +90,11 @@ int	        get_color(t_sphere	**spheres_arr, int spheres_quantity,
 	normal = multiply(1.0 / length(normal), normal);
 	double light = get_lightning(point, normal, lights_arr, lights_quantity);
 	// light = 1;
-    return (closest_sphere.color * light);
+    // return (closest_sphere.color * light);
+	color = multiply_color(light, closest_sphere.color);
+	int color_int = 256 * 256 * color.r + 256 * color.g + color.b;
+	return (color_int);
+	// return Multiply(ComputeLighting(point, normal), closest_sphere.color);
 }
 
 void	    sphere_intersect(t_sphere *sphere, t_vector camera,
@@ -140,6 +146,8 @@ double		get_lightning(t_vector point, t_vector normal,
 				intensity += lights_arr[i]->intensity * ldn / (length(normal) * length(l));
 		}
 	}
+	if (intensity > 1)
+		intensity = 1;
 	// printf("%f\n", intensity);
 	return (intensity);
 }
@@ -161,6 +169,16 @@ t_vector    multiply(double k, t_vector v)
 	result.x = k * v.x;
 	result.y = k * v.y;
 	result.z = k * v.z;
+	return (result);
+}
+
+t_color    multiply_color(double k, t_color color)
+{
+	t_color result;
+	
+	result.r = k * color.r;
+	result.g = k * color.g;
+	result.b = k * color.b;
 	return (result);
 }
 

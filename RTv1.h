@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/20 06:21:02 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/20 21:07:24 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ typedef struct			s_vector
 	double				z;
 }						t_vector;
 
+typedef struct			s_color
+{
+	int					r;
+	int					g;
+	int					b;
+}						t_color;
+
 typedef struct			s_mlx
 {
 	void				*mlx;
@@ -112,7 +119,7 @@ typedef struct			s_mlx
 
 typedef struct			s_sphere
 {
-	int					color;
+	t_color 			color;
 	double				radius;
 	t_vector 			center;
 
@@ -181,7 +188,7 @@ typedef struct			s_kernel_arg
 
 void					get_image(t_status *status, t_mlx *mlx);
 void					put_pixel(t_mlx *mlx, int x, int y, int color);
-int	        get_color(t_sphere	**spheres_arr, int spheres_quantity,
+int       get_color(t_sphere	**spheres_arr, int spheres_quantity,
 			t_light **lights_arr, int lights_quantity,
 			t_vector camera, t_vector viewport_pixel);
 t_vector				canvas_to_viewport(int x, int y);
@@ -191,6 +198,7 @@ double					get_lightning(t_vector point, t_vector normal, t_light **lights_arr, 
 double 					dot(t_vector v1, t_vector v2);
 double      			length(t_vector v1);
 t_vector    			multiply(double k, t_vector v);
+t_color    multiply_color(double k, t_color c);
 t_vector    			add(t_vector v1, t_vector v2);
 t_vector 				substract(t_vector v1, t_vector v2);
 
