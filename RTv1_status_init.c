@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/20 20:50:37 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/21 00:42:01 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,37 +52,34 @@ void		reset_status(t_status *status)
 	while (++i < status->spheres_quantity)
 		status->spheres_arr[i] = (t_sphere *)ft_memalloc(sizeof(t_sphere));
 	i = 0;
-	// status->spheres_arr[i]->color = 0x00FF00;
+
 	status->spheres_arr[i]->color.r = 0xFF;
 	status->spheres_arr[i]->color.g = 0x00;
 	status->spheres_arr[i]->color.b = 0x00;
 	status->spheres_arr[i]->center.x = 0.0;
 	status->spheres_arr[i]->center.y = -1.0;
 	status->spheres_arr[i]->center.z = 3.0;
-	status->spheres_arr[i]->radius = 1.25;
+	status->spheres_arr[i]->radius = 1.0;
 	i++;
-	// status->spheres_arr[i]->color = 0x00FF00;
 	status->spheres_arr[i]->color.r = 0x00;
 	status->spheres_arr[i]->color.g = 0xFF;
 	status->spheres_arr[i]->color.b = 0x00;
 	status->spheres_arr[i]->center.x = 2.0;
 	status->spheres_arr[i]->center.y = 0.0;
 	status->spheres_arr[i]->center.z = 4.0;
-	status->spheres_arr[i]->radius = 1;
+	status->spheres_arr[i]->radius = 1.0;
 	i++;
-	// status->spheres_arr[i]->color = 0x0000FF;
 	status->spheres_arr[i]->color.r = 0x00;
 	status->spheres_arr[i]->color.g = 0x00;
 	status->spheres_arr[i]->color.b = 0xFF;
 	status->spheres_arr[i]->center.x = -2.0;
 	status->spheres_arr[i]->center.y = 0.0;
 	status->spheres_arr[i]->center.z = 4.0;
-	status->spheres_arr[i]->radius = 1;
+	status->spheres_arr[i]->radius = 1.0;
 	i++;
-	// status->spheres_arr[i]->color = 0x00FFFF;
-	status->spheres_arr[i]->color.r = 0x00;
+	status->spheres_arr[i]->color.r = 0xFF;
 	status->spheres_arr[i]->color.g = 0xFF;
-	status->spheres_arr[i]->color.b = 0xFF;
+	status->spheres_arr[i]->color.b = 0x00;
 	status->spheres_arr[i]->center.x = 0.0;
 	status->spheres_arr[i]->center.y = -5001.0;
 	status->spheres_arr[i]->center.z = 0.0;
@@ -98,14 +95,14 @@ void		reset_status(t_status *status)
 	status->lights_arr[i]->intensity = 0.2;
 	i++;
 	status->lights_arr[i]->type = LIGHT_TYPE_POINT;
-	status->lights_arr[i]->intensity = 0.6;
+	status->lights_arr[i]->intensity = 1;
 	status->lights_arr[i]->position.x = 2;
-	status->lights_arr[i]->position.x = 1;
-	status->lights_arr[i]->position.x = 0;
+	status->lights_arr[i]->position.y = 1;
+	status->lights_arr[i]->position.z = 0;
     i++;
 	status->lights_arr[i]->type = LIGHT_TYPE_DIRECTIONAL;
 	status->lights_arr[i]->intensity = 0.2;
 	status->lights_arr[i]->direction.x = 1;
-	status->lights_arr[i]->direction.x = 4;
-	status->lights_arr[i]->direction.x = 4;
+	status->lights_arr[i]->direction.y = 4;
+	status->lights_arr[i]->direction.z = 4;
 }

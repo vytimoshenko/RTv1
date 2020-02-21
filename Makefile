@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/02/19 17:55:59 by mperseus         ###   ########.fr        #
+#    Updated: 2020/02/21 00:23:27 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ HDR		= 	RTv1.h
 
 SRC		= 	RTv1_main.c					\
 			RTv1_render.c				\
+			RTv1_lin_alg.c				\
+			RTv1_spheres.c				\
 			RTv1_mlx_init.c				\
 			RTv1_mlx_run.c				\
 			RTv1_mlx_hooks.c			\
