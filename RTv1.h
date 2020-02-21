@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/21 00:40:22 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/22 02:05:04 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,37 +90,11 @@ typedef struct			s_mlx
 	float				frame_time;
 }						t_mlx;
 
-// typedef struct			s_open_cl
-// {
-// 	cl_platform_id		platform_id;
-// 	cl_device_id		device_id;
-// 	cl_context			context;
-// 	cl_command_queue	command_queue;
-// 	cl_program			program;
-// 	cl_kernel			kernel;
-
-// 	char				*platform_name;
-// 	char				*device_name;
-// 	char				*driver_ver;
-// 	cl_uint				device_comp_units;
-// 	cl_uint				device_frequency;
-
-// 	size_t				source_size;
-// 	char				*source_str;
-// 	char				*program_build_log;
-
-// 	size_t				global_work_size;
-// 	size_t				local_work_size;
-
-// 	cl_mem				buf;
-
-// 	int					execution_time;
-// }						t_open_cl;
-
 typedef struct			s_sphere
 {
 	int					num;
 	t_color 			color;
+	double				specular;
 	double				radius;
 	t_vector 			center;
 
@@ -213,8 +187,8 @@ int       				get_color(t_sphere	**spheres_arr, int spheres_quantity,
 						t_vector camera, t_vector viewport_pixel);
 void	    			sphere_intersect(t_sphere *sphere, t_vector camera,
 						t_vector viewport_pixel);
-double					get_lightning(t_vector point, t_vector normal,
-						t_light **lights_arr, int lights_quantity);
+double	get_lightning(t_vector point, t_vector normal,
+			t_light **lights_arr, int lights_quantity, t_vector view, double specular);
 
 double 					dot(t_vector v1, t_vector v2);
 double      			length(t_vector v1);
@@ -222,6 +196,7 @@ t_vector    			multiply(double k, t_vector v);
 t_color    				multiply_color(double k, t_color c);
 t_vector    			add(t_vector v1, t_vector v2);
 t_vector 				substract(t_vector v1, t_vector v2);
+int						unite_color_channels(t_color color);
 
 int						main(int argc, char **argv);
 
