@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/22 02:05:04 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/22 03:14:34 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ typedef struct			s_sphere
 
 	double				t1;
 	double				t2;
+	double				closest;
+	int					null;
 }						t_sphere;
 
 typedef struct			s_scene_spheres
@@ -185,17 +187,20 @@ t_vector				canvas_to_viewport(int x, int y);
 int       				get_color(t_sphere	**spheres_arr, int spheres_quantity,
 						t_light **lights_arr, int lights_quantity,
 						t_vector camera, t_vector viewport_pixel);
+
+t_sphere	find_closest_intersection(t_sphere	**spheres_arr, int spheres_quantity,
+		t_vector camera, t_vector viewport_pixel, double t_min, double t_max);
 void	    			sphere_intersect(t_sphere *sphere, t_vector camera,
 						t_vector viewport_pixel);
-double	get_lightning(t_vector point, t_vector normal,
-			t_light **lights_arr, int lights_quantity, t_vector view, double specular);
+double	get_lightning(t_vector point, t_vector normal, t_light **lights_arr, int lights_quantity,
+t_vector view, double specular, t_sphere **spheres_arr, int spheres_quantity);
 
 double 					dot(t_vector v1, t_vector v2);
 double      			length(t_vector v1);
 t_vector    			multiply(double k, t_vector v);
-t_color    				multiply_color(double k, t_color c);
 t_vector    			add(t_vector v1, t_vector v2);
 t_vector 				substract(t_vector v1, t_vector v2);
+t_color    				multiply_color(double k, t_color c);
 int						unite_color_channels(t_color color);
 
 int						main(int argc, char **argv);
