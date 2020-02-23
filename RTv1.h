@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/22 03:14:34 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/23 20:56:52 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@
 # define LIGHT_TYPE_DIRECTIONAL	2
 
 # define TEXT_COLOR  			0xFFFFFF
-# define BACK_COLOR  			0x555555
+// # define BACK_COLOR  			0x555555
+# define BACK_COLOR  			0x000000
 
 # define MIDDLE_MOUSE_BUTTON	3
 # define MOUSE_SCROLL_UP		4
@@ -74,6 +75,24 @@ typedef struct			s_color
 	int					b;
 }						t_color;
 
+typedef struct			s_point
+{
+	t_vector			xyz;
+	t_color				color;
+	double 				specular;
+	
+	double				light;
+	t_vector			normal;
+
+	t_color				final_color;
+}						t_point;
+
+// typedef struct			s_light
+// {
+// 	t_vector			light;
+// 	double 				t_max;
+// }						t_light;
+
 typedef struct			s_mlx
 {
 	void				*mlx;
@@ -104,11 +123,11 @@ typedef struct			s_sphere
 	int					null;
 }						t_sphere;
 
-typedef struct			s_scene_spheres
+typedef struct			s_spheres
 {
-	int					spheres_quantity;
-	t_sphere			**spheres_arr;
-}						t_scene_spheres;
+	int					quantity;
+	t_sphere			**array;
+}						t_spheres;
 
 typedef struct			s_light
 {
@@ -121,24 +140,22 @@ typedef struct			s_light
 	t_vector 			direction;
 }						t_light;
 
-typedef struct			s_scene_lights
+typedef struct			s_light_sources
 {
-	int					lights_quantity;
-	t_light				**lights_arr;
-}						t_scene_lights;
+	int					quantity;
+	t_light				**array;
+}						t_light_sources;
+
+
 
 typedef struct			s_status
 {
 	t_vector			camera;
 
-	t_scene_spheres		scene_spheres;
-	t_scene_lights		scene_lights;
+	// t_scene_lights		scene_lights;
 	
-	int					lights_quantity;
-	t_light				**lights_arr;
-
-	int					spheres_quantity;
-	t_sphere			**spheres_arr;
+	t_light_sources		light_sources;
+	t_spheres			spheres;
 
 	int					hide_info;
 	int					iter;
@@ -184,16 +201,17 @@ void					get_image(t_status *status, t_mlx *mlx);
 void					put_pixel(t_mlx *mlx, int x, int y, int color);
 t_vector				canvas_to_viewport(int x, int y);
 
-int       				get_color(t_sphere	**spheres_arr, int spheres_quantity,
-						t_light **lights_arr, int lights_quantity,
+int       				get_color(t_spheres	spheres, t_light_sources lights_sources,
 						t_vector camera, t_vector viewport_pixel);
 
-t_sphere	find_closest_intersection(t_sphere	**spheres_arr, int spheres_quantity,
-		t_vector camera, t_vector viewport_pixel, double t_min, double t_max);
-void	    			sphere_intersect(t_sphere *sphere, t_vector camera,
-						t_vector viewport_pixel);
-double	get_lightning(t_vector point, t_vector normal, t_light **lights_arr, int lights_quantity,
-t_vector view, double specular, t_sphere **spheres_arr, int spheres_quantity);
+t_sphere				find_closest_intersection(t_spheres	spheres, t_vector camera, t_vector viewport_pixel, double t_min, double t_max);
+void	    			sphere_intersection(t_sphere *sphere, t_vector camera, t_vector viewport_pixel);
+double					get_lightning(t_point point, t_light_sources lights_sources,
+t_vector view, t_spheres	spheres_arr);
+
+int						is_in_shadow(t_spheres	spheres_arr, t_vector point, t_vector light, double t_max);
+double					diffuse_light(t_vector normal, t_vector light);
+double					reflection_light(t_vector normal, t_vector light, t_vector pixel, double specular);
 
 double 					dot(t_vector v1, t_vector v2);
 double      			length(t_vector v1);
