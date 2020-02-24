@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/23 20:52:58 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/24 03:22:47 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void	    get_image(t_status *status, t_mlx *mlx)
 		y = -IMG_SIZE_H / 2;
 		while (++y < IMG_SIZE_H / 2)
         {
-            color = get_color(status->spheres, status->light_sources,
-			status->camera, canvas_to_viewport(x, y));
+			// D = camera.rotation * CanvasToViewport(x, y)
+			color = unite_color_channels(get_color(status->spheres, status->light_sources,
+			*status->cameras.array[status->current_camera], canvas_to_viewport(x, y),
+			REFLECTION_DEPTH));
 			put_pixel(mlx, x, y, color);
         }
 	}

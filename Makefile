@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/02/21 00:23:27 by mperseus         ###   ########.fr        #
+#    Updated: 2020/02/23 23:56:48 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,11 @@ SRC		= 	RTv1_main.c					\
 			RTv1_mlx_init.c				\
 			RTv1_mlx_run.c				\
 			RTv1_mlx_hooks.c			\
+			RTv1_mlx_put_info_1.c		\
 			RTv1_mlx_put_info_2.c		\
-			RTv1_status_init.c
-			# fractol_mlx_control_1.c
+			RTv1_status_init.c			\
+			RTv1_mlx_control_1.c
 			# fractol_mlx_control_2.c
-			# fractol_mlx_put_info_1.c
 		
 OBJ		= 	$(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/23 21:00:00 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/24 04:12:51 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,25 @@ void		reset_status(t_status *status)
 {
 	int	i;
 
-	status->camera.x = 0.0;
-	status->camera.y = 0.0;
-	status->camera.z = 0.0;
+	status->current_camera = 0;
+
+	status->cameras.quantity = 3;
+	status->cameras.array = (t_vector **)ft_memalloc(sizeof(t_vector *) * status->cameras.quantity);
+	i = -1;
+	while (++i < status->cameras.quantity)
+		status->cameras.array[i] = (t_vector *)ft_memalloc(sizeof(t_vector));
+	i = 0;
+	status->cameras.array[i]->x = 0.0;
+	status->cameras.array[i]->y = 0.0;
+	status->cameras.array[i]->z = -1.0;
+	i++;
+	status->cameras.array[i]->x = 2.0;
+	status->cameras.array[i]->y = 1.0;
+	status->cameras.array[i]->z = -1.0;
+	i++;
+	status->cameras.array[i]->x = -2.0;
+	status->cameras.array[i]->y = -2.0;
+	status->cameras.array[i]->z = -5.0;
 
 	status->spheres.quantity = 4;
 	status->spheres.array = (t_sphere **)ft_memalloc(sizeof(t_sphere *) * status->spheres.quantity);
@@ -57,6 +73,7 @@ void		reset_status(t_status *status)
 	status->spheres.array[i]->color.g = 0x00;
 	status->spheres.array[i]->color.b = 0x00;
 	status->spheres.array[i]->specular = 500;
+	status->spheres.array[i]->reflective = 0.2;
 	status->spheres.array[i]->center.x = 0.0;
 	status->spheres.array[i]->center.y = -1.0;
 	status->spheres.array[i]->center.z = 3.0;
@@ -66,27 +83,30 @@ void		reset_status(t_status *status)
 	status->spheres.array[i]->color.r = 0x00;
 	status->spheres.array[i]->color.g = 0xFF;
 	status->spheres.array[i]->color.b = 0x00;
-	status->spheres.array[i]->specular = 500;
+	status->spheres.array[i]->specular = 10;
+	status->spheres.array[i]->reflective = 0.4;
 	status->spheres.array[i]->center.x = 2.0;
-	status->spheres.array[i]->center.y = 0.0;
+	status->spheres.array[i]->center.y = 0.2;
 	status->spheres.array[i]->center.z = 4.0;
-	status->spheres.array[i]->radius = 1.0;
+	status->spheres.array[i]->radius = 1.2;
 	i++;
 	status->spheres.array[i]->num = i;
 	status->spheres.array[i]->color.r = 0x00;
 	status->spheres.array[i]->color.g = 0x00;
 	status->spheres.array[i]->color.b = 0xFF;
-	status->spheres.array[i]->specular = 10;
+	status->spheres.array[i]->specular = 500;
+	status->spheres.array[i]->reflective = 0.3;
 	status->spheres.array[i]->center.x = -2.0;
 	status->spheres.array[i]->center.y = 0.0;
 	status->spheres.array[i]->center.z = 4.0;
-	status->spheres.array[i]->radius = 1.0;
+	status->spheres.array[i]->radius = 0.8;
 	i++;
 	status->spheres.array[i]->num = i;
 	status->spheres.array[i]->color.r = 0xFF;
 	status->spheres.array[i]->color.g = 0xFF;
 	status->spheres.array[i]->color.b = 0x00;
 	status->spheres.array[i]->specular = 1000;
+	status->spheres.array[i]->reflective = 0.5;
 	status->spheres.array[i]->center.x = 0.0;
 	status->spheres.array[i]->center.y = -5001.0;
 	status->spheres.array[i]->center.z = 0.0;
@@ -99,10 +119,10 @@ void		reset_status(t_status *status)
 		status->light_sources.array[i] = (t_light *)ft_memalloc(sizeof(t_light));
 	i = 0;
 	status->light_sources.array[i]->type = LIGHT_TYPE_AMBIENT;
-	status->light_sources.array[i]->intensity = 0.1;
+	status->light_sources.array[i]->intensity = 0.2;
 	i++;
 	status->light_sources.array[i]->type = LIGHT_TYPE_POINT;
-	status->light_sources.array[i]->intensity = 0.7;
+	status->light_sources.array[i]->intensity = 0.6;
 	status->light_sources.array[i]->position.x = 2;
 	status->light_sources.array[i]->position.y = 1;
 	status->light_sources.array[i]->position.z = 0;
