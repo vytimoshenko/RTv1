@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/24 04:23:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 02:15:55 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,27 @@
 # define VIEWPORT_SIZE_H		1
 # define VIEWPORT_DISTANCE		1
 
-# define DRAW_DISTANCE_MIN		1
+# define DRAW_DISTANCE_MIN		0.001
 # define DRAW_DISTANCE_MAX		1000000
 
 # define LIGHT_TYPE_AMBIENT		0
 # define LIGHT_TYPE_POINT		1
 # define LIGHT_TYPE_DIRECTIONAL	2
 
-# define REFLECTION_DEPTH		3
+# define REFLECTION_DEPTH		1
 
 # define TEXT_COLOR  			0xFFFFFF
-// # define BACKGROUND_COLOR  		0x555555
-// # define BACKGROUND_COLOR  		{0; 0; 0};
+# define BACKGROUND_COLOR  		{0x00, 0x00, 0x00};
 // # define BACK_COLOR  			0x000000
 
 # define MIDDLE_MOUSE_BUTTON	3
 # define MOUSE_SCROLL_UP		4
 # define MOUSE_SCROLL_DOWN		5
 
+# define A						0
+# define S						1
 # define D						2
+# define W						13
 # define H						4
 # define C						8
 # define R						15
@@ -67,6 +69,8 @@
 # define ARROW_DOWN				125
 # define ARROW_UP				126
 
+# define PI 3.14159265
+
 typedef struct			s_vector
 {
 	double				x;
@@ -80,6 +84,13 @@ typedef struct			s_color
 	int					g;
 	int					b;
 }						t_color;
+
+typedef struct			s_matrix
+{
+	double				a[3];
+	double				b[3];
+	double				c[3];
+}						t_matrix;
 
 typedef struct			s_point
 {
@@ -112,7 +123,6 @@ typedef struct			s_mlx
 	int					endian;
 
 	int					frames;
-	int					fps;
 	float				frame_time;
 }						t_mlx;
 
@@ -166,6 +176,9 @@ typedef struct			s_light_sources
 typedef struct			s_status
 {
 	int					current_camera;
+	double				y_rotation;
+
+	t_matrix			m;
 	t_cameras			cameras;
 	t_light_sources		light_sources;
 	t_spheres			spheres;
@@ -231,12 +244,15 @@ double					reflection_light(t_vector normal, t_vector light, t_vector pixel, dou
 double 					dot(t_vector v1, t_vector v2);
 double      			length(t_vector v1);
 t_vector    			multiply(double k, t_vector v);
+t_vector    multiply_mv(t_matrix m, t_vector v);
 t_vector    			add(t_vector v1, t_vector v2);
 t_vector 				substract(t_vector v1, t_vector v2);
 t_vector	reflect_ray(t_vector ray, t_vector normal);
 t_color    add_color(t_color c1, t_color c2);
 t_color    				multiply_color(double k, t_color c);
 int						unite_color_channels(t_color color);
+
+double	deg_to_rad(int degrees);
 
 int						main(int argc, char **argv);
 
@@ -271,6 +287,10 @@ void					control_mouse_zoom(t_status *status, int x, int y,
 						int key);
 void					control_shift(t_status *status, int key);
 void					control_mouse_shift(t_status *status, int x, int y);
+
+void	rotate_camera(t_status *status, int key);
+void	move_camera(t_status *status, int key);
+void		get_m(t_matrix *m, double y_rotation);
 
 void					control_type(t_status *status, t_mlx *mlx);
 void					control_iteration(t_status *status, int key);

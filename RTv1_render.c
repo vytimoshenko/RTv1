@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/24 03:22:47 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 01:27:34 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	    get_image(t_status *status, t_mlx *mlx)
 	int	x;
 	int	y;
     int color;
+	t_vector	camera_direction;
 	
 	x = -IMG_SIZE_W / 2;
 	while (++x < IMG_SIZE_W / 2)
@@ -24,13 +25,28 @@ void	    get_image(t_status *status, t_mlx *mlx)
 		y = -IMG_SIZE_H / 2;
 		while (++y < IMG_SIZE_H / 2)
         {
-			// D = camera.rotation * CanvasToViewport(x, y)
+			camera_direction = canvas_to_viewport(x, y);
+			// get_m(&status->m, status->y_rotation);
+			// camera_direction = multiply_mv(status->m, camera_direction);
 			color = unite_color_channels(get_color(status->spheres, status->light_sources,
-			*status->cameras.array[status->current_camera], canvas_to_viewport(x, y),
+			*status->cameras.array[status->current_camera], camera_direction,
 			REFLECTION_DEPTH));
 			put_pixel(mlx, x, y, color);
         }
 	}
+}
+
+void		get_m(t_matrix *m, double y_rotation)
+{
+	m->a[0] = cos(deg_to_rad(y_rotation));
+	m->a[1] = 0.0;
+	m->a[2] = -1 * sin(deg_to_rad(y_rotation));
+	m->b[0] = 0.0;
+	m->b[1] = 1.0;
+	m->b[2] = 0.0;
+	m->c[0] = cos(deg_to_rad(y_rotation));
+	m->c[1] = 0.0;
+	m->c[2] = cos(deg_to_rad(y_rotation));
 }
 
 void	    put_pixel(t_mlx *mlx, int x, int y, int color)

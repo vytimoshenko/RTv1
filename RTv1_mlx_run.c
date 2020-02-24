@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/24 02:08:59 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 02:29:27 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	put_info_to_window(t_global *global)
 	// put_status_3(global->status, global->mlx);
 	// put_status_4(global->status, global->mlx);
 	put_status_5(global->status, global->mlx);
-	// put_open_cl_info(global->open_cl, global->mlx);
 	put_control_keys_1(global->status, global->mlx);
 	put_control_keys_2(global->mlx);
 	put_render_info_1(global->mlx);
@@ -66,5 +65,4 @@ void	count_frames(t_mlx *mlx, struct timeval start, struct timeval end)
 	++mlx->frames;
 	mlx->frame_time = (double)(end.tv_usec - start.tv_usec) / 1000 +
 	(double)(end.tv_sec - start.tv_sec) * 1000;
-	mlx->fps = 1000 / mlx->frame_time;
 }

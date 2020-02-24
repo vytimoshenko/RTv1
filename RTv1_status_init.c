@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/24 04:12:51 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 02:08:11 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,26 @@ void		error_wrong_argument(void)
 	exit(1);
 }
 
+double	deg_to_rad(int degrees)
+{
+	return ((double)degrees * PI / 180.0);
+}
+
 void		reset_status(t_status *status)
 {
 	int	i;
+
+	status->y_rotation = 15.0;
+
+	// status->m.a[0] = 0.7071;
+	// status->m.a[1] = 0.0;
+	// status->m.a[2] = -0.7071;
+	// status->m.b[0] = 0.0;
+	// status->m.b[1] = 1.0;
+	// status->m.b[2] = 0.0;
+	// status->m.c[0] = 0.7071;
+	// status->m.c[1] = 0.0;
+	// status->m.c[2] = 0.7071;
 
 	status->current_camera = 0;
 
@@ -105,14 +122,15 @@ void		reset_status(t_status *status)
 	status->spheres.array[i]->color.r = 0xFF;
 	status->spheres.array[i]->color.g = 0xFF;
 	status->spheres.array[i]->color.b = 0x00;
-	status->spheres.array[i]->specular = 1000;
-	status->spheres.array[i]->reflective = 0.5;
+	status->spheres.array[i]->specular = 250;
+	status->spheres.array[i]->reflective = 0.2;
 	status->spheres.array[i]->center.x = 0.0;
 	status->spheres.array[i]->center.y = -5001.0;
 	status->spheres.array[i]->center.z = 0.0;
 	status->spheres.array[i]->radius = 5000;
 
-	status->light_sources.quantity = 4;
+	// status->light_sources.quantity = 3;
+	status->light_sources.quantity = 3;
 	status->light_sources.array = (t_light **)ft_memalloc(sizeof(t_light *) * status->light_sources.quantity);
 	i = -1;
 	while (++i < status->light_sources.quantity)
