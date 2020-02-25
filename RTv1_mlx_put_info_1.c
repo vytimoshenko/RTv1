@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 03:05:11 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/24 02:04:08 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 05:37:02 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ void	put_status_1(t_status *status, t_mlx *mlx)
 	"Spheres total:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 170, TEXT_COLOR,
 	str = ft_itoa(status->spheres.quantity));
+	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 200, TEXT_COLOR,
+	"Active object:");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 200, TEXT_COLOR,
+	str = ft_itoa(status->active_object));
 	free(str);
 }
 
@@ -121,4 +126,8 @@ void	put_status_5(t_status *status, t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 100, pos_y, TEXT_COLOR,
 	str = ft_itoa(status->y_mouse_position));
 	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 200, pos_y, TEXT_COLOR,
+	"scene file opened:");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 390, pos_y, TEXT_COLOR,
+	status->scene_name_with_path);
 }

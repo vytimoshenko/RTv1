@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 00:17:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 02:15:30 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 04:03:15 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,24 @@ t_color		get_color(t_spheres	spheres, t_light_sources light_sources,
 	t_vector	view;
 	t_vector	reflect;
 	t_color		reflected_color;
-	t_color		background_color;
 
-	background_color = (t_color)BACKGROUND_COLOR;
-	closest_sphere = find_closest_intersection(spheres, camera,
+	closest_sphere = get_intersection(spheres, camera,
 	pixel, DRAW_DISTANCE_MIN, DRAW_DISTANCE_MAX);
 	if (closest_sphere.closest == DRAW_DISTANCE_MAX)
-		return (background_color);
-	point.xyz = add(camera, multiply(closest_sphere.closest, pixel));
-	point.normal = substract(point.xyz, closest_sphere.center);
-	point.normal = multiply(1.0 / length(point.normal), point.normal);
+		return ((t_color)BACKGROUND_COLOR);
+	point.xyz = add(camera, multiply_sv(closest_sphere.closest, pixel));
+	point.n = substract(point.xyz, closest_sphere.center);
+	point.n = multiply_sv(1.0 / length(point.n), point.n);
 	point.color = closest_sphere.color;
 	point.specular = closest_sphere.specular;
 	point.reflective = closest_sphere.reflective;
-	view = multiply(-1.0, pixel);
+	// status->object_buffer[]
+	view = multiply_sv(-1.0, pixel);
 	point.light = get_lightning(point, light_sources, view, spheres);
 	point.final_color = multiply_color(point.light, point.color);
 	if (reflection_depth == 0 || point.reflective <= 0)
 		return (point.final_color);
-	reflect = reflect_ray(view, point.normal);
+	reflect = reflect_ray(view, point.n);
 	reflected_color = get_color(spheres, light_sources, point.xyz, reflect,
 	reflection_depth - 1);
 	point.final_color = add_color(multiply_color(1.0 - point.reflective, point.final_color),
@@ -46,7 +45,7 @@ t_color		get_color(t_spheres	spheres, t_light_sources light_sources,
 	return (point.final_color);
 }
 
-t_sphere	find_closest_intersection(t_spheres	spheres,
+t_sphere	get_intersection(t_spheres	spheres,
 		t_vector camera, t_vector viewport_pixel, double t_min, double t_max)
 {
 	int			i;
@@ -82,27 +81,27 @@ t_sphere	find_closest_intersection(t_spheres	spheres,
 	return (closest_sphere);
 }
 
-void	sphere_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
+void	sphere_intersection(t_sphere *sphere, t_vector camera, t_vector p)
 {	
-	t_vector    ray;
+	t_vector    r;
 	double      k1;
 	double      k2;
 	double      k3;
-	double      discriminant;
+	double      d;
 	
-	ray = substract(camera, sphere->center);
-	k1 = dot(pixel, pixel);
-	k2 = 2 * dot(ray, pixel);
-	k3 = dot(ray, ray) - sphere->radius * sphere->radius;
-	discriminant = k2 * k2 - 4 * k1 * k3;
-	if (discriminant < 0)
+	r = substract(camera, sphere->center);
+	k1 = dot(p, p);
+	k2 = 2 * dot(r, p);
+	k3 = dot(r, r) - sphere->radius * sphere->radius;
+	d = k2 * k2 - 4 * k1 * k3;
+	if (d < 0)
 	{
 		sphere->t1 = -1;
 		sphere->t2 = -1;
 		return;
 	}
-	sphere->t1 = (-k2 + sqrt(discriminant)) / (2 * k1);
-	sphere->t2 = (-k2 - sqrt(discriminant)) / (2 * k1);
+	sphere->t1 = (-k2 + sqrt(d)) / (2 * k1);
+	sphere->t2 = (-k2 - sqrt(d)) / (2 * k1);
 }
 
 double	get_lightning(t_point point, t_light_sources light_sources,
@@ -110,8 +109,8 @@ t_vector pixel, t_spheres spheres)
 {
 	int         i;
 	double      intensity;
-	t_vector    light;
-	t_sphere 	shadow_sphere;
+	t_vector    l;
+	t_sphere 	shadow;
 	double 		t_max;
 
 	intensity = 0.0;
@@ -124,54 +123,52 @@ t_vector pixel, t_spheres spheres)
 		{
 			if (light_sources.array[i]->type == LIGHT_TYPE_POINT)
 			{
-				light = substract(light_sources.array[i]->position, point.xyz);
+				l = substract(light_sources.array[i]->position, point.xyz);
 				t_max = 1;
 			}
 			else if (light_sources.array[i]->type == LIGHT_TYPE_DIRECTIONAL)
 			{
-				light = light_sources.array[i]->direction;
+				l = light_sources.array[i]->direction;
 				t_max = DRAW_DISTANCE_MAX;
 			}
-			shadow_sphere = find_closest_intersection(spheres, point.xyz, light, 0.000001, t_max);
-			if (shadow_sphere.null)
+			shadow = get_intersection(spheres, point.xyz, l, 0.000001, t_max);
+			if (shadow.null)
 				continue;
 			intensity += light_sources.array[i]->intensity *
-			diffuse_light(point.normal, light);
+			diffuse(point.n, l);
 			if (point.specular)
 				intensity += light_sources.array[i]->intensity *
-				reflection_light(point.normal, light, pixel, point.specular);
+				specular(point.n, l, pixel, point.specular);
 		}
 	}
 	return (intensity);
 }
 
-double	diffuse_light(t_vector normal, t_vector light)
+double	diffuse(t_vector n, t_vector l)
 {
-	double	normal_dot_light;
+	double	ndl;
 
-	normal_dot_light = dot(normal, light);
-	if (normal_dot_light > 0)
-		return (normal_dot_light / (length(normal) * length(light)));
+	ndl = dot(n, l);
+	if (ndl > 0)
+		return (ndl / (length(n) * length(l)));
 	else
 		return (0);
 }
 
-double	reflection_light(t_vector normal, t_vector light, t_vector pixel,
-		double specular)
+double	specular(t_vector n, t_vector l, t_vector p, double s)
 {
-	double		reflect_dot_pixel;
-	t_vector	reflect;
+	t_vector	r;
+	double		rdp;
 
-	reflect = reflect_ray(light, normal);
-	reflect_dot_pixel = dot(reflect, pixel);
-	if (reflect_dot_pixel > 0)
-		return (pow(reflect_dot_pixel / (length(reflect) * length(pixel)),
-		specular));
+	r = reflect_ray(l, n);
+	rdp = dot(r, p);
+	if (rdp > 0)
+		return (pow(rdp / (length(r) * length(p)), s));
 	else
 		return (0);
 }
 
-t_vector	reflect_ray(t_vector ray, t_vector normal)
+t_vector	reflect_ray(t_vector r, t_vector n)
 {
-	return(substract(multiply(2 * dot(ray, normal), normal), ray));
+	return (substract(multiply_sv(2.0 * dot(r, n), n), r));
 }

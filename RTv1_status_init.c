@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 02:08:11 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 05:44:45 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,40 @@ t_status	*init_status(int argc, char **argv)
 {
 	t_status		*status;
 	
-	(void)argc;
 	(void)argv;
-	// if (argc != 2)
-	// 	error_wrong_argument();
+	if (argc != 2)
+		ft_put_error("usage: RTv1 scene_name.rt");
 	if (!(status = (t_status *)ft_memalloc(sizeof(t_status))))
 		ft_put_errno(PROGRAM_NAME);
 	// check_argument(status, argv[1]);
 	reset_status(status);
+	init_object_buffer(status);
+	status->scene_name_with_path = ft_strdup(argv[1]);
 	return (status);
 }
 
-void		error_wrong_argument(void)
+void		init_object_buffer(t_status *status)
 {
-	ft_putendl("usage:");
-	ft_putendl("\tmandelbrot\t1");
-	ft_putendl("\tjulia\t\t2");
-	ft_putendl("\tburning ship\t3");
-	ft_putendl("\tspider\t\t4");
-	ft_putendl("\tsin\t\t5");
-	exit(1);
+	if (!(status->object_buffer = (int *)malloc(sizeof(int)
+	* IMG_SIZE_W * IMG_SIZE_H)))
+		ft_put_errno(PROGRAM_NAME);
+	clean_object_buffer(status);
 }
 
-double	deg_to_rad(int degrees)
+void		clean_object_buffer(t_status *status)
 {
-	return ((double)degrees * PI / 180.0);
+	int i;
+
+	i = -1;
+	while (++i < IMG_SIZE_W * IMG_SIZE_H)
+		status->object_buffer[i] = -1;
 }
 
 void		reset_status(t_status *status)
 {
 	int	i;
 
+	status->active_object = -1;
 	status->y_rotation = 15.0;
 
 	// status->m.a[0] = 0.7071;
@@ -100,8 +103,8 @@ void		reset_status(t_status *status)
 	status->spheres.array[i]->color.r = 0x00;
 	status->spheres.array[i]->color.g = 0xFF;
 	status->spheres.array[i]->color.b = 0x00;
-	status->spheres.array[i]->specular = 10;
-	status->spheres.array[i]->reflective = 0.4;
+	status->spheres.array[i]->specular = 1000;
+	status->spheres.array[i]->reflective = 0.7;
 	status->spheres.array[i]->center.x = 2.0;
 	status->spheres.array[i]->center.y = 0.2;
 	status->spheres.array[i]->center.z = 4.0;
@@ -130,7 +133,7 @@ void		reset_status(t_status *status)
 	status->spheres.array[i]->radius = 5000;
 
 	// status->light_sources.quantity = 3;
-	status->light_sources.quantity = 3;
+	status->light_sources.quantity = 4;
 	status->light_sources.array = (t_light **)ft_memalloc(sizeof(t_light *) * status->light_sources.quantity);
 	i = -1;
 	while (++i < status->light_sources.quantity)
@@ -141,6 +144,12 @@ void		reset_status(t_status *status)
 	i++;
 	status->light_sources.array[i]->type = LIGHT_TYPE_POINT;
 	status->light_sources.array[i]->intensity = 0.6;
+	status->light_sources.array[i]->position.x = -2;
+	status->light_sources.array[i]->position.y = 2;
+	status->light_sources.array[i]->position.z = 3;
+	i++;
+	status->light_sources.array[i]->type = LIGHT_TYPE_POINT;
+	status->light_sources.array[i]->intensity = 0.3;
 	status->light_sources.array[i]->position.x = 2;
 	status->light_sources.array[i]->position.y = 1;
 	status->light_sources.array[i]->position.z = 0;

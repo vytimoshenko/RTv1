@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 02:25:43 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 04:58:32 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		mouse_key_release(int key, int x, int y, t_global *global)
 	(void)x;
 	(void)y;
 	if (key == MIDDLE_MOUSE_BUTTON)
-		global->status->middle_mouse_button = 0;
+		global->status->middle_mouse_button = BUTTON_UP;
 	else
 		return (0);
 	draw(global);

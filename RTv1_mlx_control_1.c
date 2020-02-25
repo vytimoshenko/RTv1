@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 02:23:09 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 04:54:49 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,16 +113,16 @@ void	control_mouse_shift(t_status *status, int x, int y)
 	x = x - IMG_SIZE_W / 2 - IMG_INDT_W;
 	y = IMG_SIZE_H / 2 - y + IMG_INDT_H;
 	i = status->current_camera;
-	if (status->middle_mouse_button == 1)
+	if (status->middle_mouse_button == BUTTON_DOWN)
 	{
 		status->x_move = x;
 		status->y_move = y;
-		status->middle_mouse_button = 2;
+		status->middle_mouse_button = IN_MOVE;
 	}
-	else if (status->middle_mouse_button == 2)
+	else if (status->middle_mouse_button == IN_MOVE)
 	{
-		status->cameras.array[i]->x -= (x - status->x_move) / IMG_SIZE_W;
-		status->cameras.array[i]->y -= (y - status->y_move) / IMG_SIZE_H;
+		status->cameras.array[i]->x -= (int)((x - status->x_move) / IMG_SIZE_W);
+		status->cameras.array[i]->y -= (int)((y - status->y_move) / IMG_SIZE_H);
 		status->x_move = 0;
 		status->y_move = 0;
 	}

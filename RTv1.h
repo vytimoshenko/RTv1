@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 02:15:55 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 05:31:42 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <math.h>
 # include <sys/time.h>
 
-# define PROGRAM_NAME			"fractol"
+# define PROGRAM_NAME			"RTv1"
 
 # define WIN_SIZE_W 			2300
 # define WIN_SIZE_H				1240
@@ -43,8 +43,15 @@
 # define REFLECTION_DEPTH		1
 
 # define TEXT_COLOR  			0xFFFFFF
-# define BACKGROUND_COLOR  		{0x00, 0x00, 0x00};
+# define BACKGROUND_COLOR  		{0x00, 0x00, 0x00}
 // # define BACK_COLOR  			0x000000
+
+# define FALSE					0
+# define TRUE					1
+
+# define BUTTON_UP				0
+# define BUTTON_DOWN			1
+# define IN_MOVE				2
 
 # define MIDDLE_MOUSE_BUTTON	3
 # define MOUSE_SCROLL_UP		4
@@ -100,8 +107,9 @@ typedef struct			s_point
 	double				reflective;
 	
 	double				light;
-	t_vector			normal;
+	t_vector			n;
 
+	double				light_intensity;
 	t_color				final_color;
 }						t_point;
 
@@ -175,6 +183,8 @@ typedef struct			s_light_sources
 
 typedef struct			s_status
 {
+	char				*scene_name_with_path;
+	
 	int					current_camera;
 	double				y_rotation;
 
@@ -182,6 +192,9 @@ typedef struct			s_status
 	t_cameras			cameras;
 	t_light_sources		light_sources;
 	t_spheres			spheres;
+
+	int					*object_buffer;
+	int					active_object;
 
 	int					hide_info;
 	int					iter;
@@ -232,27 +245,28 @@ t_vector				canvas_to_viewport(int x, int y);
 t_color       				get_color(t_spheres	spheres, t_light_sources lights_sources,
 						t_vector camera, t_vector viewport_pixel, int reflection_depth);
 
-t_sphere				find_closest_intersection(t_spheres	spheres, t_vector camera, t_vector viewport_pixel, double t_min, double t_max);
+t_sphere				get_intersection(t_spheres	spheres, t_vector camera, t_vector viewport_pixel, double t_min, double t_max);
 void	    			sphere_intersection(t_sphere *sphere, t_vector camera, t_vector viewport_pixel);
 double					get_lightning(t_point point, t_light_sources lights_sources,
 t_vector view, t_spheres	spheres_arr);
 
 int						is_in_shadow(t_spheres	spheres_arr, t_vector point, t_vector light, double t_max);
-double					diffuse_light(t_vector normal, t_vector light);
-double					reflection_light(t_vector normal, t_vector light, t_vector pixel, double specular);
+double					diffuse(t_vector normal, t_vector light);
+double					specular(t_vector normal, t_vector light, t_vector pixel, double specular);
+t_vector				reflect_ray(t_vector ray, t_vector normal);
 
+double					deg_to_rad(int degrees);
 double 					dot(t_vector v1, t_vector v2);
 double      			length(t_vector v1);
-t_vector    			multiply(double k, t_vector v);
-t_vector    multiply_mv(t_matrix m, t_vector v);
 t_vector    			add(t_vector v1, t_vector v2);
 t_vector 				substract(t_vector v1, t_vector v2);
-t_vector	reflect_ray(t_vector ray, t_vector normal);
-t_color    add_color(t_color c1, t_color c2);
-t_color    				multiply_color(double k, t_color c);
-int						unite_color_channels(t_color color);
+t_vector    			multiply_sv(double k, t_vector v);
+t_vector    			multiply_mv(t_matrix m, t_vector v);
 
-double	deg_to_rad(int degrees);
+int						unite_color_channels(t_color color);
+t_color    				add_color(t_color c1, t_color c2);
+t_color    				multiply_color(double k, t_color c);
+
 
 int						main(int argc, char **argv);
 
@@ -307,10 +321,11 @@ void					put_status_3(t_status *status, t_mlx *mlx);
 void					put_status_4(t_status *status, t_mlx *mlx);
 void					put_status_5(t_status *status, t_mlx *mlx);
 
-// void					put_open_cl_info(t_open_cl *open_cl, t_mlx *mlx);
 void					put_render_info_1(t_mlx *mlx);
 void					put_render_info_2(t_mlx *mlx);
 void					put_control_keys_1(t_status *status, t_mlx *mlx);
 void					put_control_keys_2(t_mlx *mlx);
 
+void		init_object_buffer(t_status *status);
+void		clean_object_buffer(t_status *status);
 #endif
