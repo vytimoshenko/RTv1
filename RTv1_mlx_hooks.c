@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 04:58:32 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 23:47:38 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ int		mouse_move(int x, int y, t_global *global)
 
 int		mouse_key_press(int key, int x, int y, t_global *global)
 {
+	if (key == LEFT_MOUSE_BUTTON)
+	{
+		select_object(x, y, global);
+		update_info_only(global);
+	}
 	if (key == MIDDLE_MOUSE_BUTTON)
 		global->status->middle_mouse_button = 1;
 	else if (key == MOUSE_SCROLL_UP || key == MOUSE_SCROLL_DOWN)
@@ -33,6 +38,20 @@ int		mouse_key_press(int key, int x, int y, t_global *global)
 		return (0);
 	draw(global);
 	return (0);
+}
+
+void	select_object(int x, int y, t_global *global)
+{
+	x = x - IMG_INDT_W;
+	y = y - IMG_INDT_H;
+	if (x < 0 || x > IMG_SIZE_W || y < 0 || y > IMG_SIZE_H)
+		return;
+	int i = (int)(IMG_SIZE_W * (y - 1) + x);
+	int object_id = global->status->object_buffer[i];
+	global->status->active_object = object_id;
+	// ft_putnbr(object_id);
+	// ft_putchar('\n');
+	// global->status->got_object = FALSE;
 }
 
 int		mouse_key_release(int key, int x, int y, t_global *global)
@@ -71,9 +90,12 @@ int		keyboard_key_press(int key, t_global *global)
 	else if (key == A || key == D || key == W || key == S || key == MINUS ||
 	key == PLUS)
 		move_camera(global->status, key);
-	else if (key == ARROW_LEFT || key == ARROW_RIGHT || key == ARROW_DOWN
-	|| key == ARROW_UP )
-		rotate_camera(global->status, key);
+	else if ((key == ARROW_LEFT || key == ARROW_RIGHT || key == ARROW_DOWN
+	|| key == ARROW_UP) && global->status->active_object != -1)
+	{
+		move_object(global->status, key);
+		// rotate_camera(global->status, key);
+	}
 	else
 		return (0);
 	draw(global);

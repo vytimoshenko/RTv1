@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 03:05:11 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 05:37:02 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 20:19:14 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,62 +53,36 @@ void	put_status_1(t_status *status, t_mlx *mlx)
 	str = ft_itoa(status->light_sources.quantity));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 170, TEXT_COLOR,
-	"Spheres total:");
+	"Objects total:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 170, TEXT_COLOR,
+	str = ft_itoa(status->total_objects_quantity));
+	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 50, pos_y + 190, TEXT_COLOR,
+	"- planes:");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 190, TEXT_COLOR,
+	str = ft_itoa(status->planes.quantity));
+	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 40, pos_y + 210, TEXT_COLOR,
+	"- spheres:");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 210, TEXT_COLOR,
 	str = ft_itoa(status->spheres.quantity));
 	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 200, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 60, pos_y + 230, TEXT_COLOR,
+	"- cones:");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 230, TEXT_COLOR,
+	str = ft_itoa(status->cones.quantity));
+	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 20, pos_y + 250, TEXT_COLOR,
+	"- cylinders:");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 250, TEXT_COLOR,
+	str = ft_itoa(status->cylinders.quantity));
+	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 270, TEXT_COLOR,
 	"Active object:");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 200, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 270, TEXT_COLOR,
 	str = ft_itoa(status->active_object));
 	free(str);
 }
-
-// void	put_status_3(t_status *status, t_mlx *mlx)
-// {
-// 	int		pos_x;
-// 	int		pos_y;
-// 	char	*str;
-
-// 	pos_x = WIN_SIZE_W - 440;
-// 	pos_y = 70;
-// 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 140, TEXT_COLOR,
-// 	"Iterations:");
-// 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 140, TEXT_COLOR,
-// 	str = ft_itoa(status->iter));
-// 	free(str);
-// 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 170, TEXT_COLOR,
-// 	"Color:");
-// 	if (status->color_theme == 0)
-// 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 170, TEXT_COLOR,
-// 		"Theme #1");
-// 	else if (status->color_theme == 1)
-// 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 170, TEXT_COLOR,
-// 		"Theme #2");
-// 	else if (status->color_theme == 2)
-// 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 170, TEXT_COLOR,
-// 		"Theme #3");
-// 	else if (status->color_theme == 3)
-// 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 170, TEXT_COLOR,
-// 		"Theme #4");
-// }
-
-// void	put_status_4(t_status *status, t_mlx *mlx)
-// {
-// 	int		pos_x;
-// 	int		pos_y;
-
-// 	pos_x = WIN_SIZE_W - 440;
-// 	pos_y = 70;
-// 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 200, TEXT_COLOR,
-// 	"Device:");
-// 	if (status->device == 0)
-// 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 200, TEXT_COLOR,
-// 		"CPU");
-// 	if (status->device == 1)
-// 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 200, TEXT_COLOR,
-// 		"GPU");
-// }
 
 void	put_status_5(t_status *status, t_mlx *mlx)
 {

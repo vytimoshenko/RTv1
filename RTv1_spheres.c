@@ -6,21 +6,25 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 00:17:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 04:03:15 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 23:18:18 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RTv1.h"
 
 t_color		get_color(t_spheres	spheres, t_light_sources light_sources,
-		t_vector camera, t_vector pixel, int reflection_depth)
+		t_vector camera, t_vector pixel, int reflection_depth, t_status *status, int x, int y)
 {
 	t_point		point;
 	t_sphere	closest_sphere;
 	t_vector	view;
 	t_vector	reflect;
 	t_color		reflected_color;
-
+	int 		i;
+	
+	x = IMG_SIZE_W / 2 + x;
+	y = IMG_SIZE_H / 2 - y;
+	i = (int)(IMG_SIZE_W * (y - 1) + x);
 	closest_sphere = get_intersection(spheres, camera,
 	pixel, DRAW_DISTANCE_MIN, DRAW_DISTANCE_MAX);
 	if (closest_sphere.closest == DRAW_DISTANCE_MAX)
@@ -31,7 +35,11 @@ t_color		get_color(t_spheres	spheres, t_light_sources light_sources,
 	point.color = closest_sphere.color;
 	point.specular = closest_sphere.specular;
 	point.reflective = closest_sphere.reflective;
-	// status->object_buffer[]
+	if (i > 0 && status->got_object[i] == FALSE)
+	{
+		status->object_buffer[i] = closest_sphere.id;
+		status->got_object[i] = TRUE;
+	}
 	view = multiply_sv(-1.0, pixel);
 	point.light = get_lightning(point, light_sources, view, spheres);
 	point.final_color = multiply_color(point.light, point.color);
@@ -39,7 +47,7 @@ t_color		get_color(t_spheres	spheres, t_light_sources light_sources,
 		return (point.final_color);
 	reflect = reflect_ray(view, point.n);
 	reflected_color = get_color(spheres, light_sources, point.xyz, reflect,
-	reflection_depth - 1);
+	reflection_depth - 1, status, x, y);
 	point.final_color = add_color(multiply_color(1.0 - point.reflective, point.final_color),
 	multiply_color(point.reflective, reflected_color));
 	return (point.final_color);

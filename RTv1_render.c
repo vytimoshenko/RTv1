@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 02:48:31 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:46:23 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	    get_image(t_status *status, t_mlx *mlx)
 			// camera_direction = multiply_mv(status->m, camera_direction);
 			color = unite_color_channels(get_color(status->spheres, status->light_sources,
 			*status->cameras.array[status->current_camera], camera_direction,
-			REFLECTION_DEPTH));
+			REFLECTION_DEPTH, status, x, y));
 			put_pixel(mlx, x, y, color);
         }
 	}
@@ -51,10 +51,12 @@ void		get_m(t_matrix *m, double y_rotation)
 
 void	    put_pixel(t_mlx *mlx, int x, int y, int color)
 {
+	int i;
+
 	x = IMG_SIZE_W / 2 + x;
-  	y = IMG_SIZE_H / 2 - y - 1;
-	if (x >= 0 || x < IMG_SIZE_W || y >= 0 || y < IMG_SIZE_H)
-		mlx->data[(int)(IMG_SIZE_W * (y - 1) + x)] = color;
+  	y = IMG_SIZE_H / 2 - y;
+	i = (int)(IMG_SIZE_W * (y - 1) + x);
+	mlx->data[i] = color;
 }
 
 t_vector    canvas_to_viewport(int x, int y)

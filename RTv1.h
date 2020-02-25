@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 05:31:42 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 23:26:46 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 # define PROGRAM_NAME			"RTv1"
 
-# define WIN_SIZE_W 			2300
+# define WIN_SIZE_W 			2170
 # define WIN_SIZE_H				1240
 # define IMG_SIZE_W				1800.0
 # define IMG_SIZE_H				1200.0
@@ -53,6 +53,7 @@
 # define BUTTON_DOWN			1
 # define IN_MOVE				2
 
+# define LEFT_MOUSE_BUTTON		1
 # define MIDDLE_MOUSE_BUTTON	3
 # define MOUSE_SCROLL_UP		4
 # define MOUSE_SCROLL_DOWN		5
@@ -143,7 +144,7 @@ typedef struct			s_cameras
 
 typedef struct			s_sphere
 {
-	int					num;
+	int					id;
 	t_color 			color;
 	double				specular;
 	double				reflective;
@@ -161,6 +162,24 @@ typedef struct			s_spheres
 	int					quantity;
 	t_sphere			**array;
 }						t_spheres;
+
+typedef struct			s_planes
+{
+	int					quantity;
+	// t_plane				**array;
+}						t_planes;
+
+typedef struct			s_cylinders
+{
+	int					quantity;
+	// t_plane				**array;
+}						t_cylinders;
+
+typedef struct			s_cones
+{
+	int					quantity;
+	// t_cone				**array;
+}						t_cones;
 
 typedef struct			s_light
 {
@@ -192,14 +211,20 @@ typedef struct			s_status
 	t_cameras			cameras;
 	t_light_sources		light_sources;
 	t_spheres			spheres;
+	t_planes			planes;
+	t_cones				cones;
+	t_cylinders			cylinders;
 
 	int					*object_buffer;
+	int					*got_object;
 	int					active_object;
 
+
 	int					hide_info;
-	int					iter;
-	int					pause;
+
 	double				zoom;
+
+	int					total_objects_quantity;
 
 	int					x_mouse_position;
 	int					y_mouse_position;
@@ -238,12 +263,16 @@ typedef struct			s_kernel_arg
 	double				y_julia;
 }						t_kernel_arg;
 
+
+void	select_object(int x, int y, t_global *global);
+
 void					get_image(t_status *status, t_mlx *mlx);
 void					put_pixel(t_mlx *mlx, int x, int y, int color);
 t_vector				canvas_to_viewport(int x, int y);
 
 t_color       				get_color(t_spheres	spheres, t_light_sources lights_sources,
-						t_vector camera, t_vector viewport_pixel, int reflection_depth);
+						t_vector camera, t_vector viewport_pixel, int reflection_depth,
+						t_status *status, int x, int y);
 
 t_sphere				get_intersection(t_spheres	spheres, t_vector camera, t_vector viewport_pixel, double t_min, double t_max);
 void	    			sphere_intersection(t_sphere *sphere, t_vector camera, t_vector viewport_pixel);
@@ -304,6 +333,7 @@ void					control_mouse_shift(t_status *status, int x, int y);
 
 void	rotate_camera(t_status *status, int key);
 void	move_camera(t_status *status, int key);
+void	move_object(t_status *status, int key);
 void		get_m(t_matrix *m, double y_rotation);
 
 void					control_type(t_status *status, t_mlx *mlx);

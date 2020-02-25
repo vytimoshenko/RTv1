@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 04:54:49 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 23:36:02 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,36 @@ void	move_camera(t_status *status, int key)
 		status->cameras.array[i]->z -= 1;
 }
 
-void	rotate_camera(t_status *status, int key)
+void	move_object(t_status *status, int key)
 {
+	int i;
+
+	i = status->active_object;
+	if (key == ARROW_DOWN)
+		status->spheres.array[i]->center.y -= 0.1;
+	else if (key == ARROW_UP)
+		status->spheres.array[i]->center.y += 0.1;
+	else if (key == ARROW_RIGHT)
+		status->spheres.array[i]->center.x += 0.1;
+	else if (key == ARROW_LEFT)
+		status->spheres.array[i]->center.x -= 0.1;
+	// else if (key == PLUS)
+	// 	status->spheres.array[i]->z += 1;
+	// else if (key == MINUS)
+	// 	status->spheres.array[i]->z -= 1;
+}
+
+// void	rotate_camera(t_status *status, int key)
+// {
 	// if (key == ARROW_DOWN)
 	// 	status->m.a[0] -= 0.1;
 	// else if (key == ARROW_UP)
 	// 	status->m.a[2] += 0.1;
-	if (key == ARROW_RIGHT)
-		status->y_rotation -= 15.0;
-	else if (key == ARROW_LEFT)
-		status->y_rotation += 15.0;
-}
+	// if (key == ARROW_RIGHT)
+	// 	status->y_rotation -= 15.0;
+	// else if (key == ARROW_LEFT)
+	// 	status->y_rotation += 15.0;
+// }
 
 // void	control_mouse_shift(t_status *status, int x, int y)
 // {

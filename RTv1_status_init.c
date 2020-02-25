@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 05:44:45 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/25 23:18:00 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ t_status	*init_status(int argc, char **argv)
 void		init_object_buffer(t_status *status)
 {
 	if (!(status->object_buffer = (int *)malloc(sizeof(int)
+	* IMG_SIZE_W * IMG_SIZE_H)))
+		ft_put_errno(PROGRAM_NAME);
+	if (!(status->got_object = (int *)ft_memalloc(sizeof(int)
 	* IMG_SIZE_W * IMG_SIZE_H)))
 		ft_put_errno(PROGRAM_NAME);
 	clean_object_buffer(status);
@@ -88,7 +91,7 @@ void		reset_status(t_status *status)
 	while (++i < status->spheres.quantity)
 		status->spheres.array[i] = (t_sphere *)ft_memalloc(sizeof(t_sphere));
 	i = 0;
-	status->spheres.array[i]->num = i;
+	status->spheres.array[i]->id = i;
 	status->spheres.array[i]->color.r = 0xFF;
 	status->spheres.array[i]->color.g = 0x00;
 	status->spheres.array[i]->color.b = 0x00;
@@ -99,7 +102,7 @@ void		reset_status(t_status *status)
 	status->spheres.array[i]->center.z = 3.0;
 	status->spheres.array[i]->radius = 1.0;
 	i++;
-	status->spheres.array[i]->num = i;
+	status->spheres.array[i]->id = i;
 	status->spheres.array[i]->color.r = 0x00;
 	status->spheres.array[i]->color.g = 0xFF;
 	status->spheres.array[i]->color.b = 0x00;
@@ -110,7 +113,7 @@ void		reset_status(t_status *status)
 	status->spheres.array[i]->center.z = 4.0;
 	status->spheres.array[i]->radius = 1.2;
 	i++;
-	status->spheres.array[i]->num = i;
+	status->spheres.array[i]->id = i;
 	status->spheres.array[i]->color.r = 0x00;
 	status->spheres.array[i]->color.g = 0x00;
 	status->spheres.array[i]->color.b = 0xFF;
@@ -121,7 +124,7 @@ void		reset_status(t_status *status)
 	status->spheres.array[i]->center.z = 4.0;
 	status->spheres.array[i]->radius = 0.8;
 	i++;
-	status->spheres.array[i]->num = i;
+	status->spheres.array[i]->id = i;
 	status->spheres.array[i]->color.r = 0xFF;
 	status->spheres.array[i]->color.g = 0xFF;
 	status->spheres.array[i]->color.b = 0x00;
