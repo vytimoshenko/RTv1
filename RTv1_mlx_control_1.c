@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 23:36:02 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 01:56:29 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,17 @@ void	move_camera(t_status *status, int key)
 
 	i = status->current_camera;
 	if (key == S)
-		status->cameras.array[i]->y -= 1;
+		status->cameras.array[i]->y -= 5;
 	else if (key == W)
-		status->cameras.array[i]->y += 1;
+		status->cameras.array[i]->y += 5;
 	else if (key == D)
-		status->cameras.array[i]->x += 1;
+		status->cameras.array[i]->x += 5;
 	else if (key == A)
-		status->cameras.array[i]->x -= 1;
+		status->cameras.array[i]->x -= 5;
 	else if (key == PLUS)
-		status->cameras.array[i]->z += 1;
+		status->cameras.array[i]->z += 5;
 	else if (key == MINUS)
-		status->cameras.array[i]->z -= 1;
+		status->cameras.array[i]->z -= 5;
 }
 
 void	move_object(t_status *status, int key)
@@ -78,13 +78,13 @@ void	move_object(t_status *status, int key)
 
 	i = status->active_object;
 	if (key == ARROW_DOWN)
-		status->spheres.array[i]->center.y -= 0.1;
+		status->spheres.array[i]->center.y -= 5;
 	else if (key == ARROW_UP)
-		status->spheres.array[i]->center.y += 0.1;
+		status->spheres.array[i]->center.y += 5;
 	else if (key == ARROW_RIGHT)
-		status->spheres.array[i]->center.x += 0.1;
+		status->spheres.array[i]->center.x += 5;
 	else if (key == ARROW_LEFT)
-		status->spheres.array[i]->center.x -= 0.1;
+		status->spheres.array[i]->center.x -= 5;
 	// else if (key == PLUS)
 	// 	status->spheres.array[i]->z += 1;
 	// else if (key == MINUS)

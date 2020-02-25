@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 00:17:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 23:18:18 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 01:34:33 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,18 @@ t_color		get_color(t_spheres	spheres, t_light_sources light_sources,
 	t_vector	view;
 	t_vector	reflect;
 	t_color		reflected_color;
-	int 		i;
-	
-	x = IMG_SIZE_W / 2 + x;
-	y = IMG_SIZE_H / 2 - y;
-	i = (int)(IMG_SIZE_W * (y - 1) + x);
+
 	closest_sphere = get_intersection(spheres, camera,
 	pixel, DRAW_DISTANCE_MIN, DRAW_DISTANCE_MAX);
 	if (closest_sphere.closest == DRAW_DISTANCE_MAX)
 		return ((t_color)BACKGROUND_COLOR);
+	fill_object_buffer(status, x, y, closest_sphere.id);
 	point.xyz = add(camera, multiply_sv(closest_sphere.closest, pixel));
 	point.n = substract(point.xyz, closest_sphere.center);
 	point.n = multiply_sv(1.0 / length(point.n), point.n);
 	point.color = closest_sphere.color;
 	point.specular = closest_sphere.specular;
 	point.reflective = closest_sphere.reflective;
-	if (i > 0 && status->got_object[i] == FALSE)
-	{
-		status->object_buffer[i] = closest_sphere.id;
-		status->got_object[i] = TRUE;
-	}
 	view = multiply_sv(-1.0, pixel);
 	point.light = get_lightning(point, light_sources, view, spheres);
 	point.final_color = multiply_color(point.light, point.color);
@@ -51,6 +43,20 @@ t_color		get_color(t_spheres	spheres, t_light_sources light_sources,
 	point.final_color = add_color(multiply_color(1.0 - point.reflective, point.final_color),
 	multiply_color(point.reflective, reflected_color));
 	return (point.final_color);
+}
+
+void		fill_object_buffer(t_status *status, int x, int y, int id)
+{
+	int	i;
+	
+	x = IMG_SIZE_W / 2 + x;
+	y = IMG_SIZE_H / 2 - y;
+	i = (int)(IMG_SIZE_W * (y - 1) + x);
+	if (i > 0 && status->got_object[i] == FALSE)
+	{
+		status->object_buffer[i] = id;
+		status->got_object[i] = TRUE;
+	}
 }
 
 t_sphere	get_intersection(t_spheres	spheres,

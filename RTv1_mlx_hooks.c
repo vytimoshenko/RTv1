@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/26 00:45:07 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 01:12:20 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int		mouse_key_press(int key, int x, int y, t_global *global)
 {
 	if (key == LEFT_MOUSE_BUTTON)
 	{
-		select_object(x, y, global);
-		// update_info_only(global);
+		if (!(select_object(x, y, global)))
+			return (0);
 	}
 	else if (key == MIDDLE_MOUSE_BUTTON)
 		global->status->middle_mouse_button = 1;
@@ -38,20 +38,6 @@ int		mouse_key_press(int key, int x, int y, t_global *global)
 		return (0);
 	draw(global);
 	return (0);
-}
-
-void	select_object(int x, int y, t_global *global)
-{
-	x = x - IMG_INDT_W;
-	y = y - IMG_INDT_H;
-	if (x < 0 || x > IMG_SIZE_W || y < 0 || y > IMG_SIZE_H)
-		return;
-	int i = (int)(IMG_SIZE_W * (y - 1) + x);
-	int object_id = global->status->object_buffer[i];
-	global->status->active_object = object_id;
-	// ft_putnbr(object_id);
-	// ft_putchar('\n');
-	// global->status->got_object = FALSE;
 }
 
 int		mouse_key_release(int key, int x, int y, t_global *global)
@@ -68,8 +54,10 @@ int		mouse_key_release(int key, int x, int y, t_global *global)
 
 int		keyboard_key_press(int key, t_global *global)
 {
-	if (key == ESC)
+	if (key == ESC && global->status->active_object == NO_OBJECT_SELECTED)
 		close_window(global);
+	if (key == ESC && global->status->active_object != NO_OBJECT_SELECTED)
+		global->status->active_object = NO_OBJECT_SELECTED;
 	// else if (key == RETURN)
 	// 	control_type(global->status, global->mlx);
 	else if (key == SPACE)

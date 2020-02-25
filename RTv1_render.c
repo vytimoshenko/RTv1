@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/26 00:39:39 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 01:21:33 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,12 @@ void	    get_image(t_status *status, t_mlx *mlx)
 			color = get_color(status->spheres, status->light_sources,
 			*status->cameras.array[status->current_camera], camera_direction,
 			REFLECTION_DEPTH, status, x, y);
-			if (status->active_object != -1)
+			if (status->active_object != NO_OBJECT_SELECTED)
 				color = shade_unselesected(status, x, y, color);
 			united_color = unite_color_channels(color);
 			put_pixel(mlx, x, y, united_color);
         }
 	}
-}
-
-t_color		shade_unselesected(t_status *status, int x, int y, t_color color)
-{
-	int i;
-
-	x = IMG_SIZE_W / 2 + x;
-  	y = IMG_SIZE_H / 2 - y;
-	i = (int)(IMG_SIZE_W * (y - 1) + x);
-	if (status->object_buffer[i] != status->active_object)
-		return (multiply_color(SHADE_UNSELECTED, color));
-	else
-		return (color);
 }
 
 void		get_m(t_matrix *m, double y_rotation)
@@ -65,6 +52,19 @@ void		get_m(t_matrix *m, double y_rotation)
 	m->c[0] = cos(deg_to_rad(y_rotation));
 	m->c[1] = 0.0;
 	m->c[2] = cos(deg_to_rad(y_rotation));
+}
+
+t_color		shade_unselesected(t_status *status, int x, int y, t_color color)
+{
+	int i;
+
+	x = IMG_SIZE_W / 2 + x;
+  	y = IMG_SIZE_H / 2 - y;
+	i = (int)(IMG_SIZE_W * (y - 1) + x);
+	if (status->object_buffer[i] != status->active_object)
+		return (multiply_color(SHADE_UNSELECTED, color));
+	else
+		return (color);
 }
 
 void	    put_pixel(t_mlx *mlx, int x, int y, int color)

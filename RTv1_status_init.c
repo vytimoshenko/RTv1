@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/26 00:43:12 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 01:55:36 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void		clean_object_buffer(t_status *status)
 
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		status->object_buffer[i] = -1;
+		status->object_buffer[i] = NO_OBJECT_SELECTED;
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		status->got_object[i] = 0;
+		status->got_object[i] = FALSE;
 }
 
 void		reset_status(t_status *status)
@@ -78,15 +78,15 @@ void		reset_status(t_status *status)
 	i = 0;
 	status->cameras.array[i]->x = 0.0;
 	status->cameras.array[i]->y = 0.0;
-	status->cameras.array[i]->z = -1.0;
+	status->cameras.array[i]->z = -10.0;
 	i++;
-	status->cameras.array[i]->x = 2.0;
-	status->cameras.array[i]->y = 1.0;
-	status->cameras.array[i]->z = -1.0;
+	status->cameras.array[i]->x = 20.0;
+	status->cameras.array[i]->y = 10.0;
+	status->cameras.array[i]->z = -10.0;
 	i++;
-	status->cameras.array[i]->x = -2.0;
-	status->cameras.array[i]->y = -2.0;
-	status->cameras.array[i]->z = -5.0;
+	status->cameras.array[i]->x = -20.0;
+	status->cameras.array[i]->y = -20.0;
+	status->cameras.array[i]->z = -50.0;
 
 	status->spheres.quantity = 4;
 	status->spheres.array = (t_sphere **)ft_memalloc(sizeof(t_sphere *) * status->spheres.quantity);
@@ -101,9 +101,9 @@ void		reset_status(t_status *status)
 	status->spheres.array[i]->specular = 500;
 	status->spheres.array[i]->reflective = 0.2;
 	status->spheres.array[i]->center.x = 0.0;
-	status->spheres.array[i]->center.y = -1.0;
-	status->spheres.array[i]->center.z = 3.0;
-	status->spheres.array[i]->radius = 1.0;
+	status->spheres.array[i]->center.y = -10.0;
+	status->spheres.array[i]->center.z = 30.0;
+	status->spheres.array[i]->radius = 10.0;
 	i++;
 	status->spheres.array[i]->id = i;
 	status->spheres.array[i]->color.r = 0x00;
@@ -111,10 +111,10 @@ void		reset_status(t_status *status)
 	status->spheres.array[i]->color.b = 0x00;
 	status->spheres.array[i]->specular = 1000;
 	status->spheres.array[i]->reflective = 0.7;
-	status->spheres.array[i]->center.x = 2.0;
-	status->spheres.array[i]->center.y = 0.2;
-	status->spheres.array[i]->center.z = 4.0;
-	status->spheres.array[i]->radius = 1.2;
+	status->spheres.array[i]->center.x = 20.0;
+	status->spheres.array[i]->center.y = 1.0;
+	status->spheres.array[i]->center.z = 40.0;
+	status->spheres.array[i]->radius = 12.0;
 	i++;
 	status->spheres.array[i]->id = i;
 	status->spheres.array[i]->color.r = 0x00;
@@ -122,10 +122,10 @@ void		reset_status(t_status *status)
 	status->spheres.array[i]->color.b = 0xFF;
 	status->spheres.array[i]->specular = 500;
 	status->spheres.array[i]->reflective = 0.3;
-	status->spheres.array[i]->center.x = -2.0;
+	status->spheres.array[i]->center.x = -20.0;
 	status->spheres.array[i]->center.y = 0.0;
-	status->spheres.array[i]->center.z = 4.0;
-	status->spheres.array[i]->radius = 0.8;
+	status->spheres.array[i]->center.z = 40.0;
+	status->spheres.array[i]->radius = 8.0;
 	i++;
 	status->spheres.array[i]->id = i;
 	status->spheres.array[i]->color.r = 0xFF;
@@ -134,9 +134,9 @@ void		reset_status(t_status *status)
 	status->spheres.array[i]->specular = 250;
 	status->spheres.array[i]->reflective = 0.2;
 	status->spheres.array[i]->center.x = 0.0;
-	status->spheres.array[i]->center.y = -5001.0;
+	status->spheres.array[i]->center.y = -50010.0;
 	status->spheres.array[i]->center.z = 0.0;
-	status->spheres.array[i]->radius = 5000;
+	status->spheres.array[i]->radius = 50000;
 
 	// status->light_sources.quantity = 3;
 	status->light_sources.quantity = 4;
@@ -150,19 +150,19 @@ void		reset_status(t_status *status)
 	i++;
 	status->light_sources.array[i]->type = LIGHT_TYPE_POINT;
 	status->light_sources.array[i]->intensity = 0.6;
-	status->light_sources.array[i]->position.x = -2;
-	status->light_sources.array[i]->position.y = 2;
-	status->light_sources.array[i]->position.z = 3;
+	status->light_sources.array[i]->position.x = -20;
+	status->light_sources.array[i]->position.y = 20;
+	status->light_sources.array[i]->position.z = 30;
 	i++;
 	status->light_sources.array[i]->type = LIGHT_TYPE_POINT;
 	status->light_sources.array[i]->intensity = 0.3;
-	status->light_sources.array[i]->position.x = 2;
-	status->light_sources.array[i]->position.y = 1;
-	status->light_sources.array[i]->position.z = 0;
+	status->light_sources.array[i]->position.x = 20;
+	status->light_sources.array[i]->position.y = 10;
+	status->light_sources.array[i]->position.z = 00;
     i++;
 	status->light_sources.array[i]->type = LIGHT_TYPE_DIRECTIONAL;
 	status->light_sources.array[i]->intensity = 0.2;
-	status->light_sources.array[i]->direction.x = 1;
-	status->light_sources.array[i]->direction.y = 4;
-	status->light_sources.array[i]->direction.z = 4;
+	status->light_sources.array[i]->direction.x = 10;
+	status->light_sources.array[i]->direction.y = 40;
+	status->light_sources.array[i]->direction.z = 40;
 }

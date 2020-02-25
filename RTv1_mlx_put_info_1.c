@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 03:05:11 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 20:19:14 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 02:04:20 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	put_status_1(t_status *status, t_mlx *mlx)
 	int		pos_y;
 	char	*str;
 
-	pos_x = WIN_SIZE_W - 440;
+	pos_x = WIN_SIZE_W - 350;
 	pos_y = 70;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 130, pos_y, TEXT_COLOR,
 	"STATUS");
@@ -77,11 +77,40 @@ void	put_status_1(t_status *status, t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 250, TEXT_COLOR,
 	str = ft_itoa(status->cylinders.quantity));
 	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 270, TEXT_COLOR,
-	"Active object:");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 270, TEXT_COLOR,
-	str = ft_itoa(status->active_object));
-	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 280, TEXT_COLOR,
+	"Selected object:");
+	if (status->active_object == NO_OBJECT_SELECTED)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 280, TEXT_COLOR,
+		"no");
+	else
+	{		
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 280, TEXT_COLOR,
+		str = ft_itoa(status->active_object));
+		free(str);	
+	}
+	if (status->active_object != NO_OBJECT_SELECTED)
+	{
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 300, TEXT_COLOR,
+		"x:");
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 300, TEXT_COLOR,
+		str = ft_itoa(status->spheres.array[status->active_object]->center.x));
+		free(str);
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 320, TEXT_COLOR,
+		"y:");
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 320, TEXT_COLOR,
+		str = ft_itoa(status->spheres.array[status->active_object]->center.y));
+		free(str);
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 340, TEXT_COLOR,
+		"z:");
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 340, TEXT_COLOR,
+		str = ft_itoa(status->spheres.array[status->active_object]->center.z));
+		free(str);
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 100, pos_y + 360, TEXT_COLOR,
+		"radius:");
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 170, pos_y + 360, TEXT_COLOR,
+		str = ft_itoa(status->spheres.array[status->active_object]->radius));
+		free(str);
+	}
 }
 
 void	put_status_5(t_status *status, t_mlx *mlx)

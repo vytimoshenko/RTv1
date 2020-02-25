@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/26 00:43:11 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 01:36:46 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define VIEWPORT_SIZE_H		1
 # define VIEWPORT_DISTANCE		1
 
+# define NO_OBJECT_SELECTED		-1
 # define SHADE_UNSELECTED		0.4		
 
 # define DRAW_DISTANCE_MIN		0.001
@@ -46,7 +47,6 @@
 
 # define TEXT_COLOR  			0xFFFFFF
 # define BACKGROUND_COLOR  		{0x00, 0x00, 0x00}
-// # define BACK_COLOR  			0x000000
 
 # define FALSE					0
 # define TRUE					1
@@ -266,7 +266,9 @@ typedef struct			s_kernel_arg
 }						t_kernel_arg;
 
 
-void	select_object(int x, int y, t_global *global);
+int						select_object(int x, int y, t_global *global);
+
+void					fill_object_buffer(t_status *status, int x, int y, int id);
 
 void					get_image(t_status *status, t_mlx *mlx);
 void					put_pixel(t_mlx *mlx, int x, int y, int color);
