@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 22:46:23 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 00:39:39 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ void	    get_image(t_status *status, t_mlx *mlx)
 {
 	int	x;
 	int	y;
-    int color;
+    int united_color;
 	t_vector	camera_direction;
+	t_color		color;
 	
+	clean_object_buffer(status);
 	x = -IMG_SIZE_W / 2;
 	while (++x < IMG_SIZE_W / 2)
 	{
@@ -28,12 +30,28 @@ void	    get_image(t_status *status, t_mlx *mlx)
 			camera_direction = canvas_to_viewport(x, y);
 			// get_m(&status->m, status->y_rotation);
 			// camera_direction = multiply_mv(status->m, camera_direction);
-			color = unite_color_channels(get_color(status->spheres, status->light_sources,
+			color = get_color(status->spheres, status->light_sources,
 			*status->cameras.array[status->current_camera], camera_direction,
-			REFLECTION_DEPTH, status, x, y));
-			put_pixel(mlx, x, y, color);
+			REFLECTION_DEPTH, status, x, y);
+			if (status->active_object != -1)
+				color = shade_unselesected(status, x, y, color);
+			united_color = unite_color_channels(color);
+			put_pixel(mlx, x, y, united_color);
         }
 	}
+}
+
+t_color		shade_unselesected(t_status *status, int x, int y, t_color color)
+{
+	int i;
+
+	x = IMG_SIZE_W / 2 + x;
+  	y = IMG_SIZE_H / 2 - y;
+	i = (int)(IMG_SIZE_W * (y - 1) + x);
+	if (status->object_buffer[i] != status->active_object)
+		return (multiply_color(SHADE_UNSELECTED, color));
+	else
+		return (color);
 }
 
 void		get_m(t_matrix *m, double y_rotation)

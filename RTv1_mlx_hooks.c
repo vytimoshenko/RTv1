@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 23:47:38 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 00:45:07 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int		mouse_key_press(int key, int x, int y, t_global *global)
 	if (key == LEFT_MOUSE_BUTTON)
 	{
 		select_object(x, y, global);
-		update_info_only(global);
+		// update_info_only(global);
 	}
-	if (key == MIDDLE_MOUSE_BUTTON)
+	else if (key == MIDDLE_MOUSE_BUTTON)
 		global->status->middle_mouse_button = 1;
 	else if (key == MOUSE_SCROLL_UP || key == MOUSE_SCROLL_DOWN)
 		control_mouse_zoom(global->status, x, y, key);

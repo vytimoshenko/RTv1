@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 23:18:00 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 00:43:12 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		init_object_buffer(t_status *status)
 	if (!(status->object_buffer = (int *)malloc(sizeof(int)
 	* IMG_SIZE_W * IMG_SIZE_H)))
 		ft_put_errno(PROGRAM_NAME);
-	if (!(status->got_object = (int *)ft_memalloc(sizeof(int)
+	if (!(status->got_object = (int *)malloc(sizeof(int)
 	* IMG_SIZE_W * IMG_SIZE_H)))
 		ft_put_errno(PROGRAM_NAME);
 	clean_object_buffer(status);
@@ -46,6 +46,9 @@ void		clean_object_buffer(t_status *status)
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 		status->object_buffer[i] = -1;
+	i = -1;
+	while (++i < IMG_SIZE_W * IMG_SIZE_H)
+		status->got_object[i] = 0;
 }
 
 void		reset_status(t_status *status)

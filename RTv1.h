@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 23:26:46 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 00:43:11 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define VIEWPORT_SIZE_W		1.5
 # define VIEWPORT_SIZE_H		1
 # define VIEWPORT_DISTANCE		1
+
+# define SHADE_UNSELECTED		0.4		
 
 # define DRAW_DISTANCE_MIN		0.001
 # define DRAW_DISTANCE_MAX		1000000
@@ -358,4 +360,6 @@ void					put_control_keys_2(t_mlx *mlx);
 
 void		init_object_buffer(t_status *status);
 void		clean_object_buffer(t_status *status);
+
+t_color		shade_unselesected(t_status *status, int x, int y, t_color color);
 #endif
