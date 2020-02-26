@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/26 01:12:20 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 21:39:52 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,21 @@ int		keyboard_key_press(int key, t_global *global)
 	// 	control_iteration(global->status, key);
 	// else if (key == MINUS || key == PLUS)
 	// 	control_zoom(global->status, key);
-	else if (key == A || key == D || key == W || key == S || key == MINUS ||
-	key == PLUS)
-		move_camera(global->status, key);
-	else if ((key == ARROW_LEFT || key == ARROW_RIGHT || key == ARROW_DOWN
-	|| key == ARROW_UP) && global->status->active_object != -1)
+	else if (key == A || key == D || key == W || key == S || key == MORE || key == LESS)
 	{
-		move_object(global->status, key);
-		// rotate_camera(global->status, key);
+		if (global->status->active_object == NO_OBJECT_SELECTED)
+			rotate_camera(global->status, key);
+		// else
+		// 	rotate_object(global->status, key);
+	}
+	else if (key == ARROW_LEFT || key == ARROW_RIGHT || key == ARROW_DOWN
+	|| key == ARROW_UP || key == MINUS ||
+	key == PLUS)
+	{
+		if (global->status->active_object == NO_OBJECT_SELECTED)
+			move_camera(global->status, key);
+		else
+			move_object(global->status, key);
 	}
 	else
 		return (0);

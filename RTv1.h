@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/26 01:36:46 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 21:36:06 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define VIEWPORT_DISTANCE		1
 
 # define NO_OBJECT_SELECTED		-1
-# define SHADE_UNSELECTED		0.4		
+# define SHADE_UNSELECTED		0.5		
 
 # define DRAW_DISTANCE_MIN		0.001
 # define DRAW_DISTANCE_MAX		1000000
@@ -207,7 +207,9 @@ typedef struct			s_status
 	char				*scene_name_with_path;
 	
 	int					current_camera;
+	double				x_rotation;
 	double				y_rotation;
+	double				z_rotation;
 
 	t_matrix			m;
 	t_cameras			cameras;
@@ -265,6 +267,7 @@ typedef struct			s_kernel_arg
 	double				y_julia;
 }						t_kernel_arg;
 
+t_vector	rotate_direction(t_vector vector, t_status *status);
 
 int						select_object(int x, int y, t_global *global);
 

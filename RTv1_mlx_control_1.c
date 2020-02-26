@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/26 01:56:29 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 21:37:46 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ void	move_camera(t_status *status, int key)
 	int i;
 
 	i = status->current_camera;
-	if (key == S)
+	if (key == ARROW_DOWN)
 		status->cameras.array[i]->y -= 5;
-	else if (key == W)
+	else if (key == ARROW_UP)
 		status->cameras.array[i]->y += 5;
-	else if (key == D)
+	else if (key == ARROW_RIGHT)
 		status->cameras.array[i]->x += 5;
-	else if (key == A)
+	else if (key == ARROW_LEFT)
 		status->cameras.array[i]->x -= 5;
 	else if (key == PLUS)
 		status->cameras.array[i]->z += 5;
@@ -85,23 +85,27 @@ void	move_object(t_status *status, int key)
 		status->spheres.array[i]->center.x += 5;
 	else if (key == ARROW_LEFT)
 		status->spheres.array[i]->center.x -= 5;
-	// else if (key == PLUS)
-	// 	status->spheres.array[i]->z += 1;
-	// else if (key == MINUS)
-	// 	status->spheres.array[i]->z -= 1;
+	else if (key == PLUS)
+		status->spheres.array[i]->center.z += 5;
+	else if (key == MINUS)
+		status->spheres.array[i]->center.z -= 5;
 }
 
-// void	rotate_camera(t_status *status, int key)
-// {
-	// if (key == ARROW_DOWN)
-	// 	status->m.a[0] -= 0.1;
-	// else if (key == ARROW_UP)
-	// 	status->m.a[2] += 0.1;
-	// if (key == ARROW_RIGHT)
-	// 	status->y_rotation -= 15.0;
-	// else if (key == ARROW_LEFT)
-	// 	status->y_rotation += 15.0;
-// }
+void	rotate_camera(t_status *status, int key)
+{
+	if (key == W)
+		status->x_rotation += 30.0;
+	else if (key == S)
+		status->x_rotation -= 30.0;
+	else if (key == D)
+		status->y_rotation += 30.0;
+	else if (key == A)
+		status->y_rotation -= 30.0;
+	else if (key == MORE)
+		status->z_rotation += 30.0;
+	else if (key == LESS)
+		status->z_rotation -= 30.0;
+}
 
 // void	control_mouse_shift(t_status *status, int x, int y)
 // {

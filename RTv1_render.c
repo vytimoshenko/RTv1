@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/26 01:21:33 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/26 21:36:37 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	    get_image(t_status *status, t_mlx *mlx)
 		while (++y < IMG_SIZE_H / 2)
         {
 			camera_direction = canvas_to_viewport(x, y);
-			// get_m(&status->m, status->y_rotation);
-			// camera_direction = multiply_mv(status->m, camera_direction);
+			camera_direction = rotate_direction(camera_direction, status);
 			color = get_color(status->spheres, status->light_sources,
 			*status->cameras.array[status->current_camera], camera_direction,
 			REFLECTION_DEPTH, status, x, y);
@@ -39,19 +38,6 @@ void	    get_image(t_status *status, t_mlx *mlx)
 			put_pixel(mlx, x, y, united_color);
         }
 	}
-}
-
-void		get_m(t_matrix *m, double y_rotation)
-{
-	m->a[0] = cos(deg_to_rad(y_rotation));
-	m->a[1] = 0.0;
-	m->a[2] = -1 * sin(deg_to_rad(y_rotation));
-	m->b[0] = 0.0;
-	m->b[1] = 1.0;
-	m->b[2] = 0.0;
-	m->c[0] = cos(deg_to_rad(y_rotation));
-	m->c[1] = 0.0;
-	m->c[2] = cos(deg_to_rad(y_rotation));
 }
 
 t_color		shade_unselesected(t_status *status, int x, int y, t_color color)
@@ -85,4 +71,30 @@ t_vector    canvas_to_viewport(int x, int y)
 	viewport_pixel.y = y * VIEWPORT_SIZE_H / IMG_SIZE_H;
 	viewport_pixel.z = VIEWPORT_DISTANCE;
 	return (viewport_pixel);
+}
+
+t_vector	rotate_direction(t_vector vector, t_status *status)
+{
+	double temp1;
+	double temp2;
+	double x_angle;
+	double y_angle;
+	double z_angle;
+
+	x_angle = deg_to_rad(status->x_rotation);
+	y_angle = deg_to_rad(status->y_rotation);
+	z_angle = deg_to_rad(status->z_rotation);
+	temp1 = vector.y * cos(x_angle) + vector.z * sin(x_angle);
+	temp2 = -vector.y * sin(x_angle) + vector.z * cos(x_angle);
+	vector.y = temp1;
+	vector.z = temp2;
+	temp1 = vector.x * cos(y_angle) + vector.z * sin(y_angle);
+	temp2 = -vector.x * sin(y_angle) + vector.z * cos(y_angle);
+	vector.x = temp1;
+	vector.z = temp2;
+	temp1 = vector.x * cos(z_angle) - vector.y * sin(z_angle);
+	temp2 = vector.x * sin(z_angle) + vector.y * cos(z_angle);
+	vector.x = temp1;
+	vector.y = temp2;
+	return (vector);
 }
