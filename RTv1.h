@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/27 05:30:40 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/27 06:30:03 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@
 # define TEXT_COLOR  			0xFFFFFF
 # define BACKGROUND_COLOR  		{0x00, 0x00, 0x00}
 
-# define EFFECTS_QUANTITY		2
+# define EFFECTS_QUANTITY		3
 # define NO_EFFECT				0
 # define EFFECT_GRAYSCALE		1
-# define EFFECT_CARTOON			2
+# define EFFECT_NEGATIVE		2
+# define EFFECT_CARTOON			3
 
 # define FALSE					0
 # define TRUE					1
@@ -272,8 +273,10 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
-
+int						final_processing(t_status *status, int x, int y, t_color color);
+t_color					shade_unselesected(t_status *status, int x, int y, t_color color);
 t_color					effect_grayscale(t_color color);
+t_color					effect_negative(t_color color);
 t_color					effect_cartoon(t_color color);
 
 void					get_sin_cos(t_camera *camera);
@@ -322,7 +325,6 @@ int						main(int argc, char **argv);
 void					init_object_buffer(t_status *status);
 void					clean_object_buffer(t_status *status);
 
-t_color					shade_unselesected(t_status *status, int x, int y, t_color color);
 
 t_status				*init_status(int argc, char **argv);
 void					check_argument(t_status *status, char *arg);

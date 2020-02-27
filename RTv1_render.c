@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/27 05:30:48 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/27 06:30:57 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	    get_image(t_status *status, t_mlx *mlx)
 {
 	int	x;
 	int	y;
-    int united_color;
 	t_vector	camera_direction;
 	t_color		color;
 	
@@ -34,14 +33,7 @@ void	    get_image(t_status *status, t_mlx *mlx)
 			color = get_color(status->spheres, status->light_sources,
 			status->cameras[status->current_camera]->position, camera_direction,
 			REFLECTION_DEPTH, status, x, y);
-			if (status->active_object != NO_OBJECT_SELECTED)
-				color = shade_unselesected(status, x, y, color);
-			if (status->effect == EFFECT_GRAYSCALE)
-				color = effect_grayscale(color);
-			else if (status->effect == EFFECT_CARTOON)
-				color = effect_cartoon(color);
-			united_color = unite_color_channels(color);
-			put_pixel(mlx, x, y, united_color);
+			put_pixel(mlx, x, y, final_processing(status, x, y, color));
         }
 	}
 }
@@ -86,6 +78,19 @@ t_vector	rotate_direction(t_vector vector, t_camera *camera)
 	return (vector);
 }
 
+int		final_processing(t_status *status, int x, int y, t_color color)
+{
+	if (status->active_object != NO_OBJECT_SELECTED)
+		color = shade_unselesected(status, x, y, color);
+	if (status->effect == EFFECT_NEGATIVE)
+		color = effect_negative(color);
+	else if (status->effect == EFFECT_GRAYSCALE)
+		color = effect_grayscale(color);
+	else if (status->effect == EFFECT_CARTOON)
+		color = effect_cartoon(color);
+	return(unite_color_channels(color));
+}
+
 t_color		shade_unselesected(t_status *status, int x, int y, t_color color)
 {
 	int i;
@@ -110,6 +115,13 @@ t_color		effect_grayscale(t_color color)
 	return (color);
 }
 
+t_color		effect_negative(t_color color)
+{
+	color.r = 255 - color.r;
+	color.g = 255 - color.g;
+	color.b = 255 - color.b;
+	return (color);
+}
 
 t_color		effect_cartoon(t_color color)
 {

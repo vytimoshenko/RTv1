@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 03:05:11 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/27 03:18:32 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/27 06:45:09 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	put_status_1(t_status *status, t_mlx *mlx)
 	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 400;
+	pos_y = 300;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 130, pos_y, TEXT_COLOR,
 	"STATUS");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 30, TEXT_COLOR,
@@ -130,5 +130,19 @@ void	put_status_1(t_status *status, t_mlx *mlx)
 		str = ft_itoa(status->spheres.array[status->active_object]->radius));
 		free(str);
 	}
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 400, TEXT_COLOR,
+	"Effect:");
+	if (status->effect == NO_EFFECT)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 160, pos_y + 400, TEXT_COLOR,
+		"no");
+	else if (status->effect == EFFECT_GRAYSCALE)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 160, pos_y + 400, TEXT_COLOR,
+		"Grayscale");
+	else if (status->effect == EFFECT_NEGATIVE)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 160, pos_y + 400, TEXT_COLOR,
+		"Negative");
+	else if (status->effect == EFFECT_CARTOON)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 160, pos_y + 400, TEXT_COLOR,
+		"Cartoon");
 }
 

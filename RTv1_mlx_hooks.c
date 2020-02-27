@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/27 04:26:08 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/27 06:34:26 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int		keyboard_key_press(int key, t_global *global)
 		close_window(global);
 	if (key == ESC && global->status->active_object != NO_OBJECT_SELECTED)
 		global->status->active_object = NO_OBJECT_SELECTED;
+	if (key == ESC && global->status->effect != NO_EFFECT)
+		global->status->effect = NO_EFFECT;
 	// else if (key == RETURN)
 	// 	control_type(global->status, global->mlx);
 	else if (key == SPACE)
