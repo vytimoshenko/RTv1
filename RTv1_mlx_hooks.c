@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/26 21:39:52 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/27 04:26:08 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 int		mouse_move(int x, int y, t_global *global)
 {
 	get_mouse_position(global->status, x, y);
-	control_mouse_shift(global->status, x, y);
-	if (global->status->middle_mouse_button)
-		draw(global);
-	else
-		update_info_only(global);
+	update_info_only(global);
 	return (0);
 }
 
@@ -30,22 +26,6 @@ int		mouse_key_press(int key, int x, int y, t_global *global)
 		if (!(select_object(x, y, global)))
 			return (0);
 	}
-	else if (key == MIDDLE_MOUSE_BUTTON)
-		global->status->middle_mouse_button = 1;
-	else if (key == MOUSE_SCROLL_UP || key == MOUSE_SCROLL_DOWN)
-		control_mouse_zoom(global->status, x, y, key);
-	else
-		return (0);
-	draw(global);
-	return (0);
-}
-
-int		mouse_key_release(int key, int x, int y, t_global *global)
-{
-	(void)x;
-	(void)y;
-	if (key == MIDDLE_MOUSE_BUTTON)
-		global->status->middle_mouse_button = BUTTON_UP;
 	else
 		return (0);
 	draw(global);
@@ -54,7 +34,7 @@ int		mouse_key_release(int key, int x, int y, t_global *global)
 
 int		keyboard_key_press(int key, t_global *global)
 {
-	if (key == ESC && global->status->active_object == NO_OBJECT_SELECTED)
+	if (key == Q)
 		close_window(global);
 	if (key == ESC && global->status->active_object != NO_OBJECT_SELECTED)
 		global->status->active_object = NO_OBJECT_SELECTED;
@@ -69,13 +49,14 @@ int		keyboard_key_press(int key, t_global *global)
 	// 	reset_status(global->status);
 	// 	reset_render_status(global->mlx);
 	// }
-	// else if (key == D)
-	// 	control_device(global);
+	else if (key == E)
+		change_effect(global->status);
 	// else if (key == LESS || key == MORE)
 	// 	control_iteration(global->status, key);
 	// else if (key == MINUS || key == PLUS)
 	// 	control_zoom(global->status, key);
-	else if (key == A || key == D || key == W || key == S || key == MORE || key == LESS)
+	else if (key == A || key == D || key == W || key == S || key == MORE ||
+	key == LESS)
 	{
 		if (global->status->active_object == NO_OBJECT_SELECTED)
 			rotate_camera(global->status, key);

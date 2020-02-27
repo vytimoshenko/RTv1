@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/26 21:22:22 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/27 02:34:28 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_status	*init_status(int argc, char **argv)
 	// check_argument(status, argv[1]);
 	reset_status(status);
 	init_object_buffer(status);
-	status->scene_name_with_path = ft_strdup(argv[1]);
+	status->file_name_with_path = ft_strdup(argv[1]);
 	return (status);
 }
 
@@ -56,37 +56,35 @@ void		reset_status(t_status *status)
 	int	i;
 
 	status->active_object = -1;
-	status->y_rotation = 15.0;
-
-	// status->m.a[0] = 0.7071;
-	// status->m.a[1] = 0.0;
-	// status->m.a[2] = -0.7071;
-	// status->m.b[0] = 0.0;
-	// status->m.b[1] = 1.0;
-	// status->m.b[2] = 0.0;
-	// status->m.c[0] = 0.7071;
-	// status->m.c[1] = 0.0;
-	// status->m.c[2] = 0.7071;
 
 	status->current_camera = 0;
 
-	status->cameras.quantity = 3;
-	status->cameras.array = (t_vector **)ft_memalloc(sizeof(t_vector *) * status->cameras.quantity);
+	status->cameras_quantity = 3;
+	status->cameras = (t_camera **)ft_memalloc(sizeof(t_camera *) * status->cameras_quantity);
 	i = -1;
-	while (++i < status->cameras.quantity)
-		status->cameras.array[i] = (t_vector *)ft_memalloc(sizeof(t_vector));
+	while (++i < status->cameras_quantity)
+		status->cameras[i] = (t_camera *)ft_memalloc(sizeof(t_camera));
 	i = 0;
-	status->cameras.array[i]->x = 0.0;
-	status->cameras.array[i]->y = 0.0;
-	status->cameras.array[i]->z = -10.0;
+	status->cameras[i]->position.x = 0.0;
+	status->cameras[i]->position.y = 0.0;
+	status->cameras[i]->position.z = -10.0;
+	status->cameras[i]->direction.x = 0.0;
+	status->cameras[i]->direction.y = 0.0;
+	status->cameras[i]->direction.z = 0.0;
 	i++;
-	status->cameras.array[i]->x = 20.0;
-	status->cameras.array[i]->y = 10.0;
-	status->cameras.array[i]->z = -10.0;
+	status->cameras[i]->position.x = 20.0;
+	status->cameras[i]->position.y = 10.0;
+	status->cameras[i]->position.z = -80.0;
+	status->cameras[i]->direction.x = 0.0;
+	status->cameras[i]->direction.y = 0.0;
+	status->cameras[i]->direction.z = 0.0;
 	i++;
-	status->cameras.array[i]->x = -20.0;
-	status->cameras.array[i]->y = -20.0;
-	status->cameras.array[i]->z = -50.0;
+	status->cameras[i]->position.x = 0.0;
+	status->cameras[i]->position.y = 100.0;
+	status->cameras[i]->position.z = 30.0;
+	status->cameras[i]->direction.x = -90.0;
+	status->cameras[i]->direction.y = 0.0;
+	status->cameras[i]->direction.z = 0.0;
 
 	status->spheres.quantity = 4;
 	status->spheres.array = (t_sphere **)ft_memalloc(sizeof(t_sphere *) * status->spheres.quantity);

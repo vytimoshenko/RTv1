@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/26 21:36:06 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/27 05:30:40 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 # define VIEWPORT_SIZE_H		1
 # define VIEWPORT_DISTANCE		1
 
+// # define VIEWPORT_SIZE_W		6
+// # define VIEWPORT_SIZE_H		4
+// # define VIEWPORT_DISTANCE		3
+
 # define NO_OBJECT_SELECTED		-1
 # define SHADE_UNSELECTED		0.5		
 
@@ -43,10 +47,15 @@
 # define LIGHT_TYPE_POINT		1
 # define LIGHT_TYPE_DIRECTIONAL	2
 
-# define REFLECTION_DEPTH		1
+# define REFLECTION_DEPTH		3
 
 # define TEXT_COLOR  			0xFFFFFF
 # define BACKGROUND_COLOR  		{0x00, 0x00, 0x00}
+
+# define EFFECTS_QUANTITY		2
+# define NO_EFFECT				0
+# define EFFECT_GRAYSCALE		1
+# define EFFECT_CARTOON			2
 
 # define FALSE					0
 # define TRUE					1
@@ -63,7 +72,9 @@
 # define A						0
 # define S						1
 # define D						2
+# define Q						12
 # define W						13
+# define E						14
 # define H						4
 # define C						8
 # define R						15
@@ -137,11 +148,7 @@ typedef struct			s_mlx
 	float				frame_time;
 }						t_mlx;
 
-typedef struct			s_cameras
-{
-	int					quantity;
-	t_vector			**array;
-}						t_cameras;
+
 
 
 typedef struct			s_sphere
@@ -201,18 +208,36 @@ typedef struct			s_light_sources
 }						t_light_sources;
 
 
+typedef struct			s_camera
+{
+	int					id;
+	t_vector 			position;
+	t_vector 			direction;
+	t_vector 			sin;
+	t_vector 			cos;
+}						t_camera;
+
+
 
 typedef struct			s_status
 {
-	char				*scene_name_with_path;
+	char				*file_name_with_path;
 	
+	int					cameras_quantity;
 	int					current_camera;
-	double				x_rotation;
-	double				y_rotation;
-	double				z_rotation;
+	t_camera			**cameras;
+
+	// double				x_rotation;
+	// double				y_rotation;
+	// double				z_rotation;
+	// double				sin_x;
+	// double				cos_x;
+	// double				sin_y;
+	// double				cos_y;
+	// double				sin_z;
+	// double				cos_z;
 
 	t_matrix			m;
-	t_cameras			cameras;
 	t_light_sources		light_sources;
 	t_spheres			spheres;
 	t_planes			planes;
@@ -223,6 +248,7 @@ typedef struct			s_status
 	int					*got_object;
 	int					active_object;
 
+	int					effect;
 
 	int					hide_info;
 
@@ -240,36 +266,23 @@ typedef struct			s_status
 	double				y_shift;
 }						t_status;
 
-
 typedef struct			s_global
 {
 	t_status			*status;
 	t_mlx				*mlx;
 }						t_global;
 
-typedef struct			s_kernel_arg
-{
-	int					img_size_x;
 
-	int					fractal_type;
+t_color					effect_grayscale(t_color color);
+t_color					effect_cartoon(t_color color);
 
-	int					color_theme;
-	int					iter;
-	int					pause;
-	double				zoom;
+void					get_sin_cos(t_camera *camera);
 
-	double				x_center;
-	double				y_center;
-	double				x_shift;
-	double				y_shift;
 
-	double				x_julia;
-	double				y_julia;
-}						t_kernel_arg;
 
-t_vector	rotate_direction(t_vector vector, t_status *status);
+t_vector	rotate_direction(t_vector vector, t_camera *camera);
 
-int						select_object(int x, int y, t_global *global);
+
 
 void					fill_object_buffer(t_status *status, int x, int y, int id);
 
@@ -306,6 +319,11 @@ t_color    				multiply_color(double k, t_color c);
 
 int						main(int argc, char **argv);
 
+void					init_object_buffer(t_status *status);
+void					clean_object_buffer(t_status *status);
+
+t_color					shade_unselesected(t_status *status, int x, int y, t_color color);
+
 t_status				*init_status(int argc, char **argv);
 void					check_argument(t_status *status, char *arg);
 void					error_wrong_argument(void);
@@ -326,45 +344,27 @@ void					count_frames(t_mlx *mlx, struct timeval start,
 int						mouse_move(int x, int y, t_global *global);
 int						mouse_key_press(int key, int x, int y,
 						t_global *global);
-int						mouse_key_release(int key, int x, int y,
-						t_global *global);
 int						keyboard_key_press(int key, t_global *global);
 int						close_window(t_global *global);
 
+void					move_camera(t_status *status, int key);
+void					rotate_camera(t_status *status, int key);
+void					move_object(t_status *status, int key);
+
 void					get_mouse_position(t_status *status, int x, int y);
-void					control_zoom(t_status *status, int key);
-void					control_mouse_zoom(t_status *status, int x, int y,
-						int key);
-void					control_shift(t_status *status, int key);
-void					control_mouse_shift(t_status *status, int x, int y);
-
-void	rotate_camera(t_status *status, int key);
-void	move_camera(t_status *status, int key);
-void	move_object(t_status *status, int key);
-void		get_m(t_matrix *m, double y_rotation);
-
-void					control_type(t_status *status, t_mlx *mlx);
-void					control_iteration(t_status *status, int key);
-void					control_colors(t_status *status);
-void					control_device(t_global *global);
-void					set_julia(t_status *status, int x, int y);
-
+int						select_object(int x, int y, t_global *global);
 void					change_camera(t_status *status);
-void					control_camera(t_status *status, int key);
+void					change_effect(t_status *status);
 
+void					put_scene_summary_1(t_status *status, t_mlx *mlx);
+void					put_scene_summary_2(t_status *status, t_mlx *mlx);
 void					put_status_1(t_status *status, t_mlx *mlx);
 void					put_status_2(t_status *status, t_mlx *mlx);
 void					put_status_3(t_status *status, t_mlx *mlx);
-void					put_status_4(t_status *status, t_mlx *mlx);
-void					put_status_5(t_status *status, t_mlx *mlx);
 
+void					put_control_keys(t_mlx *mlx);
 void					put_render_info_1(t_mlx *mlx);
 void					put_render_info_2(t_mlx *mlx);
-void					put_control_keys_1(t_status *status, t_mlx *mlx);
-void					put_control_keys_2(t_mlx *mlx);
+void					put_bottom_line(t_status *status, t_mlx *mlx);
 
-void		init_object_buffer(t_status *status);
-void		clean_object_buffer(t_status *status);
-
-t_color		shade_unselesected(t_status *status, int x, int y, t_color color);
 #endif

@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/02/26 01:08:52 by mperseus         ###   ########.fr        #
+#    Updated: 2020/02/27 05:30:35 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ ADD_LIB =	-L ./libft	-l ft\
 			-L ./mlx	-l mlx
 			
 ADD_FMW =	-lmlx -framework OpenGL -framework AppKit\
-			-framework OpenCL 
+			-framework OpenCL\
 
 all:		$(NAME)
 
