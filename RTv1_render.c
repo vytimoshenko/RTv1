@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/27 06:30:57 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/28 01:56:19 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	    get_image(t_status *status, t_mlx *mlx)
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
 	t_vector	camera_direction;
 	t_color		color;
 	
@@ -28,7 +28,7 @@ void	    get_image(t_status *status, t_mlx *mlx)
 		while (++y < IMG_SIZE_H / 2)
         {
 			camera_direction = canvas_to_viewport(x, y);
-			camera_direction = rotate_direction(camera_direction,
+			camera_direction = camera_totation(camera_direction,
 			status->cameras[status->current_camera]);
 			color = get_color(status->spheres, status->light_sources,
 			status->cameras[status->current_camera]->position, camera_direction,
@@ -58,7 +58,7 @@ void	get_sin_cos(t_camera *camera)
 	camera->cos.z = cos(deg_to_rad(camera->direction.z));
 }
 
-t_vector	rotate_direction(t_vector vector, t_camera *camera)
+t_vector	camera_totation(t_vector vector, t_camera *camera)
 {
 	double temp1;
 	double temp2;
@@ -77,70 +77,6 @@ t_vector	rotate_direction(t_vector vector, t_camera *camera)
 	vector.y = temp2;
 	return (vector);
 }
-
-int		final_processing(t_status *status, int x, int y, t_color color)
-{
-	if (status->active_object != NO_OBJECT_SELECTED)
-		color = shade_unselesected(status, x, y, color);
-	if (status->effect == EFFECT_NEGATIVE)
-		color = effect_negative(color);
-	else if (status->effect == EFFECT_GRAYSCALE)
-		color = effect_grayscale(color);
-	else if (status->effect == EFFECT_CARTOON)
-		color = effect_cartoon(color);
-	return(unite_color_channels(color));
-}
-
-t_color		shade_unselesected(t_status *status, int x, int y, t_color color)
-{
-	int i;
-
-	x = IMG_SIZE_W / 2 + x;
-  	y = IMG_SIZE_H / 2 - y;
-	i = (int)(IMG_SIZE_W * (y - 1) + x);
-	if (status->object_buffer[i] != status->active_object)
-		return (multiply_color(SHADE_UNSELECTED, color));
-	else
-		return (color);
-}
-
-t_color		effect_grayscale(t_color color)
-{
-	int tmp;
-
-	tmp = 0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b;
-	color.r = tmp;
-	color.g = tmp;
-	color.b = tmp;
-	return (color);
-}
-
-t_color		effect_negative(t_color color)
-{
-	color.r = 255 - color.r;
-	color.g = 255 - color.g;
-	color.b = 255 - color.b;
-	return (color);
-}
-
-t_color		effect_cartoon(t_color color)
-{
-	color.r /= 32;
-	color.g /= 32;
-	color.b /= 32;
-	color.r *= 32;
-	color.g *= 32;
-	color.b *= 32;
-	return (color);
-}
-
-// int		*effect_pixelation(int *img)
-// {
-// 	int x;
-// 	int y;
-
-// 	avr.r = 
-// }
 
 void	    put_pixel(t_mlx *mlx, int x, int y, int color)
 {

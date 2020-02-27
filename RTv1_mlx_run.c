@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/27 04:23:46 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/28 01:12:14 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,14 @@ void	update_info_only(t_global *global)
 void	put_info_to_window(t_global *global)
 {
 	put_scene_summary_1(global->status, global->mlx);
-	// put_scene_summary_2(global->status, global->mlx);
+	put_scene_summary_2(global->status, global->mlx);
+	put_scene_summary_3(global->status, global->mlx);
 	put_status_1(global->status, global->mlx);
-	// put_status_2(global->status, global->mlx);
-	// put_status_3(global->status, global->mlx);
+	put_status_2(global->status, global->mlx);
+	put_status_3(global->status, global->mlx);
+	put_status_4(global->status, global->mlx);
+	put_status_5(global->status, global->mlx);
+	put_status_6(global->status, global->mlx);
 	put_control_keys(global->mlx);
 	put_render_info_1(global->mlx);
 	put_render_info_2(global->mlx);

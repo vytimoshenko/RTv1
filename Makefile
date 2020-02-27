@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/02/27 05:44:40 by mperseus         ###   ########.fr        #
+#    Updated: 2020/02/27 22:24:16 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,13 @@ SRC		= 	RTv1_main.c					\
 			RTv1_vector.c				\
 			RTv1_color.c				\
 			RTv1_spheres.c				\
+			RTv1_final_processing.c		\
 			RTv1_mlx_init.c				\
 			RTv1_mlx_run.c				\
 			RTv1_mlx_hooks.c			\
 			RTv1_mlx_put_info_1.c		\
 			RTv1_mlx_put_info_2.c		\
+			RTv1_mlx_put_info_3.c		\
 			RTv1_status_init.c			\
 			RTv1_mlx_control_1.c		\
 			RTv1_mlx_control_2.c

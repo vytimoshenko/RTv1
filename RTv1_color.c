@@ -6,11 +6,16 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 03:38:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/25 04:24:19 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/27 23:53:11 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RTv1.h"
+
+double	deg_to_rad(int degrees)
+{
+	return ((double)degrees * PI / 180.0);
+}
 
 int		unite_color_channels(t_color color)
 {

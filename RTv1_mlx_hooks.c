@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/27 06:34:26 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/28 01:28:35 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,8 @@ int		mouse_key_press(int key, int x, int y, t_global *global)
 
 int		keyboard_key_press(int key, t_global *global)
 {
-	if (key == Q)
-		close_window(global);
-	if (key == ESC && global->status->active_object != NO_OBJECT_SELECTED)
-		global->status->active_object = NO_OBJECT_SELECTED;
-	if (key == ESC && global->status->effect != NO_EFFECT)
-		global->status->effect = NO_EFFECT;
-	// else if (key == RETURN)
-	// 	control_type(global->status, global->mlx);
-	else if (key == SPACE)
-		change_camera(global->status);
-	else if (key == H)
-		global->status->hide_info = global->status->hide_info ? 0 : 1;
-	// else if (key == R)
-	// {
-	// 	reset_status(global->status);
-	// 	reset_render_status(global->mlx);
-	// }
-	else if (key == E)
-		change_effect(global->status);
-	// else if (key == LESS || key == MORE)
-	// 	control_iteration(global->status, key);
-	// else if (key == MINUS || key == PLUS)
-	// 	control_zoom(global->status, key);
+	if (key == Q || key == ESC || key == SPACE || key == E)
+		extra_keyboard_key_press(key, global);
 	else if (key == A || key == D || key == W || key == S || key == MORE ||
 	key == LESS)
 	{
@@ -66,8 +45,7 @@ int		keyboard_key_press(int key, t_global *global)
 		// 	rotate_object(global->status, key);
 	}
 	else if (key == ARROW_LEFT || key == ARROW_RIGHT || key == ARROW_DOWN
-	|| key == ARROW_UP || key == MINUS ||
-	key == PLUS)
+	|| key == ARROW_UP || key == MINUS || key == PLUS)
 	{
 		if (global->status->active_object == NO_OBJECT_SELECTED)
 			move_camera(global->status, key);
@@ -78,6 +56,20 @@ int		keyboard_key_press(int key, t_global *global)
 		return (0);
 	draw(global);
 	return (0);
+}
+
+void	extra_keyboard_key_press(int key, t_global *global)
+{
+	if (key == Q)
+		close_window(global);
+	else if (key == ESC && global->status->active_object != NO_OBJECT_SELECTED)
+		global->status->active_object = NO_OBJECT_SELECTED;
+	else if (key == ESC && global->status->effect != NO_EFFECT)
+		global->status->effect = NO_EFFECT;
+	else if (key == SPACE)
+		change_camera(global->status);
+	else if (key == E)
+		change_effect(global->status);
 }
 
 int		close_window(t_global *global)

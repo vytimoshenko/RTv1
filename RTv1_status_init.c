@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/27 02:34:28 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/28 01:54:19 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void		reset_status(t_status *status)
 	int	i;
 
 	status->active_object = -1;
+	status->scene_name = ft_strdup("Four amazing balls");
 
 	status->current_camera = 0;
 

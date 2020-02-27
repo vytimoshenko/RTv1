@@ -5,103 +5,156 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/01 18:27:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/27 06:41:49 by mperseus         ###   ########.fr       */
+/*   Created: 2020/02/27 20:50:53 by mperseus          #+#    #+#             */
+/*   Updated: 2020/02/28 01:14:35 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RTv1.h"
 
-void	put_control_keys(t_mlx *mlx)
+void	put_status_1(t_status *status, t_mlx *mlx)
 {
-	int pos_x;
-	int pos_y;
+	int		pos_x;
+	int		pos_y;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 750;
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 100, pos_y, TEXT_COLOR,
-	"CONTROL");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
-	"Select object:  left mouse button");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 50, TEXT_COLOR,
-	"Unselect:       ESC");
+	pos_y = 380;
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 110, pos_y - 30, TEXT_COLOR,
+	"STATUS");
+    mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y, TEXT_COLOR,
+	"Effect:");
+	if (status->effect == NO_EFFECT)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
+		"no");
+	else if (status->effect == EFFECT_GRAYSCALE)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
+		"Grayscale");
+	else if (status->effect == EFFECT_NEGATIVE)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
+		"Negative");
+	else if (status->effect == EFFECT_CARTOON)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
+		"Cartoon");
+}
+
+void	put_status_2(t_status *status, t_mlx *mlx)
+{
+	int		pos_x;
+	int		pos_y;
+	char	*str;
+
+	pos_x = WIN_SIZE_W - 350;
+	pos_y = 380;
+	
+	mlx_string_put(mlx->mlx, mlx->win, pos_x , pos_y + 30, TEXT_COLOR,
+	"Current camera:   #");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 30, TEXT_COLOR,
+	str = ft_itoa(status->current_camera + 1));
+	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 60, TEXT_COLOR,
+	"- position (XYZ):");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 60, TEXT_COLOR,
+	str = ft_itoa(status->cameras[status->current_camera]->position.x));
+	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 240, pos_y + 60, TEXT_COLOR,
+	str = ft_itoa(status->cameras[status->current_camera]->position.y));
+	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 290, pos_y + 60, TEXT_COLOR,
+	str = ft_itoa(status->cameras[status->current_camera]->position.z));
+	free(str);
+}
+
+void	put_status_3(t_status *status, t_mlx *mlx)
+{
+	int		pos_x;
+	int		pos_y;
+	char	*str;
+
+	pos_x = WIN_SIZE_W - 350;
+	pos_y = 380;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 80, TEXT_COLOR,
-	"Move object:    arrows/+/-");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 100, TEXT_COLOR,
-	"Rotate object:  W/A/S/D/</>");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 130, TEXT_COLOR,
-	"Change camera:  space");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 160, TEXT_COLOR,
-	"Change effect:  E/ESC");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 190, TEXT_COLOR,
-	"Reset:          R");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 210, TEXT_COLOR,
-	"Exit:           Q");
+	"- rotation (XYZ):");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 80, TEXT_COLOR,
+	str = ft_itoa(status->cameras[status->current_camera]->direction.x));
+	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 240, pos_y + 80, TEXT_COLOR,
+	str = ft_itoa(status->cameras[status->current_camera]->direction.y));
+	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 290, pos_y + 80, TEXT_COLOR,
+	str = ft_itoa(status->cameras[status->current_camera]->direction.z));
+	free(str);
 }
 
-void	put_render_info_1(t_mlx *mlx)
+void	put_status_4(t_status *status, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
 	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 1080;
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 110, pos_y, TEXT_COLOR,
-	"RENDER");
+	pos_y = 490;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
-	"Resolition:          x      pixels");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 160, pos_y + 30, TEXT_COLOR,
-	str = ft_itoa(IMG_SIZE_W));
-	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 230, pos_y + 30, TEXT_COLOR,
-	str = ft_itoa(IMG_SIZE_H));
-	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 50, TEXT_COLOR,
-	"Pixels:");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 160, pos_y + 50, TEXT_COLOR,
-	str = ft_itoa(IMG_SIZE_W * IMG_SIZE_H));
-	free(str);
+	"Selected object:");
+	if (status->active_object == NO_OBJECT_SELECTED)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 30, TEXT_COLOR,
+		"no");
+	else
+	{		
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 30, TEXT_COLOR,
+		str = ft_itoa(status->active_object));
+		free(str);	
+	}
 }
 
-void	put_render_info_2(t_mlx *mlx)
+void	put_status_5(t_status *status, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
 	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 1080;
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 80, TEXT_COLOR,
-	"Frames:");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 160, pos_y + 80, TEXT_COLOR,
-	str = ft_itoa(mlx->frames));
-	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 100, TEXT_COLOR,
-	"Frame time:          ms");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 160, pos_y + 100, TEXT_COLOR,
-	str = ft_itoa(mlx->frame_time));
-	free(str);
+	pos_y = 490;
+	if (status->active_object != NO_OBJECT_SELECTED)
+	{
+		mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 60, TEXT_COLOR,
+        "- position (XYZ):");
+        mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 60, TEXT_COLOR,
+        str = ft_itoa(status->spheres.array[status->active_object]->center.x));
+        free(str);
+        mlx_string_put(mlx->mlx, mlx->win, pos_x + 240, pos_y + 60, TEXT_COLOR,
+        str = ft_itoa(status->spheres.array[status->active_object]->center.y));
+        free(str);
+        mlx_string_put(mlx->mlx, mlx->win, pos_x + 290, pos_y + 60, TEXT_COLOR,
+        str = ft_itoa(status->spheres.array[status->active_object]->center.z));
+        free(str);
+        mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 80, TEXT_COLOR,
+        "- rotation (XYZ):");
+	}
 }
 
-void	put_bottom_line(t_status *status, t_mlx *mlx)
+void	put_status_6(t_status *status, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
 	char	*str;
 
-	pos_x = 20;
-	pos_y = WIN_SIZE_H - 30;
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y, TEXT_COLOR, "X:");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 20, pos_y, TEXT_COLOR,
-	str = ft_itoa(status->x_mouse_position));
-	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 80, pos_y, TEXT_COLOR, "Y:");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 100, pos_y, TEXT_COLOR,
-	str = ft_itoa(status->y_mouse_position));
-	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 200, pos_y, TEXT_COLOR,
-	"scene file opened:");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 390, pos_y, TEXT_COLOR,
-	status->file_name_with_path);
+	pos_x = WIN_SIZE_W - 350;
+	pos_y = 490;
+    if (status->active_object != NO_OBJECT_SELECTED)
+	{
+    	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 100, TEXT_COLOR,
+		"- radius:");
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 100, TEXT_COLOR,
+		str = ft_itoa(status->spheres.array[status->active_object]->radius));
+		free(str); 
+        // mlx_string_put(mlx->mlx, mlx->win, pos_x + 200, pos_y + 80, TEXT_COLOR,
+        // str = ft_itoa(status->cameras[status->current_camera]->direction.x));
+        // free(str);
+        // mlx_string_put(mlx->mlx, mlx->win, pos_x + 250, pos_y + 80, TEXT_COLOR,
+        // str = ft_itoa(status->cameras[status->current_camera]->direction.y));
+        // free(str);
+        // mlx_string_put(mlx->mlx, mlx->win, pos_x + 300, pos_y + 80, TEXT_COLOR,
+        // str = ft_itoa(status->cameras[status->current_camera]->direction.z));
+        // free(str);
+    }
 }
