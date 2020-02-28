@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:13:20 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 04:13:42 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/28 04:28:00 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ double		get_lightning(t_scene *scene, t_point point, t_vector pixel)
 }
 
 double		add_direct_and_diffuse_light(t_scene *scene, t_point point,
-		t_vector pixel, int i)
+			t_vector pixel, int i)
 {
 	t_vector	l;
 	t_sphere	shadow;

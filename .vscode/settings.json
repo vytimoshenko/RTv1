@@ -8,6 +8,9 @@
         "chrono": "c",
         "__locale": "c",
         "functional": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "iosfwd": "c",
+        "iterator": "c",
+        "__config": "c"
     }
 }

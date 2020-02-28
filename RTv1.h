@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 04:23:28 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/28 23:08:33 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@
 # include <math.h>
 # include <sys/time.h>
 
-# define PROGRAM_NAME			"RTv1"
+# define PROGRAM_NAME				"RTv1"
 
-# define WIN_SIZE_W				2180
+# define WIN_SIZE_W					2180
 # define WIN_SIZE_H					1240
 # define IMG_SIZE_W					1800.0
 # define IMG_SIZE_H					1200.0
 
-# define IMG_INDT_W				10
-# define IMG_INDT_H				10
+# define IMG_INDT_W					10
+# define IMG_INDT_H					10
 
 # define VIEWPORT_SIZE_W			1.5
 # define VIEWPORT_SIZE_H			1
@@ -272,6 +272,9 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+
+void					plane_intersection(t_sphere *sphere, t_vector camera, t_vector pixel);
+
 double					add_direct_and_diffuse_light(t_scene *scene,
 						t_point point, t_vector pixel, int i);
 
@@ -296,17 +299,17 @@ void					count_frames(t_mlx *mlx, struct timeval start,
 						struct timeval end);
 
 void					get_image(t_scene *scene, t_mlx *mlx);
-t_vector				canvas_to_viewport(int x, int y);
+t_vector				get_pixel(int x, int y);
 void					get_sin_cos(t_camera *camera);
-t_vector				camera_totation(t_vector vector, t_camera *camera);
+t_vector				rotate_pixel(t_vector vector, t_camera *camera);
 void					put_pixel(t_mlx *mlx, int x, int y, int color);
 
 t_color					get_color(t_spheres	spheres, t_light_sources lights_sources,
-						t_vector camera, t_vector viewport_pixel, int reflection_depth,
+						t_vector camera, t_vector pixel, int reflection_depth,
 						t_scene *scene, int x, int y);
 
-t_sphere				get_intersection(t_spheres	spheres, t_vector camera, t_vector viewport_pixel, double t_min, double t_max);
-void					sphere_intersection(t_sphere *sphere, t_vector camera, t_vector viewport_pixel);
+t_sphere				get_intersection(t_spheres	spheres, t_vector camera, t_vector pixel, double t_min, double t_max);
+void					sphere_intersection(t_sphere *sphere, t_vector camera, t_vector pixel);
 double					get_lightning(t_scene *scene, t_point point, t_vector pixel);
 void					fill_object_buffer(t_scene *scene, int x, int y, int id);
 

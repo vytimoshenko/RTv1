@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 04:16:32 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/28 22:58:54 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		get_image(t_scene *scene, t_mlx *mlx)
 {
 	int			x;
 	int			y;
-	t_vector	camera_direction;
+	t_vector	pixel;
 	t_color		color;
 
 	clean_object_buffer(scene);
@@ -27,25 +27,26 @@ void		get_image(t_scene *scene, t_mlx *mlx)
 		y = -IMG_SIZE_H / 2;
 		while (++y < IMG_SIZE_H / 2)
 		{
-			camera_direction = canvas_to_viewport(x, y);
-			camera_direction = camera_totation(camera_direction,
-			scene->cameras[scene->current_camera]);
+			pixel = get_pixel(x, y);
+			pixel = rotate_pixel(pixel, scene->cameras[scene->current_camera]);
 			color = get_color(scene->spheres, scene->light_sources,
-			scene->cameras[scene->current_camera]->position, camera_direction,
+			scene->cameras[scene->current_camera]->position, pixel,
 			REFLECTION_DEPTH, scene, x, y);
+
+			// color = plane_intersection(scene->cameras[scene->current_camera]->position, pixel);
 			put_pixel(mlx, x, y, final_processing(scene, x, y, color));
 		}
 	}
 }
 
-t_vector	canvas_to_viewport(int x, int y)
+t_vector	get_pixel(int x, int y)
 {
-	t_vector viewport_pixel;
+	t_vector pixel;
 
-	viewport_pixel.x = x * VIEWPORT_SIZE_W / IMG_SIZE_W;
-	viewport_pixel.y = y * VIEWPORT_SIZE_H / IMG_SIZE_H;
-	viewport_pixel.z = VIEWPORT_DISTANCE;
-	return (viewport_pixel);
+	pixel.x = x * VIEWPORT_SIZE_W / IMG_SIZE_W;
+	pixel.y = y * VIEWPORT_SIZE_H / IMG_SIZE_H;
+	pixel.z = VIEWPORT_DISTANCE;
+	return (pixel);
 }
 
 void		get_sin_cos(t_camera *camera)
@@ -58,24 +59,24 @@ void		get_sin_cos(t_camera *camera)
 	camera->cos.z = cos(deg_to_rad(camera->direction.z));
 }
 
-t_vector	camera_totation(t_vector vector, t_camera *camera)
+t_vector	rotate_pixel(t_vector pixel, t_camera *camera)
 {
 	double temp1;
 	double temp2;
 
-	temp1 = vector.y * camera->cos.x + vector.z * camera->sin.x;
-	temp2 = -vector.y * camera->sin.x + vector.z * camera->cos.x;
-	vector.y = temp1;
-	vector.z = temp2;
-	temp1 = vector.x * camera->cos.y + vector.z * camera->sin.y;
-	temp2 = -vector.x * camera->sin.y + vector.z * camera->cos.y;
-	vector.x = temp1;
-	vector.z = temp2;
-	temp1 = vector.x * camera->cos.z - vector.y * camera->sin.z;
-	temp2 = vector.x * camera->sin.z + vector.y * camera->cos.z;
-	vector.x = temp1;
-	vector.y = temp2;
-	return (vector);
+	temp1 = pixel.y * camera->cos.x + pixel.z * camera->sin.x;
+	temp2 = -pixel.y * camera->sin.x + pixel.z * camera->cos.x;
+	pixel.y = temp1;
+	pixel.z = temp2;
+	temp1 = pixel.x * camera->cos.y + pixel.z * camera->sin.y;
+	temp2 = -pixel.x * camera->sin.y + pixel.z * camera->cos.y;
+	pixel.x = temp1;
+	pixel.z = temp2;
+	temp1 = pixel.x * camera->cos.z - pixel.y * camera->sin.z;
+	temp2 = pixel.x * camera->sin.z + pixel.y * camera->cos.z;
+	pixel.x = temp1;
+	pixel.y = temp2;
+	return (pixel);
 }
 
 void		put_pixel(t_mlx *mlx, int x, int y, int color)
