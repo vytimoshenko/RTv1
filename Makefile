@@ -6,29 +6,30 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/02/27 22:24:16 by mperseus         ###   ########.fr        #
+#    Updated: 2020/02/28 03:35:21 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= 	RTv1
 
-HDR		= 	RTv1.h
+HDR		= 	rtv1.h
 
-SRC		= 	RTv1_main.c					\
-			RTv1_render.c				\
-			RTv1_vector.c				\
-			RTv1_color.c				\
-			RTv1_spheres.c				\
-			RTv1_final_processing.c		\
-			RTv1_mlx_init.c				\
-			RTv1_mlx_run.c				\
-			RTv1_mlx_hooks.c			\
-			RTv1_mlx_put_info_1.c		\
-			RTv1_mlx_put_info_2.c		\
-			RTv1_mlx_put_info_3.c		\
-			RTv1_status_init.c			\
-			RTv1_mlx_control_1.c		\
-			RTv1_mlx_control_2.c
+SRC		= 	rtv1_main.c					\
+			rtv1_render.c				\
+			rtv1_vector.c				\
+			rtv1_color.c				\
+			rtv1_spheres.c				\
+			rtv1_light.c				\
+			rtv1_final_processing.c		\
+			rtv1_mlx_init.c				\
+			rtv1_mlx_run.c				\
+			rtv1_mlx_hooks.c			\
+			rtv1_mlx_put_info_1.c		\
+			rtv1_mlx_put_info_2.c		\
+			rtv1_mlx_put_info_3.c		\
+			rtv1_status_init.c			\
+			rtv1_mlx_control_1.c		\
+			rtv1_mlx_control_2.c
 		
 OBJ		= 	$(SRC:.c=.o)
 

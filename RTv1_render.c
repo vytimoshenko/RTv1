@@ -1,44 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RTv1_render.c                                      :+:      :+:    :+:   */
+/*   rtv1_render.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 01:56:19 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/28 04:16:32 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RTv1.h"
+#include "rtv1.h"
 
-void	    get_image(t_status *status, t_mlx *mlx)
+void		get_image(t_scene *scene, t_mlx *mlx)
 {
 	int			x;
 	int			y;
 	t_vector	camera_direction;
 	t_color		color;
-	
-	clean_object_buffer(status);
-	get_sin_cos(status->cameras[status->current_camera]);
+
+	clean_object_buffer(scene);
+	get_sin_cos(scene->cameras[scene->current_camera]);
 	x = -IMG_SIZE_W / 2;
 	while (++x < IMG_SIZE_W / 2)
 	{
 		y = -IMG_SIZE_H / 2;
 		while (++y < IMG_SIZE_H / 2)
-        {
+		{
 			camera_direction = canvas_to_viewport(x, y);
 			camera_direction = camera_totation(camera_direction,
-			status->cameras[status->current_camera]);
-			color = get_color(status->spheres, status->light_sources,
-			status->cameras[status->current_camera]->position, camera_direction,
-			REFLECTION_DEPTH, status, x, y);
-			put_pixel(mlx, x, y, final_processing(status, x, y, color));
-        }
+			scene->cameras[scene->current_camera]);
+			color = get_color(scene->spheres, scene->light_sources,
+			scene->cameras[scene->current_camera]->position, camera_direction,
+			REFLECTION_DEPTH, scene, x, y);
+			put_pixel(mlx, x, y, final_processing(scene, x, y, color));
+		}
 	}
 }
 
-t_vector    canvas_to_viewport(int x, int y)
+t_vector	canvas_to_viewport(int x, int y)
 {
 	t_vector viewport_pixel;
 
@@ -48,7 +48,7 @@ t_vector    canvas_to_viewport(int x, int y)
 	return (viewport_pixel);
 }
 
-void	get_sin_cos(t_camera *camera)
+void		get_sin_cos(t_camera *camera)
 {
 	camera->sin.x = sin(deg_to_rad(camera->direction.x));
 	camera->sin.y = sin(deg_to_rad(camera->direction.y));
@@ -78,12 +78,12 @@ t_vector	camera_totation(t_vector vector, t_camera *camera)
 	return (vector);
 }
 
-void	    put_pixel(t_mlx *mlx, int x, int y, int color)
+void		put_pixel(t_mlx *mlx, int x, int y, int color)
 {
 	int i;
 
 	x = IMG_SIZE_W / 2 + x;
-  	y = IMG_SIZE_H / 2 - y;
+	y = IMG_SIZE_H / 2 - y;
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
 	mlx->data[i] = color;
 }

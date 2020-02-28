@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RTv1_mlx_put_info_3.c                              :+:      :+:    :+:   */
+/*   rtv1_mlx_put_info_3.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:27:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 00:36:31 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/28 03:36:46 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RTv1.h"
+#include "rtv1.h"
 
 void	put_control_keys(t_mlx *mlx)
 {
@@ -84,7 +84,7 @@ void	put_render_info_2(t_mlx *mlx)
 	free(str);
 }
 
-void	put_bottom_line(t_status *status, t_mlx *mlx)
+void	put_bottom_line(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -94,14 +94,14 @@ void	put_bottom_line(t_status *status, t_mlx *mlx)
 	pos_y = WIN_SIZE_H - 30;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y, TEXT_COLOR, "X:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 20, pos_y, TEXT_COLOR,
-	str = ft_itoa(status->x_mouse_position));
+	str = ft_itoa(scene->x_mouse_position));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 80, pos_y, TEXT_COLOR, "Y:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 100, pos_y, TEXT_COLOR,
-	str = ft_itoa(status->y_mouse_position));
+	str = ft_itoa(scene->y_mouse_position));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 200, pos_y, TEXT_COLOR,
 	"scene file opened:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 390, pos_y, TEXT_COLOR,
-	status->file_name_with_path);
+	scene->file_name_with_path);
 }
