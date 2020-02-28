@@ -94,6 +94,7 @@ void		reset_scene(t_scene *scene)
 		scene->spheres.array[i] = (t_sphere *)ft_memalloc(sizeof(t_sphere));
 	i = 0;
 	scene->spheres.array[i]->id = i;
+	scene->spheres.array[i]->type = OBJECT_TYPE_SPHERE;
 	scene->spheres.array[i]->color.r = 0xFF;
 	scene->spheres.array[i]->color.g = 0x00;
 	scene->spheres.array[i]->color.b = 0x00;
@@ -105,6 +106,7 @@ void		reset_scene(t_scene *scene)
 	scene->spheres.array[i]->radius = 10.0;
 	i++;
 	scene->spheres.array[i]->id = i;
+	scene->spheres.array[i]->type = OBJECT_TYPE_SPHERE;
 	scene->spheres.array[i]->color.r = 0x00;
 	scene->spheres.array[i]->color.g = 0xFF;
 	scene->spheres.array[i]->color.b = 0x00;
@@ -116,6 +118,7 @@ void		reset_scene(t_scene *scene)
 	scene->spheres.array[i]->radius = 12.0;
 	i++;
 	scene->spheres.array[i]->id = i;
+	scene->spheres.array[i]->type = OBJECT_TYPE_SPHERE;
 	scene->spheres.array[i]->color.r = 0x00;
 	scene->spheres.array[i]->color.g = 0x00;
 	scene->spheres.array[i]->color.b = 0xFF;
@@ -127,15 +130,16 @@ void		reset_scene(t_scene *scene)
 	scene->spheres.array[i]->radius = 8.0;
 	i++;
 	scene->spheres.array[i]->id = i;
+	scene->spheres.array[i]->type = OBJECT_TYPE_PLANE;
 	scene->spheres.array[i]->color.r = 0xFF;
 	scene->spheres.array[i]->color.g = 0xFF;
 	scene->spheres.array[i]->color.b = 0x00;
 	scene->spheres.array[i]->specular = 250;
 	scene->spheres.array[i]->reflective = 0.2;
 	scene->spheres.array[i]->center.x = 0.0;
-	scene->spheres.array[i]->center.y = -50010.0;
+	scene->spheres.array[i]->center.y = -10.0;
 	scene->spheres.array[i]->center.z = 0.0;
-	scene->spheres.array[i]->radius = 50000;
+	// scene->spheres.array[i]->radius = 50000;
 
 	// scene->light_sources.quantity = 3;
 	scene->light_sources.quantity = 4;

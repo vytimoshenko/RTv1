@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 21:44:12 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 00:09:00 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	put_scene_1(t_scene *scene, t_mlx *mlx)
 	pos_x = WIN_SIZE_W - 350;
 	pos_y = 380;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 110, pos_y - 30, TEXT_COLOR,
-	"Status");
+	"STATUS");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y, TEXT_COLOR,
 	"Effect:");
 	if (scene->effect == NO_EFFECT)

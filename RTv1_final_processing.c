@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 22:22:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 03:47:37 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 01:01:54 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ t_color	effect_negative(t_color color)
 
 t_color	effect_cartoon(t_color color)
 {
-	color.r /= 32;
-	color.g /= 32;
-	color.b /= 32;
-	color.r *= 32;
-	color.g *= 32;
-	color.b *= 32;
+	color.r /= 16;
+	color.g /= 16;
+	color.b /= 16;
+	color.r *= 16;
+	color.g *= 16;
+	color.b *= 16;
 	return (color);
 }

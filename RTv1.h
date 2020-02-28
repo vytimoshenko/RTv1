@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 23:08:33 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 00:50:23 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,34 @@
 # define LIGHT_TYPE_POINT			1
 # define LIGHT_TYPE_DIRECTIONAL		2
 
+# define OBJECT_TYPE_PLANE			0
+# define OBJECT_TYPE_SPHERE			1
+# define OBJECT_TYPE_CONE			2
+# define OBJECT_TYPE_CYLINDER		3
+
+// enum					e_effects
+// {
+// 	o_sphere = 1,
+// 	o_cylinder,
+// 	o_cone,
+// 	o_plane,
+// 	o_parab,
+// 	o_torus
+// };
+
 # define REFLECTION_DEPTH			3
 
 # define TEXT_COLOR 				0xFFFFFF
 # define BACKGROUND_COLOR  			{0x00, 0x00, 0x00}
+
+// enum					e_effects
+// {
+// 	EFFECTS_QUANTITY = 3,
+// 	NO_EFFECT,
+// 	EFFECT_GRAYSCALE,
+// 	EFFECT_NEGATIVE,
+// 	EFFECT_CARTOON,
+// };
 
 # define EFFECTS_QUANTITY			3
 # define NO_EFFECT					0
@@ -64,15 +88,7 @@
 # define OBJECT_MOVEMENT_INCREMENT	5
 # define OBJECT_ROTATION_INCREMENT	30
 
-// enum					e_effects
-// {
-// 	o_sphere = 1,
-// 	o_cylinder,
-// 	o_cone,
-// 	o_plane,
-// 	o_parab,
-// 	o_torus
-// };
+
 
 # define FALSE						0
 # define TRUE						1
@@ -165,6 +181,7 @@ typedef struct			s_mlx
 typedef struct			s_sphere
 {
 	int					id;
+	int					type;
 	t_color				color;
 	double				specular;
 	double				reflective;

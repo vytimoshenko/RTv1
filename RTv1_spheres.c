@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 23:46:59 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 00:57:51 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ t_color		get_color(t_spheres spheres, t_light_sources light_sources,
 		return ((t_color)BACKGROUND_COLOR);
 	fill_object_buffer(scene, x, y, closest_sphere.id);
 	point.xyz = add(camera, multiply_sv(closest_sphere.closest, pixel));
-	point.n = substract(point.xyz, closest_sphere.center);
+	if (closest_sphere.type == OBJECT_TYPE_PLANE)
+		point.n = multiply_sv(-1, closest_sphere.center);
+	else if (closest_sphere.type == OBJECT_TYPE_SPHERE)
+		point.n = substract(point.xyz, closest_sphere.center);
 	point.n = multiply_sv(1.0 / length(point.n), point.n);
 	point.color = closest_sphere.color;
 	point.specular = closest_sphere.specular;
@@ -73,10 +76,10 @@ t_sphere	get_intersection(t_spheres spheres, t_vector camera,
 	closest_sphere.null = 0;
 	while (++i < spheres.quantity)
 	{
-		if (i != 3)
-		sphere_intersection(spheres.array[i], camera, pixel);
-		else
-		plane_intersection(spheres.array[i], camera, pixel);
+		if (spheres.array[i]->type == OBJECT_TYPE_SPHERE)
+			sphere_intersection(spheres.array[i], camera, pixel);
+		else if (spheres.array[i]->type == OBJECT_TYPE_PLANE)
+			plane_intersection(spheres.array[i], camera, pixel);
 		if (spheres.array[i]->t1 >= t_min && spheres.array[i]->t1 <=
 		t_max && spheres.array[i]->t1 < closest)
 		{
@@ -126,13 +129,11 @@ void	sphere_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
 void	plane_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
 {
 	double t;
-	t_vector n = {0, -10, 0};
-
-	// t_vector plane_center = {0, 10, 30};
-
-	// t_vector oc = substract(camera, n);
-	t_vector x = substract(camera, n);
-
+	t_vector n;
+	t_vector x;
+	
+	n = sphere->center;
+	x = substract(camera, n);
 	double xdn = dot(x, n);
 	double pdn = dot(pixel, n);
 	if (!pdn)
@@ -142,14 +143,12 @@ void	plane_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
 	}
 	if ((t = -xdn / pdn) > 0)
 	{
-			sphere->t1 = t;
-			sphere->t2 = t;
+		sphere->t1 = t;
+		sphere->t2 = t;
 	}
 	else
 	{
 		sphere->t1 = -1;
 		sphere->t2 = -1;
 	}
-		// return ((t_color){255, 0, 0});
-	// return ((t_color)BACKGROUND_COLOR);
 }

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 22:58:54 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 01:34:47 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void		get_image(t_scene *scene, t_mlx *mlx)
 			color = get_color(scene->spheres, scene->light_sources,
 			scene->cameras[scene->current_camera]->position, pixel,
 			REFLECTION_DEPTH, scene, x, y);
-
-			// color = plane_intersection(scene->cameras[scene->current_camera]->position, pixel);
 			put_pixel(mlx, x, y, final_processing(scene, x, y, color));
 		}
 	}
