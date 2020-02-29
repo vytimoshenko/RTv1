@@ -6,11 +6,22 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 03:36:18 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 23:32:31 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+void	zoom_camera(t_scene *scene, int key)
+{
+	int i;
+
+	i = scene->current_camera;
+	if (key == PLUS && scene->cameras[i]->zoom < CAMERA_ZOOM_MAX)
+		scene->cameras[i]->zoom *= CAMERA_ZOOM_INCREMENT;
+	else if (key == MINUS && scene->cameras[i]->zoom > CAMERA_ZOOM_MIN)
+		scene->cameras[i]->zoom /= CAMERA_ZOOM_INCREMENT;
+}
 
 void	move_camera(t_scene *scene, int key)
 {
@@ -25,9 +36,9 @@ void	move_camera(t_scene *scene, int key)
 		scene->cameras[i]->position.x += CAMERA_MOVEMENT_INCREMENT;
 	else if (key == ARROW_LEFT)
 		scene->cameras[i]->position.x -= CAMERA_MOVEMENT_INCREMENT;
-	else if (key == PLUS)
+	else if (key == PAGE_UP)
 		scene->cameras[i]->position.z += CAMERA_MOVEMENT_INCREMENT;
-	else if (key == MINUS)
+	else if (key == PAGE_DOWN)
 		scene->cameras[i]->position.z -= CAMERA_MOVEMENT_INCREMENT;
 }
 
@@ -63,9 +74,9 @@ void	move_object(t_scene *scene, int key)
 		scene->spheres.array[i]->center.x += OBJECT_MOVEMENT_INCREMENT;
 	else if (key == ARROW_LEFT)
 		scene->spheres.array[i]->center.x -= OBJECT_MOVEMENT_INCREMENT;
-	else if (key == PLUS)
+	else if (key == PAGE_UP)
 		scene->spheres.array[i]->center.z += OBJECT_MOVEMENT_INCREMENT;
-	else if (key == MINUS)
+	else if (key == PAGE_DOWN)
 		scene->spheres.array[i]->center.z -= OBJECT_MOVEMENT_INCREMENT;
 }
 

@@ -23,10 +23,21 @@ t_scene	*init_scene(int argc, char **argv)
 		ft_put_errno(PROGRAM_NAME);
 	// check_argument(scene, argv[1]);
 	reset_scene(scene);
+	read_map(scene, argv[1]);
 	init_object_buffer(scene);
 	scene->file_name_with_path = ft_strdup(argv[1]);
 	return (scene);
 }
+
+// void	check_scene(t_scene *scene)
+// {
+	
+// }
+
+// void	read_scene(t_scene *scene)
+// {
+
+// }
 
 void		init_object_buffer(t_scene *scene)
 {
@@ -72,6 +83,7 @@ void		reset_scene(t_scene *scene)
 	scene->cameras[i]->direction.x = 0.0;
 	scene->cameras[i]->direction.y = 0.0;
 	scene->cameras[i]->direction.z = 0.0;
+	scene->cameras[i]->zoom = 1.0;
 	i++;
 	scene->cameras[i]->position.x = 20.0;
 	scene->cameras[i]->position.y = 10.0;
@@ -79,6 +91,7 @@ void		reset_scene(t_scene *scene)
 	scene->cameras[i]->direction.x = 0.0;
 	scene->cameras[i]->direction.y = 0.0;
 	scene->cameras[i]->direction.z = 0.0;
+	scene->cameras[i]->zoom = 1.0;
 	i++;
 	scene->cameras[i]->position.x = 0.0;
 	scene->cameras[i]->position.y = 100.0;
@@ -86,6 +99,7 @@ void		reset_scene(t_scene *scene)
 	scene->cameras[i]->direction.x = -90.0;
 	scene->cameras[i]->direction.y = 0.0;
 	scene->cameras[i]->direction.z = 0.0;
+	scene->cameras[i]->zoom = 1.0;
 
 	scene->spheres.quantity = 6;
 	scene->spheres.array = (t_sphere **)ft_memalloc(sizeof(t_sphere *) * scene->spheres.quantity);

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 05:51:28 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 23:32:49 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 
 # define VIEWPORT_SIZE_W			1.5
 # define VIEWPORT_SIZE_H			1
-# define VIEWPORT_DISTANCE			1
 
 // # define VIEWPORT_SIZE_W			6
 // # define VIEWPORT_SIZE_H			4
@@ -86,6 +85,10 @@
 # define EFFECT_GREEN_CHANNEL		6
 # define EFFECT_BLUE_CHANNEL		7
 
+# define CAMERA_ZOOM_INCREMENT		2
+# define CAMERA_ZOOM_MIN			0.0625
+# define CAMERA_ZOOM_MAX			16
+
 # define CAMERA_MOVEMENT_INCREMENT	10
 # define CAMERA_ROTATION_INCREMENT	15
 
@@ -117,6 +120,8 @@
 # define MORE						47
 # define SPACE						49
 # define ESC						53
+# define PAGE_UP					116
+# define PAGE_DOWN					121
 # define ARROW_LEFT					123
 # define ARROW_RIGHT				124
 # define ARROW_DOWN					125
@@ -242,6 +247,7 @@ typedef struct			s_camera
 	int					id;
 	t_vector			position;
 	t_vector			direction;
+	double				zoom;
 	t_vector			sin;
 	t_vector			cos;
 }						t_camera;
@@ -320,7 +326,7 @@ void					count_frames(t_mlx *mlx, struct timeval start,
 						struct timeval end);
 
 void					get_image(t_scene *scene, t_mlx *mlx);
-t_vector				get_pixel(int x, int y);
+t_vector				get_pixel(int x, int y, double zoom);
 void					get_sin_cos(t_camera *camera);
 t_vector				rotate_pixel(t_vector vector, t_camera *camera);
 void					put_pixel(t_mlx *mlx, int x, int y, int color);
@@ -367,6 +373,7 @@ int						keyboard_key_press(int key, t_global *global);
 void					extra_keyboard_key_press(int key, t_global *global);
 int						close_window(t_global *global);
 
+void					zoom_camera(t_scene *scene, int key);
 void					move_camera(t_scene *scene, int key);
 void					rotate_camera(t_scene *scene, int key);
 void					move_object(t_scene *scene, int key);

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 03:36:28 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 23:15:45 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,15 @@ int		keyboard_key_press(int key, t_global *global)
 		// 	rotate_object(global->scene, key);
 	}
 	else if (key == ARROW_LEFT || key == ARROW_RIGHT || key == ARROW_DOWN
-	|| key == ARROW_UP || key == MINUS || key == PLUS)
+	|| key == ARROW_UP || key == PAGE_UP || key == PAGE_DOWN)
 	{
 		if (global->scene->active_object == NO_OBJECT_SELECTED)
 			move_camera(global->scene, key);
 		else
 			move_object(global->scene, key);
 	}
+	else if (key == MINUS|| key == PLUS)
+		zoom_camera(global->scene, key);
 	else
 		return (0);
 	draw(global);

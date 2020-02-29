@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 05:36:23 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 22:28:49 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		get_image(t_scene *scene, t_mlx *mlx)
 	t_color		color;
 	// t_color		buffer[IMG_INDT_W * IMG_INDT_H];
 
-	
+
 	clean_object_buffer(scene);
 	get_sin_cos(scene->cameras[scene->current_camera]);
 	x = -IMG_SIZE_W / 2;
@@ -29,7 +29,7 @@ void		get_image(t_scene *scene, t_mlx *mlx)
 		y = -IMG_SIZE_H / 2;
 		while (++y < IMG_SIZE_H / 2)
 		{
-			pixel = get_pixel(x, y);
+			pixel = get_pixel(x, y, scene->cameras[scene->current_camera]->zoom);
 			pixel = rotate_pixel(pixel, scene->cameras[scene->current_camera]);
 			color = get_color(scene->spheres, scene->light_sources,
 			scene->cameras[scene->current_camera]->position, pixel,
@@ -42,13 +42,13 @@ void		get_image(t_scene *scene, t_mlx *mlx)
 		effect_pixelation(mlx->data);
 }
 
-t_vector	get_pixel(int x, int y)
+t_vector	get_pixel(int x, int y, double zoom)
 {
 	t_vector pixel;
 
 	pixel.x = x * VIEWPORT_SIZE_W / IMG_SIZE_W;
 	pixel.y = y * VIEWPORT_SIZE_H / IMG_SIZE_H;
-	pixel.z = VIEWPORT_DISTANCE;
+	pixel.z = zoom;
 	return (pixel);
 }
 
