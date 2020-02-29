@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 00:09:00 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 05:53:06 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,28 @@ void	put_scene_1(t_scene *scene, t_mlx *mlx)
 	"Effect:");
 	if (scene->effect == NO_EFFECT)
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
-		"no");
+		"-");
+	else if (scene->effect == EFFECT_PIXELATION)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
+		"Pixelation");
+	else if (scene->effect == EFFECT_CARTOON)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
+		"Cartoon");
 	else if (scene->effect == EFFECT_GRAYSCALE)
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
 		"Grayscale");
 	else if (scene->effect == EFFECT_NEGATIVE)
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
 		"Negative");
-	else if (scene->effect == EFFECT_CARTOON)
+	else if (scene->effect == EFFECT_RED_CHANNEL)
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
-		"Cartoon");
+		"Red channel");
+	else if (scene->effect == EFFECT_GREEN_CHANNEL)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
+		"Green channel");
+	else if (scene->effect == EFFECT_BLUE_CHANNEL)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
+		"Blue channel");
 }
 
 void	put_scene_2(t_scene *scene, t_mlx *mlx)
@@ -96,7 +108,7 @@ void	put_scene_4(t_scene *scene, t_mlx *mlx)
 	"Selected object:");
 	if (scene->active_object == NO_OBJECT_SELECTED)
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 30, TEXT_COLOR,
-		"no");
+		"-");
 	else
 	{
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 30, TEXT_COLOR,

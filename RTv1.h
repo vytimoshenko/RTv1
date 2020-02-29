@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 04:01:04 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 05:51:28 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,21 @@
 // 	EFFECT_CARTOON,
 // };
 
-# define EFFECTS_QUANTITY			6
+# define EFFECTS_QUANTITY			7
 # define NO_EFFECT					0
-# define EFFECT_GRAYSCALE			1
-# define EFFECT_RED_CHANNEL			2
-# define EFFECT_GREEN_CHANNEL		3
-# define EFFECT_BLUE_CHANNEL		4
-# define EFFECT_NEGATIVE			5
-# define EFFECT_CARTOON				6
+# define EFFECT_PIXELATION			1
+# define EFFECT_CARTOON				2
+# define EFFECT_GRAYSCALE			3
+# define EFFECT_NEGATIVE			4
+# define EFFECT_RED_CHANNEL			5
+# define EFFECT_GREEN_CHANNEL		6
+# define EFFECT_BLUE_CHANNEL		7
 
 # define CAMERA_MOVEMENT_INCREMENT	10
 # define CAMERA_ROTATION_INCREMENT	15
 
 # define OBJECT_MOVEMENT_INCREMENT	5
 # define OBJECT_ROTATION_INCREMENT	30
-
-
 
 # define FALSE						0
 # define TRUE						1
