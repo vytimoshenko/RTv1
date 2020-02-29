@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 01:34:47 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 04:24:04 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void		get_image(t_scene *scene, t_mlx *mlx)
 	int			y;
 	t_vector	pixel;
 	t_color		color;
+	// t_color		buffer[IMG_INDT_W * IMG_INDT_H];
 
+	
 	clean_object_buffer(scene);
 	get_sin_cos(scene->cameras[scene->current_camera]);
 	x = -IMG_SIZE_W / 2;
@@ -32,6 +34,7 @@ void		get_image(t_scene *scene, t_mlx *mlx)
 			color = get_color(scene->spheres, scene->light_sources,
 			scene->cameras[scene->current_camera]->position, pixel,
 			REFLECTION_DEPTH, scene, x, y);
+			// color_buffers(int *buffer, int x, int y, t_color color)
 			put_pixel(mlx, x, y, final_processing(scene, x, y, color));
 		}
 	}
@@ -86,3 +89,32 @@ void		put_pixel(t_mlx *mlx, int x, int y, int color)
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
 	mlx->data[i] = color;
 }
+
+// void	color_buffers(int *buffer, int x, int y, t_color color)
+// {
+// 	int i;
+
+// 	x = IMG_SIZE_W / 2 + x;
+// 	y = IMG_SIZE_H / 2 - y;
+// 	i = (int)(IMG_SIZE_W * (y - 1) + x);
+// 	buffer[i] = color.r;
+// }
+
+// void	effect_pixelation(int *data)
+// {
+// 	int	i;
+// 	int tmp;
+// 	t_color	color;
+
+// 	i = 0;
+// 	while (i < IMG_SIZE_W * (IMG_SIZE_H - 1))
+// 	{
+// 		color = split_color(i);
+// 		tmp = (data[i] + data[i + 1] + data[(int)IMG_SIZE_W] + data[(int)(IMG_SIZE_W + 1)]) / 4;
+// 		data[i] = tmp;
+// 		data[i + 1] = tmp;
+// 		data[(int)IMG_SIZE_W] = tmp;
+// 		data[(int)(IMG_SIZE_W + 1)] = tmp;
+// 		i += 2;
+// 	}
+// }

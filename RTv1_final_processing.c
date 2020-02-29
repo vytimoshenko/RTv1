@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 22:22:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 01:01:54 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 04:01:05 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,21 @@ int		final_processing(t_scene *scene, int x, int y, t_color color)
 		color = effect_negative(color);
 	else if (scene->effect == EFFECT_GRAYSCALE)
 		color = effect_grayscale(color);
+	else if (scene->effect == EFFECT_RED_CHANNEL)
+	{
+		color.g = 0;
+		color.b = 0;
+	}
+	else if (scene->effect == EFFECT_GREEN_CHANNEL)
+	{
+		color.r = 0;
+		color.b = 0;
+	}
+	else if (scene->effect == EFFECT_BLUE_CHANNEL)
+	{
+		color.r = 0;
+		color.g = 0;
+	}
 	else if (scene->effect == EFFECT_CARTOON)
 		color = effect_cartoon(color);
 	return (unite_color_channels(color));

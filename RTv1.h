@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 00:50:23 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 04:01:04 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,14 @@
 // 	EFFECT_CARTOON,
 // };
 
-# define EFFECTS_QUANTITY			3
+# define EFFECTS_QUANTITY			6
 # define NO_EFFECT					0
 # define EFFECT_GRAYSCALE			1
-# define EFFECT_NEGATIVE			2
-# define EFFECT_CARTOON				3
+# define EFFECT_RED_CHANNEL			2
+# define EFFECT_GREEN_CHANNEL		3
+# define EFFECT_BLUE_CHANNEL		4
+# define EFFECT_NEGATIVE			5
+# define EFFECT_CARTOON				6
 
 # define CAMERA_MOVEMENT_INCREMENT	10
 # define CAMERA_ROTATION_INCREMENT	15
@@ -290,6 +293,8 @@ typedef struct			s_global
 }						t_global;
 
 
+void	effect_pixelation(int *data);
+
 void					plane_intersection(t_sphere *sphere, t_vector camera, t_vector pixel);
 
 double					add_direct_and_diffuse_light(t_scene *scene,
@@ -324,7 +329,7 @@ void					put_pixel(t_mlx *mlx, int x, int y, int color);
 t_color					get_color(t_spheres	spheres, t_light_sources lights_sources,
 						t_vector camera, t_vector pixel, int reflection_depth,
 						t_scene *scene, int x, int y);
-
+// void					get_point_properties(t_point *point, t_sphere *object);
 t_sphere				get_intersection(t_spheres	spheres, t_vector camera, t_vector pixel, double t_min, double t_max);
 void					sphere_intersection(t_sphere *sphere, t_vector camera, t_vector pixel);
 double					get_lightning(t_scene *scene, t_point point, t_vector pixel);
@@ -337,12 +342,14 @@ t_vector				reflect_ray(t_vector ray, t_vector normal);
 
 double					dot(t_vector v1, t_vector v2);
 double					length(t_vector v1);
+t_vector				normalize(t_vector v);
 t_vector				add(t_vector v1, t_vector v2);
 t_vector				substract(t_vector v1, t_vector v2);
 t_vector				multiply_sv(double k, t_vector v);
 
 double					deg_to_rad(int degrees);
 int						unite_color_channels(t_color color);
+t_color					split_color(int color);
 t_color					add_color(t_color c1, t_color c2);
 t_color					multiply_color(double k, t_color c);
 

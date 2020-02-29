@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 22:12:27 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 03:40:23 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 01:59:02 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,14 @@ double		dot(t_vector v1, t_vector v2)
 	return ((double)(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z));
 }
 
-double		length(t_vector v1)
+double		length(t_vector v)
 {
-	return ((double)sqrt(dot(v1, v1)));
+	return ((double)sqrt(dot(v, v)));
+}
+
+t_vector	normalize(t_vector v)
+{
+	return ((multiply_sv(1.0 / length(v), v)));
 }
 
 t_vector	add(t_vector v1, t_vector v2)

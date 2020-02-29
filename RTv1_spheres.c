@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 00:57:51 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 02:38:23 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_color		get_color(t_spheres spheres, t_light_sources light_sources,
 		point.n = multiply_sv(-1, closest_sphere.center);
 	else if (closest_sphere.type == OBJECT_TYPE_SPHERE)
 		point.n = substract(point.xyz, closest_sphere.center);
-	point.n = multiply_sv(1.0 / length(point.n), point.n);
+	point.n = normalize(point.n);
 	point.color = closest_sphere.color;
 	point.specular = closest_sphere.specular;
 	point.reflective = closest_sphere.reflective;
@@ -49,6 +49,11 @@ t_color		get_color(t_spheres spheres, t_light_sources light_sources,
 	multiply_color(point.reflective, reflected_color));
 	return (point.final_color);
 }
+
+// t_point		get_point_properties(t_sphere *object)
+// {
+
+// }
 
 void		fill_object_buffer(t_scene *scene, int x, int y, int id)
 {
@@ -103,29 +108,6 @@ t_sphere	get_intersection(t_spheres spheres, t_vector camera,
 	return (closest_sphere);
 }
 
-void	sphere_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
-{
-	t_vector	r;
-	double		k1;
-	double		k2;
-	double		k3;
-	double		d;
-
-	r = substract(camera, sphere->center);
-	k1 = dot(pixel, pixel);
-	k2 = 2 * dot(r, pixel);
-	k3 = dot(r, r) - sphere->radius * sphere->radius;
-	d = k2 * k2 - 4 * k1 * k3;
-	if (d < 0)
-	{
-		sphere->t1 = -1;
-		sphere->t2 = -1;
-		return ;
-	}
-	sphere->t1 = (-k2 + sqrt(d)) / (2 * k1);
-	sphere->t2 = (-k2 - sqrt(d)) / (2 * k1);
-}
-
 void	plane_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
 {
 	double t;
@@ -152,3 +134,58 @@ void	plane_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
 		sphere->t2 = -1;
 	}
 }
+
+void	sphere_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
+{
+	t_vector	r;
+	double		k1;
+	double		k2;
+	double		k3;
+	double		d;
+
+	r = substract(camera, sphere->center);
+	k1 = dot(pixel, pixel);
+	k2 = 2 * dot(r, pixel);
+	k3 = dot(r, r) - sphere->radius * sphere->radius;
+	d = k2 * k2 - 4 * k1 * k3;
+	if (d < 0)
+	{
+		sphere->t1 = -1;
+		sphere->t2 = -1;
+		return ;
+	}
+	sphere->t1 = (-k2 + sqrt(d)) / (2 * k1);
+	sphere->t2 = (-k2 - sqrt(d)) / (2 * k1);
+}
+
+// void	cylinder_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
+// {
+// 	t_vector	r;
+// 	double		k1;
+// 	double		k2;
+// 	double		k3;
+// 	double		d;
+
+// 	double t;
+// 	t_vector n;
+// 	t_vector x;
+
+// 	r = substract(camera, sphere->center);
+// 	n = sphere->center;
+// 	x = substract(camera, n);
+// 	double pdn = dot(pixel, n);
+// 	double pdv = dot(pixel, v);
+// 	double xdv = dot(x, v);
+// 	k1 = dot(pixel, pixel) - pdv * pdv;
+// 	k2 = 2 * dot(r, pixel) - pdv * xdv;
+// 	k3 = dot(x, x) - xdv * xdv - r * r;
+// 	d = k2 * k2 - 4 * k1 * k3;
+// 	if (d < 0)
+// 	{
+// 		sphere->t1 = -1;
+// 		sphere->t2 = -1;
+// 		return ;
+// 	}
+// 	sphere->t1 = (-k2 + sqrt(d)) / (2 * k1);
+// 	sphere->t2 = (-k2 - sqrt(d)) / (2 * k1);
+// }

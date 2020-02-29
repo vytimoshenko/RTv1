@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 03:38:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 03:46:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/02/29 03:25:37 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ double	deg_to_rad(int degrees)
 int		unite_color_channels(t_color color)
 {
 	return (256 * 256 * color.r + 256 * color.g + color.b);
+}
+
+t_color	split_color(int color)
+{
+	t_color result;
+
+	result.r = color / 256 / 256;
+    result.g = color / 256 % 256;
+    result.b = color % 256;
+	return (result);
 }
 
 t_color	add_color(t_color c1, t_color c2)
