@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 23:32:49 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/01 22:38:51 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@
 // 	EFFECT_CARTOON,
 // };
 
+# define MOTION_BLUR_BUFFERS		5
+
+# define IN_MOTION_BLUR				1
+
 # define EFFECTS_QUANTITY			7
 # define NO_EFFECT					0
 # define EFFECT_PIXELATION			1
@@ -92,7 +96,7 @@
 # define CAMERA_MOVEMENT_INCREMENT	10
 # define CAMERA_ROTATION_INCREMENT	15
 
-# define OBJECT_MOVEMENT_INCREMENT	5
+# define OBJECT_MOVEMENT_INCREMENT	0.2
 # define OBJECT_ROTATION_INCREMENT	30
 
 # define FALSE						0
@@ -117,6 +121,7 @@
 # define MINUS						27
 # define RETURN						36
 # define LESS						43
+# define M							46
 # define MORE						47
 # define SPACE						49
 # define ESC						53
@@ -269,6 +274,12 @@ typedef struct			s_scene
 	t_cones				cones;
 	t_cylinders			cylinders;
 
+	t_color				*frame_buffer;
+
+	int					in_motion_blur;
+	int					buffer_id;
+	t_color				**motion_blur_frame_buffers;
+
 	int					*object_buffer;
 	int					*got_object;
 	int					active_object;
@@ -297,8 +308,16 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+void	motion_blur_script(t_global *global);
 
-void	effect_pixelation(int *data);
+void	motion_blur(t_color *frame_buffer, t_color **motion_blur_frame_buffers);
+
+void					put_pixel_into_buffer(t_scene *scene, int x, int y, t_color color);
+void					init_frame_buffer(t_scene *scene);
+void					put_pixel_into_buffer(t_scene *scene, int x, int y, t_color color);
+void					final_processing(t_mlx *mlx, t_scene *scene);
+
+void					effect_pixelation(t_scene *scene);
 
 void					plane_intersection(t_sphere *sphere, t_vector camera, t_vector pixel);
 
@@ -325,7 +344,7 @@ void					put_info_to_window(t_global *global);
 void					count_frames(t_mlx *mlx, struct timeval start,
 						struct timeval end);
 
-void					get_image(t_scene *scene, t_mlx *mlx);
+void					trace_rays(t_scene *scene);
 t_vector				get_pixel(int x, int y, double zoom);
 void					get_sin_cos(t_camera *camera);
 t_vector				rotate_pixel(t_vector vector, t_camera *camera);
@@ -358,9 +377,8 @@ t_color					split_color(int color);
 t_color					add_color(t_color c1, t_color c2);
 t_color					multiply_color(double k, t_color c);
 
-int						final_processing(t_scene *scene, int x, int y,
-						t_color color);
-t_color					shade_unselesected(t_scene *scene, int x, int y,
+t_color					pixel_post_processing(t_scene *scene, int i, t_color color);
+t_color					shade_unselesected(t_scene *scene, int i,
 						t_color color);
 t_color					effect_grayscale(t_color color);
 t_color					effect_negative(t_color color);

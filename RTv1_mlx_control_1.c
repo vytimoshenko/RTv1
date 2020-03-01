@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 23:32:31 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/01 22:35:06 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	rotate_camera(t_scene *scene, int key)
 		scene->cameras[i]->direction.z += CAMERA_ROTATION_INCREMENT;
 	else if (key == LESS)
 		scene->cameras[i]->direction.z -= CAMERA_ROTATION_INCREMENT;
+	get_sin_cos(scene->cameras[i]);
 }
 
 void	move_object(t_scene *scene, int key)

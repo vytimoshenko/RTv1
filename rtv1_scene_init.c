@@ -23,8 +23,10 @@ t_scene	*init_scene(int argc, char **argv)
 		ft_put_errno(PROGRAM_NAME);
 	// check_argument(scene, argv[1]);
 	reset_scene(scene);
-	read_map(scene, argv[1]);
+	// read_map(scene, argv[1]);
+	init_frame_buffer(scene);
 	init_object_buffer(scene);
+	get_sin_cos(scene->cameras[scene->current_camera]);
 	scene->file_name_with_path = ft_strdup(argv[1]);
 	return (scene);
 }
@@ -38,6 +40,25 @@ t_scene	*init_scene(int argc, char **argv)
 // {
 
 // }
+
+void		init_frame_buffer(t_scene *scene)
+{
+	int i;
+
+	if (!(scene->frame_buffer = (t_color *)malloc(sizeof(t_color)
+	* IMG_SIZE_W * IMG_SIZE_H)))
+		ft_put_errno(PROGRAM_NAME);
+	if (!(scene->motion_blur_frame_buffers = (t_color **)malloc(sizeof(t_color *)
+	* MOTION_BLUR_BUFFERS)))
+		ft_put_errno(PROGRAM_NAME);
+	i = -1;
+	while (++i < MOTION_BLUR_BUFFERS)
+	{
+		if (!(scene->motion_blur_frame_buffers[i] = (t_color *)malloc(sizeof(t_color)
+	* IMG_SIZE_W * IMG_SIZE_H)))
+		ft_put_errno(PROGRAM_NAME);
+	}
+}
 
 void		init_object_buffer(t_scene *scene)
 {

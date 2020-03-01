@@ -6,23 +6,20 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 22:28:49 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/01 22:41:47 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void		get_image(t_scene *scene, t_mlx *mlx)
+void	trace_rays(t_scene *scene)
 {
 	int			x;
 	int			y;
 	t_vector	pixel;
 	t_color		color;
-	// t_color		buffer[IMG_INDT_W * IMG_INDT_H];
-
 
 	clean_object_buffer(scene);
-	get_sin_cos(scene->cameras[scene->current_camera]);
 	x = -IMG_SIZE_W / 2;
 	while (++x < IMG_SIZE_W / 2)
 	{
@@ -34,12 +31,9 @@ void		get_image(t_scene *scene, t_mlx *mlx)
 			color = get_color(scene->spheres, scene->light_sources,
 			scene->cameras[scene->current_camera]->position, pixel,
 			REFLECTION_DEPTH, scene, x, y);
-			// color_buffers(int *buffer, int x, int y, t_color color)
-			put_pixel(mlx, x, y, final_processing(scene, x, y, color));
+			put_pixel_into_buffer(scene, x, y, color);
 		}
 	}
-	if (scene->effect == EFFECT_PIXELATION)
-		effect_pixelation(mlx->data);
 }
 
 t_vector	get_pixel(int x, int y, double zoom)
@@ -82,34 +76,121 @@ t_vector	rotate_pixel(t_vector pixel, t_camera *camera)
 	return (pixel);
 }
 
-void		put_pixel(t_mlx *mlx, int x, int y, int color)
+void		put_pixel_into_buffer(t_scene *scene, int x, int y, t_color color)
 {
 	int i;
 
 	x = IMG_SIZE_W / 2 + x;
 	y = IMG_SIZE_H / 2 - y;
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
-	mlx->data[i] = color;
+	scene->frame_buffer[i] = color;
 }
 
-void	effect_pixelation(int *data)
+void		final_processing(t_mlx *mlx, t_scene *scene)
 {
-	int	i;
-	int tmp;
-	int	k;
+	int		i;
 
-	i = 0;
-	k = 0;
-	while (i < IMG_SIZE_W * IMG_SIZE_H)
+	i = -1;
+	while (++i < IMG_SIZE_W * IMG_SIZE_H)
+		scene->frame_buffer[i] = pixel_post_processing(scene, i,
+		scene->frame_buffer[i]);
+	if (scene->in_motion_blur == TRUE && scene->buffer_id != MOTION_BLUR_BUFFERS - 1)
 	{
-		k = 0;
-		tmp = data[i];
-		while (k < 8)
-		{
-			data[i + k] = tmp;
-
-			k++;
-		}
-		i += 8;
+		i = -1;
+		while (++i < IMG_SIZE_W * IMG_SIZE_H)
+		scene->motion_blur_frame_buffers[scene->buffer_id][i] = scene->frame_buffer[i];
+		++scene->buffer_id;
 	}
+	if (scene->in_motion_blur == TRUE && scene->buffer_id == MOTION_BLUR_BUFFERS - 1)
+	{
+		motion_blur(scene->frame_buffer, scene->motion_blur_frame_buffers);
+		i = -1;
+		while (++i < IMG_SIZE_W * IMG_SIZE_H)
+		{
+			if (scene->object_buffer[i] == scene->active_object)
+			{
+				scene->frame_buffer[i].r = scene->motion_blur_frame_buffers[MOTION_BLUR_BUFFERS - 2][i].r;
+				scene->frame_buffer[i].g = scene->motion_blur_frame_buffers[MOTION_BLUR_BUFFERS - 2][i].g;
+				scene->frame_buffer[i].b = scene->motion_blur_frame_buffers[MOTION_BLUR_BUFFERS - 2][i].b;
+			}
+		}
+		scene->in_motion_blur = FALSE;
+		scene->buffer_id = 0;
+	}
+	i = -1;
+	while (++i < IMG_SIZE_W * IMG_SIZE_H)
+		mlx->data[i] = unite_color_channels(scene->frame_buffer[i]);
 }
+
+// void	motion_blur(t_scene *scene)
+// {
+// 	t_color color;
+// 	int n;
+
+// 	while (n < MOTION_BLUR_BUFFERS)
+// 	{
+// 		scene->motion_blur_frame_buffers;
+// 	}
+// }
+
+// 	void	effect_pixelation(t_scene *scene)
+// {
+// 	int	i;
+// 	int tmp;
+// 	int	k;
+
+// 	t_color *frame_buffer = scene->frame_buffer;
+
+// 	k = 8;
+// 	i = -1;
+// 	int sum_r;
+// 	int sum_g;
+// 	int sum_b;
+// 	int n;
+// 	sum_r = sum_g = sum_b = 0;
+// 	while (++i < IMG_SIZE_W * (IMG_SIZE_H - k)
+// 	{
+// 		n = 0;
+// 		sum_r = sum_g = sum_b = 0;
+// 		while ()
+// 		{
+// 			sum_r += frame_buffer[i].r;
+// 			sum_r += frame_buffer[i + 1].r;
+// 			sum_r += frame_buffer[i + (int)IMG_SIZE_W].r;
+// 			sum_r += frame_buffer[i + 1 + (int)IMG_SIZE_W].r;
+// 			sum_g += frame_buffer[i].g;
+// 			sum_g += frame_buffer[i + 1].g;
+// 			sum_g += frame_buffer[i + (int)IMG_SIZE_W].g;
+// 			sum_g += frame_buffer[i + 1 + (int)IMG_SIZE_W].g;
+// 			sum_b += frame_buffer[i].b;
+// 			sum_b += frame_buffer[i + 1].b;
+// 			sum_b += frame_buffer[i + (int)IMG_SIZE_W].b;
+// 			sum_b += frame_buffer[i + 1 + (int)IMG_SIZE_W].b;
+// 		}
+			
+// 	}
+// }
+
+
+
+// void	effect_pixelation(t_scene *scene)
+// {
+// 	int	i;
+// 	int tmp;
+// 	int	k;
+// 	t_color *frame_buffer = scene->frame_buffer;
+
+// 	i = 0;
+// 	k = 0;
+// 	while (i < IMG_SIZE_W * IMG_SIZE_H)
+// 	{
+// 		k = 0;
+// 		tmp = scene->frame_buffer[i];
+// 		while (k < 8)
+// 		{
+// 			scene->frame_buffer[i + k] = tmp;
+// 			k++;
+// 		}
+// 		i += 8;
+// 	}
+// }

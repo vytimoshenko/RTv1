@@ -6,16 +6,16 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 22:22:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 05:51:15 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/01 19:48:29 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int		final_processing(t_scene *scene, int x, int y, t_color color)
+t_color		pixel_post_processing(t_scene *scene, int i, t_color color)
 {
-	if (scene->active_object != NO_OBJECT_SELECTED)
-		color = shade_unselesected(scene, x, y, color);
+	if (scene->active_object != NO_OBJECT_SELECTED && scene->in_motion_blur != TRUE)
+		color = shade_unselesected(scene, i, color);
 	if (scene->effect == EFFECT_CARTOON)
 		color = effect_cartoon(color);
 	else if (scene->effect == EFFECT_GRAYSCALE)
@@ -37,16 +37,11 @@ int		final_processing(t_scene *scene, int x, int y, t_color color)
 		color.r = 0;
 		color.g = 0;
 	}
-	return (unite_color_channels(color));
+	return (color);
 }
 
-t_color	shade_unselesected(t_scene *scene, int x, int y, t_color color)
+t_color	shade_unselesected(t_scene *scene, int i, t_color color)
 {
-	int i;
-
-	x = IMG_SIZE_W / 2 + x;
-	y = IMG_SIZE_H / 2 - y;
-	i = (int)(IMG_SIZE_W * (y - 1) + x);
 	if (scene->object_buffer[i] != scene->active_object)
 		return (multiply_color(SHADE_UNSELECTED, color));
 	else
