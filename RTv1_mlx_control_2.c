@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:08:23 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 23:17:29 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/02 15:57:02 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	change_camera(t_scene *scene)
 		scene->current_camera++;
 	else
 		scene->current_camera = 0;
+	get_sin_cos(scene->cameras[scene->current_camera]);
 }
 
 void	change_effect(t_scene *scene)

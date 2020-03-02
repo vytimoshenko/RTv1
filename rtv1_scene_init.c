@@ -92,7 +92,7 @@ void		reset_scene(t_scene *scene)
 
 	scene->current_camera = 0;
 
-	scene->cameras_quantity = 3;
+	scene->cameras_quantity = 4;
 	scene->cameras = (t_camera **)ft_memalloc(sizeof(t_camera *) * scene->cameras_quantity);
 	i = -1;
 	while (++i < scene->cameras_quantity)
@@ -121,8 +121,16 @@ void		reset_scene(t_scene *scene)
 	scene->cameras[i]->direction.y = 0.0;
 	scene->cameras[i]->direction.z = 0.0;
 	scene->cameras[i]->zoom = 1.0;
+		i++;
+	scene->cameras[i]->position.x = 0.0;
+	scene->cameras[i]->position.y = 100.0;
+	scene->cameras[i]->position.z = 30.0;
+	scene->cameras[i]->direction.x = 0.0;
+	scene->cameras[i]->direction.y = -75.0;
+	scene->cameras[i]->direction.z = 0.0;
+	scene->cameras[i]->zoom = 1.0;
 
-	scene->spheres.quantity = 6;
+	scene->spheres.quantity = 8;
 	scene->spheres.array = (t_sphere **)ft_memalloc(sizeof(t_sphere *) * scene->spheres.quantity);
 	i = -1;
 	while (++i < scene->spheres.quantity)
@@ -135,6 +143,7 @@ void		reset_scene(t_scene *scene)
 	scene->spheres.array[i]->color.b = 0x00;
 	scene->spheres.array[i]->specular = 1000;
 	scene->spheres.array[i]->reflective = 0.5;
+	scene->spheres.array[i]->transparency = 0.5;
 	scene->spheres.array[i]->center.x = 0.0;
 	scene->spheres.array[i]->center.y = -10.0;
 	scene->spheres.array[i]->center.z = 30.0;
@@ -177,12 +186,49 @@ void		reset_scene(t_scene *scene)
 	scene->spheres.array[i]->radius = 2;
 	i++;
 	scene->spheres.array[i]->id = i;
+	scene->spheres.array[i]->type = OBJECT_TYPE_CYLINDER;
+	scene->spheres.array[i]->color.r = 0xFF;
+	scene->spheres.array[i]->color.g = 0xFF;
+	scene->spheres.array[i]->color.b = 0x00;
+	scene->spheres.array[i]->specular = 0;
+	scene->spheres.array[i]->reflective = 0.2;
+	scene->spheres.array[i]->center.x = 20.0;
+	scene->spheres.array[i]->center.y = -20.0;
+	scene->spheres.array[i]->center.z = 0.0;
+	scene->spheres.array[i]->radius = 0.5;
+		i++;
+	scene->spheres.array[i]->id = i;
+	scene->spheres.array[i]->type = OBJECT_TYPE_CYLINDER;
+	scene->spheres.array[i]->color.r = 0xFF;
+	scene->spheres.array[i]->color.g = 0xFF;
+	scene->spheres.array[i]->color.b = 0x00;
+	scene->spheres.array[i]->specular = 0;
+	scene->spheres.array[i]->reflective = 0.2;
+	scene->spheres.array[i]->center.x = 20.0;
+	scene->spheres.array[i]->center.y = 20.0;
+	scene->spheres.array[i]->center.z = 20.0;
+	scene->spheres.array[i]->radius = 1;
+			i++;
+	scene->spheres.array[i]->id = i;
+	scene->spheres.array[i]->type = OBJECT_TYPE_CONE;
+	scene->spheres.array[i]->color.r = 0xDD;
+	scene->spheres.array[i]->color.g = 0xDD;
+	scene->spheres.array[i]->color.b = 0xDD;
+	scene->spheres.array[i]->specular = 0;
+	scene->spheres.array[i]->reflective = 0.2;
+	scene->spheres.array[i]->center.x = 20.0;
+	scene->spheres.array[i]->center.y = 20.0;
+	scene->spheres.array[i]->center.z = 20.0;
+	scene->spheres.array[i]->k = 0.268;
+	scene->spheres.array[i]->radius = 0.1;
+	i++;
+	scene->spheres.array[i]->id = i;
 	scene->spheres.array[i]->type = OBJECT_TYPE_PLANE;
 	scene->spheres.array[i]->color.r = 0x100;
 	scene->spheres.array[i]->color.g = 0x100;
 	scene->spheres.array[i]->color.b = 0x100;
 	scene->spheres.array[i]->specular = 50;
-	scene->spheres.array[i]->reflective = 0.4;
+	scene->spheres.array[i]->reflective = 0;
 	scene->spheres.array[i]->center.x = 0.0;
 	scene->spheres.array[i]->center.y = -10.0;
 	scene->spheres.array[i]->center.z = 0.0;

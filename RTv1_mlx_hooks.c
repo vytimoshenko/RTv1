@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/01 22:34:08 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/02 15:41:13 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int		mouse_key_press(int key, int x, int y, t_global *global)
 		if (!(select_object(x, y, global)))
 			return (0);
 	}
-	else
-		return (0);
 	draw(global);
 	return (0);
 }
@@ -54,8 +52,8 @@ int		keyboard_key_press(int key, t_global *global)
 	}
 	else if (key == MINUS|| key == PLUS)
 		zoom_camera(global->scene, key);
-	else if (key == M)
-		global->scene->in_motion_blur = TRUE;
+	// else if (key == M)
+	// 	global->scene->in_motion_blur = TRUE;
 	else
 		return (0);
 	draw(global);

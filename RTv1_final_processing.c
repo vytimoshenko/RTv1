@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 22:22:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/01 19:48:29 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/01 22:48:02 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_color		pixel_post_processing(t_scene *scene, int i, t_color color)
 {
-	if (scene->active_object != NO_OBJECT_SELECTED && scene->in_motion_blur != TRUE)
+	if (scene->active_object != NO_OBJECT_SELECTED && scene->in_motion_blur == FALSE)
 		color = shade_unselesected(scene, i, color);
 	if (scene->effect == EFFECT_CARTOON)
 		color = effect_cartoon(color);

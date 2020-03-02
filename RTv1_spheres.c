@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 02:38:23 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/02 18:15:36 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ t_color		get_color(t_spheres spheres, t_light_sources light_sources,
 	if (closest_sphere.type == OBJECT_TYPE_PLANE)
 		point.n = multiply_sv(-1, closest_sphere.center);
 	else if (closest_sphere.type == OBJECT_TYPE_SPHERE)
+		point.n = substract(point.xyz, closest_sphere.center);
+	else if (closest_sphere.type == OBJECT_TYPE_CYLINDER)
+		point.n = substract(point.xyz, closest_sphere.center);
+	else if (closest_sphere.type == OBJECT_TYPE_CONE)
 		point.n = substract(point.xyz, closest_sphere.center);
 	point.n = normalize(point.n);
 	point.color = closest_sphere.color;
@@ -81,10 +85,14 @@ t_sphere	get_intersection(t_spheres spheres, t_vector camera,
 	closest_sphere.null = 0;
 	while (++i < spheres.quantity)
 	{
-		if (spheres.array[i]->type == OBJECT_TYPE_SPHERE)
-			sphere_intersection(spheres.array[i], camera, pixel);
-		else if (spheres.array[i]->type == OBJECT_TYPE_PLANE)
+		if (spheres.array[i]->type == OBJECT_TYPE_PLANE)
 			plane_intersection(spheres.array[i], camera, pixel);
+		else if (spheres.array[i]->type == OBJECT_TYPE_SPHERE)
+			sphere_intersection(spheres.array[i], camera, pixel);
+		else if (spheres.array[i]->type == OBJECT_TYPE_CYLINDER)
+			cylinder_intersection(spheres.array[i], camera, pixel);
+		else if (spheres.array[i]->type == OBJECT_TYPE_CONE)
+			cone_intersection(spheres.array[i], camera, pixel);
 		if (spheres.array[i]->t1 >= t_min && spheres.array[i]->t1 <=
 		t_max && spheres.array[i]->t1 < closest)
 		{
@@ -145,7 +153,7 @@ void	sphere_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
 
 	r = substract(camera, sphere->center);
 	k1 = dot(pixel, pixel);
-	k2 = 2 * dot(r, pixel);
+	k2 = 2 * dot(pixel, r);
 	k3 = dot(r, r) - sphere->radius * sphere->radius;
 	d = k2 * k2 - 4 * k1 * k3;
 	if (d < 0)
@@ -158,34 +166,51 @@ void	sphere_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
 	sphere->t2 = (-k2 - sqrt(d)) / (2 * k1);
 }
 
-// void	cylinder_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
-// {
-// 	t_vector	r;
-// 	double		k1;
-// 	double		k2;
-// 	double		k3;
-// 	double		d;
+void	cylinder_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
+{
+	t_vector	r;
+	double		k1;
+	double		k2;
+	double		k3;
+	double		d;
 
-// 	double t;
-// 	t_vector n;
-// 	t_vector x;
+	sphere->center = normalize(sphere->center);
+	r = substract(camera, sphere->center);
+	k1 = dot(pixel, pixel) - dot(pixel, sphere->center) * dot(pixel, sphere->center);
+	k2 = 2 * dot(pixel, r) - 2 * dot(pixel, sphere->center) * dot(r, sphere->center);
+	k3 = dot(r, r) - dot(r, sphere->center) * dot(r, sphere->center) - sphere->radius * sphere->radius;
+	d = k2 * k2 - 4 * k1 * k3;
+	if (d < 0)
+	{
+		sphere->t1 = -1;
+		sphere->t2 = -1;
+		return ;
+	}
+	sphere->t1 = (-k2 + sqrt(d)) / (2 * k1);
+	sphere->t2 = (-k2 - sqrt(d)) / (2 * k1);
+}
 
-// 	r = substract(camera, sphere->center);
-// 	n = sphere->center;
-// 	x = substract(camera, n);
-// 	double pdn = dot(pixel, n);
-// 	double pdv = dot(pixel, v);
-// 	double xdv = dot(x, v);
-// 	k1 = dot(pixel, pixel) - pdv * pdv;
-// 	k2 = 2 * dot(r, pixel) - pdv * xdv;
-// 	k3 = dot(x, x) - xdv * xdv - r * r;
-// 	d = k2 * k2 - 4 * k1 * k3;
-// 	if (d < 0)
-// 	{
-// 		sphere->t1 = -1;
-// 		sphere->t2 = -1;
-// 		return ;
-// 	}
-// 	sphere->t1 = (-k2 + sqrt(d)) / (2 * k1);
-// 	sphere->t2 = (-k2 - sqrt(d)) / (2 * k1);
-// }
+
+void	cone_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
+{
+	t_vector	r;
+	double		k1;
+	double		k2;
+	double		k3;
+	double		d;
+
+	// sphere->center = normalize(sphere->center);
+	r = substract(camera, sphere->center);
+	k1 = dot(pixel, pixel) - (1 + sphere->k * sphere->k) * dot(pixel, sphere->center) * dot(pixel, sphere->center);
+	k2 = 2 * dot(pixel, r) - (1 + sphere->k * sphere->k) * dot(pixel, sphere->center) * dot(r, sphere->center);
+	k3 = dot(r, r) - (1 + sphere->k * sphere->k) * dot(r, sphere->center) * dot(r, sphere->center);
+	d = k2 * k2 - 4 * k1 * k3;
+	if (d < 0)
+	{
+		sphere->t1 = -1;
+		sphere->t2 = -1;
+		return ;
+	}
+	sphere->t1 = (-k2 + sqrt(d)) / (2 * k1);
+	sphere->t2 = (-k2 - sqrt(d)) / (2 * k1);
+}
