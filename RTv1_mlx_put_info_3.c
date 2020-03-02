@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:27:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 23:38:37 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/02 18:23:41 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	put_control_keys(t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 110, pos_y, TEXT_COLOR,
 	"CONTROL");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
-	"Select object:  left mouse button");
+	"Select:         left mouse button");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 50, TEXT_COLOR,
 	"Unselect:       ESC");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 80, TEXT_COLOR,
-	"Move object:    arrows/PgUp/PgDown");
+	"Move:           arrows/PgUp/PgDown");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 100, TEXT_COLOR,
-	"Rotate object:  W/A/S/D/</>");
+	"Rotate:         W/A/S/D/</>");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 130, TEXT_COLOR,
 	"Change camera:  space");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 150, TEXT_COLOR,

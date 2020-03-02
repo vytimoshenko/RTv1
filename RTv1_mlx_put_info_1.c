@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 03:05:11 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 04:06:36 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/02 18:22:43 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	put_scene_summary_3(t_scene *scene, t_mlx *mlx)
 	str = ft_itoa(scene->cones.quantity));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 90, TEXT_COLOR,
-	"Primitives:");
+	"Objects:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 310, pos_y + 90, TEXT_COLOR,
 	str = ft_itoa(scene->total_objects_quantity));
 	free(str);

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/02 18:15:36 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/02 18:30:42 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,10 +199,10 @@ void	cone_intersection(t_sphere *sphere, t_vector camera, t_vector pixel)
 	double		k3;
 	double		d;
 
-	// sphere->center = normalize(sphere->center);
+	sphere->center = normalize(sphere->center);
 	r = substract(camera, sphere->center);
 	k1 = dot(pixel, pixel) - (1 + sphere->k * sphere->k) * dot(pixel, sphere->center) * dot(pixel, sphere->center);
-	k2 = 2 * dot(pixel, r) - (1 + sphere->k * sphere->k) * dot(pixel, sphere->center) * dot(r, sphere->center);
+	k2 = 2 * dot(pixel, r) - 2 * (1 + sphere->k * sphere->k) * dot(pixel, sphere->center) * dot(r, sphere->center);
 	k3 = dot(r, r) - (1 + sphere->k * sphere->k) * dot(r, sphere->center) * dot(r, sphere->center);
 	d = k2 * k2 - 4 * k1 * k3;
 	if (d < 0)
