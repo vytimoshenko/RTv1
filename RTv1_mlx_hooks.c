@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/02 15:41:13 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/03 22:43:39 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int		keyboard_key_press(int key, t_global *global)
 	{
 		if (global->scene->active_object == NO_OBJECT_SELECTED)
 			rotate_camera(global->scene, key);
-		// else
-		// 	rotate_object(global->scene, key);
+		else
+			rotate_object(global->scene, key);
 	}
 	else if (key == ARROW_LEFT || key == ARROW_RIGHT || key == ARROW_DOWN
 	|| key == ARROW_UP || key == PAGE_UP || key == PAGE_DOWN)

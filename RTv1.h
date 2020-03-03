@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/02 18:11:15 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/03 23:12:23 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 
 // enum					e_effects
 // {
-// 	o_sphere = 1,
+// 	o_object = 1,
 // 	o_cylinder,
 // 	o_cone,
 // 	o_plane,
@@ -94,7 +94,7 @@
 # define CAMERA_MOVEMENT_INCREMENT	10
 # define CAMERA_ROTATION_INCREMENT	15
 
-# define OBJECT_MOVEMENT_INCREMENT	1
+# define OBJECT_MOVEMENT_INCREMENT	10
 # define OBJECT_ROTATION_INCREMENT	30
 
 # define FALSE						0
@@ -182,7 +182,7 @@ typedef struct			s_mlx
 	float				frame_time;
 }						t_mlx;
 
-typedef struct			s_sphere
+typedef struct			s_object
 {
 	int					id;
 	int					type;
@@ -192,37 +192,20 @@ typedef struct			s_sphere
 	double				transparency;
 	double				radius;
 	t_vector			center;
+	t_vector			direction;
 	double				k;
 
 	double				t1;
 	double				t2;
 	double				closest;
 	int					null;
-}						t_sphere;
+}						t_object;
 
-typedef struct			s_spheres
+typedef struct			s_objects
 {
 	int					quantity;
-	t_sphere			**array;
-}						t_spheres;
-
-typedef struct			s_planes
-{
-	int					quantity;
-	// t_plane				**array;
-}						t_planes;
-
-typedef struct			s_cylinders
-{
-	int					quantity;
-	// t_plane				**array;
-}						t_cylinders;
-
-typedef struct			s_cones
-{
-	int					quantity;
-	// t_cone				**array;
-}						t_cones;
+	t_object			**array;
+}						t_objects;
 
 typedef struct			s_light
 {
@@ -263,10 +246,7 @@ typedef struct			s_scene
 	int					materials_quantity;
 
 	t_light_sources		light_sources;
-	t_spheres			spheres;
-	t_planes			planes;
-	t_cones				cones;
-	t_cylinders			cylinders;
+	t_objects			objects;
 
 	t_color				*frame_buffer;
 
@@ -286,6 +266,10 @@ typedef struct			s_scene
 	double				zoom;
 
 	int					total_objects_quantity;
+	int					planes_quantity;
+	int					objects_quantity;
+	int					cylinders_quantity;
+	int					cones_quantity;
 
 	int					x_mouse_position;
 	int					y_mouse_position;
@@ -304,8 +288,8 @@ typedef struct			s_global
 }						t_global;
 
 
-void	cylinder_intersection(t_sphere *sphere, t_vector camera, t_vector pixel);
-void	cone_intersection(t_sphere *sphere, t_vector camera, t_vector pixel);
+void	cylinder_intersection(t_object *object, t_vector camera, t_vector pixel);
+void	cone_intersection(t_object *object, t_vector camera, t_vector pixel);
 void	motion_blur_script(t_global *global);
 
 void	motion_blur(t_color *frame_buffer, t_color **motion_blur_frame_buffers);
@@ -317,7 +301,7 @@ void					final_processing(t_mlx *mlx, t_scene *scene);
 
 void					effect_pixelation(t_scene *scene);
 
-void					plane_intersection(t_sphere *sphere, t_vector camera, t_vector pixel);
+void					plane_intersection(t_object *object, t_vector camera, t_vector pixel);
 
 double					add_direct_and_diffuse_light(t_scene *scene,
 						t_point point, t_vector pixel, int i);
@@ -348,16 +332,16 @@ void					get_sin_cos(t_camera *camera);
 t_vector				rotate_pixel(t_vector vector, t_camera *camera);
 void					put_pixel(t_mlx *mlx, int x, int y, int color);
 
-t_color					get_color(t_spheres	spheres, t_light_sources lights_sources,
+t_color					get_color(t_objects	objects, t_light_sources lights_sources,
 						t_vector camera, t_vector pixel, int reflection_depth,
 						t_scene *scene, int x, int y);
-// void					get_point_properties(t_point *point, t_sphere *object);
-t_sphere				get_intersection(t_spheres	spheres, t_vector camera, t_vector pixel, double t_min, double t_max);
-void					sphere_intersection(t_sphere *sphere, t_vector camera, t_vector pixel);
+// void					get_point_properties(t_point *point, t_object *object);
+t_object				get_intersection(t_objects	objects, t_vector camera, t_vector pixel, double t_min, double t_max);
+void					sphere_intersection(t_object *object, t_vector camera, t_vector pixel);
 double					get_lightning(t_scene *scene, t_point point, t_vector pixel);
 void					fill_object_buffer(t_scene *scene, int x, int y, int id);
 
-int						is_in_shadow(t_spheres	spheres_arr, t_vector point, t_vector light, double t_max);
+int						is_in_shadow(t_objects	objects_arr, t_vector point, t_vector light, double t_max);
 double					diffuse(t_vector normal, t_vector light);
 double					specular(t_vector normal, t_vector light, t_vector pixel, double specular);
 t_vector				reflect_ray(t_vector ray, t_vector normal);
@@ -393,7 +377,7 @@ void					zoom_camera(t_scene *scene, int key);
 void					move_camera(t_scene *scene, int key);
 void					rotate_camera(t_scene *scene, int key);
 void					move_object(t_scene *scene, int key);
-// void					rotate_object(t_scene *scene, int key);
+void					rotate_object(t_scene *scene, int key);
 
 void					get_mouse_position(t_scene *scene, int x, int y);
 int						select_object(int x, int y, t_global *global);

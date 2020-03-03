@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/01 22:35:06 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/03 23:13:38 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,34 +68,34 @@ void	move_object(t_scene *scene, int key)
 
 	i = scene->active_object;
 	if (key == ARROW_DOWN)
-		scene->spheres.array[i]->center.y -= OBJECT_MOVEMENT_INCREMENT;
+		scene->objects.array[i]->center.y -= OBJECT_MOVEMENT_INCREMENT;
 	else if (key == ARROW_UP)
-		scene->spheres.array[i]->center.y += OBJECT_MOVEMENT_INCREMENT;
+		scene->objects.array[i]->center.y += OBJECT_MOVEMENT_INCREMENT;
 	else if (key == ARROW_RIGHT)
-		scene->spheres.array[i]->center.x += OBJECT_MOVEMENT_INCREMENT;
+		scene->objects.array[i]->center.x += OBJECT_MOVEMENT_INCREMENT;
 	else if (key == ARROW_LEFT)
-		scene->spheres.array[i]->center.x -= OBJECT_MOVEMENT_INCREMENT;
+		scene->objects.array[i]->center.x -= OBJECT_MOVEMENT_INCREMENT;
 	else if (key == PAGE_UP)
-		scene->spheres.array[i]->center.z += OBJECT_MOVEMENT_INCREMENT;
+		scene->objects.array[i]->center.z += OBJECT_MOVEMENT_INCREMENT;
 	else if (key == PAGE_DOWN)
-		scene->spheres.array[i]->center.z -= OBJECT_MOVEMENT_INCREMENT;
+		scene->objects.array[i]->center.z -= OBJECT_MOVEMENT_INCREMENT;
 }
 
-// void	rotate_object(t_scene *scene, int key)
-// {
-// 	int i;
+void	rotate_object(t_scene *scene, int key)
+{
+	int i;
 
-// 	i = scene->current_camera;
-// 	if (key == W)
-// 		scene->cameras[i]->direction.x += OBJECT_ROTATION_INCREMENT;
-// 	else if (key == S)
-// 		scene->cameras[i]->direction.x -= OBJECT_ROTATION_INCREMENT;
-// 	else if (key == D)
-// 		scene->cameras[i]->direction.y += OBJECT_ROTATION_INCREMENT;
-// 	else if (key == A)
-// 		scene->cameras[i]->direction.y -= OBJECT_ROTATION_INCREMENT;
-// 	else if (key == MORE)
-// 		scene->cameras[i]->direction.z += OBJECT_ROTATION_INCREMENT;
-// 	else if (key == LESS)
-// 		scene->cameras[i]->direction.z -= OBJECT_ROTATION_INCREMENT;
-// }
+	i = scene->active_object;
+	if (key == W)
+		scene->objects.array[i]->direction.y += OBJECT_ROTATION_INCREMENT;
+	else if (key == S)
+		scene->objects.array[i]->direction.y -= OBJECT_ROTATION_INCREMENT;
+	else if (key == D)
+		scene->objects.array[i]->direction.x += OBJECT_ROTATION_INCREMENT;
+	else if (key == A)
+		scene->objects.array[i]->direction.x -= OBJECT_ROTATION_INCREMENT;
+	else if (key == MORE)
+		scene->objects.array[i]->direction.z += OBJECT_ROTATION_INCREMENT;
+	else if (key == LESS)
+		scene->objects.array[i]->direction.z -= OBJECT_ROTATION_INCREMENT;
+}

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/01 22:41:47 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/03 23:14:07 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	trace_rays(t_scene *scene)
 		{
 			pixel = get_pixel(x, y, scene->cameras[scene->current_camera]->zoom);
 			pixel = rotate_pixel(pixel, scene->cameras[scene->current_camera]);
-			color = get_color(scene->spheres, scene->light_sources,
+			color = get_color(scene->objects, scene->light_sources,
 			scene->cameras[scene->current_camera]->position, pixel,
 			REFLECTION_DEPTH, scene, x, y);
 			put_pixel_into_buffer(scene, x, y, color);

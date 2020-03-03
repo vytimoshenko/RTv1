@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 03:05:11 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/02 18:22:43 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/03 23:12:38 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ void	put_scene_summary_2(t_scene *scene, t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 120, TEXT_COLOR,
 	"- ambient:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 120, TEXT_COLOR,
-	str = ft_itoa(scene->planes.quantity));
+	str = ft_itoa(scene->planes_quantity));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 140, TEXT_COLOR,
 	"- directional:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 140, TEXT_COLOR,
-	str = ft_itoa(scene->spheres.quantity));
+	str = ft_itoa(scene->objects.quantity));
 	free(str);
 }
 
@@ -74,7 +74,7 @@ void	put_scene_summary_3(t_scene *scene, t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 160, TEXT_COLOR,
 	"- point:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 160, TEXT_COLOR,
-	str = ft_itoa(scene->cones.quantity));
+	str = ft_itoa(scene->cones_quantity));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 90, TEXT_COLOR,
 	"Objects:");
@@ -84,7 +84,7 @@ void	put_scene_summary_3(t_scene *scene, t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 120, TEXT_COLOR,
 	"- planes:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 310, pos_y + 120, TEXT_COLOR,
-	str = ft_itoa(scene->planes.quantity));
+	str = ft_itoa(scene->planes_quantity));
 	free(str);
 }
 
@@ -99,16 +99,16 @@ void	put_scene_summary_4(t_scene *scene, t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 140, TEXT_COLOR,
 	"- spheres:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 310, pos_y + 140, TEXT_COLOR,
-	str = ft_itoa(scene->spheres.quantity));
+	str = ft_itoa(scene->objects_quantity));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 160, TEXT_COLOR,
 	"- cones:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 310, pos_y + 160, TEXT_COLOR,
-	str = ft_itoa(scene->cones.quantity));
+	str = ft_itoa(scene->cones_quantity));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 180, TEXT_COLOR,
 	"- cylinders:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 310, pos_y + 180, TEXT_COLOR,
-	str = ft_itoa(scene->cylinders.quantity));
+	str = ft_itoa(scene->cylinders_quantity));
 	free(str);
 }

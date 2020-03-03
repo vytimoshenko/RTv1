@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/29 23:34:07 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/03 23:12:52 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,16 +130,25 @@ void	put_scene_5(t_scene *scene, t_mlx *mlx)
 		mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 60, TEXT_COLOR,
 		"- position (XYZ):");
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 60, TEXT_COLOR,
-		str = ft_itoa(scene->spheres.array[scene->active_object]->center.x));
+		str = ft_itoa(scene->objects.array[scene->active_object]->center.x));
 		free(str);
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 240, pos_y + 60, TEXT_COLOR,
-		str = ft_itoa(scene->spheres.array[scene->active_object]->center.y));
+		str = ft_itoa(scene->objects.array[scene->active_object]->center.y));
 		free(str);
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 290, pos_y + 60, TEXT_COLOR,
-		str = ft_itoa(scene->spheres.array[scene->active_object]->center.z));
+		str = ft_itoa(scene->objects.array[scene->active_object]->center.z));
 		free(str);
 		mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 80, TEXT_COLOR,
 		"- rotation (XYZ):");
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 80, TEXT_COLOR,
+		str = ft_itoa(scene->objects.array[scene->active_object]->direction.x));
+		free(str);
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 240, pos_y + 80, TEXT_COLOR,
+		str = ft_itoa(scene->objects.array[scene->active_object]->direction.y));
+		free(str);
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 290, pos_y + 80, TEXT_COLOR,
+		str = ft_itoa(scene->objects.array[scene->active_object]->direction.z));
+		free(str);
 	}
 }
 
@@ -153,10 +162,10 @@ void	put_scene_6(t_scene *scene, t_mlx *mlx)
 	pos_y = 490;
 	if (scene->active_object != NO_OBJECT_SELECTED)
 	{
-		mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 100, TEXT_COLOR,
+		mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 110, TEXT_COLOR,
 		"- radius:");
-		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 100, TEXT_COLOR,
-		str = ft_itoa(scene->spheres.array[scene->active_object]->radius));
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 110, TEXT_COLOR,
+		str = ft_itoa(scene->objects.array[scene->active_object]->radius));
 		free(str);
 		// mlx_string_put(mlx->mlx, mlx->win, pos_x + 200, pos_y + 80, TEXT_COLOR,
 		// str = ft_itoa(scene->cameras[scene->current_camera]->direction.x));
