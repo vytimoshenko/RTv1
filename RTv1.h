@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/04 04:05:03 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/04 08:12:33 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,7 @@
 
 # define VIEWPORT_SIZE_W			1.5
 # define VIEWPORT_SIZE_H			1
-
-// # define VIEWPORT_SIZE_W			6
-// # define VIEWPORT_SIZE_H			4
-// # define VIEWPORT_DISTANCE			3
-
-# define NO_OBJECT_SELECTED			-1
-# define SHADE_UNSELECTED			0.5
-
-# define DRAW_DISTANCE_MIN			0.001
-# define DRAW_DISTANCE_MAX			1000000
+// # define VIEWPORT_DISTANCE		1
 
 # define LIGHT_TYPE_AMBIENT			0
 # define LIGHT_TYPE_POINT			1
@@ -51,29 +42,16 @@
 # define OBJECT_TYPE_CONE			2
 # define OBJECT_TYPE_CYLINDER		3
 
-// enum					e_effects
-// {
-// 	o_object = 1,
-// 	o_cylinder,
-// 	o_cone,
-// 	o_plane,
-// 	o_parab,
-// 	o_torus
-// };
-
 # define REFLECTION_DEPTH			3
+# define DRAW_DISTANCE_MIN			0.00001
+# define DRAW_DISTANCE_MAX			1000000
 
 # define TEXT_COLOR 				0xFFFFFF
-# define BACKGROUND_COLOR  			{0x00, 0x00, 0x00}
 
-// enum					e_effects
-// {
-// 	EFFECTS_QUANTITY = 3,
-// 	NO_EFFECT,
-// 	EFFECT_GRAYSCALE,
-// 	EFFECT_NEGATIVE,
-// 	EFFECT_CARTOON,
-// };
+# define NO_OBJECT_SELECTED			-1
+# define SHADE_UNSELECTED			0.5
+
+# define MULTI_SAMPLING_RATE		16
 
 # define MOTION_BLUR_BUFFERS		20
 
@@ -89,7 +67,7 @@
 
 # define CAMERA_ZOOM_INCREMENT		2
 # define CAMERA_ZOOM_MIN			0.0625
-# define CAMERA_ZOOM_MAX			16
+# define CAMERA_ZOOM_MAX			256
 
 # define CAMERA_MOVEMENT_INCREMENT	10
 # define CAMERA_ROTATION_INCREMENT	15
@@ -233,6 +211,8 @@ typedef struct			s_scene
 	char				*file_name_with_path;
 
 	char				*scene_name;
+
+	t_color				background;
 	int					cameras_quantity;
 	int					current_camera;
 	t_camera			**cameras;
@@ -296,6 +276,7 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+void	get_jitter(double *random);
 void		get_point_properties(t_point *point, t_object *object);
 
 void	motion_blur_script(t_global *global);

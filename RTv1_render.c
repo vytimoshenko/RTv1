@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/04 03:58:17 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/04 08:12:03 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,57 @@
 
 void	trace_rays(t_scene *scene)
 {
-	t_pixel	pixel;
+	int			i;
+	t_pixel		pixel;
+	t_color		sum;
+	t_vector	tmp;
+	double		rand[MULTI_SAMPLING_RATE];
 
 	clean_object_buffer(scene);
+	get_jitter(rand);
 	pixel.x = -IMG_SIZE_W / 2;
 	while (++pixel.x < IMG_SIZE_W / 2)
 	{
 		pixel.y = -IMG_SIZE_H / 2;
 		while (++pixel.y < IMG_SIZE_H / 2)
 		{
-			get_pixel_position(scene, &pixel);
-			pixel.color = (t_color)BACKGROUND_COLOR;
-			get_pixel_color(scene, scene->cameras[scene->current_camera]->
-			position, &pixel, REFLECTION_DEPTH);
+			sum = (t_color){0, 0, 0};
+			i = -1;
+			while (++i < MULTI_SAMPLING_RATE)
+			{
+				get_pixel_position(scene, &pixel);
+				pixel.color = scene->background;
+				tmp.x = rand[i] + scene->cameras[scene->current_camera]->position.x;
+				tmp.y = rand[i] + scene->cameras[scene->current_camera]->position.y;
+				get_pixel_color(scene, tmp, &pixel, REFLECTION_DEPTH);
+				// get_pixel_color(scene, scene->cameras[scene->current_camera]->
+				// position, &pixel, REFLECTION_DEPTH);
+				sum.r += pixel.color.r;
+				sum.g += pixel.color.g;
+				sum.b += pixel.color.b;
+			}
+			tmp.x = 0;
+			tmp.y = 0;
+			pixel.color.r = sum.r / MULTI_SAMPLING_RATE;
+			pixel.color.g = sum.g / MULTI_SAMPLING_RATE;
+			pixel.color.b = sum.b / MULTI_SAMPLING_RATE;
 			put_pixel_into_buffer(scene, pixel);
 		}
 	}
+}
+
+void	get_jitter(double *random)
+{
+    int i;
+
+	srand(79);
+    i = -1;
+	for (i = 1; i <= MULTI_SAMPLING_RATE; i++)
+	{
+    	random[i] = (rand() % 100 + 1.0) / 5000.0;
+		if (i % 2)
+        	random[i] *= -1;
+ 	}
 }
 
 void	get_pixel_position(t_scene *scene, t_pixel *pixel)
@@ -114,57 +149,6 @@ void		final_processing(t_mlx *mlx, t_scene *scene)
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 		mlx->data[i] = unite_color_channels(scene->frame_buffer[i]);
 }
-
-// void	motion_blur(t_scene *scene)
-// {
-// 	t_color color;
-// 	int n;
-
-// 	while (n < MOTION_BLUR_BUFFERS)
-// 	{
-// 		scene->motion_blur_frame_buffers;
-// 	}
-// }
-
-// 	void	effect_pixelation(t_scene *scene)
-// {
-// 	int	i;
-// 	int tmp;
-// 	int	k;
-
-// 	t_color *frame_buffer = scene->frame_buffer;
-
-// 	k = 8;
-// 	i = -1;
-// 	int sum_r;
-// 	int sum_g;
-// 	int sum_b;
-// 	int n;
-// 	sum_r = sum_g = sum_b = 0;
-// 	while (++i < IMG_SIZE_W * (IMG_SIZE_H - k)
-// 	{
-// 		n = 0;
-// 		sum_r = sum_g = sum_b = 0;
-// 		while ()
-// 		{
-// 			sum_r += frame_buffer[i].r;
-// 			sum_r += frame_buffer[i + 1].r;
-// 			sum_r += frame_buffer[i + (int)IMG_SIZE_W].r;
-// 			sum_r += frame_buffer[i + 1 + (int)IMG_SIZE_W].r;
-// 			sum_g += frame_buffer[i].g;
-// 			sum_g += frame_buffer[i + 1].g;
-// 			sum_g += frame_buffer[i + (int)IMG_SIZE_W].g;
-// 			sum_g += frame_buffer[i + 1 + (int)IMG_SIZE_W].g;
-// 			sum_b += frame_buffer[i].b;
-// 			sum_b += frame_buffer[i + 1].b;
-// 			sum_b += frame_buffer[i + (int)IMG_SIZE_W].b;
-// 			sum_b += frame_buffer[i + 1 + (int)IMG_SIZE_W].b;
-// 		}
-			
-// 	}
-// }
-
-
 
 // void	effect_pixelation(t_scene *scene)
 // {
