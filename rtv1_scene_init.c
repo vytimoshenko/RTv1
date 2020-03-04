@@ -143,7 +143,7 @@ void		reset_scene(t_scene *scene)
 	scene->objects.array[i]->color.b = 0x00;
 	scene->objects.array[i]->specular = 1000;
 	scene->objects.array[i]->reflective = 0.5;
-	scene->objects.array[i]->transparency = 0.5;
+	scene->objects.array[i]->transparency = 0.0;
 	scene->objects.array[i]->center.x = 0.0;
 	scene->objects.array[i]->center.y = -10.0;
 	scene->objects.array[i]->center.z = 30.0;
@@ -156,6 +156,7 @@ void		reset_scene(t_scene *scene)
 	scene->objects.array[i]->color.b = 0x00;
 	scene->objects.array[i]->specular = 1000;
 	scene->objects.array[i]->reflective = 0.5;
+	scene->objects.array[i]->transparency = 0.0;
 	scene->objects.array[i]->center.x = 20.0;
 	scene->objects.array[i]->center.y = 0.0;
 	scene->objects.array[i]->center.z = 40.0;
@@ -168,6 +169,8 @@ void		reset_scene(t_scene *scene)
 	scene->objects.array[i]->color.b = 0xFF;
 	scene->objects.array[i]->specular = 1000;
 	scene->objects.array[i]->reflective = 0.5;
+	// scene->objects.array[i]->refractive = 1 - scene->objects.array[i]->reflective;
+	scene->objects.array[i]->transparency = 0.9;
 	scene->objects.array[i]->center.x = -20.0;
 	scene->objects.array[i]->center.y = 0.0;
 	scene->objects.array[i]->center.z = 40.0;

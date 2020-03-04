@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/04 02:55:15 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/04 04:05:03 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,8 @@ typedef struct			s_point
 	t_color				color;
 	double				specular;
 	double				reflective;
-
+	double				refractive;
+	double				transparency;
 
 	double				light;
 	t_vector			n;
@@ -172,26 +173,7 @@ typedef struct			s_pixel
 	// int					object_id;
 }						t_pixel;
 
-// typedef struct			s_light
-// {
-// 	t_vector			light;
-// 	double				t_max;
-// }						t_light;
 
-typedef struct			s_mlx
-{
-	void				*mlx;
-	void				*win;
-	void				*img;
-	int					*data;
-
-	int					bits_per_pixel;
-	int					size_line;
-	int					endian;
-
-	int					frames;
-	float				frame_time;
-}						t_mlx;
 
 typedef struct			s_object
 {
@@ -200,6 +182,7 @@ typedef struct			s_object
 	t_color				color;
 	double				specular;
 	double				reflective;
+	double				refractive;
 	double				transparency;
 	double				radius;
 	t_vector			center;
@@ -292,6 +275,21 @@ typedef struct			s_scene
 	double				y_shift;
 }						t_scene;
 
+typedef struct			s_mlx
+{
+	void				*mlx;
+	void				*win;
+	void				*img;
+	int					*data;
+
+	int					bits_per_pixel;
+	int					size_line;
+	int					endian;
+
+	int					frames;
+	float				frame_time;
+}						t_mlx;
+
 typedef struct			s_global
 {
 	t_scene				*scene;
@@ -344,7 +342,7 @@ void					get_sin_cos(t_camera *camera);
 void				rotate_pixel(t_pixel *pixel, t_camera *camera);
 void					put_pixel(t_mlx *mlx, int x, int y, int color);
 
-t_color					get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int reflection_depth);
+void					get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int reflection_depth);
 // void					get_point_properties(t_point *point, t_object *object);
 
 t_object				get_intersection(t_objects	objects, t_vector camera, t_vector pixel, double t_min, double t_max);

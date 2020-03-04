@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/04 02:48:43 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/04 03:58:17 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void	trace_rays(t_scene *scene)
 		while (++pixel.y < IMG_SIZE_H / 2)
 		{
 			get_pixel_position(scene, &pixel);
-			pixel.color = get_pixel_color(scene,
-			scene->cameras[scene->current_camera]->position, &pixel, REFLECTION_DEPTH);
+			pixel.color = (t_color)BACKGROUND_COLOR;
+			get_pixel_color(scene, scene->cameras[scene->current_camera]->
+			position, &pixel, REFLECTION_DEPTH);
 			put_pixel_into_buffer(scene, pixel);
 		}
 	}

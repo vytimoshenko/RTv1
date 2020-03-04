@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/03 23:16:03 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/04 04:32:02 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC		= 	rtv1_main.c					\
 			rtv1_render.c				\
 			rtv1_vector.c				\
 			rtv1_color.c				\
-			rtv1_spheres.c				\
+			rtv1_trace.c				\
 			rtv1_intersections.c		\
 			rtv1_final_processing.c		\
 			rtv1_mlx_init.c				\
