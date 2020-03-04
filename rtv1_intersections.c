@@ -6,13 +6,13 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 23:04:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/03 23:08:33 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/04 01:59:54 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	plane_intersection(t_object *object, t_vector camera, t_vector pixel)
+void	plane(t_object *object, t_vector camera, t_vector pixel)
 {
 	double		t;
 	t_vector	n;
@@ -39,7 +39,7 @@ void	plane_intersection(t_object *object, t_vector camera, t_vector pixel)
 	}
 }
 
-void	sphere_intersection(t_object *object, t_vector camera, t_vector pixel)
+void	sphere(t_object *object, t_vector camera, t_vector pixel)
 {
 	t_vector	r;
 	double		k1;
@@ -62,7 +62,7 @@ void	sphere_intersection(t_object *object, t_vector camera, t_vector pixel)
 	object->t2 = (-k2 - sqrt(d)) / (2 * k1);
 }
 
-void	cylinder_intersection(t_object *object, t_vector camera, t_vector pixel)
+void	cylinder(t_object *object, t_vector camera, t_vector pixel)
 {
 	t_vector	r;
 	double		k1;
@@ -87,7 +87,7 @@ void	cylinder_intersection(t_object *object, t_vector camera, t_vector pixel)
 }
 
 
-void	cone_intersection(t_object *object, t_vector camera, t_vector pixel)
+void	cone(t_object *object, t_vector camera, t_vector pixel)
 {
 	t_vector	r;
 	double		k1;

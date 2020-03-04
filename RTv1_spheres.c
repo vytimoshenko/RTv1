@@ -6,66 +6,63 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/03 23:16:42 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/04 03:02:07 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_color		get_color(t_objects objects, t_light_sources light_sources,
-		t_vector camera, t_vector pixel, int reflection_depth, t_scene *scene,
-		int x, int y)
+t_color		get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int k)
 {
 	t_point		point;
 	t_object	closest_object;
-	t_vector	view;
-	t_vector	reflect;
-	t_color		reflected_color;
 
-	closest_object = get_intersection(objects, camera,
-	pixel, DRAW_DISTANCE_MIN, DRAW_DISTANCE_MAX);
+	closest_object = get_intersection(scene->objects, camera, pixel->position,
+	DRAW_DISTANCE_MIN, DRAW_DISTANCE_MAX);
 	if (closest_object.closest == DRAW_DISTANCE_MAX)
 		return ((t_color)BACKGROUND_COLOR);
-	fill_object_buffer(scene, x, y, closest_object.id);
-	point.xyz = add(camera, multiply_sv(closest_object.closest, pixel));
-	if (closest_object.type == OBJECT_TYPE_PLANE)
-		point.n = multiply_sv(-1, closest_object.center);
-	else if (closest_object.type == OBJECT_TYPE_SPHERE)
-		point.n = substract(point.xyz, closest_object.center);
-	else if (closest_object.type == OBJECT_TYPE_CYLINDER)
-		point.n = substract(point.xyz, closest_object.center);
-	else if (closest_object.type == OBJECT_TYPE_CONE)
-		point.n = substract(point.xyz, closest_object.center);
-	point.n = normalize(point.n);
-	point.color = closest_object.color;
-	point.specular = closest_object.specular;
-	point.reflective = closest_object.reflective;
-	view = multiply_sv(-1.0, pixel);
-	point.light = get_lightning(scene, point, view);
+	fill_object_buffer(scene, *pixel, closest_object.id);
+	point.xyz = add(camera, multiply_sv(closest_object.closest, pixel->position));
+	get_point_properties(&point, &closest_object);
+	point.light = get_lightning(scene, point, multiply_sv(-1.0, pixel->position));
 	point.final_color = multiply_color(point.light, point.color);
-	if (reflection_depth == 0 || point.reflective <= 0)
+	if (k == 0 || point.reflective <= 0)
 		return (point.final_color);
-	reflect = reflect_ray(view, point.n);
-	reflected_color = get_color(objects, light_sources, point.xyz, reflect,
-	reflection_depth - 1, scene, x, y);
+	pixel->position = reflect_ray(multiply_sv(-1.0, pixel->position), point.n);
+	pixel->color = get_pixel_color(scene, point.xyz, pixel, k - 1);
 	point.final_color = add_color(multiply_color(1.0 - point.reflective,
-	point.final_color),
-	multiply_color(point.reflective, reflected_color));
+	point.final_color), multiply_color(point.reflective, pixel->color));
 	return (point.final_color);
 }
 
-// t_point		get_point_properties(t_object *object)
-// {
+void		get_point_properties(t_point *point, t_object *object)
+{
+	get_normal(point, object);
+	point->n = normalize(point->n);
+	point->color = object->color;
+	point->specular = object->specular;
+	point->reflective = object->reflective;
+}
 
-// }
+void		get_normal(t_point *point, t_object *object)
+{
+	if (object->type == OBJECT_TYPE_PLANE)
+		point->n = multiply_sv(-1, object->center);
+	else if (object->type == OBJECT_TYPE_SPHERE)
+		point->n = substract(point->xyz, object->center);
+	else if (object->type == OBJECT_TYPE_CYLINDER)
+		point->n = substract(point->xyz, object->center);
+	else if (object->type == OBJECT_TYPE_CONE)
+		point->n = substract(point->xyz, object->center);
+}
 
-void		fill_object_buffer(t_scene *scene, int x, int y, int id)
+void		fill_object_buffer(t_scene *scene, t_pixel pixel, int id)
 {
 	int	i;
 
-	x = IMG_SIZE_W / 2 + x;
-	y = IMG_SIZE_H / 2 - y;
-	i = (int)(IMG_SIZE_W * (y - 1) + x);
+	pixel.x = IMG_SIZE_W / 2 + pixel.x;
+	pixel.y = IMG_SIZE_H / 2 - pixel.y;
+	i = (int)(IMG_SIZE_W * (pixel.y - 1) + pixel.x);
 	if (i > 0 && scene->got_object[i] == FALSE)
 	{
 		scene->object_buffer[i] = id;
@@ -85,14 +82,8 @@ t_object	get_intersection(t_objects objects, t_vector camera,
 	closest_object.null = 0;
 	while (++i < objects.quantity)
 	{
-		if (objects.array[i]->type == OBJECT_TYPE_PLANE)
-			plane_intersection(objects.array[i], camera, pixel);
-		else if (objects.array[i]->type == OBJECT_TYPE_SPHERE)
-			sphere_intersection(objects.array[i], camera, pixel);
-		else if (objects.array[i]->type == OBJECT_TYPE_CYLINDER)
-			cylinder_intersection(objects.array[i], camera, pixel);
-		else if (objects.array[i]->type == OBJECT_TYPE_CONE)
-			cone_intersection(objects.array[i], camera, pixel);
+		select_object_function(objects.array[i], camera, pixel);
+		// get_closest_object(objects.array[i]);
 		if (objects.array[i]->t1 >= t_min && objects.array[i]->t1 <=
 		t_max && objects.array[i]->t1 < closest)
 		{
@@ -116,4 +107,32 @@ t_object	get_intersection(t_objects objects, t_vector camera,
 	return (closest_object);
 }
 
+void	select_object_function(t_object *object, t_vector camera, t_vector pixel)
+{
+	if (object->type == OBJECT_TYPE_PLANE)
+		plane(object, camera, pixel);
+	else if (object->type == OBJECT_TYPE_SPHERE)
+		sphere(object, camera, pixel);
+	else if (object->type == OBJECT_TYPE_CYLINDER)
+		cylinder(object, camera, pixel);
+	else if (object->type == OBJECT_TYPE_CONE)
+		cone(object, camera, pixel);
+}
 
+// void	get_closest_object(t_object *object, t_object *closest_object)
+// {
+// 	if (object->t1 >= t_min && objects->t1 <=
+// 		t_max && objects.array[i]->t1 < closest)
+// 		{
+// 			closest = objects.array[i]->t1;
+// 			closest_object = *objects.array[i];
+// 			closest_object.null = 1;
+// 		}
+// 	if (object->t2 >= t_min && object->t2 <=
+// 	t_max && objects.array[i]->t2 < closest)
+// 	{
+// 		closest = objects.array[i]->t2;
+// 		closest_object = *objects.array[i];
+// 		closest_object.null = 1;
+// 	}
+// }

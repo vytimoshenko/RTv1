@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/03 23:12:23 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/04 02:55:15 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,17 @@ typedef struct			s_point
 	t_color				final_color;
 }						t_point;
 
+typedef struct			s_pixel
+{
+	int					x;
+	int					y;
+	
+	t_vector			position;
+	t_color				color;
+
+	// int					object_id;
+}						t_pixel;
+
 // typedef struct			s_light
 // {
 // 	t_vector			light;
@@ -287,21 +298,22 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+void		get_point_properties(t_point *point, t_object *object);
 
-void	cylinder_intersection(t_object *object, t_vector camera, t_vector pixel);
-void	cone_intersection(t_object *object, t_vector camera, t_vector pixel);
 void	motion_blur_script(t_global *global);
 
 void	motion_blur(t_color *frame_buffer, t_color **motion_blur_frame_buffers);
 
-void					put_pixel_into_buffer(t_scene *scene, int x, int y, t_color color);
+void		get_normal(t_point *point, t_object *object);
+
+
+// void					put_pixel_into_buffer(t_scene *scene, int x, int y, t_color color);
 void					init_frame_buffer(t_scene *scene);
-void					put_pixel_into_buffer(t_scene *scene, int x, int y, t_color color);
+void					put_pixel_into_buffer(t_scene *scene, t_pixel pixel);
 void					final_processing(t_mlx *mlx, t_scene *scene);
 
 void					effect_pixelation(t_scene *scene);
 
-void					plane_intersection(t_object *object, t_vector camera, t_vector pixel);
 
 double					add_direct_and_diffuse_light(t_scene *scene,
 						t_point point, t_vector pixel, int i);
@@ -327,19 +339,23 @@ void					count_frames(t_mlx *mlx, struct timeval start,
 						struct timeval end);
 
 void					trace_rays(t_scene *scene);
-t_vector				get_pixel(int x, int y, double zoom);
+void				get_pixel_position(t_scene *scene, t_pixel *pixel);
 void					get_sin_cos(t_camera *camera);
-t_vector				rotate_pixel(t_vector vector, t_camera *camera);
+void				rotate_pixel(t_pixel *pixel, t_camera *camera);
 void					put_pixel(t_mlx *mlx, int x, int y, int color);
 
-t_color					get_color(t_objects	objects, t_light_sources lights_sources,
-						t_vector camera, t_vector pixel, int reflection_depth,
-						t_scene *scene, int x, int y);
+t_color					get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int reflection_depth);
 // void					get_point_properties(t_point *point, t_object *object);
+
 t_object				get_intersection(t_objects	objects, t_vector camera, t_vector pixel, double t_min, double t_max);
-void					sphere_intersection(t_object *object, t_vector camera, t_vector pixel);
+void					select_object_function(t_object *object, t_vector camera, t_vector pixel);
+void					plane(t_object *object, t_vector camera, t_vector pixel);
+void					sphere(t_object *object, t_vector camera, t_vector pixel);
+void					cylinder(t_object *object, t_vector camera, t_vector pixel);
+void					cone(t_object *object, t_vector camera, t_vector pixel);
+
 double					get_lightning(t_scene *scene, t_point point, t_vector pixel);
-void					fill_object_buffer(t_scene *scene, int x, int y, int id);
+void					fill_object_buffer(t_scene *scene, t_pixel pixel, int id);
 
 int						is_in_shadow(t_objects	objects_arr, t_vector point, t_vector light, double t_max);
 double					diffuse(t_vector normal, t_vector light);
