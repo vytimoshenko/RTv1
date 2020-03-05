@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/05 03:46:35 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/05 06:29:58 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 # define NO_OBJECT_SELECTED			-1
 # define SHADE_UNSELECTED			0.5
 
-# define MULTI_SAMPLING_RATE		16
+# define MULTI_SAMPLING_RATE		4
 
 # define MOTION_BLUR_BUFFERS		20
 

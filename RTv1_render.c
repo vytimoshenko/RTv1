@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/05 01:49:53 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/05 06:28:47 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	trace_rays(t_scene *scene)
 		pixel.y = -IMG_SIZE_H / 2;
 		while (++pixel.y < IMG_SIZE_H / 2)
 		{
-			pixel.color = scene->background;
 			if (scene->anti_aliasing == TRUE)
 				anti_aliasing(scene, &pixel, jitter);
 			else
 			{
+				pixel.color = scene->background;
 				get_pixel_position(scene, &pixel);
 				get_pixel_color(scene, scene->cameras[scene->current_camera]->position, &pixel, REFLECTION_DEPTH);
 			}
@@ -45,11 +45,17 @@ void	anti_aliasing(t_scene *scene, t_pixel *pixel, double *jitter)
 	int			i;
 	t_color		sum;
 	t_vector	tmp;
+	long color;
 
 	sum = (t_color){0, 0, 0};
 	i = -1;
+	color = 0;
+	tmp.z = scene->cameras[scene->current_camera]->position.z;
 	while (++i < MULTI_SAMPLING_RATE)
 	{
+		tmp.x = 0;
+		tmp.y = 0;
+		pixel->color = scene->background;
 		get_pixel_position(scene, pixel);
 		tmp.x = jitter[i] + scene->cameras[scene->current_camera]->position.x;
 		tmp.y = jitter[i] + scene->cameras[scene->current_camera]->position.y;
@@ -58,9 +64,9 @@ void	anti_aliasing(t_scene *scene, t_pixel *pixel, double *jitter)
 		sum.g += pixel->color.g;
 		sum.b += pixel->color.b;
 	}
-	pixel->color.r = sum.r / MULTI_SAMPLING_RATE;
-	pixel->color.g = sum.g / MULTI_SAMPLING_RATE;
-	pixel->color.b = sum.b / MULTI_SAMPLING_RATE;
+	pixel->color.r = (int)(sum.r / (MULTI_SAMPLING_RATE));
+	pixel->color.g = (int)(sum.g / (MULTI_SAMPLING_RATE));
+	pixel->color.b = (int)(sum.b / (MULTI_SAMPLING_RATE));
 }
 
 void	get_jitter(double *random)
@@ -71,7 +77,7 @@ void	get_jitter(double *random)
     i = -1;
 	for (i = 1; i <= MULTI_SAMPLING_RATE; i++)
 	{
-    	random[i] = (rand() % 100 + 1.0) / 10000.0;
+    	random[i] = (rand() % 100 + 1.0) / 5000.0;
 		if (i % 2)
         	random[i] *= -1;
 		printf("%f\n", random[i]);
@@ -82,7 +88,8 @@ void	get_pixel_position(t_scene *scene, t_pixel *pixel)
 {
 	pixel->position.x = pixel->x * VIEWPORT_SIZE_W / IMG_SIZE_W;
 	pixel->position.y = pixel->y * VIEWPORT_SIZE_H / IMG_SIZE_H;
-	pixel->position.z = scene->cameras[scene->current_camera]->zoom;
+	// pixel->position.z = scene->cameras[scene->current_camera]->zoom;
+	pixel->position.z = 1;
 	rotate_pixel(pixel, scene->cameras[scene->current_camera]);
 }
 
