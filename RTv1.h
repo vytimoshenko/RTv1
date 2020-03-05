@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/04 08:12:33 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/05 03:46:35 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,21 @@
 
 # define MOTION_BLUR_BUFFERS		20
 
-# define EFFECTS_QUANTITY			7
+# define EFFECTS_QUANTITY			9
 # define NO_EFFECT					0
-# define EFFECT_PIXELATION			1
-# define EFFECT_CARTOON				2
+// # define EFFECT_PIXELATION			1
+# define EFFECT_CARTOON				8
 # define EFFECT_GRAYSCALE			3
 # define EFFECT_NEGATIVE			4
 # define EFFECT_RED_CHANNEL			5
 # define EFFECT_GREEN_CHANNEL		6
 # define EFFECT_BLUE_CHANNEL		7
+# define EFFECT_DEPTH_MAP			1
+# define EFFECT_FOG					2
+
+# define DEPTH_MAP_INCREMENT		2
+# define DEPTH_MAP_MIN				8
+# define DEPTH_MAP_MAX				1024
 
 # define CAMERA_ZOOM_INCREMENT		2
 # define CAMERA_ZOOM_MIN			0.0625
@@ -95,13 +101,16 @@
 # define E							14
 # define PLUS						24
 # define MINUS						27
+# define I							34
 # define RETURN						36
 # define LESS						43
 # define M							46
 # define MORE						47
 # define SPACE						49
 # define ESC						53
+# define HOME						115
 # define PAGE_UP					116
+# define END						119
 # define PAGE_DOWN					121
 # define ARROW_LEFT					123
 # define ARROW_RIGHT				124
@@ -224,10 +233,17 @@ typedef struct			s_scene
 
 	t_color				*frame_buffer;
 
+	int					anti_aliasing;
+
 	int					in_motion_blur;
 	int					motion_blur_key;
 	int					buffer_id;
 	t_color				**motion_blur_frame_buffers;
+
+	double				*depth_buffer;
+	int					*got_depth;
+	int					depth_map_k;
+	t_color				*depth_frame_buffer;
 
 	int					*object_buffer;
 	int					*got_object;
@@ -276,6 +292,19 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+t_color	mix_color(t_color c1, t_color c2);
+
+void	change_effect_grade(t_scene *scene, int key);
+
+void	anti_aliasing(t_scene *scene, t_pixel *pixel, double *rand);
+
+void		clean_depth_buffer(t_scene *scene);
+t_color	effect_depth(t_scene *scene, int i);
+void		clean_frame_buffer(t_scene *scene);
+
+void		init_depth_buffer(t_scene *scene);
+void		fill_depth_buffer(t_scene *scene, t_pixel pixel, double closest);
+
 void	get_jitter(double *random);
 void		get_point_properties(t_point *point, t_object *object);
 
@@ -285,6 +314,7 @@ void	motion_blur(t_color *frame_buffer, t_color **motion_blur_frame_buffers);
 
 void		get_normal(t_point *point, t_object *object);
 
+t_color	effect_fog(t_scene *scene, int i, t_color color);
 
 // void					put_pixel_into_buffer(t_scene *scene, int x, int y, t_color color);
 void					init_frame_buffer(t_scene *scene);

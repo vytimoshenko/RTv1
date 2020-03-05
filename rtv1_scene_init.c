@@ -25,6 +25,7 @@ t_scene	*init_scene(int argc, char **argv)
 	reset_scene(scene);
 	// read_map(scene, argv[1]);
 	init_frame_buffer(scene);
+	init_depth_buffer(scene);
 	init_object_buffer(scene);
 	get_sin_cos(scene->cameras[scene->current_camera]);
 	scene->file_name_with_path = ft_strdup(argv[1]);
@@ -60,6 +61,15 @@ void		init_frame_buffer(t_scene *scene)
 	}
 }
 
+void		clean_frame_buffer(t_scene *scene)
+{
+	int i;
+
+	i = -1;
+	while (++i < IMG_SIZE_W * IMG_SIZE_H)
+		scene->frame_buffer[i] = (t_color){0, 0, 0};
+}
+
 void		init_object_buffer(t_scene *scene)
 {
 	if (!(scene->object_buffer = (int *)malloc(sizeof(int)
@@ -83,6 +93,29 @@ void		clean_object_buffer(t_scene *scene)
 		scene->got_object[i] = FALSE;
 }
 
+void		init_depth_buffer(t_scene *scene)
+{
+	if (!(scene->depth_buffer = (double *)malloc(sizeof(double)
+	* IMG_SIZE_W * IMG_SIZE_H)))
+		ft_put_errno(PROGRAM_NAME);
+	if (!(scene->got_depth = (int *)malloc(sizeof(int)
+	* IMG_SIZE_W * IMG_SIZE_H)))
+		ft_put_errno(PROGRAM_NAME);
+	clean_depth_buffer(scene);
+}
+
+void		clean_depth_buffer(t_scene *scene)
+{
+	int i;
+
+	i = -1;
+	while (++i < IMG_SIZE_W * IMG_SIZE_H)
+		scene->depth_buffer[i] = NO_OBJECT_SELECTED;
+	i = -1;
+	while (++i < IMG_SIZE_W * IMG_SIZE_H)
+		scene->got_depth[i] = FALSE;
+}
+
 void		reset_scene(t_scene *scene)
 {
 	int	i;
@@ -91,6 +124,7 @@ void		reset_scene(t_scene *scene)
 	scene->scene_name = ft_strdup("Four amazing balls");
 
 	scene->current_camera = 0;
+	scene->depth_map_k = 64;
 
 	scene->cameras_quantity = 4;
 	scene->cameras = (t_camera **)ft_memalloc(sizeof(t_camera *) * scene->cameras_quantity);
@@ -130,7 +164,7 @@ void		reset_scene(t_scene *scene)
 	scene->cameras[i]->direction.z = 0.0;
 	scene->cameras[i]->zoom = 1.0;
 
-	scene->objects.quantity = 5;
+	scene->objects.quantity = 6;
 	scene->objects.array = (t_object **)ft_memalloc(sizeof(t_object *) * scene->objects.quantity);
 	i = -1;
 	while (++i < scene->objects.quantity)
@@ -187,6 +221,19 @@ void		reset_scene(t_scene *scene)
 	scene->objects.array[i]->center.y = 15.0;
 	scene->objects.array[i]->center.z = 40.0;
 	scene->objects.array[i]->radius = 2;
+	i++;
+	scene->objects.array[i]->id = i;
+	scene->objects.array[i]->type = OBJECT_TYPE_SPHERE;
+	scene->objects.array[i]->color.r = 0xFF;
+	scene->objects.array[i]->color.g = 0x00;
+	scene->objects.array[i]->color.b = 0xFF;
+	scene->objects.array[i]->specular = 1000;
+	scene->objects.array[i]->reflective = 0.5;
+	scene->objects.array[i]->transparency = 0.0;
+	scene->objects.array[i]->center.x = 0.0;
+	scene->objects.array[i]->center.y = 20.0;
+	scene->objects.array[i]->center.z = 100.0;
+	scene->objects.array[i]->radius = 5.0;
 	// i++;
 	// scene->objects.array[i]->id = i;
 	// scene->objects.array[i]->type = OBJECT_TYPE_CYLINDER;

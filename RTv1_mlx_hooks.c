@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/03 22:43:39 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/05 04:29:24 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,16 @@ int		keyboard_key_press(int key, t_global *global)
 		zoom_camera(global->scene, key);
 	// else if (key == M)
 	// 	global->scene->in_motion_blur = TRUE;
+	else if (key == I && global->scene->anti_aliasing == FALSE)
+	{
+		global->scene->anti_aliasing = TRUE;
+	}
+		else if (key == I && global->scene->anti_aliasing == TRUE)
+	{
+		global->scene->anti_aliasing = FALSE;
+	}
+	else if (key == HOME || key == END)
+		change_effect_grade(global->scene, key);
 	else
 		return (0);
 	draw(global);

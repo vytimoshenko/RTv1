@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/03 23:12:52 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/05 02:47:41 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	put_scene_1(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
+		char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
 	pos_y = 380;
@@ -26,9 +27,9 @@ void	put_scene_1(t_scene *scene, t_mlx *mlx)
 	if (scene->effect == NO_EFFECT)
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
 		"-");
-	else if (scene->effect == EFFECT_PIXELATION)
-		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
-		"Pixelation");
+	// else if (scene->effect == EFFECT_PIXELATION)
+	// 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
+	// 	"Pixelation");
 	else if (scene->effect == EFFECT_CARTOON)
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
 		"Cartoon");
@@ -47,6 +48,17 @@ void	put_scene_1(t_scene *scene, t_mlx *mlx)
 	else if (scene->effect == EFFECT_BLUE_CHANNEL)
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
 		"Blue channel");
+	else if (scene->effect == EFFECT_DEPTH_MAP)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
+		"Depth map");
+	if (scene->effect == EFFECT_DEPTH_MAP)
+	{
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 20, TEXT_COLOR,
+		"Depth:");
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 250, pos_y + 20, TEXT_COLOR,
+		str = ft_itoa(scene->depth_map_k));
+		free(str);
+	}
 }
 
 void	put_scene_2(t_scene *scene, t_mlx *mlx)

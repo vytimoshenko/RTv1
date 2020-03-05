@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/04 04:31:55 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/05 00:23:15 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int k)
 
 	closest_object = get_intersection(scene->objects, camera, pixel->position,
 	DRAW_DISTANCE_MIN, DRAW_DISTANCE_MAX);
+	fill_depth_buffer(scene, *pixel, closest_object.closest);
 	if (closest_object.closest == DRAW_DISTANCE_MAX)
 		return;
 	fill_object_buffer(scene, *pixel, closest_object.id);
@@ -47,6 +48,19 @@ void	get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int k)
 	// }
 }
 
+void		fill_depth_buffer(t_scene *scene, t_pixel pixel, double closest)
+{
+	int	i;
+
+	pixel.x = IMG_SIZE_W / 2 + pixel.x;
+	pixel.y = IMG_SIZE_H / 2 - pixel.y;
+	i = (int)(IMG_SIZE_W * (pixel.y - 1) + pixel.x);
+	if (i > 0 && scene->got_depth[i] == FALSE)
+	{
+		scene->depth_buffer[i] = closest;
+		scene->got_depth[i] = TRUE;
+	}
+}
 
 // t_vector	refract_ray(t_vector r, t_vector n)
 // {
