@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/05 06:28:47 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/05 22:52:07 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ void	trace_rays(t_scene *scene)
 {
 	t_pixel		pixel;
 	double		jitter[MULTI_SAMPLING_RATE];
+	int i;
 	
 	clean_object_buffer(scene);
 	clean_depth_buffer(scene);
+	clean_aliasing_buffer(scene);
 	clean_frame_buffer(scene);
 	get_jitter(jitter);
 	pixel.x = -IMG_SIZE_W / 2;
@@ -27,17 +29,109 @@ void	trace_rays(t_scene *scene)
 		pixel.y = -IMG_SIZE_H / 2;
 		while (++pixel.y < IMG_SIZE_H / 2)
 		{
-			if (scene->anti_aliasing == TRUE)
-				anti_aliasing(scene, &pixel, jitter);
-			else
-			{
+			// if (scene->anti_aliasing == TRUE)
+			// 	anti_aliasing(scene, &pixel, jitter);
+			// else
+			// {
 				pixel.color = scene->background;
 				get_pixel_position(scene, &pixel);
-				get_pixel_color(scene, scene->cameras[scene->current_camera]->position, &pixel, REFLECTION_DEPTH);
-			}
-			put_pixel_into_buffer(scene, pixel);
+				get_pixel_color(scene, scene->cameras[scene->current_camera]->
+				position, &pixel, REFLECTION_DEPTH);
+			// }
+			fill_frame_buffer(scene, pixel);
 		}
 	}
+	fill_aliasing_buffer(scene);
+	if (scene->anti_aliasing == TRUE)
+	{
+		pixel.x = -IMG_SIZE_W / 2;
+		while (++pixel.x < IMG_SIZE_W / 2)
+		{
+			pixel.y = -IMG_SIZE_H / 2;
+			while (++pixel.y < IMG_SIZE_H / 2)
+			{
+				i = (int)(IMG_SIZE_W * (IMG_SIZE_H / 2 - pixel.y - 1) + IMG_SIZE_W / 2 + pixel.x);
+				if (scene->aliasing_buffer[i])
+				{
+					anti_aliasing(scene, &pixel, jitter);
+					fill_frame_buffer(scene, pixel);
+					// ft_putstr("GGG");
+				}
+			}
+		}
+	}
+}
+
+// void	run_anti_aliasing(t_scene *scene)
+// {
+// 	int	i;
+// 	double		jitter[MULTI_SAMPLING_RATE];
+
+// 	i = -1;
+// 	get_jitter(jitter);
+// 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
+// 	{
+// 		if (scene->aliasing_buffer[i])
+// 			anti_aliasing(scene, frame_buffer, jitter);
+// 	}
+// }
+
+void	fill_aliasing_buffer(t_scene *scene)
+{
+	int	i;
+
+	i = -1;
+	while (++i < IMG_SIZE_W * IMG_SIZE_H)
+	{
+		scene->aliasing_buffer[i] = need_to_smooth(scene, i);
+		if (scene->aliasing_buffer[i])
+		{
+			scene->aliasing_buffer[i - 2] = 1;
+			scene->aliasing_buffer[i - 1] = 1;
+			scene->aliasing_buffer[i + 1] = 1;
+			scene->aliasing_buffer[i + 2] = 1;
+			if (i - 2 - IMG_SIZE_W > 0)
+			{
+				scene->aliasing_buffer[i - 2 - (int)IMG_SIZE_W] = 1;
+				scene->aliasing_buffer[i - 1 - (int)IMG_SIZE_W] = 1;
+				scene->aliasing_buffer[i - (int)IMG_SIZE_W] = 1;
+				scene->aliasing_buffer[i + 1 - (int)IMG_SIZE_W] = 1;
+				scene->aliasing_buffer[i + 2 - (int)IMG_SIZE_W] = 1;
+			}
+			if (i + 2 + IMG_SIZE_W < IMG_SIZE_W * IMG_SIZE_H)
+			{
+				scene->aliasing_buffer[i - 2 + (int)IMG_SIZE_W] = 1;
+				scene->aliasing_buffer[i - 1 + (int)IMG_SIZE_W] = 1;
+				scene->aliasing_buffer[i + (int)IMG_SIZE_W] = 1;
+				scene->aliasing_buffer[i + 1 + (int)IMG_SIZE_W] = 1;
+				scene->aliasing_buffer[i + 2 + (int)IMG_SIZE_W] = 1;
+			}
+			i++;
+		}
+	}
+}
+
+int	need_to_smooth(t_scene *scene, int i)
+{
+	t_color	diff;
+
+	if (i == 0)
+		return (0);
+	diff = get_channel_diff(scene->frame_buffer[i], scene->frame_buffer[i - 1]);
+	if (diff.r > 16 || diff.g > 16 || diff.b > 16)
+		return (1);
+	else
+		return (0);
+}
+
+t_color	get_channel_diff(t_color c1, t_color c2)
+{
+	t_color	diff;
+
+	diff.r = abs((c1.r - c2.r));
+	diff.g = abs((c1.g - c2.g));
+	diff.b = abs((c1.b - c2.b));
+	return (diff);
 }
 
 void	anti_aliasing(t_scene *scene, t_pixel *pixel, double *jitter)
@@ -45,11 +139,9 @@ void	anti_aliasing(t_scene *scene, t_pixel *pixel, double *jitter)
 	int			i;
 	t_color		sum;
 	t_vector	tmp;
-	long color;
 
 	sum = (t_color){0, 0, 0};
 	i = -1;
-	color = 0;
 	tmp.z = scene->cameras[scene->current_camera]->position.z;
 	while (++i < MULTI_SAMPLING_RATE)
 	{
@@ -88,8 +180,7 @@ void	get_pixel_position(t_scene *scene, t_pixel *pixel)
 {
 	pixel->position.x = pixel->x * VIEWPORT_SIZE_W / IMG_SIZE_W;
 	pixel->position.y = pixel->y * VIEWPORT_SIZE_H / IMG_SIZE_H;
-	// pixel->position.z = scene->cameras[scene->current_camera]->zoom;
-	pixel->position.z = 1;
+	pixel->position.z = VIEWPORT_DISTANCE;
 	rotate_pixel(pixel, scene->cameras[scene->current_camera]);
 }
 
@@ -122,7 +213,7 @@ void	rotate_pixel(t_pixel *pixel, t_camera *camera)
 	pixel->position.y = temp2;
 }
 
-void		put_pixel_into_buffer(t_scene *scene, t_pixel pixel)
+void		fill_frame_buffer(t_scene *scene, t_pixel pixel)
 {
 	int i;
 
@@ -134,7 +225,7 @@ void		put_pixel_into_buffer(t_scene *scene, t_pixel pixel)
 
 void		final_processing(t_mlx *mlx, t_scene *scene)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)

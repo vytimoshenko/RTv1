@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/05 06:29:58 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/05 22:47:13 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 # define VIEWPORT_SIZE_W			1.5
 # define VIEWPORT_SIZE_H			1
-// # define VIEWPORT_DISTANCE		1
+# define VIEWPORT_DISTANCE			1
 
 # define LIGHT_TYPE_AMBIENT			0
 # define LIGHT_TYPE_POINT			1
@@ -51,11 +51,11 @@
 # define NO_OBJECT_SELECTED			-1
 # define SHADE_UNSELECTED			0.5
 
-# define MULTI_SAMPLING_RATE		4
+# define MULTI_SAMPLING_RATE		8
 
 # define MOTION_BLUR_BUFFERS		20
 
-# define EFFECTS_QUANTITY			9
+# define EFFECTS_QUANTITY			10
 # define NO_EFFECT					0
 // # define EFFECT_PIXELATION			1
 # define EFFECT_CARTOON				8
@@ -65,7 +65,8 @@
 # define EFFECT_GREEN_CHANNEL		6
 # define EFFECT_BLUE_CHANNEL		7
 # define EFFECT_DEPTH_MAP			1
-# define EFFECT_FOG					2
+# define EFFECT_FOG					9
+# define EFFECT_OUTLINE_MAP			2
 
 # define DEPTH_MAP_INCREMENT		2
 # define DEPTH_MAP_MIN				8
@@ -151,6 +152,7 @@ typedef struct			s_point
 
 typedef struct			s_pixel
 {
+	int					i;
 	int					x;
 	int					y;
 	
@@ -249,6 +251,8 @@ typedef struct			s_scene
 	int					*got_object;
 	int					active_object;
 
+	int					*aliasing_buffer;
+
 	int					effect;
 
 	int					hide_info;
@@ -292,6 +296,16 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+
+t_color	effect_outline(t_scene *scene, int i);
+
+void		init_aliasing_buffer(t_scene *scene);
+void		clean_aliasing_buffer(t_scene *scene);
+void	fill_aliasing_buffer(t_scene *scene);
+
+t_color	get_channel_diff(t_color c1, t_color c2);
+int	need_to_smooth(t_scene *scene, int i);
+
 t_color	mix_color(t_color c1, t_color c2);
 
 void	change_effect_grade(t_scene *scene, int key);
@@ -316,9 +330,8 @@ void		get_normal(t_point *point, t_object *object);
 
 t_color	effect_fog(t_scene *scene, int i, t_color color);
 
-// void					put_pixel_into_buffer(t_scene *scene, int x, int y, t_color color);
 void					init_frame_buffer(t_scene *scene);
-void					put_pixel_into_buffer(t_scene *scene, t_pixel pixel);
+void					fill_frame_buffer(t_scene *scene, t_pixel pixel);
 void					final_processing(t_mlx *mlx, t_scene *scene);
 
 void					effect_pixelation(t_scene *scene);

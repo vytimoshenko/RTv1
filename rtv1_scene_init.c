@@ -26,6 +26,7 @@ t_scene	*init_scene(int argc, char **argv)
 	// read_map(scene, argv[1]);
 	init_frame_buffer(scene);
 	init_depth_buffer(scene);
+	init_aliasing_buffer(scene);
 	init_object_buffer(scene);
 	get_sin_cos(scene->cameras[scene->current_camera]);
 	scene->file_name_with_path = ft_strdup(argv[1]);
@@ -114,6 +115,24 @@ void		clean_depth_buffer(t_scene *scene)
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 		scene->got_depth[i] = FALSE;
+}
+
+
+void		init_aliasing_buffer(t_scene *scene)
+{
+	if (!(scene->aliasing_buffer = (int *)malloc(sizeof(int)
+	* IMG_SIZE_W * IMG_SIZE_H)))
+		ft_put_errno(PROGRAM_NAME);
+	clean_aliasing_buffer(scene);
+}
+
+void		clean_aliasing_buffer(t_scene *scene)
+{
+	int i;
+
+	i = -1;
+	while (++i < IMG_SIZE_W * IMG_SIZE_H)
+		scene->aliasing_buffer[i] = NO_OBJECT_SELECTED;
 }
 
 void		reset_scene(t_scene *scene)

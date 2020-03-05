@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 22:22:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/05 04:26:30 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/05 20:45:49 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_color		pixel_post_processing(t_scene *scene, int i, t_color color)
 	// 	color = effect_fog(scene, i, color);
 	else if (scene->effect == EFFECT_CARTOON)
 		color = effect_cartoon(color);
+	else if (scene->effect == EFFECT_OUTLINE_MAP)
+		color = effect_outline(scene, i);
 	else if (scene->effect == EFFECT_GRAYSCALE)
 		color = effect_grayscale(color);
 	else if (scene->effect == EFFECT_NEGATIVE)
@@ -128,3 +130,11 @@ t_color	mix_color(t_color c1, t_color c2)
 
 // 	return (color);
 // }
+
+t_color	effect_outline(t_scene *scene, int i)
+{
+	if (scene->aliasing_buffer[i])
+		return ((t_color){255, 255, 255});
+	else
+		return ((t_color){0, 0, 0});
+}

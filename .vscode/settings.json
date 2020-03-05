@@ -18,6 +18,9 @@
         "initializer_list": "c",
         "ios": "c",
         "unordered_map": "c",
-        "hashtable": "c"
+        "hashtable": "c",
+        "complex": "c",
+        "cmath": "c",
+        "cstdlib": "c"
     }
 }

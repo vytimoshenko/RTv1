@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/05 06:22:09 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/05 06:50:57 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,6 @@ void		fill_depth_buffer(t_scene *scene, t_pixel pixel, double closest)
 		scene->got_depth[i] = TRUE;
 	}
 }
-
-// t_vector	refract_ray(t_vector r, t_vector n)
-// {
-// 	return (substract(multiply_sv(2.0 * dot(r, n), n), r));
-// }
-
 
 void		get_point_properties(t_point *point, t_object *object)
 {
