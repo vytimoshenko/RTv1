@@ -139,8 +139,10 @@ void		reset_scene(t_scene *scene)
 {
 	int	i;
 
+	scene->pixelation_k = PIXELATION_MIN;
 	scene->active_object = -1;
 	scene->scene_name = ft_strdup("Four amazing balls");
+	scene->background = (t_color){255, 255, 255};
 
 	scene->current_camera = 0;
 	scene->depth_map_k = 64;

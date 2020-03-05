@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/05 22:47:13 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/06 02:13:12 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 
 # define PROGRAM_NAME				"RTv1"
 
-# define WIN_SIZE_W					2180
-# define WIN_SIZE_H					1240
-# define IMG_SIZE_W					1800.0
-# define IMG_SIZE_H					1200.0
+# define WIN_SIZE_W					1916.0
+# define WIN_SIZE_H					1064.0
+# define IMG_SIZE_W					1536.0
+# define IMG_SIZE_H					1024.0
 
 # define IMG_INDT_W					10
 # define IMG_INDT_H					10
@@ -55,22 +55,26 @@
 
 # define MOTION_BLUR_BUFFERS		20
 
-# define EFFECTS_QUANTITY			10
+# define EFFECTS_QUANTITY			11
 # define NO_EFFECT					0
-// # define EFFECT_PIXELATION			1
+# define EFFECT_PIXELATION			1
 # define EFFECT_CARTOON				8
 # define EFFECT_GRAYSCALE			3
 # define EFFECT_NEGATIVE			4
 # define EFFECT_RED_CHANNEL			5
 # define EFFECT_GREEN_CHANNEL		6
 # define EFFECT_BLUE_CHANNEL		7
-# define EFFECT_DEPTH_MAP			1
+# define EFFECT_DEPTH_MAP			10
 # define EFFECT_FOG					9
 # define EFFECT_OUTLINE_MAP			2
 
 # define DEPTH_MAP_INCREMENT		2
 # define DEPTH_MAP_MIN				8
 # define DEPTH_MAP_MAX				1024
+
+# define PIXELATION_INCREMENT		2
+# define PIXELATION_MAX				200
+# define PIXELATION_MIN				4
 
 # define CAMERA_ZOOM_INCREMENT		2
 # define CAMERA_ZOOM_MIN			0.0625
@@ -255,6 +259,8 @@ typedef struct			s_scene
 
 	int					effect;
 
+	int					pixelation_k;
+
 	int					hide_info;
 
 	double				zoom;
@@ -296,6 +302,7 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+void	get_macro_pixel(t_scene *scene, int pitch);
 
 t_color	effect_outline(t_scene *scene, int i);
 

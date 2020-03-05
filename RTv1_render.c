@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/05 22:52:07 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/06 02:25:22 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,29 +254,62 @@ void		final_processing(t_mlx *mlx, t_scene *scene)
 		scene->in_motion_blur = FALSE;
 		scene->buffer_id = 0;
 	}
+	if (scene->effect == EFFECT_PIXELATION)
+		effect_pixelation(scene);
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 		mlx->data[i] = unite_color_channels(scene->frame_buffer[i]);
 }
 
-// void	effect_pixelation(t_scene *scene)
-// {
-// 	int	i;
-// 	int tmp;
-// 	int	k;
-// 	t_color *frame_buffer = scene->frame_buffer;
+void	get_macro_pixel(t_scene *scene, int pitch)
+{
+	int i;
+	int j;
+	t_color tmp;
 
-// 	i = 0;
-// 	k = 0;
-// 	while (i < IMG_SIZE_W * IMG_SIZE_H)
-// 	{
-// 		k = 0;
-// 		tmp = scene->frame_buffer[i];
-// 		while (k < 8)
-// 		{
-// 			scene->frame_buffer[i + k] = tmp;
-// 			k++;
-// 		}
-// 		i += 8;
-// 	}
-// }
+	tmp = (t_color){0, 0, 0};
+	j = -1;
+	while (++j < scene->pixelation_k)
+	{
+		i = -1;
+		while (++i < scene->pixelation_k)
+		{
+			tmp.r += scene->frame_buffer[pitch + i + (int)(IMG_SIZE_W * j)].r;
+			tmp.g += scene->frame_buffer[pitch + i + (int)(IMG_SIZE_W * j)].g;
+			tmp.b += scene->frame_buffer[pitch + i + (int)(IMG_SIZE_W * j)].b;
+		}
+	}
+	tmp.r /= scene->pixelation_k * scene->pixelation_k;
+	tmp.g /= scene->pixelation_k * scene->pixelation_k;
+	tmp.b /= scene->pixelation_k * scene->pixelation_k;
+	j = -1;
+	while (++j < scene->pixelation_k)
+	{
+		i = -1;
+		while (++i < scene->pixelation_k)
+		{
+			scene->frame_buffer[pitch + i + (int)(IMG_SIZE_W * j)].r = tmp.r;
+			scene->frame_buffer[pitch + i + (int)(IMG_SIZE_W * j)].g = tmp.g;
+			scene->frame_buffer[pitch + i + (int)(IMG_SIZE_W * j)].b = tmp.b;
+		}
+	}
+}
+
+void	effect_pixelation(t_scene *scene)
+{
+	int pitch;
+	int i;
+	
+	pitch = 0;
+	i = IMG_SIZE_H / scene->pixelation_k - 1;
+	while (pitch < IMG_SIZE_W * IMG_INDT_H)
+	{
+		while (pitch < i * IMG_SIZE_W * scene->pixelation_k)
+		{
+			get_macro_pixel(scene, pitch);
+			pitch += scene->pixelation_k;
+		}
+		i++;
+		pitch += i * IMG_SIZE_W * scene->pixelation_k;
+	}
+}

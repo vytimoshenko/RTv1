@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:08:23 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/05 03:31:58 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/06 01:57:16 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,12 @@ void	change_effect_grade(t_scene *scene, int key)
 			scene->depth_map_k *= DEPTH_MAP_INCREMENT;
 		else if (key == END && scene->depth_map_k > DEPTH_MAP_MIN)
 			scene->depth_map_k /= DEPTH_MAP_INCREMENT;
+	}
+	else if (scene->effect == EFFECT_PIXELATION)
+	{
+		if (key == HOME  && scene->pixelation_k < PIXELATION_MAX)
+			scene->pixelation_k *= PIXELATION_INCREMENT;
+		else if (key == END && scene->pixelation_k > PIXELATION_MIN)
+			scene->pixelation_k /= PIXELATION_INCREMENT;
 	}
 }
