@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/06 07:13:22 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/06 08:48:25 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	trace_rays(t_scene *scene)
 	clean_frame_buffer(scene);
 	get_jitter(jitter);
 	pixel.x = -IMG_SIZE_W / 2;
-	while (++pixel.x < IMG_SIZE_W / 2)
+	while (++pixel.x <= IMG_SIZE_W / 2)
 	{
 		pixel.y = -IMG_SIZE_H / 2;
-		while (++pixel.y < IMG_SIZE_H / 2)
+		while (++pixel.y <= IMG_SIZE_H / 2)
 		{
 			// if (scene->anti_aliasing == TRUE)
 			// 	anti_aliasing(scene, &pixel, jitter);
@@ -45,10 +45,10 @@ void	trace_rays(t_scene *scene)
 	if (scene->anti_aliasing == TRUE)
 	{
 		pixel.x = -IMG_SIZE_W / 2;
-		while (++pixel.x < IMG_SIZE_W / 2)
+		while (++pixel.x <= IMG_SIZE_W / 2)
 		{
 			pixel.y = -IMG_SIZE_H / 2;
-			while (++pixel.y < IMG_SIZE_H / 2)
+			while (++pixel.y <= IMG_SIZE_H / 2)
 			{
 				i = (int)(IMG_SIZE_W * (IMG_SIZE_H / 2 - pixel.y - 1) + IMG_SIZE_W / 2 + pixel.x);
 				if (scene->aliasing_buffer[i])
@@ -119,9 +119,13 @@ void		fill_frame_buffer(t_scene *scene, t_pixel pixel)
 {
 	int i;
 
-	pixel.x = IMG_SIZE_W / 2 + pixel.x;
+	pixel.x = IMG_SIZE_W / 2 + pixel.x - 1;
 	pixel.y = IMG_SIZE_H / 2 - pixel.y;
-	i = (int)(IMG_SIZE_W * (pixel.y - 1) + pixel.x);
+	i = (int)(IMG_SIZE_W * pixel.y + pixel.x);
+	if (i == 1535 * 1023)
+		ft_putstr("HHH");
+	if (i == 1)
+	ft_putnbr((int)(IMG_SIZE_W / 2 + IMG_SIZE_W / 2));
 	scene->frame_buffer[i] = pixel.color;
 }
 

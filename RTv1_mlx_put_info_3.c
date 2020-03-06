@@ -6,13 +6,13 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:27:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/02 18:23:41 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/06 08:12:17 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	put_control_keys(t_mlx *mlx)
+void	put_control_keys_1(t_mlx *mlx)
 {
 	int pos_x;
 	int pos_y;
@@ -35,9 +35,22 @@ void	put_control_keys(t_mlx *mlx)
 	"Camera zoom:    +/-");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 180, TEXT_COLOR,
 	"Change effect:  E/ESC");
+}
+
+void	put_control_keys_2(t_mlx *mlx)
+{
+	int pos_x;
+	int pos_y;
+
+	pos_x = WIN_SIZE_W - 350;
+	pos_y = 700;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 210, TEXT_COLOR,
-	"Reset:          R");
+	"Antialiasing:   I");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 240, TEXT_COLOR,
+	"Pick color:     right mouse button");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 270, TEXT_COLOR,
+	"Reset:          R");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 300, TEXT_COLOR,
 	"Exit:           Q");
 }
 

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/06 07:53:53 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/06 09:14:12 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,14 @@ void	put_status_1(t_scene *scene, t_mlx *mlx)
 		str = ft_itoa(scene->depth_map_k));
 		free(str);
 	}
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 20, TEXT_COLOR,
+	"Antialiasing:");
+	if (scene->anti_aliasing == TRUE)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 20, TEXT_COLOR,
+		"yes");
+	else if (scene->anti_aliasing == FALSE)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 20, TEXT_COLOR,
+		"no");
 }
 
 void	put_status_2(t_scene *scene, t_mlx *mlx)
@@ -68,7 +76,7 @@ void	put_status_2(t_scene *scene, t_mlx *mlx)
 	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 380;
+	pos_y = 410;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
 	"Current camera:   #");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 30, TEXT_COLOR,
@@ -94,7 +102,7 @@ void	put_status_3(t_scene *scene, t_mlx *mlx)
 	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 380;
+	pos_y = 410;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 80, TEXT_COLOR,
 	"- rotation (XYZ):");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 80, TEXT_COLOR,
@@ -115,7 +123,7 @@ void	put_status_4(t_scene *scene, t_mlx *mlx)
 	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 490;
+	pos_y = 500;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
 	"Selected object:");
 	if (scene->active_object == NO_OBJECT_SELECTED)
@@ -123,9 +131,27 @@ void	put_status_4(t_scene *scene, t_mlx *mlx)
 		"-");
 	else
 	{
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 30, TEXT_COLOR,
+		"#");
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 30, TEXT_COLOR,
 		str = ft_itoa(scene->active_object));
 		free(str);
+		if (scene->objects.array[scene->active_object]->type ==
+		OBJECT_TYPE_PLANE)
+			mlx_string_put(mlx->mlx, mlx->win, pos_x + 210, pos_y + 30,
+			TEXT_COLOR, "(plane)");
+		else if (scene->objects.array[scene->active_object]->type ==
+		OBJECT_TYPE_SPHERE)
+			mlx_string_put(mlx->mlx, mlx->win, pos_x + 210, pos_y + 30,
+			TEXT_COLOR, "(sphere)");
+		else if (scene->objects.array[scene->active_object]->type ==
+		OBJECT_TYPE_CONE)
+			mlx_string_put(mlx->mlx, mlx->win, pos_x + 210, pos_y + 30,
+			TEXT_COLOR, "(cone)");
+		else if (scene->objects.array[scene->active_object]->type ==
+		OBJECT_TYPE_CYLINDER)
+			mlx_string_put(mlx->mlx, mlx->win, pos_x + 210, pos_y + 30,
+			TEXT_COLOR, "(cylinder)");
 	}
 }
 
@@ -136,7 +162,7 @@ void	put_status_5(t_scene *scene, t_mlx *mlx)
 	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 490;
+	pos_y = 500;
 	if (scene->active_object != NO_OBJECT_SELECTED)
 	{
 		mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 60, TEXT_COLOR,

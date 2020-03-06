@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/06 07:47:56 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/06 08:11:04 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -453,7 +453,8 @@ void					put_status_6(t_scene *scene, t_mlx *mlx);
 void					put_status_7(t_scene *scene, t_mlx *mlx);
 void					draw_color_sample(t_mlx *mlx, int color);
 
-void					put_control_keys(t_mlx *mlx);
+void					put_control_keys_1(t_mlx *mlx);
+void					put_control_keys_2(t_mlx *mlx);
 void					put_render_info_1(t_mlx *mlx);
 void					put_render_info_2(t_mlx *mlx);
 void					put_bottom_line(t_scene *scene, t_mlx *mlx);
