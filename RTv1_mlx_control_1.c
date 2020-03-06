@@ -6,60 +6,49 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/04 05:18:52 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/07 01:57:28 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	zoom_camera(t_scene *scene, int key)
-{
-	int i;
-
-	i = scene->current_camera;
-	if (key == PLUS && scene->cameras[i]->zoom < CAMERA_ZOOM_MAX)
-		scene->cameras[i]->zoom *= CAMERA_ZOOM_INCREMENT;
-	else if (key == MINUS && scene->cameras[i]->zoom > CAMERA_ZOOM_MIN)
-		scene->cameras[i]->zoom /= CAMERA_ZOOM_INCREMENT;
-}
-
 void	move_camera(t_scene *scene, int key)
 {
 	int i;
 
-	i = scene->current_camera;
+	i = scene->cameras.current;
 	if (key == ARROW_DOWN)
-		scene->cameras[i]->position.y -= CAMERA_MOVEMENT_INCREMENT;
+		scene->cameras.array[i]->position.y -= CAMERA_MOVEMENT_INCREMENT;
 	else if (key == ARROW_UP)
-		scene->cameras[i]->position.y += CAMERA_MOVEMENT_INCREMENT;
+		scene->cameras.array[i]->position.y += CAMERA_MOVEMENT_INCREMENT;
 	else if (key == ARROW_RIGHT)
-		scene->cameras[i]->position.x += CAMERA_MOVEMENT_INCREMENT;
+		scene->cameras.array[i]->position.x += CAMERA_MOVEMENT_INCREMENT;
 	else if (key == ARROW_LEFT)
-		scene->cameras[i]->position.x -= CAMERA_MOVEMENT_INCREMENT;
+		scene->cameras.array[i]->position.x -= CAMERA_MOVEMENT_INCREMENT;
 	else if (key == PAGE_UP)
-		scene->cameras[i]->position.z += CAMERA_MOVEMENT_INCREMENT;
+		scene->cameras.array[i]->position.z += CAMERA_MOVEMENT_INCREMENT;
 	else if (key == PAGE_DOWN)
-		scene->cameras[i]->position.z -= CAMERA_MOVEMENT_INCREMENT;
+		scene->cameras.array[i]->position.z -= CAMERA_MOVEMENT_INCREMENT;
 }
 
 void	rotate_camera(t_scene *scene, int key)
 {
 	int i;
 
-	i = scene->current_camera;
+	i = scene->cameras.current;
 	if (key == W)
-		scene->cameras[i]->direction.x += CAMERA_ROTATION_INCREMENT;
+		scene->cameras.array[i]->direction.x += CAMERA_ROTATION_INCREMENT;
 	else if (key == S)
-		scene->cameras[i]->direction.x -= CAMERA_ROTATION_INCREMENT;
+		scene->cameras.array[i]->direction.x -= CAMERA_ROTATION_INCREMENT;
 	else if (key == D)
-		scene->cameras[i]->direction.y += CAMERA_ROTATION_INCREMENT;
+		scene->cameras.array[i]->direction.y += CAMERA_ROTATION_INCREMENT;
 	else if (key == A)
-		scene->cameras[i]->direction.y -= CAMERA_ROTATION_INCREMENT;
+		scene->cameras.array[i]->direction.y -= CAMERA_ROTATION_INCREMENT;
 	else if (key == MORE)
-		scene->cameras[i]->direction.z += CAMERA_ROTATION_INCREMENT;
+		scene->cameras.array[i]->direction.z += CAMERA_ROTATION_INCREMENT;
 	else if (key == LESS)
-		scene->cameras[i]->direction.z -= CAMERA_ROTATION_INCREMENT;
-	get_sin_cos(scene->cameras[i]);
+		scene->cameras.array[i]->direction.z -= CAMERA_ROTATION_INCREMENT;
+	get_sin_cos(scene->cameras.array[i]);
 }
 
 void	move_object(t_scene *scene, int key)

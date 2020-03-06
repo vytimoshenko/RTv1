@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 03:05:11 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/03 23:12:38 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/07 01:59:07 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	put_scene_summary_1(t_scene *scene, t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 60, TEXT_COLOR,
 	"Cameras:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 60, TEXT_COLOR,
-	str = ft_itoa(scene->cameras_quantity));
+	str = ft_itoa(scene->cameras.quantity));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 60, TEXT_COLOR,
 	"Materials:");
@@ -49,17 +49,17 @@ void	put_scene_summary_2(t_scene *scene, t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 90, TEXT_COLOR,
 	"Light sources:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 90, TEXT_COLOR,
-	str = ft_itoa(scene->light_sources.quantity));
+	str = ft_itoa(scene->lights.quantity));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 120, TEXT_COLOR,
 	"- ambient:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 120, TEXT_COLOR,
-	str = ft_itoa(scene->planes_quantity));
+	str = ft_itoa(scene->lights.quantity_ambient));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 140, TEXT_COLOR,
 	"- directional:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 140, TEXT_COLOR,
-	str = ft_itoa(scene->objects.quantity));
+	str = ft_itoa(scene->lights.quantity_directional));
 	free(str);
 }
 
@@ -74,7 +74,7 @@ void	put_scene_summary_3(t_scene *scene, t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 160, TEXT_COLOR,
 	"- point:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 160, TEXT_COLOR,
-	str = ft_itoa(scene->cones_quantity));
+	str = ft_itoa(scene->lights.quantity_point));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 90, TEXT_COLOR,
 	"Objects:");

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:08:23 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/06 07:36:12 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/07 01:58:44 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,19 @@ int		select_object(int x, int y, t_global *global)
 
 void	change_camera(t_scene *scene)
 {
-	if (scene->current_camera != scene->cameras_quantity - 1)
-		scene->current_camera++;
+	if (scene->cameras.current != scene->cameras.quantity - 1)
+		scene->cameras.current++;
 	else
-		scene->current_camera = 0;
-	get_sin_cos(scene->cameras[scene->current_camera]);
+		scene->cameras.current = 0;
+	get_sin_cos(scene->cameras.array[scene->cameras.current]);
+}
+
+void	change_light(t_scene *scene)
+{
+	if (scene->lights.current != scene->lights.quantity - 1)
+		scene->lights.current++;
+	else
+		scene->lights.current = 0;
 }
 
 void	change_effect(t_scene *scene)
@@ -65,16 +73,16 @@ void	change_effect_grade(t_scene *scene, int key)
 {
 	if (scene->effect == EFFECT_DEPTH_MAP || scene->effect == EFFECT_FOG)
 	{
-		if (key == HOME  && scene->depth_map_k < DEPTH_MAP_MAX)
+		if (key == MINUS && scene->depth_map_k < DEPTH_MAP_MAX)
 			scene->depth_map_k *= DEPTH_MAP_INCREMENT;
-		else if (key == END && scene->depth_map_k > DEPTH_MAP_MIN)
+		else if (key == PLUS && scene->depth_map_k > DEPTH_MAP_MIN)
 			scene->depth_map_k /= DEPTH_MAP_INCREMENT;
 	}
 	else if (scene->effect == EFFECT_PIXELATION)
 	{
-		if (key == HOME  && scene->pixelation_k < PIXELATION_MAX)
+		if (key == MINUS && scene->pixelation_k < PIXELATION_MAX)
 			scene->pixelation_k *= PIXELATION_INCREMENT;
-		else if (key == END && scene->pixelation_k > PIXELATION_MIN)
+		else if (key == PLUS && scene->pixelation_k > PIXELATION_MIN)
 			scene->pixelation_k /= PIXELATION_INCREMENT;
 	}
 }

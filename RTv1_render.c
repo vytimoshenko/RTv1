@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/06 08:48:25 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/07 02:02:52 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	trace_rays(t_scene *scene)
 			// {
 				pixel.color = scene->background;
 				get_pixel_position(scene, &pixel);
-				get_pixel_color(scene, scene->cameras[scene->current_camera]->
+				get_pixel_color(scene, scene->cameras.array[scene->cameras.current]->
 				position, &pixel, REFLECTION_DEPTH);
 			// }
 			fill_frame_buffer(scene, pixel);
@@ -83,7 +83,7 @@ void	get_pixel_position(t_scene *scene, t_pixel *pixel)
 	pixel->position.x = pixel->x * VIEWPORT_SIZE_W / IMG_SIZE_W;
 	pixel->position.y = pixel->y * VIEWPORT_SIZE_H / IMG_SIZE_H;
 	pixel->position.z = VIEWPORT_DISTANCE;
-	rotate_pixel(pixel, scene->cameras[scene->current_camera]);
+	rotate_pixel(pixel, scene->cameras.array[scene->cameras.current]);
 }
 
 void	get_sin_cos(t_camera *camera)
@@ -122,10 +122,10 @@ void		fill_frame_buffer(t_scene *scene, t_pixel pixel)
 	pixel.x = IMG_SIZE_W / 2 + pixel.x - 1;
 	pixel.y = IMG_SIZE_H / 2 - pixel.y;
 	i = (int)(IMG_SIZE_W * pixel.y + pixel.x);
-	if (i == 1535 * 1023)
-		ft_putstr("HHH");
-	if (i == 1)
-	ft_putnbr((int)(IMG_SIZE_W / 2 + IMG_SIZE_W / 2));
+	// if (i == 1535 * 1023)
+	// 	ft_putstr("HHH");
+	// if (i == 1)
+	// ft_putnbr((int)(IMG_SIZE_W / 2 + IMG_SIZE_W / 2));
 	scene->frame_buffer[i] = pixel.color;
 }
 

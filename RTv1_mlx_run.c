@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/06 08:11:28 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/07 01:25:30 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ void	update_info_only(t_global *global)
 	mlx_clear_window(global->mlx->mlx, global->mlx->win);
 	mlx_put_image_to_window(global->mlx->mlx, global->mlx->win,
 	global->mlx->img, IMG_INDT_W, IMG_INDT_H);
-	if (!(global->scene->hide_info))
-		put_info_to_window(global);
+	put_info_to_window(global);
 }
 
 void	put_info_to_window(t_global *global)
@@ -58,6 +57,7 @@ void	put_info_to_window(t_global *global)
 	put_status_2(global->scene, global->mlx);
 	put_status_3(global->scene, global->mlx);
 	put_status_4(global->scene, global->mlx);
+	put_status_4a(global->scene, global->mlx);
 	put_status_5(global->scene, global->mlx);
 	put_status_6(global->scene, global->mlx);
 	put_status_7(global->scene, global->mlx);

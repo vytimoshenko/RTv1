@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1.h                                             :+:      :+:    :+:   */
+/*   RTv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/06 08:11:04 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/07 02:08:12 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@
 # define TEXT_COLOR 				0xFFFFFF
 
 # define NO_OBJECT_SELECTED			-1
+# define LIGHT_SELECTED				0
+# define OBJECT_SELECTED			1
 # define SHADE_UNSELECTED			0.5
 
 # define MULTI_SAMPLING_RATE		8
@@ -75,10 +77,6 @@
 # define PIXELATION_INCREMENT		2
 # define PIXELATION_MAX				200
 # define PIXELATION_MIN				4
-
-# define CAMERA_ZOOM_INCREMENT		2
-# define CAMERA_ZOOM_MIN			0.0625
-# define CAMERA_ZOOM_MAX			256
 
 # define CAMERA_MOVEMENT_INCREMENT	10
 # define CAMERA_ROTATION_INCREMENT	15
@@ -108,7 +106,9 @@
 # define PLUS						24
 # define MINUS						27
 # define I							34
+# define P							35
 # define RETURN						36
+# define L							37
 # define LESS						43
 # define M							46
 # define MORE						47
@@ -123,7 +123,7 @@
 # define ARROW_DOWN					125
 # define ARROW_UP					126
 
-# define PI 3.14159265
+# define PI							3.14159265
 
 typedef struct			s_vector
 {
@@ -197,20 +197,22 @@ typedef struct			s_objects
 
 typedef struct			s_light
 {
-	int					num;
-
+	int					id;
 	int					type;
-
 	double				intensity;
 	t_vector			position;
 	t_vector			direction;
 }						t_light;
 
-typedef struct			s_light_sources
+typedef struct			s_lights
 {
+	int					current;
 	int					quantity;
+	int					quantity_ambient;
+	int					quantity_directional;
+	int					quantity_point;
 	t_light				**array;
-}						t_light_sources;
+}						t_lights;
 
 typedef struct			s_camera
 {
@@ -222,25 +224,27 @@ typedef struct			s_camera
 	t_vector			cos;
 }						t_camera;
 
+typedef struct			s_cameras
+{
+	int					current;
+	int					quantity;
+	t_camera			**array;
+}						t_cameras;
+
 typedef struct			s_scene
 {
 	char				*file_name_with_path;
-
 	char				*scene_name;
 
 	t_color				background;
-	int					cameras_quantity;
-	int					current_camera;
-	t_camera			**cameras;
 
 	int					materials_quantity;
 
-	t_light_sources		light_sources;
+	t_cameras			cameras;
+	t_lights			lights;
 	t_objects			objects;
 
 	t_color				*frame_buffer;
-
-	int					anti_aliasing;
 
 	int					in_motion_blur;
 	int					motion_blur_key;
@@ -256,6 +260,7 @@ typedef struct			s_scene
 	int					*got_object;
 	int					active_object;
 
+	int					anti_aliasing;
 	int					*aliasing_buffer;
 
 	int					effect;
@@ -264,10 +269,6 @@ typedef struct			s_scene
 
 	int					got_color;
 	t_color				picked_color;
-
-	int					hide_info;
-
-	double				zoom;
 
 	int					total_objects_quantity;
 	int					planes_quantity;
@@ -279,10 +280,6 @@ typedef struct			s_scene
 	int					y_mouse_position;
 
 	int					middle_mouse_button;
-	double				x_move;
-	double				y_move;
-	double				x_shift;
-	double				y_shift;
 }						t_scene;
 
 typedef struct			s_mlx
@@ -306,6 +303,7 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+void	change_light(t_scene *scene);
 
 void	pick_color(t_scene *scene, int x, int y);
 
@@ -316,9 +314,6 @@ t_color	get_average_color(t_scene *scene, int pitch);
 
 t_color	effect_outline(t_scene *scene, int i);
 
-void		init_aliasing_buffer(t_scene *scene);
-void		clean_aliasing_buffer(t_scene *scene);
-void	fill_aliasing_buffer(t_scene *scene);
 
 t_color	get_channel_diff(t_color c1, t_color c2);
 int	need_to_smooth(t_scene *scene, int i);
@@ -329,11 +324,8 @@ void	change_effect_grade(t_scene *scene, int key);
 
 void	anti_aliasing(t_scene *scene, t_pixel *pixel, double *rand);
 
-void		clean_depth_buffer(t_scene *scene);
 t_color	effect_depth(t_scene *scene, int i);
-void		clean_frame_buffer(t_scene *scene);
 
-void		init_depth_buffer(t_scene *scene);
 void		fill_depth_buffer(t_scene *scene, t_pixel pixel, double closest);
 
 void	get_jitter(double *random);
@@ -348,7 +340,17 @@ void		get_normal(t_point *point, t_object *object);
 t_color	effect_fog(t_scene *scene, int i, t_color color);
 
 void					init_frame_buffer(t_scene *scene);
+void					init_object_buffer(t_scene *scene);
+void					init_depth_buffer(t_scene *scene);
+void					init_aliasing_buffer(t_scene *scene);
+
+void					clean_frame_buffer(t_scene *scene);
+void					clean_object_buffer(t_scene *scene);
+void					clean_depth_buffer(t_scene *scene);
+void					clean_aliasing_buffer(t_scene *scene);
+
 void					fill_frame_buffer(t_scene *scene, t_pixel pixel);
+void					fill_aliasing_buffer(t_scene *scene);
 void					final_processing(t_mlx *mlx, t_scene *scene);
 
 void					effect_pixelation(t_scene *scene);
@@ -360,8 +362,6 @@ double					add_direct_and_diffuse_light(t_scene *scene,
 int						main(int argc, char **argv);
 
 t_scene					*init_scene(int argc, char **argv);
-void					init_object_buffer(t_scene *scene);
-void					clean_object_buffer(t_scene *scene);
 // void					check_argument(t_scene *scene, char *arg);
 void					reset_scene(t_scene *scene);
 
@@ -448,6 +448,7 @@ void					put_status_1(t_scene *scene, t_mlx *mlx);
 void					put_status_2(t_scene *scene, t_mlx *mlx);
 void					put_status_3(t_scene *scene, t_mlx *mlx);
 void					put_status_4(t_scene *scene, t_mlx *mlx);
+void					put_status_4a(t_scene *scene, t_mlx *mlx);
 void					put_status_5(t_scene *scene, t_mlx *mlx);
 void					put_status_6(t_scene *scene, t_mlx *mlx);
 void					put_status_7(t_scene *scene, t_mlx *mlx);

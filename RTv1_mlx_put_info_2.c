@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/06 09:14:12 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/07 02:01:28 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,18 @@ void	put_status_2(t_scene *scene, t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
 	"Current camera:   #");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 30, TEXT_COLOR,
-	str = ft_itoa(scene->current_camera + 1));
+	str = ft_itoa(scene->cameras.current + 1));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 60, TEXT_COLOR,
 	"- position (XYZ):");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 60, TEXT_COLOR,
-	str = ft_itoa(scene->cameras[scene->current_camera]->position.x));
+	str = ft_itoa(scene->cameras.array[scene->cameras.current]->position.x));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 240, pos_y + 60, TEXT_COLOR,
-	str = ft_itoa(scene->cameras[scene->current_camera]->position.y));
+	str = ft_itoa(scene->cameras.array[scene->cameras.current]->position.y));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 290, pos_y + 60, TEXT_COLOR,
-	str = ft_itoa(scene->cameras[scene->current_camera]->position.z));
+	str = ft_itoa(scene->cameras.array[scene->cameras.current]->position.z));
 	free(str);
 }
 
@@ -106,13 +106,13 @@ void	put_status_3(t_scene *scene, t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 80, TEXT_COLOR,
 	"- rotation (XYZ):");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 80, TEXT_COLOR,
-	str = ft_itoa(scene->cameras[scene->current_camera]->direction.x));
+	str = ft_itoa(scene->cameras.array[scene->cameras.current]->direction.x));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 240, pos_y + 80, TEXT_COLOR,
-	str = ft_itoa(scene->cameras[scene->current_camera]->direction.y));
+	str = ft_itoa(scene->cameras.array[scene->cameras.current]->direction.y));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 290, pos_y + 80, TEXT_COLOR,
-	str = ft_itoa(scene->cameras[scene->current_camera]->direction.z));
+	str = ft_itoa(scene->cameras.array[scene->cameras.current]->direction.z));
 	free(str);
 }
 
@@ -139,19 +139,54 @@ void	put_status_4(t_scene *scene, t_mlx *mlx)
 		if (scene->objects.array[scene->active_object]->type ==
 		OBJECT_TYPE_PLANE)
 			mlx_string_put(mlx->mlx, mlx->win, pos_x + 210, pos_y + 30,
-			TEXT_COLOR, "(plane)");
+			TEXT_COLOR, "Plane");
 		else if (scene->objects.array[scene->active_object]->type ==
 		OBJECT_TYPE_SPHERE)
 			mlx_string_put(mlx->mlx, mlx->win, pos_x + 210, pos_y + 30,
-			TEXT_COLOR, "(sphere)");
+			TEXT_COLOR, "Sphere");
 		else if (scene->objects.array[scene->active_object]->type ==
 		OBJECT_TYPE_CONE)
 			mlx_string_put(mlx->mlx, mlx->win, pos_x + 210, pos_y + 30,
-			TEXT_COLOR, "(cone)");
+			TEXT_COLOR, "Cone");
 		else if (scene->objects.array[scene->active_object]->type ==
 		OBJECT_TYPE_CYLINDER)
 			mlx_string_put(mlx->mlx, mlx->win, pos_x + 210, pos_y + 30,
-			TEXT_COLOR, "(cylinder)");
+			TEXT_COLOR, "Cylinder");
+	}
+}
+
+void	put_status_4a(t_scene *scene, t_mlx *mlx)
+{
+	int		pos_x;
+	int		pos_y;
+	char	*str;
+
+	pos_x = WIN_SIZE_W - 350;
+	pos_y = 500;
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
+	"Selected object:");
+	if (scene->active_object == NO_OBJECT_SELECTED)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 30, TEXT_COLOR,
+		"-");
+	else
+	{
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 30, TEXT_COLOR,
+		"#");
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 30, TEXT_COLOR,
+		str = ft_itoa(scene->lights.current));
+		free(str);
+		if (scene->lights.array[scene->lights.current]->type ==
+		LIGHT_TYPE_AMBIENT)
+			mlx_string_put(mlx->mlx, mlx->win, pos_x + 210, pos_y + 30,
+			TEXT_COLOR, "Ambient");
+		else if (scene->lights.array[scene->lights.current]->type ==
+		LIGHT_TYPE_DIRECTIONAL)
+			mlx_string_put(mlx->mlx, mlx->win, pos_x + 210, pos_y + 30,
+			TEXT_COLOR, "Directional");
+		else if (scene->lights.array[scene->lights.current]->type ==
+		LIGHT_TYPE_POINT)
+			mlx_string_put(mlx->mlx, mlx->win, pos_x + 210, pos_y + 30,
+			TEXT_COLOR, "Point");
 	}
 }
 
@@ -206,13 +241,13 @@ void	put_status_6(t_scene *scene, t_mlx *mlx)
 		str = ft_itoa(scene->objects.array[scene->active_object]->radius));
 		free(str);
 		// mlx_string_put(mlx->mlx, mlx->win, pos_x + 200, pos_y + 80, TEXT_COLOR,
-		// str = ft_itoa(scene->cameras[scene->current_camera]->direction.x));
+		// str = ft_itoa(scene->cameras[scene->cameras.current]->direction.x));
 		// free(str);
 		// mlx_string_put(mlx->mlx, mlx->win, pos_x + 250, pos_y + 80, TEXT_COLOR,
-		// str = ft_itoa(scene->cameras[scene->current_camera]->direction.y));
+		// str = ft_itoa(scene->cameras[scene->cameras.current]->direction.y));
 		// free(str);
 		// mlx_string_put(mlx->mlx, mlx->win, pos_x + 300, pos_y + 80, TEXT_COLOR,
-		// str = ft_itoa(scene->cameras[scene->current_camera]->direction.z));
+		// str = ft_itoa(scene->cameras[scene->cameras.current]->direction.z));
 		// free(str);
 	}
 }

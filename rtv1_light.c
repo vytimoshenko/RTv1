@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:13:20 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/03 23:13:21 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/07 00:39:30 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ double		get_lightning(t_scene *scene, t_point point, t_vector pixel)
 
 	intensity = 0;
 	i = -1;
-	while (++i < scene->light_sources.quantity)
+	while (++i < scene->lights.quantity)
 	{
-		if (scene->light_sources.array[i]->type == LIGHT_TYPE_AMBIENT)
-			intensity += scene->light_sources.array[i]->intensity;
+		if (scene->lights.array[i]->type == LIGHT_TYPE_AMBIENT)
+			intensity += scene->lights.array[i]->intensity;
 		else if ((tmp = add_direct_and_diffuse_light(scene, point, pixel, i))
 		!= -1)
 			intensity += tmp;
@@ -39,22 +39,22 @@ double		add_direct_and_diffuse_light(t_scene *scene, t_point point,
 	double		t_max;
 	double		intensity;
 
-	if (scene->light_sources.array[i]->type == LIGHT_TYPE_POINT)
+	if (scene->lights.array[i]->type == LIGHT_TYPE_POINT)
 	{
-		l = substract(scene->light_sources.array[i]->position, point.xyz);
+		l = substract(scene->lights.array[i]->position, point.xyz);
 		t_max = 1;
 	}
 	else
 	{
-		l = scene->light_sources.array[i]->direction;
+		l = scene->lights.array[i]->direction;
 		t_max = DRAW_DISTANCE_MAX;
 	}
 	shadow = get_intersection(scene->objects, point.xyz, l, 0.000001, t_max);
 	if (shadow.null)
 		return (-1);
-	intensity = scene->light_sources.array[i]->intensity * diffuse(point.n, l);
+	intensity = scene->lights.array[i]->intensity * diffuse(point.n, l);
 	if (point.specular)
-		intensity += scene->light_sources.array[i]->intensity *
+		intensity += scene->lights.array[i]->intensity *
 		specular(point.n, l, pixel, point.specular);
 	return (intensity);
 }
