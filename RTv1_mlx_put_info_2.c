@@ -6,13 +6,13 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/05 02:47:41 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/06 07:53:53 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	put_scene_1(t_scene *scene, t_mlx *mlx)
+void	put_status_1(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -61,7 +61,7 @@ void	put_scene_1(t_scene *scene, t_mlx *mlx)
 	}
 }
 
-void	put_scene_2(t_scene *scene, t_mlx *mlx)
+void	put_status_2(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -87,7 +87,7 @@ void	put_scene_2(t_scene *scene, t_mlx *mlx)
 	free(str);
 }
 
-void	put_scene_3(t_scene *scene, t_mlx *mlx)
+void	put_status_3(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -108,7 +108,7 @@ void	put_scene_3(t_scene *scene, t_mlx *mlx)
 	free(str);
 }
 
-void	put_scene_4(t_scene *scene, t_mlx *mlx)
+void	put_status_4(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -129,7 +129,7 @@ void	put_scene_4(t_scene *scene, t_mlx *mlx)
 	}
 }
 
-void	put_scene_5(t_scene *scene, t_mlx *mlx)
+void	put_status_5(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -164,7 +164,7 @@ void	put_scene_5(t_scene *scene, t_mlx *mlx)
 	}
 }
 
-void	put_scene_6(t_scene *scene, t_mlx *mlx)
+void	put_status_6(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -188,5 +188,49 @@ void	put_scene_6(t_scene *scene, t_mlx *mlx)
 		// mlx_string_put(mlx->mlx, mlx->win, pos_x + 300, pos_y + 80, TEXT_COLOR,
 		// str = ft_itoa(scene->cameras[scene->current_camera]->direction.z));
 		// free(str);
+	}
+}
+
+void	put_status_7(t_scene *scene, t_mlx *mlx)
+{
+	int		pos_x;
+	int		pos_y;
+	char	*str;
+
+	pos_x = WIN_SIZE_W - 350;
+	pos_y = 490;
+	if (scene->got_color == TRUE)
+	{
+		mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 130, TEXT_COLOR,
+		"Color (RGB):");
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 130, TEXT_COLOR,
+		str = ft_itoa(scene->picked_color.r));
+		free(str);
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 240, pos_y + 130, TEXT_COLOR,
+		str = ft_itoa(scene->picked_color.g));
+		free(str);
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 290, pos_y + 130, TEXT_COLOR,
+		str = ft_itoa(scene->picked_color.b));
+		free(str);
+		draw_color_sample(mlx, unite_color_channels(scene->picked_color));
+	}
+}
+
+void	draw_color_sample(t_mlx *mlx, int color)
+{
+	int		pos_x;
+	int		pos_y;
+	int		x;
+	int		y;
+
+	pos_x = WIN_SIZE_W - 350;
+	pos_y = 490;
+	y = -1;
+	while (++y < 18)
+	{
+		x = -1;
+		while (++x < 18)
+			mlx_pixel_put(mlx->mlx, mlx->win, pos_x + 150 + x, pos_y + 132 + y,
+			color);
 	}
 }

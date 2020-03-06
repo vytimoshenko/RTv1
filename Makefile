@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/04 04:34:05 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/06 07:15:30 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,10 @@ HDR		= 	rtv1.h
 
 SRC		= 	rtv1_main.c					\
 			rtv1_render.c				\
+			rtv1_init_buffers.c			\
+			rtv1_clean_buffers.c		\
+			rtv1_antialiasing.c			\
+			rtv1_color_effects.c		\
 			rtv1_vector.c				\
 			rtv1_color.c				\
 			rtv1_trace.c				\

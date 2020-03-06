@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:08:23 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/06 01:57:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/06 07:36:12 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,17 @@ void	change_effect_grade(t_scene *scene, int key)
 		else if (key == END && scene->pixelation_k > PIXELATION_MIN)
 			scene->pixelation_k /= PIXELATION_INCREMENT;
 	}
+}
+
+void	pick_color(t_scene *scene, int x, int y)
+{
+	int	i;
+
+	x = x - IMG_INDT_W;
+	y = y - IMG_INDT_H;
+	if (x < 0 || x > IMG_SIZE_W || y < 0 || y > IMG_SIZE_H)
+		return;
+	i = (int)(IMG_SIZE_W * (y - 1) + x);
+	scene->picked_color = scene->frame_buffer[i];
+	scene->got_color = 1;
 }

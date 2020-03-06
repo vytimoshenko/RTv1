@@ -25,6 +25,7 @@ t_scene	*init_scene(int argc, char **argv)
 	reset_scene(scene);
 	// read_map(scene, argv[1]);
 	init_frame_buffer(scene);
+	init_motion_blur_buffer(scene);
 	init_depth_buffer(scene);
 	init_aliasing_buffer(scene);
 	init_object_buffer(scene);
@@ -43,106 +44,15 @@ t_scene	*init_scene(int argc, char **argv)
 
 // }
 
-void		init_frame_buffer(t_scene *scene)
-{
-	int i;
-
-	if (!(scene->frame_buffer = (t_color *)malloc(sizeof(t_color)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	if (!(scene->motion_blur_frame_buffers = (t_color **)malloc(sizeof(t_color *)
-	* MOTION_BLUR_BUFFERS)))
-		ft_put_errno(PROGRAM_NAME);
-	i = -1;
-	while (++i < MOTION_BLUR_BUFFERS)
-	{
-		if (!(scene->motion_blur_frame_buffers[i] = (t_color *)malloc(sizeof(t_color)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	}
-}
-
-void		clean_frame_buffer(t_scene *scene)
-{
-	int i;
-
-	i = -1;
-	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		scene->frame_buffer[i] = (t_color){0, 0, 0};
-}
-
-void		init_object_buffer(t_scene *scene)
-{
-	if (!(scene->object_buffer = (int *)malloc(sizeof(int)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	if (!(scene->got_object = (int *)malloc(sizeof(int)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	clean_object_buffer(scene);
-}
-
-void		clean_object_buffer(t_scene *scene)
-{
-	int i;
-
-	i = -1;
-	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		scene->object_buffer[i] = NO_OBJECT_SELECTED;
-	i = -1;
-	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		scene->got_object[i] = FALSE;
-}
-
-void		init_depth_buffer(t_scene *scene)
-{
-	if (!(scene->depth_buffer = (double *)malloc(sizeof(double)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	if (!(scene->got_depth = (int *)malloc(sizeof(int)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	clean_depth_buffer(scene);
-}
-
-void		clean_depth_buffer(t_scene *scene)
-{
-	int i;
-
-	i = -1;
-	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		scene->depth_buffer[i] = NO_OBJECT_SELECTED;
-	i = -1;
-	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		scene->got_depth[i] = FALSE;
-}
-
-
-void		init_aliasing_buffer(t_scene *scene)
-{
-	if (!(scene->aliasing_buffer = (int *)malloc(sizeof(int)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	clean_aliasing_buffer(scene);
-}
-
-void		clean_aliasing_buffer(t_scene *scene)
-{
-	int i;
-
-	i = -1;
-	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		scene->aliasing_buffer[i] = NO_OBJECT_SELECTED;
-}
-
 void		reset_scene(t_scene *scene)
 {
 	int	i;
 
 	scene->pixelation_k = PIXELATION_MIN;
+	scene->pixelation_k = 256;
 	scene->active_object = -1;
 	scene->scene_name = ft_strdup("Four amazing balls");
-	scene->background = (t_color){255, 255, 255};
+	scene->background = (t_color){0, 0, 0};
 
 	scene->current_camera = 0;
 	scene->depth_map_k = 64;

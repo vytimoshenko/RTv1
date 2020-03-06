@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/06 02:13:12 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/06 07:47:56 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define PROGRAM_NAME				"RTv1"
 
 # define WIN_SIZE_W					1916.0
-# define WIN_SIZE_H					1064.0
+# define WIN_SIZE_H					1264.0
 # define IMG_SIZE_W					1536.0
 # define IMG_SIZE_H					1024.0
 
@@ -94,6 +94,7 @@
 # define IN_MOVE					2
 
 # define LEFT_MOUSE_BUTTON			1
+# define RIGHT_MOUSE_BUTTON			2
 # define MIDDLE_MOUSE_BUTTON		3
 # define MOUSE_SCROLL_UP			4
 # define MOUSE_SCROLL_DOWN			5
@@ -244,7 +245,7 @@ typedef struct			s_scene
 	int					in_motion_blur;
 	int					motion_blur_key;
 	int					buffer_id;
-	t_color				**motion_blur_frame_buffers;
+	t_color				**motion_blur_buffers;
 
 	double				*depth_buffer;
 	int					*got_depth;
@@ -260,6 +261,9 @@ typedef struct			s_scene
 	int					effect;
 
 	int					pixelation_k;
+
+	int					got_color;
+	t_color				picked_color;
 
 	int					hide_info;
 
@@ -302,7 +306,13 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+
+void	pick_color(t_scene *scene, int x, int y);
+
+void    init_motion_blur_buffer(t_scene *scene);
+
 void	get_macro_pixel(t_scene *scene, int pitch);
+t_color	get_average_color(t_scene *scene, int pitch);
 
 t_color	effect_outline(t_scene *scene, int i);
 
@@ -434,12 +444,14 @@ void					put_scene_summary_2(t_scene *scene, t_mlx *mlx);
 void					put_scene_summary_3(t_scene *scene, t_mlx *mlx);
 void					put_scene_summary_4(t_scene *scene, t_mlx *mlx);
 
-void					put_scene_1(t_scene *scene, t_mlx *mlx);
-void					put_scene_2(t_scene *scene, t_mlx *mlx);
-void					put_scene_3(t_scene *scene, t_mlx *mlx);
-void					put_scene_4(t_scene *scene, t_mlx *mlx);
-void					put_scene_5(t_scene *scene, t_mlx *mlx);
-void					put_scene_6(t_scene *scene, t_mlx *mlx);
+void					put_status_1(t_scene *scene, t_mlx *mlx);
+void					put_status_2(t_scene *scene, t_mlx *mlx);
+void					put_status_3(t_scene *scene, t_mlx *mlx);
+void					put_status_4(t_scene *scene, t_mlx *mlx);
+void					put_status_5(t_scene *scene, t_mlx *mlx);
+void					put_status_6(t_scene *scene, t_mlx *mlx);
+void					put_status_7(t_scene *scene, t_mlx *mlx);
+void					draw_color_sample(t_mlx *mlx, int color);
 
 void					put_control_keys(t_mlx *mlx);
 void					put_render_info_1(t_mlx *mlx);

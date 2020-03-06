@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/05 04:29:24 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/06 07:28:24 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ int		mouse_key_press(int key, int x, int y, t_global *global)
 	{
 		if (!(select_object(x, y, global)))
 			return (0);
+	}
+	if (key == RIGHT_MOUSE_BUTTON)
+	{
+		pick_color(global->scene, x, y);
+		update_info_only(global);
+		return (0);
 	}
 	draw(global);
 	return (0);
