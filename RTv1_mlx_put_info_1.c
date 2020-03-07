@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 03:05:11 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/07 02:17:04 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 00:14:50 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	put_scene_summary_1(t_scene *scene, t_mlx *mlx)
 	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 40;
+	pos_y = 20;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 90, pos_y, TEXT_COLOR,
 	"SCENE SUMMARY");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
@@ -45,7 +45,7 @@ void	put_scene_summary_2(t_scene *scene, t_mlx *mlx)
 	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 40;
+	pos_y = 20;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 90, TEXT_COLOR,
 	"Light sources:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 90, TEXT_COLOR,
@@ -70,7 +70,7 @@ void	put_scene_summary_3(t_scene *scene, t_mlx *mlx)
 	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 40;
+	pos_y = 20;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 160, TEXT_COLOR,
 	"- point:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y + 160, TEXT_COLOR,
@@ -95,7 +95,7 @@ void	put_scene_summary_4(t_scene *scene, t_mlx *mlx)
 	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 40;
+	pos_y = 20;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 140, TEXT_COLOR,
 	"- spheres:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 310, pos_y + 140, TEXT_COLOR,

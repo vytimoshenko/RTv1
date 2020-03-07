@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/07 22:35:05 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 00:58:54 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		keyboard_key_press(int key, t_global *global)
 	else if (key == A || key == D || key == W || key == S || key == MORE ||
 	key == LESS)
 	{
-		if (global->scene->active_object == NO_OBJECT_SELECTED)
+		if (global->scene->active_object == NOTHING_SELECTED)
 			rotate_camera(global->scene, key);
 		else
 			rotate_object(global->scene, key);
@@ -51,7 +51,7 @@ int		keyboard_key_press(int key, t_global *global)
 	else if (key == ARROW_LEFT || key == ARROW_RIGHT || key == ARROW_DOWN
 	|| key == ARROW_UP || key == PAGE_UP || key == PAGE_DOWN)
 	{
-		if (global->scene->active_object == NO_OBJECT_SELECTED)
+		if (global->scene->active_object == NOTHING_SELECTED)
 			move_camera(global->scene, key);
 		else
 			move_object(global->scene, key);
@@ -66,8 +66,11 @@ int		keyboard_key_press(int key, t_global *global)
 	{
 		global->scene->anti_aliasing = FALSE;
 	}
-	else if (key == PLUS || key == MINUS)
+	else if (key == PLUS || key == MINUS || key == O)
+	{
 		change_effect_grade(global->scene, key);
+		change_light_intensity(global->scene, key);
+	}
 	else if (key == L || key == HOME || key == END)
 		change_light(global->scene, key);
 	else
@@ -80,8 +83,8 @@ void	extra_keyboard_key_press(int key, t_global *global)
 {
 	if (key == Q)
 		close_window(global);
-	else if (key == ESC && global->scene->active_object != NO_OBJECT_SELECTED)
-		global->scene->active_object = NO_OBJECT_SELECTED;
+	else if (key == ESC && global->scene->active_object != NOTHING_SELECTED)
+		global->scene->active_object = NOTHING_SELECTED;
 	else if (key == ESC && global->scene->effect != NO_EFFECT)
 		global->scene->effect = NO_EFFECT;
 	else if (key == SPACE)

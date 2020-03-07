@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/06 07:15:30 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/08 00:34:50 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC		= 	rtv1_main.c					\
 			rtv1_scene_init.c			\
 			rtv1_mlx_control_1.c		\
 			rtv1_mlx_control_2.c		\
+			rtv1_control_light.c		\
 			rtv1_light.c				
 		
 OBJ		= 	$(SRC:.c=.o)

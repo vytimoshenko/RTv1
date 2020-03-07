@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/07 22:35:30 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 01:04:12 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 
 # define TEXT_COLOR 				0xFFFFFF
 
-# define NO_OBJECT_SELECTED			-1
+# define NOTHING_SELECTED			-1
 # define LIGHT_SELECTED				0
 # define OBJECT_SELECTED			1
 # define SHADE_UNSELECTED			0.5
@@ -81,6 +81,11 @@
 # define CAMERA_MOVEMENT_INCREMENT	10
 # define CAMERA_ROTATION_INCREMENT	15
 
+
+# define LIGHT_INTENSITY_INCREMENT	0.1
+# define LIGHT_INTENSITY_MAX		3.0
+# define LIGHT_INTENSITY_MIN		0.0
+
 # define OBJECT_MOVEMENT_INCREMENT	10
 # define OBJECT_ROTATION_INCREMENT	30
 
@@ -105,6 +110,7 @@
 # define E							14
 # define PLUS						24
 # define MINUS						27
+# define O							31
 # define I							34
 # define P							35
 # define RETURN						36
@@ -199,6 +205,7 @@ typedef struct			s_light
 {
 	int					id;
 	int					type;
+	int					off;
 	double				intensity;
 	t_vector			position;
 	t_vector			direction;
@@ -305,6 +312,8 @@ typedef struct			s_global
 	t_scene				*scene;
 	t_mlx				*mlx;
 }						t_global;
+
+void	change_light_intensity(t_scene *scene, int key);
 
 void	change_light(t_scene *scene, int key);
 

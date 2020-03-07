@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:27:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/06 08:12:17 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 00:17:33 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	put_control_keys_1(t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 130, TEXT_COLOR,
 	"Change camera:  space");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 150, TEXT_COLOR,
-	"Camera zoom:    +/-");
+	"Change light:   L, Home/End");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 180, TEXT_COLOR,
 	"Change effect:  E/ESC");
 }
@@ -61,7 +61,7 @@ void	put_render_info_1(t_mlx *mlx)
 	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 1080;
+	pos_y = 1100;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 110, pos_y, TEXT_COLOR,
 	"RENDER");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
@@ -86,7 +86,7 @@ void	put_render_info_2(t_mlx *mlx)
 	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 1080;
+	pos_y = 1100;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 80, TEXT_COLOR,
 	"Frames:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 160, pos_y + 80, TEXT_COLOR,

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 06:42:59 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/07 22:33:37 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/07 23:33:25 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	clean_object_buffer(t_scene *scene)
 
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		scene->object_buffer[i] = NO_OBJECT_SELECTED;
+		scene->object_buffer[i] = NOTHING_SELECTED;
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 		scene->got_object[i] = FALSE;
@@ -39,7 +39,7 @@ void    clean_depth_buffer(t_scene *scene)
 
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		scene->depth_buffer[i] = NO_OBJECT_SELECTED;
+		scene->depth_buffer[i] = NOTHING_SELECTED;
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 		scene->got_depth[i] = FALSE;
@@ -51,5 +51,5 @@ void    clean_aliasing_buffer(t_scene *scene)
 
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		scene->aliasing_buffer[i] = NO_OBJECT_SELECTED;
+		scene->aliasing_buffer[i] = NOTHING_SELECTED;
 }
