@@ -23,6 +23,12 @@
         "cmath": "c",
         "cstdlib": "c",
         "ratio": "c",
-        "*.tcc": "c"
+        "*.tcc": "c",
+        "exception": "c",
+        "istream": "c",
+        "ostream": "c",
+        "sstream": "c",
+        "stdexcept": "c",
+        "streambuf": "c"
     }
 }

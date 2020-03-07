@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/07 02:08:12 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/07 22:35:30 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,10 @@ typedef struct			s_cameras
 
 typedef struct			s_scene
 {
+	int					active_camera;
+	int					active_light;
+	int					active_object;
+	
 	char				*file_name_with_path;
 	char				*scene_name;
 
@@ -258,7 +262,6 @@ typedef struct			s_scene
 
 	int					*object_buffer;
 	int					*got_object;
-	int					active_object;
 
 	int					anti_aliasing;
 	int					*aliasing_buffer;
@@ -303,7 +306,7 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
-void	change_light(t_scene *scene);
+void	change_light(t_scene *scene, int key);
 
 void	pick_color(t_scene *scene, int x, int y);
 
@@ -428,7 +431,6 @@ int						keyboard_key_press(int key, t_global *global);
 void					extra_keyboard_key_press(int key, t_global *global);
 int						close_window(t_global *global);
 
-void					zoom_camera(t_scene *scene, int key);
 void					move_camera(t_scene *scene, int key);
 void					rotate_camera(t_scene *scene, int key);
 void					move_object(t_scene *scene, int key);
@@ -447,9 +449,10 @@ void					put_scene_summary_4(t_scene *scene, t_mlx *mlx);
 void					put_status_1(t_scene *scene, t_mlx *mlx);
 void					put_status_2(t_scene *scene, t_mlx *mlx);
 void					put_status_3(t_scene *scene, t_mlx *mlx);
-void					put_status_4(t_scene *scene, t_mlx *mlx);
-void					put_status_4a(t_scene *scene, t_mlx *mlx);
+void					object_info_1(t_scene *scene, t_mlx *mlx);
+void					light_info(t_scene *scene, t_mlx *mlx);
 void					put_status_5(t_scene *scene, t_mlx *mlx);
+void					put_status_5a(t_scene *scene, t_mlx *mlx);
 void					put_status_6(t_scene *scene, t_mlx *mlx);
 void					put_status_7(t_scene *scene, t_mlx *mlx);
 void					draw_color_sample(t_mlx *mlx, int color);

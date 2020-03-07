@@ -53,7 +53,8 @@ void		reset_scene(t_scene *scene)
 	scene->active_object = -1;
 	scene->scene_name = ft_strdup("Four amazing balls");
 	scene->background = (t_color){0, 0, 0};
-
+	scene->active_light = NO_OBJECT_SELECTED;
+	scene->active_object = NO_OBJECT_SELECTED;
 	scene->cameras.current = 0;
 	scene->depth_map_k = 64;
 

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:08:23 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/07 01:58:44 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/07 22:35:10 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		select_object(int x, int y, t_global *global)
 		return (-1);
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
 	object_id = global->scene->object_buffer[i];
+	global->scene->active_light = NO_OBJECT_SELECTED;
 	if (global->scene->active_object == object_id)
 		return (0);
 	else
@@ -53,12 +54,29 @@ void	change_camera(t_scene *scene)
 	get_sin_cos(scene->cameras.array[scene->cameras.current]);
 }
 
-void	change_light(t_scene *scene)
+void	change_light(t_scene *scene, int key)
 {
-	if (scene->lights.current != scene->lights.quantity - 1)
-		scene->lights.current++;
-	else
-		scene->lights.current = 0;
+	if (key == L)
+	{
+		if (scene->active_light == NO_OBJECT_SELECTED)
+		{
+			scene->active_light = 0;
+			scene->active_object = NO_OBJECT_SELECTED;
+		}
+		else
+			scene->active_light = NO_OBJECT_SELECTED;
+	}
+	else if (scene->active_light != NO_OBJECT_SELECTED)
+	{
+		if (key == HOME && scene->active_light != scene->lights.quantity - 1)
+			scene->active_light++;
+		else if (key == HOME && scene->active_light == scene->lights.quantity - 1)
+			scene->active_light = 0;
+		else if (key == END && scene->active_light != 0)
+			scene->active_light--;
+		else if (key == END && scene->active_light == 0)
+			scene->active_light = scene->lights.quantity - 1;
+	}
 }
 
 void	change_effect(t_scene *scene)
