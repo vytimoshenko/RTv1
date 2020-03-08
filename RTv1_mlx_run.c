@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 06:48:40 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/09 01:44:01 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ void	put_info_to_window(t_global *global)
 	put_status_5(global->scene, global->mlx);
 	put_status_5a(global->scene, global->mlx);
 	put_status_6(global->scene, global->mlx);
-	// put_status_7(global->scene, global->mlx);
-	put_control_keys_1(global->mlx);
-	put_control_keys_2(global->mlx);
-	put_render_info_1(global->mlx);
-	put_render_info_2(global->mlx);
+	info_render_1(global->mlx);
+	info_render_2(global->mlx);
+	info_help(global->mlx);
 
 	put_coordinates(global->scene, global->mlx);
 	if (global->scene->got_color == TRUE)
 		put_color(global->scene, global->mlx);
 	put_scene_file_name(global->scene, global->mlx);
+	if (global->scene->show_help == TRUE)
+		show_help(global);
 }
 
 void	count_frames(t_mlx *mlx, struct timeval start, struct timeval end)
@@ -79,4 +79,32 @@ void	count_frames(t_mlx *mlx, struct timeval start, struct timeval end)
 	++mlx->frames;
 	mlx->frame_time = (double)(end.tv_usec - start.tv_usec) / 1000 +
 	(double)(end.tv_sec - start.tv_sec) * 1000;
+}
+
+void	show_help(t_global *global)
+{
+	put_help_rect(global->mlx);
+	info_control_1(global->mlx);
+	info_control_2(global->mlx);
+	info_control_3(global->mlx);
+	info_control_4(global->mlx);
+	info_author(global->mlx);
+}
+
+void	put_help_rect(t_mlx *mlx)
+{
+	int		pos_x;
+	int		pos_y;
+	int		x;
+	int		y;
+
+	pos_x = (WIN_SIZE_W - 1000) / 2;
+	pos_y = (WIN_SIZE_H - 500) / 2;
+	y = -1;
+	while (++y < 500)
+	{
+		x = -1;
+		while (++x < 1000)
+			mlx_pixel_put(mlx->mlx, mlx->win, pos_x + x, pos_y + y, 0x50000000);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:08:23 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 06:52:04 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/09 02:08:08 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	apply_material(int x, int y, t_global *global)
 	global->scene->objects.array[global->scene->object_buffer[i]]->material =
 	global->scene->material_source;
 	global->scene->material_source = NOTHING_SELECTED;
+	system("afplay /System/Library/Sounds/Submarine.aiff");
 }
 
 void	change_camera(t_scene *scene)
@@ -117,4 +118,5 @@ void	pick_color(t_scene *scene, int x, int y)
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
 	scene->picked_color = scene->frame_buffer[i];
 	scene->got_color = 1;
+	system("afplay /System/Library/Sounds/Tink.aiff");
 }

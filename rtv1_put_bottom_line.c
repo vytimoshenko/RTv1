@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 03:37:02 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 03:45:00 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/09 00:21:58 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	put_coordinates(t_scene *scene, t_mlx *mlx)
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 100, pos_y, TEXT_COLOR,
 	str = ft_itoa(scene->y_mouse_position));
+	free(str);
 }
 
 void	put_color(t_scene *scene, t_mlx *mlx)

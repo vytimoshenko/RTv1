@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 07:39:23 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/09 01:34:54 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,16 @@
 # define PROGRAM_NAME				"RTv1"
 
 # define WIN_SIZE_W					1916.0
-# define WIN_SIZE_H					1264.0
+# define WIN_SIZE_H					1064.0
 # define IMG_SIZE_W					1536.0
 # define IMG_SIZE_H					1024.0
 
 # define IMG_INDT_W					10
 # define IMG_INDT_H					10
+
+# define MESSAGE_BOX_W				1000
+# define MESSAGE_BOX_H				500
+# define MESSAGE_BOX_IDNT			30
 
 # define VIEWPORT_SIZE_W			1.5
 # define VIEWPORT_SIZE_H			1
@@ -105,6 +109,7 @@
 # define A							0
 # define S							1
 # define D							2
+# define H							4
 # define Q							12
 # define W							13
 # define E							14
@@ -306,6 +311,8 @@ typedef struct			s_scene
 
 	int					material_source;
 	int					material_target;
+
+	int					show_help;
 }						t_scene;
 
 typedef struct			s_mlx
@@ -329,6 +336,11 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+void	info_help(t_mlx *mlx);
+void	info_author(t_mlx *mlx);
+
+void	show_help(t_global *global);
+void	put_help_rect(t_mlx *mlx);
 
 void	put_material_color_sample(t_mlx *mlx, int color);
 int		mouse_key_release(int key, int x, int y, t_global *global);
@@ -490,10 +502,12 @@ void					put_status_5a(t_scene *scene, t_mlx *mlx);
 void					put_status_6(t_scene *scene, t_mlx *mlx);
 void					put_status_7(t_scene *scene, t_mlx *mlx);
 
-void					put_control_keys_1(t_mlx *mlx);
-void					put_control_keys_2(t_mlx *mlx);
-void					put_render_info_1(t_mlx *mlx);
-void					put_render_info_2(t_mlx *mlx);
+void					info_control_1(t_mlx *mlx);
+void					info_control_2(t_mlx *mlx);
+void					info_control_3(t_mlx *mlx);
+void					info_control_4(t_mlx *mlx);
+void					info_render_1(t_mlx *mlx);
+void					info_render_2(t_mlx *mlx);
 
 void					put_coordinates(t_scene *scene, t_mlx *mlx);
 void					put_color(t_scene *scene, t_mlx *mlx);
