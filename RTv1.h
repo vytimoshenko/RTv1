@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 01:04:12 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 04:10:38 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@
 
 
 # define LIGHT_INTENSITY_INCREMENT	0.1
-# define LIGHT_INTENSITY_MAX		3.0
+# define LIGHT_INTENSITY_MAX		1.0
 # define LIGHT_INTENSITY_MIN		0.0
 
 # define OBJECT_MOVEMENT_INCREMENT	10
@@ -173,6 +173,15 @@ typedef struct			s_pixel
 	// int					object_id;
 }						t_pixel;
 
+typedef struct			s_camera
+{
+	int					id;
+	t_vector			position;
+	t_vector			direction;
+	double				zoom;
+	t_vector			sin;
+	t_vector			cos;
+}						t_camera;
 
 
 typedef struct			s_object
@@ -195,11 +204,6 @@ typedef struct			s_object
 	int					null;
 }						t_object;
 
-typedef struct			s_objects
-{
-	int					quantity;
-	t_object			**array;
-}						t_objects;
 
 typedef struct			s_light
 {
@@ -211,9 +215,14 @@ typedef struct			s_light
 	t_vector			direction;
 }						t_light;
 
+typedef struct			s_cameras
+{
+	int					quantity;
+	t_camera			**array;
+}						t_cameras;
+
 typedef struct			s_lights
 {
-	int					current;
 	int					quantity;
 	int					quantity_ambient;
 	int					quantity_directional;
@@ -221,22 +230,17 @@ typedef struct			s_lights
 	t_light				**array;
 }						t_lights;
 
-typedef struct			s_camera
+typedef struct			s_objects
 {
-	int					id;
-	t_vector			position;
-	t_vector			direction;
-	double				zoom;
-	t_vector			sin;
-	t_vector			cos;
-}						t_camera;
-
-typedef struct			s_cameras
-{
-	int					current;
 	int					quantity;
-	t_camera			**array;
-}						t_cameras;
+	int					quantity_planes;
+	int					quantity_spheres;
+	int					quantity_cylinders;
+	int					quantity_cones;
+	t_object			**array;
+}						t_objects;
+
+
 
 typedef struct			s_scene
 {
@@ -279,12 +283,6 @@ typedef struct			s_scene
 
 	int					got_color;
 	t_color				picked_color;
-
-	int					total_objects_quantity;
-	int					planes_quantity;
-	int					objects_quantity;
-	int					cylinders_quantity;
-	int					cones_quantity;
 
 	int					x_mouse_position;
 	int					y_mouse_position;
@@ -445,6 +443,9 @@ void					rotate_camera(t_scene *scene, int key);
 void					move_object(t_scene *scene, int key);
 void					rotate_object(t_scene *scene, int key);
 
+void					move_light(t_scene *scene, int key);
+void					rotate_light(t_scene *scene, int key);
+
 void					get_mouse_position(t_scene *scene, int x, int y);
 int						select_object(int x, int y, t_global *global);
 void					change_camera(t_scene *scene);
@@ -464,12 +465,15 @@ void					put_status_5(t_scene *scene, t_mlx *mlx);
 void					put_status_5a(t_scene *scene, t_mlx *mlx);
 void					put_status_6(t_scene *scene, t_mlx *mlx);
 void					put_status_7(t_scene *scene, t_mlx *mlx);
-void					draw_color_sample(t_mlx *mlx, int color);
 
 void					put_control_keys_1(t_mlx *mlx);
 void					put_control_keys_2(t_mlx *mlx);
 void					put_render_info_1(t_mlx *mlx);
 void					put_render_info_2(t_mlx *mlx);
-void					put_bottom_line(t_scene *scene, t_mlx *mlx);
+
+void					put_coordinates(t_scene *scene, t_mlx *mlx);
+void					put_color(t_scene *scene, t_mlx *mlx);
+void					put_color_sample(t_mlx *mlx, int color);
+void					put_scene_file_name(t_scene *scene, t_mlx *mlx);
 
 #endif

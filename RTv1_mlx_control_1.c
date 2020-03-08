@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/07 01:57:28 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 04:01:32 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	move_camera(t_scene *scene, int key)
 {
 	int i;
 
-	i = scene->cameras.current;
+	i = scene->active_camera;
 	if (key == ARROW_DOWN)
 		scene->cameras.array[i]->position.y -= CAMERA_MOVEMENT_INCREMENT;
 	else if (key == ARROW_UP)
@@ -35,7 +35,7 @@ void	rotate_camera(t_scene *scene, int key)
 {
 	int i;
 
-	i = scene->cameras.current;
+	i = scene->active_camera;
 	if (key == W)
 		scene->cameras.array[i]->direction.x += CAMERA_ROTATION_INCREMENT;
 	else if (key == S)

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 00:58:54 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 02:53:20 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,22 @@ int		keyboard_key_press(int key, t_global *global)
 	else if (key == A || key == D || key == W || key == S || key == MORE ||
 	key == LESS)
 	{
-		if (global->scene->active_object == NOTHING_SELECTED)
-			rotate_camera(global->scene, key);
-		else
+		if (global->scene->active_light != NOTHING_SELECTED)
+			rotate_light(global->scene, key);
+		else if (global->scene->active_object != NOTHING_SELECTED)
 			rotate_object(global->scene, key);
+		else
+			rotate_camera(global->scene, key);
 	}
 	else if (key == ARROW_LEFT || key == ARROW_RIGHT || key == ARROW_DOWN
 	|| key == ARROW_UP || key == PAGE_UP || key == PAGE_DOWN)
 	{
-		if (global->scene->active_object == NOTHING_SELECTED)
-			move_camera(global->scene, key);
-		else
+		if (global->scene->active_light != NOTHING_SELECTED)
+			move_light(global->scene, key);
+		else if (global->scene->active_object != NOTHING_SELECTED)
 			move_object(global->scene, key);
+		else
+			move_camera(global->scene, key);
 	}
 	// else if (key == M)
 	// 	global->scene->in_motion_blur = TRUE;
@@ -83,8 +87,13 @@ void	extra_keyboard_key_press(int key, t_global *global)
 {
 	if (key == Q)
 		close_window(global);
-	else if (key == ESC && global->scene->active_object != NOTHING_SELECTED)
+	else if (key == ESC && (global->scene->active_object != NOTHING_SELECTED
+		|| global->scene->active_light != NOTHING_SELECTED || global->scene->got_color == TRUE))
+	{
 		global->scene->active_object = NOTHING_SELECTED;
+		global->scene->active_light = NOTHING_SELECTED;
+		global->scene->got_color = FALSE;
+	}
 	else if (key == ESC && global->scene->effect != NO_EFFECT)
 		global->scene->effect = NO_EFFECT;
 	else if (key == SPACE)

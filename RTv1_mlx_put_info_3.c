@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:27:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 00:17:33 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 03:38:26 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	put_control_keys_1(t_mlx *mlx)
 	int pos_y;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 700;
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 110, pos_y, TEXT_COLOR,
+	pos_y = 710;
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 115, pos_y, TEXT_COLOR,
 	"CONTROL");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
 	"Select:         left mouse button");
@@ -43,7 +43,7 @@ void	put_control_keys_2(t_mlx *mlx)
 	int pos_y;
 
 	pos_x = WIN_SIZE_W - 350;
-	pos_y = 700;
+	pos_y = 710;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 210, TEXT_COLOR,
 	"Antialiasing:   I");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 240, TEXT_COLOR,
@@ -62,7 +62,7 @@ void	put_render_info_1(t_mlx *mlx)
 
 	pos_x = WIN_SIZE_W - 350;
 	pos_y = 1100;
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 110, pos_y, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + 115, pos_y, TEXT_COLOR,
 	"RENDER");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
 	"Resolition:          x      pixels");
@@ -99,24 +99,3 @@ void	put_render_info_2(t_mlx *mlx)
 	free(str);
 }
 
-void	put_bottom_line(t_scene *scene, t_mlx *mlx)
-{
-	int		pos_x;
-	int		pos_y;
-	char	*str;
-
-	pos_x = 20;
-	pos_y = WIN_SIZE_H - 30;
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y, TEXT_COLOR, "X:");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 20, pos_y, TEXT_COLOR,
-	str = ft_itoa(scene->x_mouse_position));
-	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 80, pos_y, TEXT_COLOR, "Y:");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 100, pos_y, TEXT_COLOR,
-	str = ft_itoa(scene->y_mouse_position));
-	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 200, pos_y, TEXT_COLOR,
-	"scene file opened:");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 390, pos_y, TEXT_COLOR,
-	scene->file_name_with_path);
-}

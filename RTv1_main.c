@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:09:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 04:31:38 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 02:05:41 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,5 @@ int	main(int argc, char **argv)
 	loop(&global);
 	exit(0);
 }
+
+// system("afplay /System/Library/Sounds/Pop.aiff");

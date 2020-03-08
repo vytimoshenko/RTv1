@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:08:23 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 00:34:14 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 04:01:55 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,12 @@ int		select_object(int x, int y, t_global *global)
 
 void	change_camera(t_scene *scene)
 {
-	if (scene->cameras.current != scene->cameras.quantity - 1)
-		scene->cameras.current++;
+	if (scene->active_camera != scene->cameras.quantity - 1)
+		scene->active_camera++;
 	else
-		scene->cameras.current = 0;
-	get_sin_cos(scene->cameras.array[scene->cameras.current]);
+		scene->active_camera = 0;
+	get_sin_cos(scene->cameras.array[scene->active_camera]);
 }
-
-
 
 void	change_effect(t_scene *scene)
 {

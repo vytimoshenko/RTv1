@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 07:09:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/07 01:54:55 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 04:00:11 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,15 @@ void	anti_aliasing(t_scene *scene, t_pixel *pixel, double *jitter)
 
 	sum = (t_color){0, 0, 0};
 	i = -1;
-	tmp.z = scene->cameras.array[scene->cameras.current]->position.z;
+	tmp.z = scene->cameras.array[scene->active_camera]->position.z;
 	while (++i < MULTI_SAMPLING_RATE)
 	{
 		tmp.x = 0;
 		tmp.y = 0;
 		pixel->color = scene->background;
 		get_pixel_position(scene, pixel);
-		tmp.x = jitter[i] + scene->cameras.array[scene->cameras.current]->position.x;
-		tmp.y = jitter[i] + scene->cameras.array[scene->cameras.current]->position.y;
+		tmp.x = jitter[i] + scene->cameras.array[scene->active_camera]->position.x;
+		tmp.y = jitter[i] + scene->cameras.array[scene->active_camera]->position.y;
 		get_pixel_color(scene, tmp, pixel, REFLECTION_DEPTH);
 		sum.r += pixel->color.r;
 		sum.g += pixel->color.g;
