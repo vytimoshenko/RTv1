@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:08:23 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 04:01:55 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 06:52:04 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,32 @@ int		select_object(int x, int y, t_global *global)
 		global->scene->active_object = object_id;
 		return (1);
 	}
+}
+
+void	get_material(int x, int y, t_global *global)
+{
+	int	i;
+
+	x = x - IMG_INDT_W;
+	y = y - IMG_INDT_H;
+	if (x < 0 || x > IMG_SIZE_W || y < 0 || y > IMG_SIZE_H)
+		return;
+	i = (int)(IMG_SIZE_W * (y - 1) + x);
+	global->scene->material_source = global->scene->objects.array[global->scene->object_buffer[i]]->material;
+}
+
+void	apply_material(int x, int y, t_global *global)
+{
+	int	i;
+
+	x = x - IMG_INDT_W;
+	y = y - IMG_INDT_H;
+	if (x < 0 || x > IMG_SIZE_W || y < 0 || y > IMG_SIZE_H)
+		return;
+	i = (int)(IMG_SIZE_W * (y - 1) + x);
+	global->scene->objects.array[global->scene->object_buffer[i]]->material =
+	global->scene->material_source;
+	global->scene->material_source = NOTHING_SELECTED;
 }
 
 void	change_camera(t_scene *scene)

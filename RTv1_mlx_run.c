@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 03:40:35 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 06:48:40 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	loop(t_global *global)
 {
 	mlx_hook(global->mlx->win, 2, 0, keyboard_key_press, global);
 	mlx_hook(global->mlx->win, 4, 0, mouse_key_press, global);
+	mlx_hook(global->mlx->win, 5, 0, mouse_key_release, global);
 	mlx_hook(global->mlx->win, 6, 0, mouse_move, global);
 	mlx_hook(global->mlx->win, 17, 0, close_window, global);
 	mlx_loop(global->mlx->mlx);

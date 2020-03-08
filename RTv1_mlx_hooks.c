@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 02:53:20 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 06:53:03 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,19 @@ int		mouse_key_press(int key, int x, int y, t_global *global)
 		update_info_only(global);
 		return (0);
 	}
+	if (key == MIDDLE_MOUSE_BUTTON)
+	{
+		get_material(x, y, global);
+		return (0);
+	}
+	draw(global);
+	return (0);
+}
+
+int		mouse_key_release(int key, int x, int y, t_global *global)
+{
+	if (key == MIDDLE_MOUSE_BUTTON && global->scene->material_source != NOTHING_SELECTED)
+		apply_material(x, y, global);
 	draw(global);
 	return (0);
 }

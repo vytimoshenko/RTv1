@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 04:44:24 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 06:49:06 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ typedef struct			s_object
 {
 	int					id;
 	int					type;
+	int					material;
 	t_color				color;
 	double				specular;
 	double				reflective;
@@ -218,6 +219,7 @@ typedef struct			s_light
 typedef struct			s_material
 {
 	int					id;
+	char				*name;
 	int					type;
 	t_color				color;
 	double				specular;
@@ -302,6 +304,9 @@ typedef struct			s_scene
 	int					y_mouse_position;
 
 	int					middle_mouse_button;
+
+	int					material_source;
+	int					material_target;
 }						t_scene;
 
 typedef struct			s_mlx
@@ -324,6 +329,10 @@ typedef struct			s_global
 	t_scene				*scene;
 	t_mlx				*mlx;
 }						t_global;
+
+int		mouse_key_release(int key, int x, int y, t_global *global);
+void	get_material(int x, int y, t_global *global);
+void	apply_material(int x, int y, t_global *global);
 
 void	change_light_intensity(t_scene *scene, int key);
 
@@ -353,7 +362,7 @@ t_color	effect_depth(t_scene *scene, int i);
 void		fill_depth_buffer(t_scene *scene, t_pixel pixel, double closest);
 
 void	get_jitter(double *random);
-void		get_point_properties(t_point *point, t_object *object);
+void		get_point_properties(t_scene *scene, t_point *point, t_object *object);
 
 void	motion_blur_script(t_global *global);
 

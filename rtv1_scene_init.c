@@ -55,6 +55,7 @@ void		reset_scene(t_scene *scene)
 	scene->background = (t_color){0, 0, 0};
 	scene->active_light = NOTHING_SELECTED;
 	scene->active_object = NOTHING_SELECTED;
+	scene->material_source = NOTHING_SELECTED;
 	scene->active_camera = 0;
 	scene->depth_map_k = 64;
 
@@ -88,10 +89,7 @@ void		reset_scene(t_scene *scene)
 	i = 0;
 	scene->objects.array[i]->id = i;
 	scene->objects.array[i]->type = OBJECT_TYPE_SPHERE;
-	scene->objects.array[i]->color = (t_color){0xFF, 0x00, 0x00};
-	scene->objects.array[i]->specular = 1000;
-	scene->objects.array[i]->reflective = 0.5;
-	scene->objects.array[i]->transparency = 0.0;
+	scene->objects.array[i]->material = i;
 	scene->objects.array[i]->center.x = 0.0;
 	scene->objects.array[i]->center.y = -10.0;
 	scene->objects.array[i]->center.z = 30.0;
@@ -99,10 +97,7 @@ void		reset_scene(t_scene *scene)
 	i++;
 	scene->objects.array[i]->id = i;
 	scene->objects.array[i]->type = OBJECT_TYPE_SPHERE;
-	scene->objects.array[i]->color = (t_color){0x00, 0xFF, 0x00};
-	scene->objects.array[i]->specular = 1000;
-	scene->objects.array[i]->reflective = 0.5;
-	scene->objects.array[i]->transparency = 0.0;
+	scene->objects.array[i]->material = i;
 	scene->objects.array[i]->center.x = 20.0;
 	scene->objects.array[i]->center.y = 0.0;
 	scene->objects.array[i]->center.z = 40.0;
@@ -110,10 +105,7 @@ void		reset_scene(t_scene *scene)
 	i++;
 	scene->objects.array[i]->id = i;
 	scene->objects.array[i]->type = OBJECT_TYPE_SPHERE;
-	scene->objects.array[i]->color = (t_color){0x00, 0x00, 0xFF};
-	scene->objects.array[i]->specular = 1000;
-	scene->objects.array[i]->reflective = 0.5;
-	// scene->objects.array[i]->refractive = 1 - scene->objects.array[i]->reflective;
+	scene->objects.array[i]->material = i;
 	scene->objects.array[i]->transparency = 0.9;
 	scene->objects.array[i]->center.x = -20.0;
 	scene->objects.array[i]->center.y = 0.0;
@@ -121,10 +113,8 @@ void		reset_scene(t_scene *scene)
 	scene->objects.array[i]->radius = 8.0;
 	i++;
 	scene->objects.array[i]->id = i;
+	scene->objects.array[i]->material = i;
 	scene->objects.array[i]->type = OBJECT_TYPE_SPHERE;
-	scene->objects.array[i]->color = (t_color){0xFF, 0xFF, 0xFF};
-	scene->objects.array[i]->specular = 1000;
-	scene->objects.array[i]->reflective = 0;
 	scene->objects.array[i]->center.x = -10.0;
 	scene->objects.array[i]->center.y = 15.0;
 	scene->objects.array[i]->center.z = 40.0;
@@ -132,10 +122,7 @@ void		reset_scene(t_scene *scene)
 	i++;
 	scene->objects.array[i]->id = i;
 	scene->objects.array[i]->type = OBJECT_TYPE_SPHERE;
-	scene->objects.array[i]->color = (t_color){0xFF, 0x00, 0xFF};
-	scene->objects.array[i]->specular = 1000;
-	scene->objects.array[i]->reflective = 0.5;
-	scene->objects.array[i]->transparency = 0.0;
+	scene->objects.array[i]->material = i;
 	scene->objects.array[i]->center.x = 0.0;
 	scene->objects.array[i]->center.y = 20.0;
 	scene->objects.array[i]->center.z = 100.0;
@@ -183,9 +170,7 @@ void		reset_scene(t_scene *scene)
 	i++;
 	scene->objects.array[i]->id = i;
 	scene->objects.array[i]->type = OBJECT_TYPE_PLANE;
-	scene->objects.array[i]->color = (t_color){0x100, 0x100, 0x100};
-	scene->objects.array[i]->specular = 50;
-	scene->objects.array[i]->reflective = 0.0;
+	scene->objects.array[i]->material = i;
 	scene->objects.array[i]->center.x = 0.0;
 	scene->objects.array[i]->center.y = -10.0;
 	scene->objects.array[i]->center.z = 0.0;
@@ -214,25 +199,28 @@ void		reset_scene(t_scene *scene)
 	scene->lights.array[i]->intensity = 0.1;
 	scene->lights.array[i]->position = (t_vector){10, 40, 40};
 
-	scene->materials.quantity = 5;
+	scene->materials.quantity = 6;
 	scene->materials.array = (t_material **)ft_memalloc(sizeof(t_material *) * scene->materials.quantity);
 	i = -1;
 	while (++i < scene->materials.quantity)
 		scene->materials.array[i] = (t_material *)ft_memalloc(sizeof(t_material));
 	i = 0;
 	scene->materials.array[i]->id = i;
+	scene->materials.array[i]->name = ft_strdup("Shiny red");
 	scene->materials.array[i]->color = (t_color){0xFF, 0x00, 0x00};
 	scene->materials.array[i]->specular = 1000;
 	scene->materials.array[i]->reflective = 0.5;
 	scene->materials.array[i]->transparency = 0.0;
 	i++;
 	scene->materials.array[i]->id = i;
+	scene->materials.array[i]->name = ft_strdup("Matte green");
 	scene->materials.array[i]->color = (t_color){0x00, 0xFF, 0x00};
-	scene->materials.array[i]->specular = 1000;
-	scene->materials.array[i]->reflective = 0.5;
+	scene->materials.array[i]->specular = 100;
+	scene->materials.array[i]->reflective = 0.1;
 	scene->materials.array[i]->transparency = 0.0;
 	i++;
 	scene->materials.array[i]->id = i;
+	scene->materials.array[i]->name = ft_strdup("Super blue");
 	scene->materials.array[i]->color = (t_color){0x00, 0x00, 0xFF};
 	scene->materials.array[i]->specular = 1000;
 	scene->materials.array[i]->reflective = 0.5;
@@ -240,13 +228,22 @@ void		reset_scene(t_scene *scene)
 	i++;
 	scene->materials.array[i]->id = i;
 	scene->materials.array[i]->color = (t_color){0xFF, 0xFF, 0xFF};
+	scene->materials.array[i]->name = ft_strdup("Glossy white");
 	scene->materials.array[i]->specular = 1000;
 	scene->materials.array[i]->reflective = 0;
 	scene->materials.array[i]->transparency = 0.0;
 	i++;
 	scene->materials.array[i]->id = i;
+	scene->materials.array[i]->name = ft_strdup("Deep magenta");
 	scene->materials.array[i]->color = (t_color){0xFF, 0x00, 0xFF};
 	scene->materials.array[i]->specular = 1000;
 	scene->materials.array[i]->reflective = 0.5;
+	scene->materials.array[i]->transparency = 0.0;
+	i++;
+	scene->materials.array[i]->id = i;
+	scene->materials.array[i]->name = ft_strdup("Light gray");
+	scene->materials.array[i]->color = (t_color){0x100, 0x100, 0x100};
+	scene->materials.array[i]->specular = 50;
+	scene->materials.array[i]->reflective = 0.0;
 	scene->materials.array[i]->transparency = 0.0;
 }

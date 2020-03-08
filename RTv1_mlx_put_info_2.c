@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 04:00:49 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 06:33:39 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,14 @@ void	put_status_6(t_scene *scene, t_mlx *mlx)
 			str = ft_itoa(scene->objects.array[scene->active_object]->radius));
 			free(str);
 		}
+		mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 100, TEXT_COLOR,
+		"- material:       #");
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 100, TEXT_COLOR,
+		str = ft_itoa(scene->objects.array[scene->active_object]->material));
+		free(str);
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 210, pos_y + 100, TEXT_COLOR,
+		scene->materials.array[scene->objects.array[scene->active_object]->material]->name);
+		
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:27:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 03:38:26 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 06:54:09 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ void	put_control_keys_1(t_mlx *mlx)
 	"Change light:   L, Home/End");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 180, TEXT_COLOR,
 	"Change effect:  E/ESC");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 210, TEXT_COLOR,
+	"Apply material: middle mouse button");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 240, TEXT_COLOR,
+	"Material edit:  M");
 }
 
 void	put_control_keys_2(t_mlx *mlx)
@@ -44,13 +48,13 @@ void	put_control_keys_2(t_mlx *mlx)
 
 	pos_x = WIN_SIZE_W - 350;
 	pos_y = 710;
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 210, TEXT_COLOR,
-	"Antialiasing:   I");
-	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 240, TEXT_COLOR,
-	"Pick color:     right mouse button");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 270, TEXT_COLOR,
-	"Reset:          R");
+	"Antialiasing:   I");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 300, TEXT_COLOR,
+	"Pick color:     right mouse button");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 330, TEXT_COLOR,
+	"Reset:          R");
+	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 360, TEXT_COLOR,
 	"Exit:           Q");
 }
 

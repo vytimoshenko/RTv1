@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/07 02:05:29 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 06:12:02 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int k)
 		return;
 	fill_object_buffer(scene, *pixel, closest_object.id);
 	point.xyz = add(camera, multiply_sv(closest_object.closest, pixel->position));
-	get_point_properties(&point, &closest_object);
+	get_point_properties(scene, &point, &closest_object);
 	point.light = get_lightning(scene, point, multiply_sv(-1.0, pixel->position));
 	point.final_color = multiply_color(point.light, point.color);
 	if (k == 0 || (point.reflective <= 0 && point.transparency <= 0))
@@ -62,15 +62,15 @@ void		fill_depth_buffer(t_scene *scene, t_pixel pixel, double closest)
 	}
 }
 
-void		get_point_properties(t_point *point, t_object *object)
+void		get_point_properties(t_scene *scene, t_point *point, t_object *object)
 {
 	get_normal(point, object);
 	point->n = normalize(point->n);
-	point->color = object->color;
-	point->specular = object->specular;
-	point->reflective = object->reflective;
-	point->transparency = object->transparency;
-	point->refractive = object->refractive;
+	point->color = scene->materials.array[object->material]->color;
+	point->specular = scene->materials.array[object->material]->specular;
+	point->reflective = scene->materials.array[object->material]->reflective;
+	point->transparency = scene->materials.array[object->material]->transparency;
+	point->refractive = scene->materials.array[object->material]->refractive;
 }
 
 void		get_normal(t_point *point, t_object *object)
@@ -112,7 +112,6 @@ t_object	get_intersection(t_objects objects, t_vector camera,
 	while (++i < objects.quantity)
 	{
 		select_object_function(objects.array[i], camera, pixel);
-		// get_closest_object(objects.array[i]);
 		if (objects.array[i]->t1 >= t_min && objects.array[i]->t1 <=
 		t_max && objects.array[i]->t1 < closest)
 		{
