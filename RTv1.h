@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 06:49:06 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 07:39:23 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,6 @@ typedef struct			s_material
 {
 	int					id;
 	char				*name;
-	int					type;
 	t_color				color;
 	double				specular;
 	double				reflective;
@@ -330,6 +329,8 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+
+void	put_material_color_sample(t_mlx *mlx, int color);
 int		mouse_key_release(int key, int x, int y, t_global *global);
 void	get_material(int x, int y, t_global *global);
 void	apply_material(int x, int y, t_global *global);

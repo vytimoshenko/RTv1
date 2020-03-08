@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_mlx_put_info_2.c                              :+:      :+:    :+:   */
+/*   RTv1_mlx_put_info_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 06:33:39 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 07:48:58 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,10 +193,12 @@ void	put_status_6(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
+	int		i;
 	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
 	pos_y = 520;
+	i = scene->objects.array[scene->active_object]->material;
 	if (scene->active_object != NOTHING_SELECTED)
 	{
 		if (scene->objects.array[scene->active_object]->type ==
@@ -211,11 +213,32 @@ void	put_status_6(t_scene *scene, t_mlx *mlx)
 		mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 100, TEXT_COLOR,
 		"- material:       #");
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 100, TEXT_COLOR,
-		str = ft_itoa(scene->objects.array[scene->active_object]->material));
+		str = ft_itoa(i));
 		free(str);
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 210, pos_y + 100, TEXT_COLOR,
-		scene->materials.array[scene->objects.array[scene->active_object]->material]->name);
-		
+		scene->materials.array[i]->name);
+		mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 120, TEXT_COLOR,
+		"- color (RGB):");
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 120, TEXT_COLOR,
+		str = ft_itoa(scene->materials.array[i]->color.r));
+		free(str);
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 240, pos_y + 120, TEXT_COLOR,
+		str = ft_itoa(scene->materials.array[i]->color.g));
+		free(str);
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 290, pos_y + 120, TEXT_COLOR,
+		str = ft_itoa(scene->materials.array[i]->color.b));
+		free(str);
+		put_material_color_sample(mlx, unite_color_channels(scene->materials.array[i]->color));
+		mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 140, TEXT_COLOR,
+		"- specular:");
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 140, TEXT_COLOR,
+		str = ft_itoa(scene->materials.array[i]->specular));
+		free(str);
+		mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 160, TEXT_COLOR,
+		"- reflective (x10):");
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 160, TEXT_COLOR,
+		str = ft_itoa(10 * scene->materials.array[i]->reflective));
+		free(str);
 	}
 }
 
@@ -307,3 +330,20 @@ void	put_status_5a(t_scene *scene, t_mlx *mlx)
 	}
 }
 
+void	put_material_color_sample(t_mlx *mlx, int color)
+{
+	int		pos_x;
+	int		pos_y;
+	int		x;
+	int		y;
+
+	pos_x = WIN_SIZE_W - 200;
+	pos_y = 642;
+	y = -1;
+	while (++y < 18)
+	{
+		x = -1;
+		while (++x < 18)
+			mlx_pixel_put(mlx->mlx, mlx->win, pos_x + x, pos_y + y, color);
+	}
+}
