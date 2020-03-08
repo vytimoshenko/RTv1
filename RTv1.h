@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 04:10:38 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 04:44:24 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,17 @@ typedef struct			s_light
 	t_vector			direction;
 }						t_light;
 
+typedef struct			s_material
+{
+	int					id;
+	int					type;
+	t_color				color;
+	double				specular;
+	double				reflective;
+	double				transparency;
+	double				refractive;
+}						t_material;
+
 typedef struct			s_cameras
 {
 	int					quantity;
@@ -230,6 +241,12 @@ typedef struct			s_lights
 	t_light				**array;
 }						t_lights;
 
+typedef struct			s_materials
+{
+	int					quantity;
+	t_material			**array;
+}						t_materials;
+
 typedef struct			s_objects
 {
 	int					quantity;
@@ -239,8 +256,6 @@ typedef struct			s_objects
 	int					quantity_cones;
 	t_object			**array;
 }						t_objects;
-
-
 
 typedef struct			s_scene
 {
@@ -253,11 +268,10 @@ typedef struct			s_scene
 
 	t_color				background;
 
-	int					materials_quantity;
-
 	t_cameras			cameras;
 	t_lights			lights;
 	t_objects			objects;
+	t_materials			materials;
 
 	t_color				*frame_buffer;
 

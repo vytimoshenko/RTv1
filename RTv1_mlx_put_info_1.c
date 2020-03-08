@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 03:05:11 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 04:10:34 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/08 04:43:37 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	put_scene_summary_1(t_scene *scene, t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 180, pos_y + 60, TEXT_COLOR,
 	"Materials:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 310, pos_y + 60, TEXT_COLOR,
-	str = ft_itoa(scene->materials_quantity));
+	str = ft_itoa(scene->materials.quantity));
 	free(str);
 }
 
