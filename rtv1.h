@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/09 07:01:34 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/09 08:09:42 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <sys/time.h>
 
 # define PROGRAM_NAME				"RTv1"
+
+# define JSON_SCENE_NAME			"scene_name"
+# define JSON_CAMERA				"camera"
 
 # define WIN_SIZE_W					1916.0
 # define WIN_SIZE_H					1064.0
@@ -336,6 +339,9 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+void    get_key(t_scene *scene, char *key, char *value);
+char    *get_value(char *line);
+
 char	*skip_white_spaces(char *line);
 int	parse_string(t_scene *scene, char *line);
 
@@ -346,7 +352,7 @@ void					put_error_pn(char *str);
 void	get_lights_statistics(t_scene *scene);
 void	get_objects_statistics(t_scene *scene);
 
-void	info_header(t_mlx *mlx);
+void	info_header_and_author(t_mlx *mlx);
 
 void	info_help(t_mlx *mlx);
 void	info_author(t_mlx *mlx);

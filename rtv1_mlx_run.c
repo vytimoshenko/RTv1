@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/09 02:47:39 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/09 08:20:13 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,11 @@ void	count_frames(t_mlx *mlx, struct timeval start, struct timeval end)
 void	show_help(t_global *global)
 {
 	put_help_rect(global->mlx);
-	info_header(global->mlx);
+	info_header_and_author(global->mlx);
 	info_control_1(global->mlx);
 	info_control_2(global->mlx);
 	info_control_3(global->mlx);
-	info_control_4(global->mlx);
-	info_author(global->mlx);
+	// info_control_4(global->mlx);
 }
 
 void	put_help_rect(t_mlx *mlx)

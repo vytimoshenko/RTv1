@@ -1,3 +1,8 @@
 {
-    "scene_name": "Amazing balls"
+    "scene_name": "Amazing balls",
+    "camera":
+    {
+        "position": [0, 0, -10],
+        "direction": [0, 0, 0]
+    }
 }

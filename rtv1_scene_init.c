@@ -56,21 +56,17 @@ void		reset_scene(t_scene *scene)
 	while (++i < scene->cameras.quantity)
 		scene->cameras.array[i] = (t_camera *)ft_memalloc(sizeof(t_camera));
 	i = 0;
-	scene->cameras.array[i]->position = (t_vector){0, 0, -10};
-	scene->cameras.array[i]->direction = (t_vector){0, 0, 0};
-	scene->cameras.array[i]->zoom = 1.0;
+	// scene->cameras.array[i]->position = (t_vector){0, 0, -10};
+	// scene->cameras.array[i]->direction = (t_vector){0, 0, 0};
 	i++;
 	scene->cameras.array[i]->position = (t_vector){20, 10, -80};
 	scene->cameras.array[i]->direction = (t_vector){0, 0, 0};
-	scene->cameras.array[i]->zoom = 1.0;
 	i++;
 	scene->cameras.array[i]->position = (t_vector){0, 100, 30};
 	scene->cameras.array[i]->direction = (t_vector){-90, 0, 0};
-	scene->cameras.array[i]->zoom = 1.0;
 		i++;
 	scene->cameras.array[i]->position = (t_vector){0, 100, 30};
 	scene->cameras.array[i]->direction = (t_vector){0, -75, 0};
-	scene->cameras.array[i]->zoom = 1.0;
 
 	scene->objects.quantity = 5;
 	scene->objects.array = (t_object **)ft_memalloc(sizeof(t_object *) * scene->objects.quantity);

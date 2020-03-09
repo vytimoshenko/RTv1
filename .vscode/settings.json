@@ -29,6 +29,12 @@
         "ostream": "c",
         "sstream": "c",
         "stdexcept": "c",
-        "streambuf": "c"
+        "streambuf": "c",
+        "type_traits": "c",
+        "memory": "c",
+        "tuple": "c",
+        "utility": "c",
+        "bitset": "c",
+        "limits": "c"
     }
 }
