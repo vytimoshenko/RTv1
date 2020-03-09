@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/09 08:09:42 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/10 00:32:08 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,6 +338,11 @@ typedef struct			s_global
 	t_scene				*scene;
 	t_mlx				*mlx;
 }						t_global;
+
+char	*delete_whitespaces(char **line);
+void	copy_without_whitespaces(char *line, char *clean_line);
+int	count_whitespaces(char *line);
+int	is_whitespace(char c);
 
 void    get_key(t_scene *scene, char *key, char *value);
 char    *get_value(char *line);

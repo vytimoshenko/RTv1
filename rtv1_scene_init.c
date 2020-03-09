@@ -46,7 +46,7 @@ void		reset_scene(t_scene *scene)
 	scene->active_light = NOTHING_SELECTED;
 	scene->active_object = NOTHING_SELECTED;
 	scene->material_source = NOTHING_SELECTED;
-	// scene->scene_name = ft_strdup("Four amazing balls");
+	scene->scene_name = ft_strdup("Four amazing balls");
 	scene->background = (t_color){0, 0, 0};
 	scene->depth_map_k = 64;
 

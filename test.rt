@@ -2,7 +2,7 @@
     "scene_name": "Amazing balls",
     "camera":
     {
-        "position": [0, 0, -10],
-        "direction": [0, 0, 0]
+        "position": ["0", "0", "-10"],
+        "direction  12": ["0", " 0 ", "0"]
     }
 }
