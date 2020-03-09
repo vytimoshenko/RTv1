@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 23:04:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/04 05:21:39 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/09 02:35:50 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	plane(t_object *object, t_vector camera, t_vector pixel)
 	t_vector	n;
 	t_vector	x;
 	
-	n = object->center;
+	n = object->position;
 	x = substract(camera, n);
 	double xdn = dot(x, n);
 	double pdn = dot(pixel, n);
@@ -47,7 +47,7 @@ void	sphere(t_object *object, t_vector camera, t_vector pixel)
 	double		k3;
 	double		d;
 
-	r = substract(camera, object->center);
+	r = substract(camera, object->position);
 	k1 = dot(pixel, pixel);
 	k2 = 2 * dot(pixel, r);
 	k3 = dot(r, r) - object->radius * object->radius;
@@ -70,11 +70,11 @@ void	cylinder(t_object *object, t_vector camera, t_vector pixel)
 	double		k3;
 	double		d;
 
-	object->center = normalize(object->center);
-	r = substract(camera, object->center);
-	k1 = dot(pixel, pixel) - dot(pixel, object->center) * dot(pixel, object->center);
-	k2 = 2 * dot(pixel, r) - 2 * dot(pixel, object->center) * dot(r, object->center);
-	k3 = dot(r, r) - dot(r, object->center) * dot(r, object->center) - object->radius * object->radius;
+	object->position = normalize(object->position);
+	r = substract(camera, object->position);
+	k1 = dot(pixel, pixel) - dot(pixel, object->position) * dot(pixel, object->position);
+	k2 = 2 * dot(pixel, r) - 2 * dot(pixel, object->position) * dot(r, object->position);
+	k3 = dot(r, r) - dot(r, object->position) * dot(r, object->position) - object->radius * object->radius;
 	d = k2 * k2 - 4 * k1 * k3;
 	if (d < 0)
 	{
@@ -95,11 +95,11 @@ void	cone(t_object *object, t_vector camera, t_vector pixel)
 	double		k3;
 	double		d;
 
-	object->center = normalize(object->center);
-	r = substract(camera, object->center);
-	k1 = dot(pixel, pixel) - (1 + object->k * object->k) * dot(pixel, object->center) * dot(pixel, object->center);
-	k2 = 2 * dot(pixel, r) - 2 * (1 + object->k * object->k) * dot(pixel, object->center) * dot(r, object->center);
-	k3 = dot(r, r) - (1 + object->k * object->k) * dot(r, object->center) * dot(r, object->center);
+	object->position = normalize(object->position);
+	r = substract(camera, object->position);
+	k1 = dot(pixel, pixel) - (1 + object->k * object->k) * dot(pixel, object->position) * dot(pixel, object->position);
+	k2 = 2 * dot(pixel, r) - 2 * (1 + object->k * object->k) * dot(pixel, object->position) * dot(r, object->position);
+	k3 = dot(r, r) - (1 + object->k * object->k) * dot(r, object->position) * dot(r, object->position);
 	d = k2 * k2 - 4 * k1 * k3;
 	if (d < 0)
 	{

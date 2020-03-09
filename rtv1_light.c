@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:13:20 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 01:38:09 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/09 04:03:51 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ double		get_lightning(t_scene *scene, t_point point, t_vector pixel)
 		{
 			if (scene->lights.array[i]->type == LIGHT_TYPE_AMBIENT)
 				intensity += scene->lights.array[i]->intensity;
-			else if ((tmp = add_direct_and_diffuse_light(scene, point, pixel, i))
+			else if ((tmp = direct_and_diffuse_light(scene, point, pixel, i))
 			!= -1)
 				intensity += tmp;
 		}
@@ -34,7 +34,7 @@ double		get_lightning(t_scene *scene, t_point point, t_vector pixel)
 	return (intensity);
 }
 
-double		add_direct_and_diffuse_light(t_scene *scene, t_point point,
+double		direct_and_diffuse_light(t_scene *scene, t_point point,
 			t_vector pixel, int i)
 {
 	t_vector	l;

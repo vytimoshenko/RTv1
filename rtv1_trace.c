@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 06:12:02 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/09 04:00:12 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ void		get_point_properties(t_scene *scene, t_point *point, t_object *object)
 void		get_normal(t_point *point, t_object *object)
 {
 	if (object->type == OBJECT_TYPE_PLANE)
-		point->n = multiply_sv(-1, object->center);
+		point->n = multiply_sv(-1, object->position);
 	else if (object->type == OBJECT_TYPE_SPHERE)
-		point->n = substract(point->xyz, object->center);
+		point->n = substract(point->xyz, object->position);
 	else if (object->type == OBJECT_TYPE_CYLINDER)
-		point->n = substract(point->xyz, object->center);
+		point->n = substract(point->xyz, object->position);
 	else if (object->type == OBJECT_TYPE_CONE)
-		point->n = substract(point->xyz, object->center);
+		point->n = substract(point->xyz, object->position);
 }
 
 void		fill_object_buffer(t_scene *scene, t_pixel pixel, int id)
