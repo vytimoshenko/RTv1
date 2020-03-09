@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/09 05:08:52 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/09 07:01:34 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,6 +336,13 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+char	*skip_white_spaces(char *line);
+int	parse_string(t_scene *scene, char *line);
+
+void	read_scene(t_scene *scene, char *file_name);
+
+void					put_error_pn(char *str);
+
 void	get_lights_statistics(t_scene *scene);
 void	get_objects_statistics(t_scene *scene);
 
@@ -413,6 +420,8 @@ double					direct_and_diffuse_light(t_scene *scene,
 int						main(int argc, char **argv);
 
 t_scene					*init_scene(int argc, char **argv);
+
+void	check_scene(char *file_name);
 // void					check_argument(t_scene *scene, char *arg);
 void					reset_scene(t_scene *scene);
 

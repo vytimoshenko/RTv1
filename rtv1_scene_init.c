@@ -21,11 +21,11 @@ t_scene	*init_scene(int argc, char **argv)
 		ft_put_error("usage: RTv1 scene_name.rt");
 	if (!(scene = (t_scene *)ft_memalloc(sizeof(t_scene))))
 		ft_put_errno(PROGRAM_NAME);
-	// check_argument(scene, argv[1]);
+	// check_scene(argv[1]);
 	reset_scene(scene);
 	get_lights_statistics(scene);
 	get_objects_statistics(scene);
-	// read_map(scene, argv[1]);
+	read_scene(scene, argv[1]);
 	init_frame_buffer(scene);
 	init_motion_blur_buffer(scene);
 	init_depth_buffer(scene);
@@ -35,16 +35,6 @@ t_scene	*init_scene(int argc, char **argv)
 	scene->file_name_with_path = ft_strdup(argv[1]);
 	return (scene);
 }
-
-// void	check_scene(t_scene *scene)
-// {
-	
-// }
-
-// void	read_scene(t_scene *scene)
-// {
-
-// }
 
 void		reset_scene(t_scene *scene)
 {
@@ -56,7 +46,7 @@ void		reset_scene(t_scene *scene)
 	scene->active_light = NOTHING_SELECTED;
 	scene->active_object = NOTHING_SELECTED;
 	scene->material_source = NOTHING_SELECTED;
-	scene->scene_name = ft_strdup("Four amazing balls");
+	// scene->scene_name = ft_strdup("Four amazing balls");
 	scene->background = (t_color){0, 0, 0};
 	scene->depth_map_k = 64;
 
@@ -82,7 +72,7 @@ void		reset_scene(t_scene *scene)
 	scene->cameras.array[i]->direction = (t_vector){0, -75, 0};
 	scene->cameras.array[i]->zoom = 1.0;
 
-	scene->objects.quantity = 9;
+	scene->objects.quantity = 5;
 	scene->objects.array = (t_object **)ft_memalloc(sizeof(t_object *) * scene->objects.quantity);
 	i = -1;
 	while (++i < scene->objects.quantity)
@@ -112,31 +102,31 @@ void		reset_scene(t_scene *scene)
 	scene->objects.array[i]->type = OBJECT_TYPE_SPHERE;
 	scene->objects.array[i]->position = (t_vector){-10, 15, 40};
 	scene->objects.array[i]->radius = 2;
-	i++;
-	scene->objects.array[i]->id = i;
-	scene->objects.array[i]->type = OBJECT_TYPE_SPHERE;
-	scene->objects.array[i]->material = 5;
-	scene->objects.array[i]->position = (t_vector){0, 20, 100};
-	scene->objects.array[i]->radius = 5.0;
-	i++;
-	scene->objects.array[i]->id = i;
-	scene->objects.array[i]->type = OBJECT_TYPE_CYLINDER;
-	scene->objects.array[i]->material = 5;
-	scene->objects.array[i]->position = (t_vector){20, -20, 0};
-	scene->objects.array[i]->radius = 0.5;
-	i++;
-	scene->objects.array[i]->id = i;
-	scene->objects.array[i]->type = OBJECT_TYPE_CYLINDER;
-	scene->objects.array[i]->material = 5;
-	scene->objects.array[i]->position = (t_vector){20, -20, 20};
-	scene->objects.array[i]->radius = 1;
-	i++;
-	scene->objects.array[i]->id = i;
-	scene->objects.array[i]->type = OBJECT_TYPE_CONE;
-	scene->objects.array[i]->material = 5;
-	scene->objects.array[i]->position = (t_vector){1, 1, 1};
-	scene->objects.array[i]->k = 0.134;
-	scene->objects.array[i]->radius = 0.1;
+	// i++;
+	// scene->objects.array[i]->id = i;
+	// scene->objects.array[i]->type = OBJECT_TYPE_SPHERE;
+	// scene->objects.array[i]->material = 5;
+	// scene->objects.array[i]->position = (t_vector){0, 20, 100};
+	// scene->objects.array[i]->radius = 5.0;
+	// i++;
+	// scene->objects.array[i]->id = i;
+	// scene->objects.array[i]->type = OBJECT_TYPE_CYLINDER;
+	// scene->objects.array[i]->material = 5;
+	// scene->objects.array[i]->position = (t_vector){20, -20, 0};
+	// scene->objects.array[i]->radius = 0.5;
+	// i++;
+	// scene->objects.array[i]->id = i;
+	// scene->objects.array[i]->type = OBJECT_TYPE_CYLINDER;
+	// scene->objects.array[i]->material = 5;
+	// scene->objects.array[i]->position = (t_vector){20, -20, 20};
+	// scene->objects.array[i]->radius = 1;
+	// i++;
+	// scene->objects.array[i]->id = i;
+	// scene->objects.array[i]->type = OBJECT_TYPE_CONE;
+	// scene->objects.array[i]->material = 5;
+	// scene->objects.array[i]->position = (t_vector){1, 1, 1};
+	// scene->objects.array[i]->k = 0.134;
+	// scene->objects.array[i]->radius = 0.1;
 	i++;
 	scene->objects.array[i]->id = i;
 	scene->objects.array[i]->type = OBJECT_TYPE_PLANE;

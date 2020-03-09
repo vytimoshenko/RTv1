@@ -6,11 +6,19 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:09:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/09 02:10:51 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/09 05:31:54 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+void	put_error_pn(char *str)
+{
+	ft_putstr(PROGRAM_NAME);
+	ft_putstr(": ");
+	ft_putendl(str);
+	exit(1);
+}
 
 int	main(int argc, char **argv)
 {
