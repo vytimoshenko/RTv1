@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/10 00:32:08 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/10 04:36:35 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # define PROGRAM_NAME				"RTv1"
 
+# define READ_BUFF_SIZE				10240
 # define JSON_SCENE_NAME			"scene_name"
 # define JSON_CAMERA				"camera"
 
@@ -316,6 +317,8 @@ typedef struct			s_scene
 	int					material_target;
 
 	int					show_help;
+
+	int					quantity_lines;
 }						t_scene;
 
 typedef struct			s_mlx
@@ -339,13 +342,15 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
-char	*delete_whitespaces(char **line);
+void	check_file(t_scene *scene, char *file_name);
+
+char	*delete_whitespaces(char *line);
 void	copy_without_whitespaces(char *line, char *clean_line);
 int	count_whitespaces(char *line);
 int	is_whitespace(char c);
 
-void    get_key(t_scene *scene, char *key, char *value);
-char    *get_value(char *line);
+int    compare_key(t_scene *scene, char *key, char *value);
+char    *get_text_value(char *line);
 
 char	*skip_white_spaces(char *line);
 int	parse_string(t_scene *scene, char *line);

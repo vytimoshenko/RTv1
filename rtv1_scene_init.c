@@ -21,7 +21,6 @@ t_scene	*init_scene(int argc, char **argv)
 		ft_put_error("usage: RTv1 scene_name.rt");
 	if (!(scene = (t_scene *)ft_memalloc(sizeof(t_scene))))
 		ft_put_errno(PROGRAM_NAME);
-	// check_scene(argv[1]);
 	reset_scene(scene);
 	get_lights_statistics(scene);
 	get_objects_statistics(scene);
@@ -67,6 +66,27 @@ void		reset_scene(t_scene *scene)
 		i++;
 	scene->cameras.array[i]->position = (t_vector){0, 100, 30};
 	scene->cameras.array[i]->direction = (t_vector){0, -75, 0};
+
+	scene->lights.quantity = 4;
+	scene->lights.array = (t_light **)ft_memalloc(sizeof(t_light *) * scene->lights.quantity);
+	i = -1;
+	while (++i < scene->lights.quantity)
+		scene->lights.array[i] = (t_light *)ft_memalloc(sizeof(t_light));
+	i = 0;
+	scene->lights.array[i]->type = LIGHT_TYPE_AMBIENT;
+	scene->lights.array[i]->intensity = 0.1;
+	i++;
+	scene->lights.array[i]->type = LIGHT_TYPE_POINT;
+	scene->lights.array[i]->intensity = 0.5;
+	scene->lights.array[i]->position = (t_vector){-20, 20, 30};
+	i++;
+	scene->lights.array[i]->type = LIGHT_TYPE_POINT;
+	scene->lights.array[i]->intensity = 0.4;
+	scene->lights.array[i]->position = (t_vector){20, 9, 0};
+    i++;
+	scene->lights.array[i]->type = LIGHT_TYPE_DIRECTIONAL;
+	scene->lights.array[i]->intensity = 0.1;
+	scene->lights.array[i]->position = (t_vector){10, 40, 40};
 
 	scene->objects.quantity = 5;
 	scene->objects.array = (t_object **)ft_memalloc(sizeof(t_object *) * scene->objects.quantity);
@@ -129,26 +149,6 @@ void		reset_scene(t_scene *scene)
 	scene->objects.array[i]->material = 4;
 	scene->objects.array[i]->position = (t_vector){0, -10, 0};
 
-	scene->lights.quantity = 4;
-	scene->lights.array = (t_light **)ft_memalloc(sizeof(t_light *) * scene->lights.quantity);
-	i = -1;
-	while (++i < scene->lights.quantity)
-		scene->lights.array[i] = (t_light *)ft_memalloc(sizeof(t_light));
-	i = 0;
-	scene->lights.array[i]->type = LIGHT_TYPE_AMBIENT;
-	scene->lights.array[i]->intensity = 0.1;
-	i++;
-	scene->lights.array[i]->type = LIGHT_TYPE_POINT;
-	scene->lights.array[i]->intensity = 0.5;
-	scene->lights.array[i]->position = (t_vector){-20, 20, 30};
-	i++;
-	scene->lights.array[i]->type = LIGHT_TYPE_POINT;
-	scene->lights.array[i]->intensity = 0.4;
-	scene->lights.array[i]->position = (t_vector){20, 9, 0};
-    i++;
-	scene->lights.array[i]->type = LIGHT_TYPE_DIRECTIONAL;
-	scene->lights.array[i]->intensity = 0.1;
-	scene->lights.array[i]->position = (t_vector){10, 40, 40};
 
 	scene->materials.quantity = 6;
 	scene->materials.array = (t_material **)ft_memalloc(sizeof(t_material *) * scene->materials.quantity);

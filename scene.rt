@@ -45,3 +45,17 @@ intencity	0.3
 position.x	20
 position.y	10
 position.z	0
+
+
+
+camera:
+    "position": [0, 0, -10],
+    "direction": [0, 0, 0]
+"light_sorce":
+{
+    "type": "ambient",
+    "intencity": 1,
+    "position": [0, 0, -10],
+    "direction": [0, 0, 0]
+}
+"scene_name": "Amazing balls",
