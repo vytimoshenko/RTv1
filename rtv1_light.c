@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:13:20 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/09 04:03:51 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/11 05:45:06 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ double		direct_and_diffuse_light(t_scene *scene, t_point point,
 	}
 	else
 	{
-		l = scene->lights.array[i]->direction;
+		l = scene->lights.array[i]->position;
 		t_max = DRAW_DISTANCE_MAX;
 	}
 	shadow = get_intersection(scene->objects, point.xyz, l, 0.000001, t_max);

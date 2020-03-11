@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/11 04:38:11 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/11 06:12:53 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@
 
 # define OBJECT_TYPE_PLANE			0
 # define OBJECT_TYPE_SPHERE			1
-# define OBJECT_TYPE_CONE			2
-# define OBJECT_TYPE_CYLINDER		3
+# define OBJECT_TYPE_CYLINDER		2
+# define OBJECT_TYPE_CONE			3
 
 # define REFLECTION_DEPTH			3
 # define DRAW_DISTANCE_MIN			0.00001
@@ -346,12 +346,15 @@ typedef struct			s_global
 }						t_global;
 
 
+void    write_scene_info(t_scene *scene, int fd);
 void	write_cameras_info(t_scene *scene, int fd);
+void	write_lights_info(t_scene *scene, int fd);
+void	write_materials_info(t_scene *scene, int fd);
+void	write_objects_info(t_scene *scene, int fd);
 
 void	create_file_name(t_scene *scene, char **file_name);
 void    get_current_time_string(char *time_string);
 void    save_scene(t_scene *scene);
-void    save_scene_name(t_scene *scene, int fd);
 
 void	check_file(t_scene *scene, char *file_name);
 

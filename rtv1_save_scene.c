@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 02:02:59 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/11 05:06:55 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/11 05:42:30 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,50 +29,10 @@ void	save_scene(t_scene *scene)
 	// TEXT_COLOR, "file saved:");
 	// mlx_string_put(mlx->mlx, mlx->win, WIN_SIZE_W - 580, WIN_SIZE_H - 30,
 	// TEXT_COLOR, file_name);
-	save_scene_name(scene, fd);
+	write_scene_info(scene, fd);
 	system("cat \"Hello, world!\"");
 	// ft_strdel(&file_name);
 	close(fd);
-}
-
-void    save_scene_name(t_scene *scene, int fd)
-{
-	ft_putendl_fd("{\n", fd);
-	ft_putstr_fd("\tscene_name: ", fd);
-	ft_putendl_fd(scene->scene_name, fd);
-	write_cameras_info(scene, fd);
-	write_lights_info(scene, fd);
-	write_materials_info(scene, fd);
-	write_objects_info(scene, fd);
-	ft_putendl_fd("}", fd);
-}
-
-void	write_cameras_info(t_scene *scene, int fd)
-{
-	int	i;
-	
-	i = -1;
-	while (++i < scene->cameras.quantity)
-	{
-		ft_putendl_fd("\t\"camera\":", fd);
-		ft_putstr_fd("\t{\n\t\t\"position\": [", fd);
-		ft_putnbr_fd((int)scene->cameras.array[i]->position.x, fd);
-		ft_putstr_fd(", ", fd);
-		ft_putnbr_fd((int)scene->cameras.array[i]->position.y, fd);
-		ft_putstr_fd(", ", fd);
-		ft_putnbr_fd((int)scene->cameras.array[i]->position.z, fd);
-		ft_putstr_fd("],\n\t\t\"direction\": [", fd);
-		ft_putnbr_fd((int)scene->cameras.array[i]->direction.x, fd);
-		ft_putstr_fd(", ", fd);
-		ft_putnbr_fd((int)scene->cameras.array[i]->direction.y, fd);
-		ft_putstr_fd(", ", fd);
-		ft_putnbr_fd((int)scene->cameras.array[i]->direction.z, fd);
-		ft_putstr_fd("]\n\t}", fd);
-		if (i <  scene->cameras.quantity - 1)
-			ft_putstr_fd(",", fd);
-		ft_putendl_fd(NULL, fd);
-	}
-
 }
 
 void	get_current_time_string(char *time_string)
