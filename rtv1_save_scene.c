@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 02:02:59 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/11 05:42:30 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/11 07:44:18 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	create_file_name(t_scene *scene, char **file_name)
 	char	*tmp1;
 	char	*tmp2;
 	char	time_string[CURRENT_TIME_STR_LENGTH];
-	
+
 	tmp1 = ft_strdup(scene->scene_name);
 	i = 0;
 	while (tmp1[i++])

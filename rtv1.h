@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/11 06:12:53 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/11 07:36:49 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,8 +349,10 @@ typedef struct			s_global
 void    write_scene_info(t_scene *scene, int fd);
 void	write_cameras_info(t_scene *scene, int fd);
 void	write_lights_info(t_scene *scene, int fd);
+void	write_lights_info_extra(t_scene *scene, int fd, int i);
 void	write_materials_info(t_scene *scene, int fd);
 void	write_objects_info(t_scene *scene, int fd);
+void	write_objects_info_extra(t_scene *scene, int fd, int i);
 
 void	create_file_name(t_scene *scene, char **file_name);
 void    get_current_time_string(char *time_string);
