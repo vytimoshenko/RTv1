@@ -1,0 +1,19 @@
+{
+
+	scene_name: Four amazing balls
+	"camera":
+	{
+		"position": [0, 0, -10],
+		"direction": [0, 0, 0]
+	},
+	"camera":
+	{
+		"position": [0, 100, 30],
+		"direction": [-90, 0, 0]
+	},
+	"camera":
+	{
+		"position": [0, 100, 30],
+		"direction": [0, -75, 0]
+	}
+}

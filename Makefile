@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/10 03:08:59 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/11 02:07:15 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRC		= 	rtv1_main.c					\
 			rtv1_read_scene_file.c 		\
 			rtv1_whitespaces.c	 		\
 			rtv1_interface_help.c		\
+			rtv1_save_scene.c			\
 			rtv1_light.c				
 		
 OBJ		= 	$(SRC:.c=.o)

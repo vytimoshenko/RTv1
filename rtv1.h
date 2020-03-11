@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/10 04:36:35 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/11 04:38:11 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # define PROGRAM_NAME				"RTv1"
 
 # define READ_BUFF_SIZE				10240
+
+# define SCENE_FILE_EXTENSION		".rt"
+# define CURRENT_TIME_STR_LENGTH	24
 # define JSON_SCENE_NAME			"scene_name"
 # define JSON_CAMERA				"camera"
 
@@ -341,6 +344,14 @@ typedef struct			s_global
 	t_scene				*scene;
 	t_mlx				*mlx;
 }						t_global;
+
+
+void	write_cameras_info(t_scene *scene, int fd);
+
+void	create_file_name(t_scene *scene, char **file_name);
+void    get_current_time_string(char *time_string);
+void    save_scene(t_scene *scene);
+void    save_scene_name(t_scene *scene, int fd);
 
 void	check_file(t_scene *scene, char *file_name);
 

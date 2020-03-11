@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/09 04:00:12 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/10 06:12:30 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,21 +146,3 @@ void	select_object_function(t_object *object, t_vector camera, t_vector pixel)
 	else if (object->type == OBJECT_TYPE_CONE)
 		cone(object, camera, pixel);
 }
-
-// void	get_closest_object(t_object *object, t_object *closest_object)
-// {
-// 	if (object->t1 >= t_min && objects->t1 <=
-// 		t_max && objects.array[i]->t1 < closest)
-// 		{
-// 			closest = objects.array[i]->t1;
-// 			closest_object = *objects.array[i];
-// 			closest_object.null = 1;
-// 		}
-// 	if (object->t2 >= t_min && object->t2 <=
-// 	t_max && objects.array[i]->t2 < closest)
-// 	{
-// 		closest = objects.array[i]->t2;
-// 		closest_object = *objects.array[i];
-// 		closest_object.null = 1;
-// 	}
-// }

@@ -16,7 +16,6 @@ t_scene	*init_scene(int argc, char **argv)
 {
 	t_scene		*scene;
 	
-	(void)argv;
 	if (argc != 2)
 		ft_put_error("usage: RTv1 scene_name.rt");
 	if (!(scene = (t_scene *)ft_memalloc(sizeof(t_scene))))
@@ -32,6 +31,7 @@ t_scene	*init_scene(int argc, char **argv)
 	init_object_buffer(scene);
 	get_sin_cos(scene->cameras.array[scene->active_camera]);
 	scene->file_name_with_path = ft_strdup(argv[1]);
+	save_scene(scene);
 	return (scene);
 }
 
@@ -49,21 +49,18 @@ void		reset_scene(t_scene *scene)
 	scene->background = (t_color){0, 0, 0};
 	scene->depth_map_k = 64;
 
-	scene->cameras.quantity = 4;
+	scene->cameras.quantity = 3;
 	scene->cameras.array = (t_camera **)ft_memalloc(sizeof(t_camera *) * scene->cameras.quantity);
 	i = -1;
 	while (++i < scene->cameras.quantity)
 		scene->cameras.array[i] = (t_camera *)ft_memalloc(sizeof(t_camera));
 	i = 0;
-	// scene->cameras.array[i]->position = (t_vector){0, 0, -10};
-	// scene->cameras.array[i]->direction = (t_vector){0, 0, 0};
-	i++;
-	scene->cameras.array[i]->position = (t_vector){20, 10, -80};
+	scene->cameras.array[i]->position = (t_vector){0, 0, -10};
 	scene->cameras.array[i]->direction = (t_vector){0, 0, 0};
 	i++;
 	scene->cameras.array[i]->position = (t_vector){0, 100, 30};
 	scene->cameras.array[i]->direction = (t_vector){-90, 0, 0};
-		i++;
+	i++;
 	scene->cameras.array[i]->position = (t_vector){0, 100, 30};
 	scene->cameras.array[i]->direction = (t_vector){0, -75, 0};
 
@@ -175,7 +172,7 @@ void		reset_scene(t_scene *scene)
 	scene->materials.array[i]->color = (t_color){0x00, 0x00, 0xFF};
 	scene->materials.array[i]->specular = 1000;
 	scene->materials.array[i]->reflective = 0.5;
-	scene->materials.array[i]->transparency = 0.9;
+	scene->materials.array[i]->transparency = 0.7;
 	i++;
 	scene->materials.array[i]->id = i;
 	scene->materials.array[i]->color = (t_color){0xFF, 0xFF, 0xFF};
