@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 05:35:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 10:19:03 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 12:46:01 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,13 @@ void	write_objects_info_extra(t_scene *scene, int fd, int i)
 	ft_putnbr_fd(scene->objects.array[i]->orientation.y, fd);
 	ft_putstr_fd(", ", fd);
 	ft_putnbr_fd(scene->objects.array[i]->orientation.z, fd);
-	ft_putendl_fd("];\n}\n", fd);
+	ft_putstr_fd("];\n", fd);
+	if (scene->objects.array[i]->type != OBJECT_TYPE_PLANE)
+	{
+		ft_putstr_fd("\tradius:\t\t", fd);
+		ft_putnbr_fd(scene->objects.array[i]->radius, fd);
+		ft_putendl_fd(";\n}\n", fd);
+	}
+	else
+		ft_putendl_fd("}\n", fd);
 }

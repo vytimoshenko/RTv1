@@ -1,0 +1,136 @@
+scene
+{
+	name:		"";
+	author:		"";
+}
+
+camera
+{
+	position:	[0, 0, 0];
+	direction:	[0, 0, 0];
+}
+
+camera
+{
+	position:	[0, 0, 0];
+	direction:	[0, 0, 0];
+}
+
+camera
+{
+	position:	[0, 0, 0];
+	direction:	[0, 0, 0];
+}
+
+light
+{
+	type:		<ambient>;
+	intensity:	0;
+}
+
+light
+{
+	type:		<ambient>;
+	intensity:	0;
+}
+
+light
+{
+	type:		<ambient>;
+	intensity:	0;
+}
+
+light
+{
+	type:		<ambient>;
+	intensity:	0;
+}
+
+material
+{
+	name:		"";
+	color:		[0, 0, 0];
+	specular:	0;
+	reflective:	0;
+}
+
+material
+{
+	name:		"";
+	color:		[0, 0, 0];
+	specular:	0;
+	reflective:	0;
+}
+
+material
+{
+	name:		"";
+	color:		[0, 0, 0];
+	specular:	0;
+	reflective:	0;
+}
+
+material
+{
+	name:		"";
+	color:		[0, 0, 0];
+	specular:	0;
+	reflective:	0;
+}
+
+material
+{
+	name:		"";
+	color:		[0, 0, 0];
+	specular:	0;
+	reflective:	0;
+}
+
+material
+{
+	name:		"";
+	color:		[0, 0, 0];
+	specular:	0;
+	reflective:	0;
+}
+
+object
+{
+	type:		<plane>;
+	material:	"";
+	position:	[0, 0, 0];
+	orientation:	[0, 0, 0];
+}
+
+object
+{
+	type:		<plane>;
+	material:	"";
+	position:	[0, 0, 0];
+	orientation:	[0, 0, 0];
+}
+
+object
+{
+	type:		<plane>;
+	material:	"";
+	position:	[0, 0, 0];
+	orientation:	[0, 0, 0];
+}
+
+object
+{
+	type:		<plane>;
+	material:	"";
+	position:	[0, 0, 0];
+	orientation:	[0, 0, 0];
+}
+
+object
+{
+	type:		<plane>;
+	material:	"";
+	position:	[0, 0, 0];
+	orientation:	[0, 0, 0];
+}
+
