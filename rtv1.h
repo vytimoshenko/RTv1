@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 04:41:04 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 06:59:09 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 # define JSON_LIGHT					"light"
 # define JSON_MATERIAL				"material"
 # define JSON_OBJECT				"object"
+
+# define JSON_NAME					"name"
+# define JSON_AUTHOR				"author"
 
 # define WIN_SIZE_W					1916.0
 # define WIN_SIZE_H					1064.0
@@ -351,10 +354,10 @@ typedef struct			s_global
 }						t_global;
 
 int		parse_all(t_scene *scene, char *line);
-int		count_objects(char *line);
-int		count_object_size(char *line);
-int		parse_object_line(t_scene *scene, char *object_line);
-int		parse_object_by_type(t_scene *scene, char *object_type, char *description);
+int		count_items(char *line);
+int		count_item_size(char *line);
+int		parse_item_line(t_scene *scene, char *item_line);
+int		parse_item_by_type(t_scene *scene, char *type, char *description);
 int		parse_scene_description(t_scene *scene, char *description);
 int		parse_camera_description(t_scene *scene, char *description);
 int		parse_light_description(t_scene *scene, char *description);

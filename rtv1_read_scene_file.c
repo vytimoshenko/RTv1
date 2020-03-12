@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 07:13:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 04:45:02 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 07:17:52 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	read_scene(t_scene *scene, char *file_name)
 {
-	char	buff[READ_BUFF_SIZE + 1];
 	int		fd;
 	int     ret;
+	char	buff[READ_BUFF_SIZE + 1];
 	char	*line;
 
 	fd = open(file_name, O_RDONLY);
@@ -39,78 +39,136 @@ printf("LINE TO PARSE:\n%s\nSYMBOLS: %zu\n\n", line, ft_strlen(line));
 int	parse_all(t_scene *scene, char *line)
 {
 	int		i;
-	int		objects_count;
-	int		object_size;
-	char	*object_line;
+	int		items_count;
+	int		item_size;
+	char	*item_line;
 
-	objects_count = count_objects(line);
-printf("SCENE OBJECTS: %d\n", objects_count);
+	if ((items_count = count_items(line)) == -1)
+		return (-1);
+printf("SCENE ITEMS: %d\n\n", items_count);
 	i = -1;
-	while (++i < objects_count)
+	while (++i < items_count)
 	{
-		object_size = count_object_size(line);
-		object_line = (char *)(malloc(sizeof(char) * (object_size + 1)));
-		ft_strncpy(object_line, line, object_size);
-		object_line[object_size] = '\0';
-printf("%d:\t%s\n", i, object_line);
-		if (parse_object_line(scene, object_line) == -1)
+		item_size = count_item_size(line);
+		item_line = (char *)(malloc(sizeof(char) * (item_size + 1)));
+		ft_strncpy(item_line, line, item_size);
+		item_line[item_size] = '\0';
+printf("%d:\t%s\n", i, item_line);
+		if (parse_item_line(scene, item_line) == -1)
 			return (-1);
-		while (--object_size >= 0)
+		while (--item_size >= 0)
 			line++;
-		ft_strdel(&object_line);
+		ft_strdel(&item_line);
 	}
 	return (0);
 }
 
-int	count_objects(char *line)
+int	count_items(char *line)
 {
 	int	i;
+	int	a;
+	int	b;
 	
+	a = 0;
 	i = 0;
-	while (*line++)
-		i = *line == '{' ? i + 1 : i;
-	return (i);
+	while (line[i++] != '\0')
+		a = line[i] == '{' ? a + 1 : a;
+	b = 0;
+	i = 0;
+	while (line[i++] != '\0')
+		b = line[i] == '}' ? b + 1 : b;
+	if (a != b)
+		return (-1);
+	return (a);
 }
 
-int	count_object_size(char *line)
+int	count_item_size(char *line)
 {
 	int	i;
 	
 	i = 0;
 	while (line[i] != '}')
 		i++;
-	i += 2;
+	i++;
 	return (i);
 }
 
-int	parse_object_line(t_scene *scene, char *object_line)
+int	parse_item_line(t_scene *scene, char *item_line)
 {
-	int	i;
-	char *tmp;
-	(void)scene;
-	if (*object_line != '"')
-		return (-1);
-	object_line++;
+	int		i;
+	char	*type;
+	char	*description;
+	
 	i = 0;
-	while (object_line[i] != '"')
+	while (item_line[i] != '{')
 		i++;
-	tmp = ft_strnew(i);
-	ft_strncpy(tmp, object_line, i);
-	printf("TYPE:\t%s\n", tmp);
+	type = ft_strnew(i);
+	ft_strncpy(type, item_line, i);
 	while (--i >= -1)
-		object_line++;
-	if (*object_line != ':')
-		return (-1);
-	object_line++;
-	printf("PROP:\t%s\n", object_line);
-	parse_object_by_type(scene, tmp, object_line);
-	ft_strdel(&tmp);
+		item_line++;
+	while (item_line[i] != '}')
+		i++;
+	description = ft_strnew(i);
+	ft_strncpy(description, item_line, i);
+printf("TYPE:\t%s\n", type);
+printf("DESC:\t%s\n\n", description);
+	parse_item_by_type(scene, type, description);
+	ft_strdel(&type);
+	ft_strdel(&description);
 	return (0);
 }
 
-int    parse_object_by_type(t_scene *scene, char *object_type, char *description)
+int    parse_item_by_type(t_scene *scene, char *type, char *description)
 {
-	if (!(ft_strcmp(object_type, JSON_SCENE)))
+	if (!(ft_strcmp(type, JSON_SCENE)))
+		return (parse_scene_description(scene, description));
+    else if (!(ft_strcmp(type, JSON_CAMERA)))
+		return (parse_camera_description(scene, description));
+	else if (!(ft_strcmp(type, JSON_LIGHT)))
+		return (parse_light_description(scene, description));
+	else if (!(ft_strcmp(type, JSON_MATERIAL)))
+		return (parse_material_description(scene, description));
+	else if (!(ft_strcmp(type, JSON_OBJECT)))
+		return (parse_object_description(scene, description));
+	else
+		return (-1);
+	return (0);
+}
+
+int		parse_scene_description(t_scene *scene, char *description)
+{
+	int		i;
+	char	*property;
+	char	*value;
+	
+	if (!(*description))
+		return (0);
+	i = 0;
+	while (description[i] != ':')
+		i++;
+	property = ft_strnew(i);
+	ft_strncpy(property, description, i);
+	while (--i >= -1)
+		description++;
+	while (description[i] != ';')
+		i++;
+	value = ft_strnew(i);
+	ft_strncpy(value, description, i);
+printf("PRP:\t%s\n", property);
+printf("VAL:\t%s\n\n", value);
+	// parse_item_by_type(scene, type, description);
+	ft_strdel(&property);
+	ft_strdel(&value);
+	while (--i >= -1)
+		description++;
+	parse_scene_description(scene, description);
+	(void)scene;
+	return (0);
+}
+
+int    parse_description_by_type(t_scene *scene, char *object_type, char *description)
+{
+	if (!(ft_strcmp(object_type, JSON_NAME)))
 		return (parse_scene_description(scene, description));
     else if (!(ft_strcmp(object_type, JSON_CAMERA)))
 		return (parse_camera_description(scene, description));
@@ -122,13 +180,6 @@ int    parse_object_by_type(t_scene *scene, char *object_type, char *description
 		return (parse_object_description(scene, description));
 	else
 		return (-1);
-	return (0);
-}
-
-int		parse_scene_description(t_scene *scene, char *description)
-{
-	(void)scene;
-	(void)description;
 	return (0);
 }
 
