@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/09 03:50:47 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 10:25:19 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,15 +176,15 @@ void	put_status_5(t_scene *scene, t_mlx *mlx)
 		str = ft_itoa(scene->objects.array[scene->active_object]->position.z));
 		free(str);
 		mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 50, TEXT_COLOR,
-		"- rotation (XYZ):");
+		"- orientation (XYZ):");
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 50, TEXT_COLOR,
-		str = ft_itoa(scene->objects.array[scene->active_object]->direction.x));
+		str = ft_itoa(scene->objects.array[scene->active_object]->orientation.x));
 		free(str);
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 240, pos_y + 50, TEXT_COLOR,
-		str = ft_itoa(scene->objects.array[scene->active_object]->direction.y));
+		str = ft_itoa(scene->objects.array[scene->active_object]->orientation.y));
 		free(str);
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 290, pos_y + 50, TEXT_COLOR,
-		str = ft_itoa(scene->objects.array[scene->active_object]->direction.z));
+		str = ft_itoa(scene->objects.array[scene->active_object]->orientation.z));
 		free(str);
 	}
 }

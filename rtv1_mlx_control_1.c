@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RTv1_mlx_control_1.c                               :+:      :+:    :+:   */
+/*   rtv1_mlx_control_1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:34:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/09 05:00:18 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 10:26:32 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,15 @@ void	rotate_object(t_scene *scene, int key)
 
 	i = scene->active_object;
 	if (key == W)
-		scene->objects.array[i]->direction.y += OBJECT_ROTATION_INCREMENT;
+		scene->objects.array[i]->orientation.y += OBJECT_ROTATION_INCREMENT;
 	else if (key == S)
-		scene->objects.array[i]->direction.y -= OBJECT_ROTATION_INCREMENT;
+		scene->objects.array[i]->orientation.y -= OBJECT_ROTATION_INCREMENT;
 	else if (key == D)
-		scene->objects.array[i]->direction.x += OBJECT_ROTATION_INCREMENT;
+		scene->objects.array[i]->orientation.x += OBJECT_ROTATION_INCREMENT;
 	else if (key == A)
-		scene->objects.array[i]->direction.x -= OBJECT_ROTATION_INCREMENT;
+		scene->objects.array[i]->orientation.x -= OBJECT_ROTATION_INCREMENT;
 	else if (key == MORE)
-		scene->objects.array[i]->direction.z += OBJECT_ROTATION_INCREMENT;
+		scene->objects.array[i]->orientation.z += OBJECT_ROTATION_INCREMENT;
 	else if (key == LESS)
-		scene->objects.array[i]->direction.z -= OBJECT_ROTATION_INCREMENT;
+		scene->objects.array[i]->orientation.z -= OBJECT_ROTATION_INCREMENT;
 }

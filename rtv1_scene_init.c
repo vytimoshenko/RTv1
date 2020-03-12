@@ -111,8 +111,8 @@ void		reset_scene(t_scene *scene)
 	scene->objects.array[i]->radius = 8.0;
 	i++;
 	scene->objects.array[i]->id = i;
-	scene->objects.array[i]->material = 3;
 	scene->objects.array[i]->type = OBJECT_TYPE_SPHERE;
+	scene->objects.array[i]->material = 3;
 	scene->objects.array[i]->position = (t_vector){-10, 15, 40};
 	scene->objects.array[i]->radius = 2;
 	// i++;

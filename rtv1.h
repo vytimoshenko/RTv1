@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 08:58:29 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 10:36:17 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,39 +19,57 @@
 # include <math.h>
 # include <sys/time.h>
 
-# define PROGRAM_NAME				"RTv1"
+# define PROGRAM_NAME					"RTv1"
 
-# define READ_BUFF_SIZE				8192
+# define READ_BUFF_SIZE					8192
 
-# define SCENE_FILE_EXTENSION		".rt"
-# define CURRENT_TIME_STR_LENGTH	24
+# define SCENE_FILE_EXTENSION			".rt"
+# define CURRENT_TIME_STR_LENGTH		24
 
-# define FILE_SCENE					"scene"
-# define FILE_SCENE_NAME			"name"
-# define FILE_SCENE_AUTHOR			"author"
+# define FILE_SCENE						"scene"
+# define FILE_SCENE_NAME				"name"
+# define FILE_SCENE_AUTHOR				"author"
 
-# define FILE_CAMERA				"camera"
-# define FILE_LIGHT					"light"
+# define FILE_CAMERA					"camera"
+# define FILE_CAMERA_POSITION			"position"
+# define FILE_CAMERA_DIRECTION			"direction"
 
-# define FILE_MATERIAL				"material"
+# define FILE_LIGHT						"light"
+# define FILE_LIGHT_TYPE				"type"
+# define FILE_LIGHT_TYPE_AMBIENT		"ambient"
+# define FILE_LIGHT_TYPE_DIRECTIONAL	"directional"
+# define FILE_LIGHT_TYPE_POINT			"point"
+# define FILE_LIGHT_INTENSITY			"intensity"
+# define FILE_LIGHT_POSITION			"position"
+
+# define FILE_MATERIAL					"material"
 # define FILE_MATERIAL_NAME				"name"
+# define FILE_MATERIAL_COLOR			"color"
+# define FILE_MATERIAL_SPECULAR			"specular"
+# define FILE_MATERIAL_REFLECTIVE		"reflective"
 
-# define FILE_OBJECT				"object"
+# define FILE_OBJECT					"object"
+# define FILE_OBJECT_TYPE				"type"
+# define FILE_OBJECT_TYPE_PLANE			"plane"
+# define FILE_OBJECT_TYPE_SPHERE		"sphere"
+# define FILE_OBJECT_TYPE_CYLINDER		"cylinder"
+# define FILE_OBJECT_TYPE_CONE			"cone"
+# define FILE_OBJECT_MATERIAL			"material"
+# define FILE_OBJECT_POSITION			"position"
+# define FILE_OBJECT_ORIENTATION		"orientation"
+# define FILE_OBJECT_RADIUS				"radius"
 
-# define JSON_NAME					"name"
-# define JSON_AUTHOR				"author"
+# define WIN_SIZE_W						1916.0
+# define WIN_SIZE_H						1064.0
+# define IMG_SIZE_W						1536.0
+# define IMG_SIZE_H						1024.0
 
-# define WIN_SIZE_W					1916.0
-# define WIN_SIZE_H					1064.0
-# define IMG_SIZE_W					1536.0
-# define IMG_SIZE_H					1024.0
+# define IMG_INDT_W						10
+# define IMG_INDT_H						10
 
-# define IMG_INDT_W					10
-# define IMG_INDT_H					10
-
-# define MESSAGE_BOX_W				1000
-# define MESSAGE_BOX_H				500
-# define MESSAGE_BOX_IDNT			30
+# define MESSAGE_BOX_W					1000
+# define MESSAGE_BOX_H					500
+# define MESSAGE_BOX_IDNT				30
 
 # define VIEWPORT_SIZE_W			1.5
 # define VIEWPORT_SIZE_H			1
@@ -221,7 +239,7 @@ typedef struct			s_object
 	double				transparency;
 	double				radius;
 	t_vector			position;
-	t_vector			direction;
+	t_vector			orientation;
 	double				k;
 
 	double				t1;
@@ -358,6 +376,9 @@ typedef struct			s_global
 	t_scene				*scene;
 	t_mlx				*mlx;
 }						t_global;
+
+t_vector	parse_vector(char *value);
+t_color	parse_color(char *value);
 
 char	*prepare_value_to_write(char *value);
 char	*any_whitespace_to_space(char *value);

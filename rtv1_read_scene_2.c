@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 08:45:30 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 09:04:32 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 10:37:01 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,54 @@ int    parse_item_by_property(t_scene *scene, char *type, char *property, char *
 	else
 		return (-1);
 	return (0);
+}
+
+t_vector	parse_vector(char *value)
+{
+	int			i;
+	char		*tmp;
+	t_vector	vector;
+	
+	tmp = ft_strnew(8);
+	i = 0;
+	while (value[i] != ',')
+		i++;
+	tmp = ft_strncat(tmp, value, i);
+	vector.x = ft_atoi(tmp);
+	while (i-- >= 0)
+		value++;
+	i = 0;
+	while (value[i] != ',')
+		i++;
+	tmp = ft_strncat(tmp, value, i);
+	vector.y = ft_atoi(tmp);
+	while (i-- >= 0)
+		value++;
+	vector.z = ft_atoi(value);
+	return (vector);
+}
+
+t_color	parse_color(char *value)
+{
+	int			i;
+	char		*tmp;
+	t_color		color;
+	
+	tmp = ft_strnew(4);
+	i = 0;
+	while (value[i] != ',')
+		i++;
+	tmp = ft_strncat(tmp, value, i);
+	color.r = ft_atoi(tmp);
+	while (i-- >= 0)
+		value++;
+	i = 0;
+	while (value[i] != ',')
+		i++;
+	tmp = ft_strncat(tmp, value, i);
+	color.g = ft_atoi(tmp);
+	while (i-- >= 0)
+		value++;
+	color.b = ft_atoi(value);
+	return (color);
 }
