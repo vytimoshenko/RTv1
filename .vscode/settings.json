@@ -35,6 +35,11 @@
         "tuple": "c",
         "utility": "c",
         "bitset": "c",
-        "limits": "c"
+        "limits": "c",
+        "__functional_base": "c",
+        "atomic": "c",
+        "__memory": "c",
+        "locale": "c",
+        "system_error": "c"
     }
 }

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 05:35:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 06:21:49 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 07:45:48 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	write_lights_info(t_scene *scene, int fd)
 		ft_putstr_fd(";\n\tintensity:\t", fd);
 		ft_putnbr_fd((int)(10 * scene->lights.array[i]->intensity), fd);
 		if (scene->lights.array[i]->type == LIGHT_TYPE_AMBIENT)
-			ft_putendl_fd("\n}\n", fd);
+			ft_putendl_fd(";\n}\n", fd);
 		else
 			write_lights_info_extra(scene, fd, i);
 	}

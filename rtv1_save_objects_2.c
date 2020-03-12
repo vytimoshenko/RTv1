@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 05:35:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 06:24:06 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 07:51:49 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	write_objects_info(t_scene *scene, int fd)
 
 void	write_objects_info_extra(t_scene *scene, int fd, int i)
 {
-	ft_putstr_fd("\";\n\tposition\t[", fd);
+	ft_putstr_fd("\";\n\tposition:\t[", fd);
 	ft_putnbr_fd(scene->objects.array[i]->position.x, fd);
 	ft_putstr_fd(", ", fd);
 	ft_putnbr_fd(scene->objects.array[i]->position.y, fd);

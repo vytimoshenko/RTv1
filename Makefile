@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/11 07:43:01 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/12 09:01:12 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,9 @@ SRC		= 	rtv1_main.c					\
 			rtv1_mlx_control_1.c		\
 			rtv1_mlx_control_2.c		\
 			rtv1_control_light.c		\
-			rtv1_read_scene_file.c 		\
+			rtv1_read_scene_1.c 		\
+			rtv1_read_scene_2.c 		\
+			rtv1_read_scene_3.c 		\
 			rtv1_whitespaces.c	 		\
 			rtv1_interface_help.c		\
 			rtv1_save_scene.c			\

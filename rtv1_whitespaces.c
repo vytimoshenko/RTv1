@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 03:07:32 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/10 03:08:31 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 08:28:15 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,17 @@ void	copy_without_whitespaces(char *line, char *clean_line)
 		line++;
 		clean_line++;
 	}
+}
+
+char	*any_whitespace_to_space(char *value)
+{
+	int	i;
+
+	i = 0;
+	while (value[i++] != '\0')
+	{
+		if (is_whitespace(value[i]))
+			value[i] = ' ';
+	}
+	return (value);
 }

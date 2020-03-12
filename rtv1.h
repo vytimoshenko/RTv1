@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 06:59:09 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 08:58:29 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,17 @@
 # define SCENE_FILE_EXTENSION		".rt"
 # define CURRENT_TIME_STR_LENGTH	24
 
-# define JSON_SCENE					"scene"
-# define JSON_CAMERA				"camera"
-# define JSON_LIGHT					"light"
-# define JSON_MATERIAL				"material"
-# define JSON_OBJECT				"object"
+# define FILE_SCENE					"scene"
+# define FILE_SCENE_NAME			"name"
+# define FILE_SCENE_AUTHOR			"author"
+
+# define FILE_CAMERA				"camera"
+# define FILE_LIGHT					"light"
+
+# define FILE_MATERIAL				"material"
+# define FILE_MATERIAL_NAME				"name"
+
+# define FILE_OBJECT				"object"
 
 # define JSON_NAME					"name"
 # define JSON_AUTHOR				"author"
@@ -353,16 +359,20 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+char	*prepare_value_to_write(char *value);
+char	*any_whitespace_to_space(char *value);
+
 int		parse_all(t_scene *scene, char *line);
 int		count_items(char *line);
 int		count_item_size(char *line);
 int		parse_item_line(t_scene *scene, char *item_line);
-int		parse_item_by_type(t_scene *scene, char *type, char *description);
-int		parse_scene_description(t_scene *scene, char *description);
-int		parse_camera_description(t_scene *scene, char *description);
-int		parse_light_description(t_scene *scene, char *description);
-int		parse_material_description(t_scene *scene, char *description);
-int		parse_object_description(t_scene *scene, char *description);
+int    parse_item_by_property(t_scene *scene, char *type, char *property, char *value);
+int		parse_item_description(t_scene *scene, char *type, char *description);
+int		parse_scene_description(t_scene *scene, char *property, char *value);
+int		parse_camera_description(t_scene *scene, char *property, char *value);
+int		parse_light_description(t_scene *scene, char *property, char *value);
+int		parse_material_description(t_scene *scene, char *property, char *value);
+int		parse_object_description(t_scene *scene, char *property, char *value);
 
 void    write_all_info(t_scene *scene, int fd);
 void	write_scene_info(t_scene *scene, int fd);
