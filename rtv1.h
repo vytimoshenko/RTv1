@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 10:36:17 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 11:21:18 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@
 
 # define SCENE_FILE_EXTENSION			".rt"
 # define CURRENT_TIME_STR_LENGTH		24
+
+# define FILE_PARSE_SCENE				0
+# define FILE_PARSE_CAMERA				1
+# define FILE_PARSE_LIGHT				2
+# define FILE_PARSE_MATERIAL			3
+# define FILE_PARSE_OBJECT				4
 
 # define FILE_SCENE						"scene"
 # define FILE_SCENE_NAME				"name"
@@ -305,6 +311,7 @@ typedef struct			s_scene
 {
 	int					active_camera;
 	int					active_light;
+	int					active_material;
 	int					active_object;
 	
 	char				*file_name_with_path;
@@ -376,6 +383,8 @@ typedef struct			s_global
 	t_scene				*scene;
 	t_mlx				*mlx;
 }						t_global;
+
+int    define_item_type(t_scene *scene, char *type);
 
 t_vector	parse_vector(char *value);
 t_color	parse_color(char *value);

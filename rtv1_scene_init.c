@@ -23,12 +23,16 @@ t_scene	*init_scene(int argc, char **argv)
 	reset_scene(scene);
 	get_lights_statistics(scene);
 	get_objects_statistics(scene);
-	read_scene(scene, argv[1]);
+	// read_scene(scene, argv[1]);
 	init_frame_buffer(scene);
 	init_motion_blur_buffer(scene);
 	init_depth_buffer(scene);
 	init_aliasing_buffer(scene);
 	init_object_buffer(scene);
+	scene->active_camera = 0;
+	scene->active_light = NOTHING_SELECTED;
+	scene->active_material = NOTHING_SELECTED;
+	scene->active_object = NOTHING_SELECTED;
 	get_sin_cos(scene->cameras.array[scene->active_camera]);
 	scene->file_name_with_path = ft_strdup(argv[1]);
 	// save_scene(scene);
@@ -41,12 +45,13 @@ void		reset_scene(t_scene *scene)
 
 	scene->pixelation_k = PIXELATION_MIN;
 	scene->pixelation_k = 256;
-	scene->active_camera = 0;
+	scene->active_camera = NOTHING_SELECTED;
 	scene->active_light = NOTHING_SELECTED;
+	scene->active_material = NOTHING_SELECTED;
 	scene->active_object = NOTHING_SELECTED;
 	scene->material_source = NOTHING_SELECTED;
-	// scene->name = ft_strdup("Four amazing balls");
-	// scene->author = ft_strdup("Meowth Perseus");
+	scene->name = ft_strdup("Four amazing balls");
+	scene->author = ft_strdup("Meowth Perseus");
 	scene->background = (t_color){0, 0, 0};
 	scene->depth_map_k = 64;
 
@@ -111,8 +116,8 @@ void		reset_scene(t_scene *scene)
 	scene->objects.array[i]->radius = 8.0;
 	i++;
 	scene->objects.array[i]->id = i;
-	scene->objects.array[i]->type = OBJECT_TYPE_SPHERE;
 	scene->objects.array[i]->material = 3;
+	scene->objects.array[i]->type = OBJECT_TYPE_SPHERE;
 	scene->objects.array[i]->position = (t_vector){-10, 15, 40};
 	scene->objects.array[i]->radius = 2;
 	// i++;

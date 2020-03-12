@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 07:13:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 08:49:07 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 11:37:01 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	parse_all(t_scene *scene, char *line)
 int	parse_item_line(t_scene *scene, char *item_line)
 {
 	int		i;
+	int		type_id;
 	char	*type;
 	char	*description;
 	
@@ -70,6 +71,8 @@ int	parse_item_line(t_scene *scene, char *item_line)
 		i++;
 	type = ft_strnew(i);
 	ft_strncpy(type, item_line, i);
+	type_id = define_item_type(scene, type);
+	printf("type to parse - %d", type_id);
 	while (--i >= -1)
 		item_line++;
 	while (item_line[i] != '}')
@@ -110,4 +113,33 @@ int	count_item_size(char *line)
 		i++;
 	i++;
 	return (i);
+}
+
+int    define_item_type(t_scene *scene, char *type)
+{
+	if (!(ft_strcmp(type, FILE_SCENE)))
+		return(FILE_PARSE_SCENE);
+    else if (!(ft_strcmp(type, FILE_CAMERA)))
+	{
+		scene->active_camera++;
+		return (FILE_PARSE_CAMERA);
+	}
+	else if (!(ft_strcmp(type, FILE_LIGHT)))
+	{
+		scene->active_light++;
+		return (FILE_PARSE_LIGHT);
+	}
+	else if (!(ft_strcmp(type, FILE_MATERIAL)))
+	{
+		scene->active_material++;
+		return (FILE_PARSE_MATERIAL);
+	}
+	else if (!(ft_strcmp(type, FILE_OBJECT)))
+	{
+		scene->active_object++;
+		return (FILE_PARSE_OBJECT);
+	}
+	else
+		return (-1);
+	return (0);
 }
