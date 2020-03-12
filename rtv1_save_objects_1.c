@@ -6,17 +6,17 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 05:35:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/11 07:42:37 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 03:48:21 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	write_scene_info(t_scene *scene, int fd)
+void	write_all_info(t_scene *scene, int fd)
 {
-	ft_putstr_fd("{\n\t\"scene_name\": \"", fd);
-	ft_putstr_fd(scene->scene_name, fd);
-	ft_putendl_fd("\",\n", fd);
+	// ft_putstr_fd("{\n", fd);
+	write_scene_info(scene, fd);
+	ft_putstr_fd("\n\n", fd);
 	write_cameras_info(scene, fd);
 	ft_putstr_fd("\n\n", fd);
 	write_lights_info(scene, fd);
@@ -24,7 +24,18 @@ void	write_scene_info(t_scene *scene, int fd)
 	write_materials_info(scene, fd);
 	ft_putstr_fd("\n\n", fd);
 	write_objects_info(scene, fd);
-	ft_putendl_fd("\n}", fd);
+	// ft_putendl_fd("\n}", fd);
+}
+
+void	write_scene_info(t_scene *scene, int fd)
+{
+	ft_putendl_fd("\t\"scene\":", fd);
+	ft_putstr_fd("\t{\n\t\t\"name\":\t\t\"", fd);
+	ft_putstr_fd(scene->name, fd);
+	ft_putendl_fd("\",", fd);
+	ft_putstr_fd("\t\t\"author\":\t\"", fd);
+	ft_putstr_fd(scene->author, fd);
+	ft_putendl_fd("\"\n\t},", fd);
 }
 
 void	write_cameras_info(t_scene *scene, int fd)

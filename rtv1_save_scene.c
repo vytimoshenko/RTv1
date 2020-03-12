@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 02:02:59 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/11 07:44:18 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 03:33:33 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,17 @@ void	save_scene(t_scene *scene)
 	char	*file_name;
 
 	file_name = NULL;
-	// create_file_name(scene, &file_name);
-	file_name = "Hello, world!";
+	create_file_name(scene, &file_name);
 	ft_putendl(file_name);
 	if (!(fd = open(file_name, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP
 	| S_IWGRP | S_IROTH | S_IWOTH)))
 		ft_put_errno(PROGRAM_NAME);
-	// write(fd, (void *)status, sizeof(*status));
+	write_all_info(scene, fd);
 	// mlx_string_put(mlx->mlx, mlx->win, WIN_SIZE_W - 700, WIN_SIZE_H - 30,
 	// TEXT_COLOR, "file saved:");
 	// mlx_string_put(mlx->mlx, mlx->win, WIN_SIZE_W - 580, WIN_SIZE_H - 30,
 	// TEXT_COLOR, file_name);
-	write_scene_info(scene, fd);
-	system("cat \"Hello, world!\"");
-	// ft_strdel(&file_name);
+	ft_strdel(&file_name);
 	close(fd);
 }
 
@@ -56,7 +53,7 @@ void	create_file_name(t_scene *scene, char **file_name)
 	char	*tmp2;
 	char	time_string[CURRENT_TIME_STR_LENGTH];
 
-	tmp1 = ft_strdup(scene->scene_name);
+	tmp1 = ft_strdup(scene->name);
 	i = 0;
 	while (tmp1[i++])
 		tmp1[i] = tmp1[i] == ' ' ? '_' : tmp1[i];

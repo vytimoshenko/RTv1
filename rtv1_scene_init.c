@@ -31,7 +31,7 @@ t_scene	*init_scene(int argc, char **argv)
 	init_object_buffer(scene);
 	get_sin_cos(scene->cameras.array[scene->active_camera]);
 	scene->file_name_with_path = ft_strdup(argv[1]);
-	save_scene(scene);
+	// save_scene(scene);
 	return (scene);
 }
 
@@ -45,7 +45,8 @@ void		reset_scene(t_scene *scene)
 	scene->active_light = NOTHING_SELECTED;
 	scene->active_object = NOTHING_SELECTED;
 	scene->material_source = NOTHING_SELECTED;
-	scene->scene_name = ft_strdup("Four amazing balls");
+	scene->name = ft_strdup("Four amazing balls");
+	scene->author = ft_strdup("Meowth Perseus");
 	scene->background = (t_color){0, 0, 0};
 	scene->depth_map_k = 64;
 

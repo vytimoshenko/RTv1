@@ -1,5 +1,9 @@
-{
-	"scene_name": "Four amazing balls",
+	"scene":
+	{
+		"name":		"Four amazing balls",
+		"author":	"Meowth Perseus"
+	},
+
 
 	"camera":
 	{
@@ -122,4 +126,3 @@
 		"position":	[0, -10, 0],
 		"direction":	[0, 0, 0]
 	}
-}

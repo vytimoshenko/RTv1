@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/11 07:36:49 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 04:41:04 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,16 @@
 
 # define PROGRAM_NAME				"RTv1"
 
-# define READ_BUFF_SIZE				10240
+# define READ_BUFF_SIZE				8192
 
 # define SCENE_FILE_EXTENSION		".rt"
 # define CURRENT_TIME_STR_LENGTH	24
-# define JSON_SCENE_NAME			"scene_name"
+
+# define JSON_SCENE					"scene"
 # define JSON_CAMERA				"camera"
+# define JSON_LIGHT					"light"
+# define JSON_MATERIAL				"material"
+# define JSON_OBJECT				"object"
 
 # define WIN_SIZE_W					1916.0
 # define WIN_SIZE_H					1064.0
@@ -277,7 +281,8 @@ typedef struct			s_scene
 	int					active_object;
 	
 	char				*file_name_with_path;
-	char				*scene_name;
+	char				*name;
+	char				*author;
 
 	t_color				background;
 
@@ -345,8 +350,19 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+int		parse_all(t_scene *scene, char *line);
+int		count_objects(char *line);
+int		count_object_size(char *line);
+int		parse_object_line(t_scene *scene, char *object_line);
+int		parse_object_by_type(t_scene *scene, char *object_type, char *description);
+int		parse_scene_description(t_scene *scene, char *description);
+int		parse_camera_description(t_scene *scene, char *description);
+int		parse_light_description(t_scene *scene, char *description);
+int		parse_material_description(t_scene *scene, char *description);
+int		parse_object_description(t_scene *scene, char *description);
 
-void    write_scene_info(t_scene *scene, int fd);
+void    write_all_info(t_scene *scene, int fd);
+void	write_scene_info(t_scene *scene, int fd);
 void	write_cameras_info(t_scene *scene, int fd);
 void	write_lights_info(t_scene *scene, int fd);
 void	write_lights_info_extra(t_scene *scene, int fd, int i);
