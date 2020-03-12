@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 07:13:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 11:37:01 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 13:10:32 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	parse_item_line(t_scene *scene, char *item_line)
 	type = ft_strnew(i);
 	ft_strncpy(type, item_line, i);
 	type_id = define_item_type(scene, type);
-	printf("type to parse - %d", type_id);
 	while (--i >= -1)
 		item_line++;
 	while (item_line[i] != '}')
@@ -142,4 +141,31 @@ int    define_item_type(t_scene *scene, char *type)
 	else
 		return (-1);
 	return (0);
+}
+
+void	allocate_memory(t_scene *scene)
+{
+	int	i;
+	
+	scene->cameras.array = (t_camera **)ft_memalloc(sizeof(t_camera *) *
+	scene->cameras.quantity);
+	i = -1;
+	while (++i < scene->cameras.quantity)
+		scene->cameras.array[i] = (t_camera *)ft_memalloc(sizeof(t_camera));
+	scene->lights.array = (t_light **)ft_memalloc(sizeof(t_light *) *
+	scene->lights.quantity);
+	i = -1;
+	while (++i < scene->lights.quantity)
+		scene->lights.array[i] = (t_light *)ft_memalloc(sizeof(t_light));
+	scene->materials.array = (t_material **)ft_memalloc(sizeof(t_material *) *
+	scene->materials.quantity);
+	i = -1;
+	while (++i < scene->materials.quantity)
+		scene->materials.array[i] =
+		(t_material *)ft_memalloc(sizeof(t_material));
+	scene->objects.array = (t_object **)ft_memalloc(sizeof(t_object *) *
+	scene->objects.quantity);
+	i = -1;
+	while (++i < scene->objects.quantity)
+		scene->objects.array[i] = (t_object *)ft_memalloc(sizeof(t_object));
 }

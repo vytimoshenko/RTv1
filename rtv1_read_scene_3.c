@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 09:00:27 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 12:47:43 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/12 13:12:04 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,22 @@ int		parse_camera_description(t_scene *scene, char *property, char *value)
 
 int		parse_light_description(t_scene *scene, char *property, char *value)
 {
-		int i;
-		
-		i = scene->active_light;
-		if (!(ft_strcmp(property, FILE_LIGHT_TYPE)))
-		{
-				if (!(ft_strcmp(value, FILE_LIGHT_TYPE_AMBIENT)))
-						scene->lights.array[i]->type = LIGHT_TYPE_AMBIENT;
-				else if (!(ft_strcmp(value, FILE_LIGHT_TYPE_DIRECTIONAL)))
-						scene->lights.array[i]->type = LIGHT_TYPE_DIRECTIONAL;
-				else if (!(ft_strcmp(value, FILE_LIGHT_TYPE_POINT)))
-						scene->lights.array[i]->type = LIGHT_TYPE_POINT;
-		}
-		else if (!(ft_strcmp(property, FILE_LIGHT_INTENSITY)))
-		scene->lights.array[i]->intensity = (double)ft_atoi(value) / 10.0;
-		else if (!(ft_strcmp(property, FILE_LIGHT_POSITION)))
-		scene->lights.array[i]->position = parse_vector(value);
+    int i;
+    
+    i = scene->active_light;
+    if (!(ft_strcmp(property, FILE_LIGHT_TYPE)))
+    {
+        if (!(ft_strcmp(value, FILE_LIGHT_TYPE_AMBIENT)))
+                scene->lights.array[i]->type = LIGHT_TYPE_AMBIENT;
+        else if (!(ft_strcmp(value, FILE_LIGHT_TYPE_DIRECTIONAL)))
+                scene->lights.array[i]->type = LIGHT_TYPE_DIRECTIONAL;
+        else if (!(ft_strcmp(value, FILE_LIGHT_TYPE_POINT)))
+                scene->lights.array[i]->type = LIGHT_TYPE_POINT;
+    }
+    else if (!(ft_strcmp(property, FILE_LIGHT_INTENSITY)))
+        scene->lights.array[i]->intensity = (double)ft_atoi(value) / 10.0;
+    else if (!(ft_strcmp(property, FILE_LIGHT_POSITION)))
+        scene->lights.array[i]->position = parse_vector(value);
 	else
 		return (-1);
 	return (0);
@@ -62,17 +62,17 @@ int		parse_light_description(t_scene *scene, char *property, char *value)
 
 int		parse_material_description(t_scene *scene, char *property, char *value)
 {
-		int i;
-		
-		i = scene->active_material;
-		if (!(ft_strcmp(property, FILE_MATERIAL_NAME)))
-		scene->materials.array[i]->name = ft_strdup(value);
-		else if (!(ft_strcmp(property, FILE_MATERIAL_COLOR)))
-		scene->materials.array[i]->color = parse_color(value);
-		else if (!(ft_strcmp(property, FILE_MATERIAL_SPECULAR)))
-		scene->materials.array[i]->specular = ft_atoi(value);
-		else if (!(ft_strcmp(property, FILE_MATERIAL_REFLECTIVE)))
-		scene->materials.array[i]->reflective = (double)ft_atoi(value) / 10.0;
+    int i;
+    
+    i = scene->active_material;
+    if (!(ft_strcmp(property, FILE_MATERIAL_NAME)))
+        scene->materials.array[i]->name = ft_strdup(value);
+    else if (!(ft_strcmp(property, FILE_MATERIAL_COLOR)))
+        scene->materials.array[i]->color = parse_color(value);
+    else if (!(ft_strcmp(property, FILE_MATERIAL_SPECULAR)))
+        scene->materials.array[i]->specular = ft_atoi(value);
+    else if (!(ft_strcmp(property, FILE_MATERIAL_REFLECTIVE)))
+        scene->materials.array[i]->reflective = (double)ft_atoi(value) / 10.0;
 	else
 		return (-1);
 	return (0);
