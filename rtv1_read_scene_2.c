@@ -6,135 +6,118 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 08:45:30 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/13 04:30:50 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/13 07:25:37 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int		parse_item_description(t_scene *scene, int type_id, char *description)
+int		count_items_by_type(t_scene *scene, char *item_line)
 {
 	int		i;
-	char	*property;
-	char	*value;
-	char	*prepared_value;
-	
-	if (!(*description))
-		return (0);
+	int		type_id;
+	char	*type;
+
 	i = 0;
-	while (description[i] != ':')
+	while (item_line[i] != '{')
 		i++;
-	property = ft_strnew(i);
-	ft_strncpy(property, description, i);
-	while (--i >= -1)
-		description++;
-	while (description[i] != ';')
-		i++;
-	value = ft_strnew(i);
-	ft_strncpy(value, description, i);
-	prepared_value = prepare_value_to_write(value);
-printf("\tPRP:\t%s\n", property);
-printf("\tP_VAL:\t%s\n\n", prepared_value);
-	if (parse_item_by_property(scene, type_id, property, prepared_value) == -1)
+	type = ft_strnew(i);
+	ft_strncpy(type, item_line, i);
+	if ((type_id = define_item_type(scene, type)) == -1)
 		return (-1);
-	ft_strdel(&property);
-	ft_strdel(&value);
-	ft_strdel(&prepared_value);
-	while (--i >= -1)
-		description++;
-	if (parse_item_description(scene, type_id, description) == -1)
-		return (-1);
+	ft_strdel(&type);
 	return (0);
 }
 
-char	*prepare_value_to_write(char *value)
+int		define_item_type(t_scene *scene, char *type)
 {
-	int		len;
-	char	*prepared_value;
-	
-	if (*value == '"')
-		any_whitespace_to_space(value);
-	if (*value == '"' || *value == '<' || *value == '[')
+	if (!(ft_strcmp(type, FILE_SCENE)))
+		return (FILE_PARSE_SCENE);
+	else if (!(ft_strcmp(type, FILE_CAMERA)))
 	{
-		value++;
-		len = ft_strlen(value);
-		prepared_value = ft_strnew(len - 1);
-		ft_strncpy(prepared_value, value, len - 1);
+		scene->active_camera++;
+		return (FILE_PARSE_CAMERA);
+	}
+	else if (!(ft_strcmp(type, FILE_LIGHT)))
+	{
+		scene->active_light++;
+		return (FILE_PARSE_LIGHT);
+	}
+	else if (!(ft_strcmp(type, FILE_MATERIAL)))
+	{
+		scene->active_material++;
+		return (FILE_PARSE_MATERIAL);
+	}
+	else if (!(ft_strcmp(type, FILE_OBJECT)))
+	{
+		scene->active_object++;
+		return (FILE_PARSE_OBJECT);
 	}
 	else
-		prepared_value = ft_strdup(value);
-	return (prepared_value);
-}
-
-int    parse_item_by_property(t_scene *scene, int type_id, char *property, char *value)
-{
-	if (type_id == FILE_PARSE_SCENE)
-		return(parse_scene_description(scene, property, value));
-    else if (type_id == FILE_PARSE_CAMERA)
-		return (parse_camera_description(scene, property, value));
-	else if (type_id == FILE_PARSE_LIGHT)
-		return (parse_light_description(scene, property, value));
-	else if (type_id == FILE_PARSE_MATERIAL)
-		return (parse_material_description(scene, property, value));
-	else if (type_id == FILE_PARSE_OBJECT)
-		return (parse_object_description(scene, property, value));
-	else
 		return (-1);
 	return (0);
 }
 
-t_vector	parse_vector(char *value)
+void	save_quantities(t_scene *scene)
 {
-	int			i;
-	char		*tmp;
-	t_vector	vector;
-	
-	tmp = ft_strnew(10);
-	i = 0;
-	while (value[i] != ',')
-		i++;
-	tmp = ft_strncat(tmp, value, i);
-	vector.x = ft_atoi(tmp);
-	ft_bzero(tmp, 10);
-	while (i-- >= 0)
-		value++;
-	i = 0;
-	while (value[i] != ',')
-		i++;
-	tmp = ft_strncat(tmp, value, i);
-	vector.y = ft_atoi(tmp);
-	ft_bzero(tmp, 10);
-	while (i-- >= 0)
-		value++;
-	vector.z = ft_atoi(value);
-	ft_strdel(&tmp);
-	return (vector);
+	scene->cameras.quantity = scene->active_camera + 1;
+	scene->lights.quantity = scene->active_light + 1;
+	scene->materials.quantity = scene->active_material + 1;
+	scene->objects.quantity = scene->active_object + 1;
+	scene->active_camera = NOTHING_SELECTED;
+	scene->active_light = NOTHING_SELECTED;
+	scene->active_material = NOTHING_SELECTED;
+	scene->active_object = NOTHING_SELECTED;
 }
 
-t_color	parse_color(char *value)
+void	allocate_memory(t_scene *scene)
 {
-	int			i;
-	char		*tmp;
-	t_color		color;
-	
-	tmp = ft_strnew(10);
+	int	i;
+
+	scene->cameras.array = (t_camera **)ft_memalloc(sizeof(t_camera *) *
+	scene->cameras.quantity);
+	i = -1;
+	while (++i < scene->cameras.quantity)
+		scene->cameras.array[i] = (t_camera *)ft_memalloc(sizeof(t_camera));
+	scene->lights.array = (t_light **)ft_memalloc(sizeof(t_light *) *
+	scene->lights.quantity);
+	i = -1;
+	while (++i < scene->lights.quantity)
+		scene->lights.array[i] = (t_light *)ft_memalloc(sizeof(t_light));
+	scene->materials.array = (t_material **)ft_memalloc(sizeof(t_material *) *
+	scene->materials.quantity);
+	i = -1;
+	while (++i < scene->materials.quantity)
+		scene->materials.array[i] =
+		(t_material *)ft_memalloc(sizeof(t_material));
+	scene->objects.array = (t_object **)ft_memalloc(sizeof(t_object *) *
+	scene->objects.quantity);
+	i = -1;
+	while (++i < scene->objects.quantity)
+		scene->objects.array[i] = (t_object *)ft_memalloc(sizeof(t_object));
+}
+
+int		parse_item_line(t_scene *scene, char *item_line)
+{
+	int		i;
+	int		type_id;
+	char	*type;
+	char	*description;
+
 	i = 0;
-	while (value[i] != ',')
+	while (item_line[i] != '{')
 		i++;
-	tmp = ft_strncat(tmp, value, i);
-	color.r = ft_atoi(tmp);
-	ft_bzero(tmp, 10);
-	while (i-- >= 0)
-		value++;
-	i = 0;
-	while (value[i] != ',')
+	type = ft_strnew(i);
+	ft_strncpy(type, item_line, i);
+	type_id = define_item_type(scene, type);
+	while (--i >= -1)
+		item_line++;
+	while (item_line[i] != '}')
 		i++;
-	tmp = ft_strncat(tmp, value, i);
-	color.g = ft_atoi(tmp);
-	ft_bzero(tmp, 10);
-	while (i-- >= 0)
-		value++;
-	color.b = ft_atoi(value);
-	ft_strdel(&tmp);
-	return (color);
+	description = ft_strnew(i);
+	ft_strncpy(description, item_line, i);
+	parse_item_description(scene, type_id, description);
+	ft_strdel(&type);
+	ft_strdel(&description);
+	return (0);
 }

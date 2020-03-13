@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 07:13:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/13 06:09:24 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/13 07:24:24 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	read_scene(t_scene *scene, char *file_name)
 {
 	int		fd;
-	int     ret;
+	int		ret;
 	char	buff[READ_BUFF_SIZE + 1];
 	char	*line;
 
@@ -29,12 +29,12 @@ void	read_scene(t_scene *scene, char *file_name)
 	close(fd);
 	line = NULL;
 	line = delete_whitespaces(buff);
-	if (parse_to_item_lines(scene, line) == -1)
-		put_error_pn("invalid scene file data");
+	if (divide_to_items(scene, line) == -1)
+		put_error_pn("invalid scene data");
 	free(line);
 }
 
-int	parse_to_item_lines(t_scene *scene, char *line)
+int		divide_to_items(t_scene *scene, char *line)
 {
 	int		i;
 	int		items_count;
@@ -54,11 +54,41 @@ int	parse_to_item_lines(t_scene *scene, char *line)
 		while (--item_size >= 0)
 			line++;
 	}
-	parse_each_line(scene, items_array);
+	parse_each_item(scene, items_array);
 	return (0);
 }
 
-int		parse_each_line(t_scene *scene, char **items_array)
+int		count_items(char *line)
+{
+	int	i;
+	int	a;
+	int	b;
+
+	a = 0;
+	i = 0;
+	while (line[i++] != '\0')
+		a = line[i] == '{' ? a + 1 : a;
+	b = 0;
+	i = 0;
+	while (line[i++] != '\0')
+		b = line[i] == '}' ? b + 1 : b;
+	if (a != b)
+		return (-1);
+	return (a);
+}
+
+int		count_item_size(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] != '}')
+		i++;
+	i++;
+	return (i);
+}
+
+int		parse_each_item(t_scene *scene, char **items_array)
 {
 	int	i;
 
@@ -79,143 +109,4 @@ int		parse_each_line(t_scene *scene, char **items_array)
 	ft_arrdel(items_array);
 	free(items_array);
 	return (0);
-}
-
-int	count_items_by_type(t_scene *scene, char *item_line)
-{
-	int		i;
-	int		type_id;
-	char	*type;
-	
-	i = 0;
-	while (item_line[i] != '{')
-		i++;
-	type = ft_strnew(i);
-	ft_strncpy(type, item_line, i);
-	if ((type_id = define_item_type(scene, type)) == -1)
-		return (-1);
-	ft_strdel(&type);
-	return (0);
-}
-
-int	parse_item_line(t_scene *scene, char *item_line)
-{
-	int		i;
-	int		type_id;
-	char	*type;
-	char	*description;
-	
-	i = 0;
-	while (item_line[i] != '{')
-		i++;
-	type = ft_strnew(i);
-	ft_strncpy(type, item_line, i);
-	type_id = define_item_type(scene, type);
-	while (--i >= -1)
-		item_line++;
-	while (item_line[i] != '}')
-		i++;
-	description = ft_strnew(i);
-	ft_strncpy(description, item_line, i);
-	parse_item_description(scene, type_id, description);
-	ft_strdel(&type);
-	ft_strdel(&description);
-	return (0);
-}
-
-int	count_items(char *line)
-{
-	int	i;
-	int	a;
-	int	b;
-	
-	a = 0;
-	i = 0;
-	while (line[i++] != '\0')
-		a = line[i] == '{' ? a + 1 : a;
-	b = 0;
-	i = 0;
-	while (line[i++] != '\0')
-		b = line[i] == '}' ? b + 1 : b;
-	if (a != b)
-		return (-1);
-	return (a);
-}
-
-int	count_item_size(char *line)
-{
-	int	i;
-	
-	i = 0;
-	while (line[i] != '}')
-		i++;
-	i++;
-	return (i);
-}
-
-int    define_item_type(t_scene *scene, char *type)
-{
-	if (!(ft_strcmp(type, FILE_SCENE)))
-		return(FILE_PARSE_SCENE);
-    else if (!(ft_strcmp(type, FILE_CAMERA)))
-	{
-		scene->active_camera++;
-		return (FILE_PARSE_CAMERA);
-	}
-	else if (!(ft_strcmp(type, FILE_LIGHT)))
-	{
-		scene->active_light++;
-		return (FILE_PARSE_LIGHT);
-	}
-	else if (!(ft_strcmp(type, FILE_MATERIAL)))
-	{
-		scene->active_material++;
-		return (FILE_PARSE_MATERIAL);
-	}
-	else if (!(ft_strcmp(type, FILE_OBJECT)))
-	{
-		scene->active_object++;
-		return (FILE_PARSE_OBJECT);
-	}
-	else
-		return (-1);
-	return (0);
-}
-
-void	save_quantities(t_scene *scene)
-{
-	scene->cameras.quantity = scene->active_camera + 1;
-	scene->lights.quantity = scene->active_light + 1;
-	scene->materials.quantity = scene->active_material + 1;
-	scene->objects.quantity = scene->active_object + 1;
-	scene->active_camera = NOTHING_SELECTED;
-	scene->active_light = NOTHING_SELECTED;
-	scene->active_material = NOTHING_SELECTED;
-	scene->active_object = NOTHING_SELECTED;
-}
-
-void	allocate_memory(t_scene *scene)
-{
-	int	i;
-	
-	scene->cameras.array = (t_camera **)ft_memalloc(sizeof(t_camera *) *
-	scene->cameras.quantity);
-	i = -1;
-	while (++i < scene->cameras.quantity)
-		scene->cameras.array[i] = (t_camera *)ft_memalloc(sizeof(t_camera));
-	scene->lights.array = (t_light **)ft_memalloc(sizeof(t_light *) *
-	scene->lights.quantity);
-	i = -1;
-	while (++i < scene->lights.quantity)
-		scene->lights.array[i] = (t_light *)ft_memalloc(sizeof(t_light));
-	scene->materials.array = (t_material **)ft_memalloc(sizeof(t_material *) *
-	scene->materials.quantity);
-	i = -1;
-	while (++i < scene->materials.quantity)
-		scene->materials.array[i] = (t_material *)ft_memalloc(sizeof(t_material));
-	scene->objects.array = (t_object **)ft_memalloc(sizeof(t_object *) *
-	scene->objects.quantity);
-	i = -1;
-	while (++i < scene->objects.quantity)
-		scene->objects.array[i] = (t_object *)ft_memalloc(sizeof(t_object));
 }

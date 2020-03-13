@@ -136,7 +136,7 @@ object
 object
 {
 	type:		<plane>;
-	material:	"Deep magenta";
+	material:	"Glossy white";
 	position:	[0, -10, 0];
 	orientation:	[0, 0, 0];
 }

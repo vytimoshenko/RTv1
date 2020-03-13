@@ -5,118 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/12 09:00:27 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/13 06:06:59 by mperseus         ###   ########.fr       */
+/*   Created: 2020/03/13 07:24:15 by mperseus          #+#    #+#             */
+/*   Updated: 2020/03/13 07:36:18 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int		parse_scene_description(t_scene *scene, char *property, char *value)
+int		parse_item_description(t_scene *scene, int type_id, char *description)
 {
-	if (!(ft_strcmp(property, FILE_SCENE_NAME)))
-		scene->name = ft_strdup(value);
-	else if (!(ft_strcmp(property, FILE_SCENE_AUTHOR)))
-		scene->author = ft_strdup(value);
-	else
+	int		i;
+	char	*property;
+	char	*value;
+	char	*prepared_value;
+
+	if (!(*description))
+		return (0);
+	i = 0;
+	while (description[i] != ':')
+		i++;
+	property = ft_strnew(i);
+	ft_strncpy(property, description, i);
+	while (--i >= -1)
+		description++;
+	while (description[i] != ';')
+		i++;
+	value = ft_strnew(i);
+	ft_strncpy(value, description, i);
+	prepared_value = prepare_value_to_write(value);
+	if (parse_item_by_property(scene, type_id, property, prepared_value) == -1)
+		return (-1);
+	ft_strdel(&property);
+	ft_strdel(&value);
+	ft_strdel(&prepared_value);
+	while (--i >= -1)
+		description++;
+	if (parse_item_description(scene, type_id, description) == -1)
 		return (-1);
 	return (0);
 }
 
-int		parse_camera_description(t_scene *scene, char *property, char *value)
+char	*prepare_value_to_write(char *value)
 {
-		int i;
-		
-		i = scene->active_camera;
-		if (!(ft_strcmp(property, FILE_CAMERA_POSITION)))
-		scene->cameras.array[i]->position = parse_vector(value);
-	else if (!(ft_strcmp(property, FILE_CAMERA_DIRECTION)))
-		scene->cameras.array[i]->direction = parse_vector(value);
+	int		len;
+	char	*prepared_value;
+
+	if (*value == '"')
+		any_whitespace_to_space(value);
+	if (*value == '"' || *value == '<' || *value == '[')
+	{
+		value++;
+		len = ft_strlen(value);
+		prepared_value = ft_strnew(len - 1);
+		ft_strncpy(prepared_value, value, len - 1);
+	}
 	else
-		return (-1);
-	return (0);
+		prepared_value = ft_strdup(value);
+	return (prepared_value);
 }
 
-int		parse_light_description(t_scene *scene, char *property, char *value)
+char	*any_whitespace_to_space(char *value)
 {
-    int i;
-    
-    i = scene->active_light;
-    if (!(ft_strcmp(property, FILE_LIGHT_TYPE)))
-    {
-        if (!(ft_strcmp(value, FILE_LIGHT_TYPE_AMBIENT)))
-                scene->lights.array[i]->type = LIGHT_TYPE_AMBIENT;
-        else if (!(ft_strcmp(value, FILE_LIGHT_TYPE_DIRECTIONAL)))
-                scene->lights.array[i]->type = LIGHT_TYPE_DIRECTIONAL;
-        else if (!(ft_strcmp(value, FILE_LIGHT_TYPE_POINT)))
-                scene->lights.array[i]->type = LIGHT_TYPE_POINT;
-    }
-    else if (!(ft_strcmp(property, FILE_LIGHT_INTENSITY)))
-        scene->lights.array[i]->intensity = (double)ft_atoi(value) / 10.0;
-    else if (!(ft_strcmp(property, FILE_LIGHT_POSITION)))
-        scene->lights.array[i]->position = parse_vector(value);
-	else
-		return (-1);
-	return (0);
-}
+	int	i;
 
-int		parse_material_description(t_scene *scene, char *property, char *value)
-{
-    int i;
-    
-    i = scene->active_material;
-    if (!(ft_strcmp(property, FILE_MATERIAL_NAME)))
-        scene->materials.array[i]->name = ft_strdup(value);
-    else if (!(ft_strcmp(property, FILE_MATERIAL_COLOR)))
-        scene->materials.array[i]->color = parse_color(value);
-    else if (!(ft_strcmp(property, FILE_MATERIAL_SPECULAR)))
-        scene->materials.array[i]->specular = ft_atoi(value);
-    else if (!(ft_strcmp(property, FILE_MATERIAL_REFLECTIVE)))
-        scene->materials.array[i]->reflective = (double)ft_atoi(value) / 10.0;
-	else
-		return (-1);
-	return (0);
-}
-
-int		parse_object_description(t_scene *scene, char *property, char *value)
-{
-    int i;
-    
-    i = scene->active_object;
-    scene->objects.array[i]->id = i;
-    if (!(ft_strcmp(property, FILE_OBJECT_TYPE)))
-    {
-        if (!(ft_strcmp(value, FILE_OBJECT_TYPE_PLANE)))
-                scene->objects.array[i]->type = OBJECT_TYPE_PLANE;
-        else if (!(ft_strcmp(value, FILE_OBJECT_TYPE_SPHERE)))
-                scene->objects.array[i]->type = OBJECT_TYPE_SPHERE;
-        else if (!(ft_strcmp(value, FILE_OBJECT_TYPE_CYLINDER)))
-                scene->objects.array[i]->type = OBJECT_TYPE_CYLINDER;
-        else if (!(ft_strcmp(value, FILE_OBJECT_TYPE_CONE)))
-                scene->objects.array[i]->type = OBJECT_TYPE_CONE;
-    }
-    else if (!(ft_strcmp(property, FILE_OBJECT_MATERIAL)))
-        scene->objects.array[i]->material = find_material(scene, value);
-    else if (!(ft_strcmp(property, FILE_OBJECT_POSITION)))
-        scene->objects.array[i]->position = parse_vector(value);
-    else if (!(ft_strcmp(property, FILE_OBJECT_ORIENTATION)))
-        scene->objects.array[i]->orientation = parse_vector(value);
-    else if (!(ft_strcmp(property, FILE_OBJECT_RADIUS)))
-        scene->objects.array[i]->radius = ft_atoi(value);
-	else
-		return (-1);
-	return (0);
-}
-
-int     find_material(t_scene *scene, char *value)
-{
-   int  i;
-
-   i = -1;
-   while (++i < scene->materials.quantity)
-   {
-        if (!(ft_strcmp(scene->materials.array[i]->name, value)))
-            return (i);
-   }
-    return (-1);
+	i = 0;
+	while (value[i++] != '\0')
+	{
+		if (is_whitespace(value[i]))
+			value[i] = ' ';
+	}
+	return (value);
 }

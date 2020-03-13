@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_whitespaces.c                                 :+:      :+:    :+:   */
+/*   rtv1_read_scene_7.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/10 03:07:32 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 08:28:15 by mperseus         ###   ########.fr       */
+/*   Created: 2020/03/13 07:13:39 by mperseus          #+#    #+#             */
+/*   Updated: 2020/03/13 07:14:14 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*delete_whitespaces(char *line)
 	return (clean_line);
 }
 
-int     count_whitespaces(char *line)
+int		count_whitespaces(char *line)
 {
 	int i;
 	int	in_quotes;
@@ -41,7 +41,7 @@ int     count_whitespaces(char *line)
 	return (i);
 }
 
-int     is_whitespace(char c)
+int		is_whitespace(char c)
 {
 	if (c == '\t' || c == '\n' || c == '\v' || c == '\r' || c == '\f' ||
 	c == ' ')
@@ -52,7 +52,7 @@ int     is_whitespace(char c)
 void	copy_without_whitespaces(char *line, char *clean_line)
 {
 	int	in_quotes;
-	
+
 	in_quotes = FALSE;
 	while (*line)
 	{
@@ -67,17 +67,4 @@ void	copy_without_whitespaces(char *line, char *clean_line)
 		line++;
 		clean_line++;
 	}
-}
-
-char	*any_whitespace_to_space(char *value)
-{
-	int	i;
-
-	i = 0;
-	while (value[i++] != '\0')
-	{
-		if (is_whitespace(value[i]))
-			value[i] = ' ';
-	}
-	return (value);
 }

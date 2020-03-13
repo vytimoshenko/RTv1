@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/12 09:01:12 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/13 07:47:51 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,16 @@ NAME	= 	RTv1
 HDR		= 	rtv1.h
 
 SRC		= 	rtv1_main.c					\
+			rtv1_read_scene_1.c 		\
+			rtv1_read_scene_2.c 		\
+			rtv1_read_scene_3.c 		\
+			rtv1_read_scene_4.c 		\
+			rtv1_read_scene_5.c 		\
+			rtv1_read_scene_6.c 		\
+			rtv1_read_scene_7.c	 		\
+			rtv1_save_scene_1.c			\
+			rtv1_save_scene_2.c			\
+			rtv1_save_scene_3.c			\
 			rtv1_render.c				\
 			rtv1_init_buffers.c			\
 			rtv1_clean_buffers.c		\
@@ -36,14 +46,7 @@ SRC		= 	rtv1_main.c					\
 			rtv1_mlx_control_1.c		\
 			rtv1_mlx_control_2.c		\
 			rtv1_control_light.c		\
-			rtv1_read_scene_1.c 		\
-			rtv1_read_scene_2.c 		\
-			rtv1_read_scene_3.c 		\
-			rtv1_whitespaces.c	 		\
 			rtv1_interface_help.c		\
-			rtv1_save_scene.c			\
-			rtv1_save_objects_1.c  		\
-			rtv1_save_objects_2.c  		\
 			rtv1_light.c				
 		
 OBJ		= 	$(SRC:.c=.o)

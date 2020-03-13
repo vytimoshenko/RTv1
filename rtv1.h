@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/13 06:05:24 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/13 07:43:19 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,32 +384,25 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
-int     find_material(t_scene *scene, char *value);
+void					read_scene(t_scene *scene, char *file_name);
+int						divide_to_items(t_scene *scene, char *line);
+int						count_items(char *line);
+int						count_item_size(char *line);
+int						parse_each_item(t_scene *scene, char **items_array);
 
-int	count_items_by_type(t_scene *scene, char *item_line);
-
+int						count_items_by_type(t_scene *scene, char *item_line);
+int    					define_item_type(t_scene *scene, char *type);
 void					save_quantities(t_scene *scene);
 void					allocate_memory(t_scene *scene);
+int						parse_item_line(t_scene *scene, char *item_line);
 
-int		parse_each_line(t_scene *scene, char **items_array);
-
-
-int    					define_item_type(t_scene *scene, char *type);
-
-t_vector				parse_vector(char *value);
-t_color					parse_color(char *value);
-
+int						parse_item_description(t_scene *scene, int type_id,
+						char *description);
 char					*prepare_value_to_write(char *value);
 char					*any_whitespace_to_space(char *value);
 
-int						parse_to_item_lines(t_scene *scene, char *line);
-int						count_items(char *line);
-int						count_item_size(char *line);
-int						parse_item_line(t_scene *scene, char *item_line);
 int    					parse_item_by_property(t_scene *scene, int type_id,
 						char *property, char *value);
-int						parse_item_description(t_scene *scene, int type_id,
-						char *description);
 int						parse_scene_description(t_scene *scene, char *property,
 						char *value);
 int						parse_camera_description(t_scene *scene, char *property,
@@ -418,8 +411,20 @@ int						parse_light_description(t_scene *scene, char *property,
 						char *value);
 int						parse_material_description(t_scene *scene,
 						char *property, char *value);
+						
 int						parse_object_description(t_scene *scene, char *property,
 						char *value);
+int    					find_object_type(char *value);
+int     				find_object_material(t_scene *scene, char *value);
+
+t_vector				parse_vector(char *value);
+t_color					parse_color(char *value);
+
+char					*delete_whitespaces(char *line);
+int						count_whitespaces(char *line);
+int						is_whitespace(char c);
+void					copy_without_whitespaces(char *line, char *clean_line);
+
 
 void    				write_all_info(t_scene *scene, int fd);
 void					write_scene_info(t_scene *scene, int fd);
@@ -436,10 +441,7 @@ void    				save_scene(t_scene *scene);
 
 void					check_file(t_scene *scene, char *file_name);
 
-char					*delete_whitespaces(char *line);
-void					copy_without_whitespaces(char *line, char *clean_line);
-int						count_whitespaces(char *line);
-int						is_whitespace(char c);
+
 
 int    					compare_key(t_scene *scene, char *key, char *value);
 char    				*get_text_value(char *line);
@@ -447,7 +449,7 @@ char    				*get_text_value(char *line);
 char					*skip_white_spaces(char *line);
 int						parse_string(t_scene *scene, char *line);
 
-void					read_scene(t_scene *scene, char *file_name);
+
 
 void					put_error_pn(char *str);
 
