@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 09:00:27 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 13:12:04 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/13 06:06:59 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int		parse_object_description(t_scene *scene, char *property, char *value)
     int i;
     
     i = scene->active_object;
+    scene->objects.array[i]->id = i;
     if (!(ft_strcmp(property, FILE_OBJECT_TYPE)))
     {
         if (!(ft_strcmp(value, FILE_OBJECT_TYPE_PLANE)))
@@ -95,8 +96,7 @@ int		parse_object_description(t_scene *scene, char *property, char *value)
                 scene->objects.array[i]->type = OBJECT_TYPE_CONE;
     }
     else if (!(ft_strcmp(property, FILE_OBJECT_MATERIAL)))
-        return (0);
-    // scene->objects.array[i]->material = parse_vector(value);
+        scene->objects.array[i]->material = find_material(scene, value);
     else if (!(ft_strcmp(property, FILE_OBJECT_POSITION)))
         scene->objects.array[i]->position = parse_vector(value);
     else if (!(ft_strcmp(property, FILE_OBJECT_ORIENTATION)))
@@ -106,4 +106,17 @@ int		parse_object_description(t_scene *scene, char *property, char *value)
 	else
 		return (-1);
 	return (0);
+}
+
+int     find_material(t_scene *scene, char *value)
+{
+   int  i;
+
+   i = -1;
+   while (++i < scene->materials.quantity)
+   {
+        if (!(ft_strcmp(scene->materials.array[i]->name, value)))
+            return (i);
+   }
+    return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 13:07:58 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/13 06:05:24 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,7 +384,15 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+int     find_material(t_scene *scene, char *value);
+
+int	count_items_by_type(t_scene *scene, char *item_line);
+
+void					save_quantities(t_scene *scene);
 void					allocate_memory(t_scene *scene);
+
+int		parse_each_line(t_scene *scene, char **items_array);
+
 
 int    					define_item_type(t_scene *scene, char *type);
 
@@ -394,13 +402,13 @@ t_color					parse_color(char *value);
 char					*prepare_value_to_write(char *value);
 char					*any_whitespace_to_space(char *value);
 
-int						parse_all(t_scene *scene, char *line);
+int						parse_to_item_lines(t_scene *scene, char *line);
 int						count_items(char *line);
 int						count_item_size(char *line);
 int						parse_item_line(t_scene *scene, char *item_line);
-int    					parse_item_by_property(t_scene *scene, char *type,
+int    					parse_item_by_property(t_scene *scene, int type_id,
 						char *property, char *value);
-int						parse_item_description(t_scene *scene, char *type,
+int						parse_item_description(t_scene *scene, int type_id,
 						char *description);
 int						parse_scene_description(t_scene *scene, char *property,
 						char *value);

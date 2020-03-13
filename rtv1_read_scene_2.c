@@ -6,13 +6,13 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 08:45:30 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/12 12:24:07 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/13 04:30:50 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int		parse_item_description(t_scene *scene, char *type, char *description)
+int		parse_item_description(t_scene *scene, int type_id, char *description)
 {
 	int		i;
 	char	*property;
@@ -35,14 +35,14 @@ int		parse_item_description(t_scene *scene, char *type, char *description)
 	prepared_value = prepare_value_to_write(value);
 printf("\tPRP:\t%s\n", property);
 printf("\tP_VAL:\t%s\n\n", prepared_value);
-	if (parse_item_by_property(scene, type, property, prepared_value) == -1)
+	if (parse_item_by_property(scene, type_id, property, prepared_value) == -1)
 		return (-1);
 	ft_strdel(&property);
 	ft_strdel(&value);
 	ft_strdel(&prepared_value);
 	while (--i >= -1)
 		description++;
-	if (parse_item_description(scene, type, description) == -1)
+	if (parse_item_description(scene, type_id, description) == -1)
 		return (-1);
 	return (0);
 }
@@ -66,17 +66,17 @@ char	*prepare_value_to_write(char *value)
 	return (prepared_value);
 }
 
-int    parse_item_by_property(t_scene *scene, char *type, char *property, char *value)
+int    parse_item_by_property(t_scene *scene, int type_id, char *property, char *value)
 {
-	if (!(ft_strcmp(type, FILE_SCENE)))
+	if (type_id == FILE_PARSE_SCENE)
 		return(parse_scene_description(scene, property, value));
-    else if (!(ft_strcmp(type, FILE_CAMERA)))
+    else if (type_id == FILE_PARSE_CAMERA)
 		return (parse_camera_description(scene, property, value));
-	else if (!(ft_strcmp(type, FILE_LIGHT)))
+	else if (type_id == FILE_PARSE_LIGHT)
 		return (parse_light_description(scene, property, value));
-	else if (!(ft_strcmp(type, FILE_MATERIAL)))
+	else if (type_id == FILE_PARSE_MATERIAL)
 		return (parse_material_description(scene, property, value));
-	else if (!(ft_strcmp(type, FILE_OBJECT)))
+	else if (type_id == FILE_PARSE_OBJECT)
 		return (parse_object_description(scene, property, value));
 	else
 		return (-1);
