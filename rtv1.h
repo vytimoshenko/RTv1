@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/13 07:43:19 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/13 08:25:14 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -615,6 +615,7 @@ void					put_scene_summary_1(t_scene *scene, t_mlx *mlx);
 void					put_scene_summary_2(t_scene *scene, t_mlx *mlx);
 void					put_scene_summary_3(t_scene *scene, t_mlx *mlx);
 void					put_scene_summary_4(t_scene *scene, t_mlx *mlx);
+void					put_scene_summary_5(t_scene *scene, t_mlx *mlx);
 
 void					put_status_1(t_scene *scene, t_mlx *mlx);
 void					put_status_2(t_scene *scene, t_mlx *mlx);

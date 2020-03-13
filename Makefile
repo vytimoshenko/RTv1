@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/13 07:47:51 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/13 08:42:59 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,9 @@ SRC		= 	rtv1_main.c					\
 			rtv1_mlx_init.c				\
 			rtv1_mlx_run.c				\
 			rtv1_mlx_hooks.c			\
-			rtv1_mlx_put_info_1.c		\
 			rtv1_mlx_put_info_2.c		\
-			rtv1_mlx_put_info_3.c		\
+			rtv1_mlx_put_info_6.c		\
+			rtv1_mlx_put_info_7.c		\
 			rtv1_put_bottom_line.c		\
 			rtv1_scene_init.c			\
 			rtv1_mlx_control_1.c		\

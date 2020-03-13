@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:27:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/09 01:24:35 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/13 08:27:38 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void	info_help(t_mlx *mlx)
 	int		pos_x;
 	int		pos_y;
 
-	pos_x = WIN_SIZE_W - 280;
-	pos_y = WIN_SIZE_H - 50;
+	pos_x = WIN_SIZE_W - 300;
+	pos_y = WIN_SIZE_H - 55;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y, TEXT_COLOR,
-	"PRESS H FOR HELP");
+	"<< PRESS H FOR HELP >>");
 }
