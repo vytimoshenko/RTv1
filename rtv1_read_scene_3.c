@@ -6,11 +6,33 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 07:24:15 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/13 07:36:18 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 14:57:13 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+int		parse_item_line(t_scene *scene, char *item_line)
+{
+	int		i;
+	int		type_id;
+	char	*type;
+	char	*description;
+
+	i = ft_strindex('{', item_line);
+	type = ft_strnew(i);
+	ft_strncpy(type, item_line, i);
+	type_id = define_item_type(scene, type);
+	while (--i >= -1)
+		item_line++;
+	i = ft_strindex('}', item_line);
+	description = ft_strnew(i);
+	ft_strncpy(description, item_line, i);
+	parse_item_description(scene, type_id, description);
+	ft_strdel(&type);
+	ft_strdel(&description);
+	return (0);
+}
 
 int		parse_item_description(t_scene *scene, int type_id, char *description)
 {
@@ -21,20 +43,16 @@ int		parse_item_description(t_scene *scene, int type_id, char *description)
 
 	if (!(*description))
 		return (0);
-	i = 0;
-	while (description[i] != ':')
-		i++;
+	i = ft_strindex(':', description);
 	property = ft_strnew(i);
 	ft_strncpy(property, description, i);
 	while (--i >= -1)
 		description++;
-	while (description[i] != ';')
-		i++;
+	i = ft_strindex(';', description);
 	value = ft_strnew(i);
 	ft_strncpy(value, description, i);
 	prepared_value = prepare_value_to_write(value);
-	if (parse_item_by_property(scene, type_id, property, prepared_value) == -1)
-		return (-1);
+	parse_item_by_property(scene, type_id, property, prepared_value);
 	ft_strdel(&property);
 	ft_strdel(&value);
 	ft_strdel(&prepared_value);

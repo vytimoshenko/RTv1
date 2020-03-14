@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 14:37:19 by mperseus          #+#    #+#             */
-/*   Updated: 2020/01/08 18:44:59 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 14:51:27 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,6 @@ int				get_next_line(const int fd, char **line);
 int				ft_power(int nb, int power);
 void			ft_put_error(char *str);
 void			ft_put_errno(char *str);
+int				ft_strindex(char c, char *str);
 
 #endif

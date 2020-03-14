@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 08:45:30 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/13 07:25:37 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 14:58:35 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ int		count_items_by_type(t_scene *scene, char *item_line)
 	int		type_id;
 	char	*type;
 
-	i = 0;
-	while (item_line[i] != '{')
-		i++;
+	i = ft_strindex('{', item_line);
 	type = ft_strnew(i);
 	ft_strncpy(type, item_line, i);
 	if ((type_id = define_item_type(scene, type)) == -1)
@@ -54,16 +52,23 @@ int		define_item_type(t_scene *scene, char *type)
 		return (FILE_PARSE_OBJECT);
 	}
 	else
-		return (-1);
+		define_item_type_extra(type);
 	return (0);
+}
+
+void	define_item_type_extra(char *type)
+{
+	ft_putstr("=> ");
+	ft_putendl(type);
+	put_error_pn("wrong item type name");
 }
 
 void	save_quantities(t_scene *scene)
 {
-	scene->cameras.quantity = scene->active_camera + 1;
-	scene->lights.quantity = scene->active_light + 1;
-	scene->materials.quantity = scene->active_material + 1;
-	scene->objects.quantity = scene->active_object + 1;
+	scene->cameras.quantity = scene->active_camera;
+	scene->lights.quantity = scene->active_light;
+	scene->materials.quantity = scene->active_material;
+	scene->objects.quantity = scene->active_object;
 	scene->active_camera = NOTHING_SELECTED;
 	scene->active_light = NOTHING_SELECTED;
 	scene->active_material = NOTHING_SELECTED;
@@ -95,29 +100,4 @@ void	allocate_memory(t_scene *scene)
 	i = -1;
 	while (++i < scene->objects.quantity)
 		scene->objects.array[i] = (t_object *)ft_memalloc(sizeof(t_object));
-}
-
-int		parse_item_line(t_scene *scene, char *item_line)
-{
-	int		i;
-	int		type_id;
-	char	*type;
-	char	*description;
-
-	i = 0;
-	while (item_line[i] != '{')
-		i++;
-	type = ft_strnew(i);
-	ft_strncpy(type, item_line, i);
-	type_id = define_item_type(scene, type);
-	while (--i >= -1)
-		item_line++;
-	while (item_line[i] != '}')
-		i++;
-	description = ft_strnew(i);
-	ft_strncpy(description, item_line, i);
-	parse_item_description(scene, type_id, description);
-	ft_strdel(&type);
-	ft_strdel(&description);
-	return (0);
 }

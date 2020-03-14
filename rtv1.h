@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 12:25:09 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 14:47:35 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,27 +408,28 @@ int						parse_each_item(t_scene *scene, char **items_array);
 
 int						count_items_by_type(t_scene *scene, char *item_line);
 int    					define_item_type(t_scene *scene, char *type);
+void					define_item_type_extra(char *type);
 void					save_quantities(t_scene *scene);
 void					allocate_memory(t_scene *scene);
-int						parse_item_line(t_scene *scene, char *item_line);
 
+int						parse_item_line(t_scene *scene, char *item_line);
 int						parse_item_description(t_scene *scene, int type_id,
 						char *description);
 char					*prepare_value_to_write(char *value);
 char					*any_whitespace_to_space(char *value);
 
-int    					parse_item_by_property(t_scene *scene, int type_id,
+void    				parse_item_by_property(t_scene *scene, int type_id,
 						char *property, char *value);
-int						parse_scene_description(t_scene *scene, char *property,
+void					parse_scene_description(t_scene *scene, char *property,
 						char *value);
-int						parse_camera_description(t_scene *scene, char *property,
+void					parse_camera_description(t_scene *scene, char *property,
 						char *value);
 void					parse_light_description(t_scene *scene, char *property,
 						char *value);
 int						find_light_type(char *value);
-int						parse_material_description(t_scene *scene,
+
+void					parse_material_description(t_scene *scene,
 						char *property, char *value);
-						
 void					parse_object_description(t_scene *scene, char *property,
 						char *value);
 int    					find_object_type(char *value);
@@ -438,7 +439,6 @@ t_vector				parse_vector(char *value);
 t_color					parse_color(char *value);
 int						check_and_get_int_value(char *value);
 void					validate_color(char *value, t_color color);
-int						find_char_index_in_string(char c, char *str);
 
 char					*delete_whitespaces(char *line);
 int						count_whitespaces(char *line);

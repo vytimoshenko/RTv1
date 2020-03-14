@@ -6,11 +6,32 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 07:09:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 12:19:34 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 14:59:23 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+void	parse_material_description(t_scene *scene, char *property, char *value)
+{
+	int i;
+
+	i = scene->active_material;
+	if (!(ft_strcmp(property, FILE_MATERIAL_NAME)))
+		scene->materials.array[i]->name = ft_strdup(value);
+	else if (!(ft_strcmp(property, FILE_MATERIAL_COLOR)))
+		scene->materials.array[i]->color = parse_color(value);
+	else if (!(ft_strcmp(property, FILE_MATERIAL_SPECULAR)))
+		scene->materials.array[i]->specular = ft_atoi(value);
+	else if (!(ft_strcmp(property, FILE_MATERIAL_REFLECTIVE)))
+		scene->materials.array[i]->reflective = (double)ft_atoi(value) / 10.0;
+	else
+	{
+		ft_putstr("=> ");
+		ft_putendl(property);
+		put_error_pn("wrong material property name");
+	}
+}
 
 void	parse_object_description(t_scene *scene, char *property, char *value)
 {

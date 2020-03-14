@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/11 17:35:27 by mperseus          #+#    #+#              #
-#    Updated: 2019/12/26 14:25:32 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/14 14:51:00 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,8 @@ SRCS_C	=	./ft_arrdel.c		\
 			./ft_strtrim.c		\
 			./ft_tolower.c		\
 			./ft_toupper.c		\
-			./ft_wrdcnt.c
+			./ft_wrdcnt.c		\
+			./ft_strindex.c
 
 SRCS_O	= $(SRCS_C:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 07:30:13 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 10:48:26 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 14:52:00 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ t_vector	parse_vector(char *value)
 	t_vector	vector;
 
 	tmp = ft_strnew(10);
-	i = find_char_index_in_string(',', value);
+	i = ft_strindex(',', value);
 	tmp = ft_strncat(tmp, value, i);
 	vector.x = ft_atoi(tmp);
 	ft_bzero(tmp, 10);
 	while (i-- >= 0)
 		value++;
-	i = find_char_index_in_string(',', value);
+	i = ft_strindex(',', value);
 	tmp = ft_strncat(tmp, value, i);
 	vector.y = ft_atoi(tmp);
 	ft_bzero(tmp, 10);
@@ -45,13 +45,13 @@ t_color		parse_color(char *value)
 
 	value_start = value;
 	tmp = ft_strnew(10);
-	i = find_char_index_in_string(',', value);
+	i = ft_strindex(',', value);
 	tmp = ft_strncat(tmp, value, i);
 	color.r = check_and_get_int_value(tmp);
 	ft_bzero(tmp, 10);
 	while (i-- >= 0)
 		value++;
-	i = find_char_index_in_string(',', value);
+	i = ft_strindex(',', value);
 	tmp = ft_strncat(tmp, value, i);
 	color.g = check_and_get_int_value(tmp);
 	ft_bzero(tmp, 10);
@@ -85,17 +85,4 @@ int			check_and_get_int_value(char *value)
 			return (-1);
 	}
 	return (ft_atoi(value));
-}
-
-int			find_char_index_in_string(char c, char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i] != '\0')
-	{
-		if (str[i] == c)
-			return (i);
-	}
-	return (-1);
 }
