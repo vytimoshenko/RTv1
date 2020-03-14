@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/13 08:25:14 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 05:37:36 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,21 @@
 
 # include "./libft/libft.h"
 # include "./mlx/mlx.h"
+# include "./SDL2/headers/SDL.h"
+# include "./SDL2/headers/SDL_image.h"
 # include <math.h>
 # include <sys/time.h>
 
 # define PROGRAM_NAME					"RTv1"
 
+# define SAVE_PATH						"./saves/"
+# define SCREENSHOT_PATH				"./screenshots/"
+
 # define READ_BUFF_SIZE					8192
 
 # define SCENE_FILE_EXTENSION			".rt"
+# define SCREENSHOT_FILE_EXTENSION		".jpg"
+
 # define CURRENT_TIME_STR_LENGTH		24
 
 # define FILE_PARSE_SCENE				0
@@ -157,9 +164,11 @@
 # define Q							12
 # define W							13
 # define E							14
+# define Y							16
 # define PLUS						24
 # define MINUS						27
 # define O							31
+# define U							32
 # define I							34
 # define P							35
 # define RETURN						36
@@ -384,6 +393,9 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+void	save_screenshot(t_scene *scene, t_mlx *mlx);
+void	create_screenshot_file_name(t_scene *scene, char **file_name);
+
 void					read_scene(t_scene *scene, char *file_name);
 int						divide_to_items(t_scene *scene, char *line);
 int						count_items(char *line);
@@ -435,9 +447,9 @@ void					write_materials_info(t_scene *scene, int fd);
 void					write_objects_info(t_scene *scene, int fd);
 void					write_objects_info_extra(t_scene *scene, int fd, int i);
 
-void					create_file_name(t_scene *scene, char **file_name);
-void    				get_current_time_string(char *time_string);
 void    				save_scene(t_scene *scene);
+void					create_save_file_name(t_scene *scene, char **file_name);
+void    				get_current_time_string(char *time_string);
 
 void					check_file(t_scene *scene, char *file_name);
 

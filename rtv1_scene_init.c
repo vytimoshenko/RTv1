@@ -40,7 +40,6 @@ t_scene	*init_scene(int argc, char **argv)
 	scene->material_source = NOTHING_SELECTED;
 	get_sin_cos(scene->cameras.array[scene->active_camera]);
 	scene->file_name_with_path = ft_strdup(argv[1]);
-	// save_scene(scene);
 	return (scene);
 }
 

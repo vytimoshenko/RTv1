@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/10 06:39:42 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 05:36:31 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ int		mouse_key_release(int key, int x, int y, t_global *global)
 
 int		keyboard_key_press(int key, t_global *global)
 {
-	if (key == Q || key == ESC || key == SPACE || key == E)
+	if (key == Y)
+		save_screenshot(global->scene, global->mlx);
+	else if (key == U)
+		save_scene(global->scene);
+	else if (key == Q || key == ESC || key == SPACE || key == E)
 		extra_keyboard_key_press(key, global);
 	else if (key == A || key == D || key == W || key == S || key == MORE ||
 	key == LESS)
@@ -124,5 +128,7 @@ void	extra_keyboard_key_press(int key, t_global *global)
 int		close_window(t_global *global)
 {
 	clean_mlx(global->mlx);
+	IMG_Quit();
+	SDL_Quit();
 	exit(0);
 }
