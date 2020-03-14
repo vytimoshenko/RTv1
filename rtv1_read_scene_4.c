@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 09:00:27 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/13 07:38:25 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 12:42:09 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int		parse_item_by_property(t_scene *scene, int type_id, char *property,
 	else if (type_id == FILE_PARSE_CAMERA)
 		return (parse_camera_description(scene, property, value));
 	else if (type_id == FILE_PARSE_LIGHT)
-		return (parse_light_description(scene, property, value));
+		parse_light_description(scene, property, value);
 	else if (type_id == FILE_PARSE_MATERIAL)
 		return (parse_material_description(scene, property, value));
 	else if (type_id == FILE_PARSE_OBJECT)
-		return (parse_object_description(scene, property, value));
+		parse_object_description(scene, property, value);
 	else
 		return (-1);
 	return (0);
@@ -55,27 +55,37 @@ int		parse_camera_description(t_scene *scene, char *property, char *value)
 	return (0);
 }
 
-int		parse_light_description(t_scene *scene, char *property, char *value)
+void	parse_light_description(t_scene *scene, char *property, char *value)
 {
 	int i;
 
 	i = scene->active_light;
 	if (!(ft_strcmp(property, FILE_LIGHT_TYPE)))
-	{
-		if (!(ft_strcmp(value, FILE_LIGHT_TYPE_AMBIENT)))
-			scene->lights.array[i]->type = LIGHT_TYPE_AMBIENT;
-		else if (!(ft_strcmp(value, FILE_LIGHT_TYPE_DIRECTIONAL)))
-			scene->lights.array[i]->type = LIGHT_TYPE_DIRECTIONAL;
-		else if (!(ft_strcmp(value, FILE_LIGHT_TYPE_POINT)))
-			scene->lights.array[i]->type = LIGHT_TYPE_POINT;
-	}
+		scene->lights.array[i]->type = find_light_type(value);
 	else if (!(ft_strcmp(property, FILE_LIGHT_INTENSITY)))
 		scene->lights.array[i]->intensity = (double)ft_atoi(value) / 10.0;
 	else if (!(ft_strcmp(property, FILE_LIGHT_POSITION)))
 		scene->lights.array[i]->position = parse_vector(value);
 	else
-		return (-1);
-	return (0);
+	{
+		ft_putstr("=> ");
+		ft_putendl(property);
+		put_error_pn("wrong light property name");
+	}
+}
+
+int		find_light_type(char *value)
+{
+	if (!(ft_strcmp(value, FILE_LIGHT_TYPE_AMBIENT)))
+		return(LIGHT_TYPE_AMBIENT);
+	else if (!(ft_strcmp(value, FILE_LIGHT_TYPE_DIRECTIONAL)))
+		return(LIGHT_TYPE_DIRECTIONAL);
+	else if (!(ft_strcmp(value, FILE_LIGHT_TYPE_POINT)))
+		return(LIGHT_TYPE_POINT);
+	ft_putstr("=> ");
+	ft_putendl(value);
+	put_error_pn("wrong light type");
+	return (-1);
 }
 
 int		parse_material_description(t_scene *scene, char *property, char *value)

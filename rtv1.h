@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 08:53:46 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 12:25:09 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -423,18 +423,22 @@ int						parse_scene_description(t_scene *scene, char *property,
 						char *value);
 int						parse_camera_description(t_scene *scene, char *property,
 						char *value);
-int						parse_light_description(t_scene *scene, char *property,
+void					parse_light_description(t_scene *scene, char *property,
 						char *value);
+int						find_light_type(char *value);
 int						parse_material_description(t_scene *scene,
 						char *property, char *value);
 						
-int						parse_object_description(t_scene *scene, char *property,
+void					parse_object_description(t_scene *scene, char *property,
 						char *value);
 int    					find_object_type(char *value);
 int     				find_object_material(t_scene *scene, char *value);
 
 t_vector				parse_vector(char *value);
 t_color					parse_color(char *value);
+int						check_and_get_int_value(char *value);
+void					validate_color(char *value, t_color color);
+int						find_char_index_in_string(char c, char *str);
 
 char					*delete_whitespaces(char *line);
 int						count_whitespaces(char *line);
