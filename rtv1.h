@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 05:37:36 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 08:53:46 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define SAVE_PATH						"./saves/"
 # define SCREENSHOT_PATH				"./screenshots/"
 
+# define SAVE_MESSAGE_TITLE				"SCENE SAVED AS"
+# define SCREENSHOT_MESSAGE_TITLE		"SCREENSHOT SAVED"
 # define READ_BUFF_SIZE					8192
 
 # define SCENE_FILE_EXTENSION			".rt"
@@ -80,9 +82,13 @@
 # define IMG_INDT_W						10
 # define IMG_INDT_H						10
 
-# define MESSAGE_BOX_W					1000
-# define MESSAGE_BOX_H					500
-# define MESSAGE_BOX_IDNT				30
+# define INFO_BOX_W						1000
+# define INFO_BOX_H						500
+# define INFO_BOX_INDENTATION			30
+
+# define MESSAGE_BOX_W					700
+# define MESSAGE_BOX_H					80
+# define MESSAGE_BOX_INDENTATION		10
 
 # define VIEWPORT_SIZE_W			1.5
 # define VIEWPORT_SIZE_H			1
@@ -393,9 +399,7 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
-void	save_screenshot(t_scene *scene, t_mlx *mlx);
-void	create_screenshot_file_name(t_scene *scene, char **file_name);
-
+//READ AND PARSE SCENE FILE
 void					read_scene(t_scene *scene, char *file_name);
 int						divide_to_items(t_scene *scene, char *line);
 int						count_items(char *line);
@@ -437,30 +441,31 @@ int						count_whitespaces(char *line);
 int						is_whitespace(char c);
 void					copy_without_whitespaces(char *line, char *clean_line);
 
+//SAVE SCENE FILE
+void    				save_scene(t_scene *scene, t_mlx *mlx);
+void					create_save_file_name(t_scene *scene, char **file_name);
+void    				get_current_time_string(char *time_string);
 
 void    				write_all_info(t_scene *scene, int fd);
 void					write_scene_info(t_scene *scene, int fd);
 void					write_cameras_info(t_scene *scene, int fd);
 void					write_lights_info(t_scene *scene, int fd);
 void					write_lights_info_extra(t_scene *scene, int fd, int i);
+
 void					write_materials_info(t_scene *scene, int fd);
+void					write_materials_info_extra(t_scene *scene, int fd, int i);
 void					write_objects_info(t_scene *scene, int fd);
-void					write_objects_info_extra(t_scene *scene, int fd, int i);
+void					write_objects_info_extra_1(t_scene *scene, int fd, int i);
+void					write_objects_info_extra_2(t_scene *scene, int fd, int i);
 
-void    				save_scene(t_scene *scene);
-void					create_save_file_name(t_scene *scene, char **file_name);
-void    				get_current_time_string(char *time_string);
-
-void					check_file(t_scene *scene, char *file_name);
-
+//SAVE SCREENSHOT
+void					save_screenshot(t_scene *scene, t_mlx *mlx);
+void					create_screenshot_file_name(t_scene *scene,
+						char **file_name);
 
 
-int    					compare_key(t_scene *scene, char *key, char *value);
-char    				*get_text_value(char *line);
 
-char					*skip_white_spaces(char *line);
-int						parse_string(t_scene *scene, char *line);
-
+void	message_box(t_mlx *mlx, char *message_title, char *message_content);
 
 
 void					put_error_pn(char *str);
@@ -474,7 +479,7 @@ void	info_help(t_mlx *mlx);
 void	info_author(t_mlx *mlx);
 
 void	show_help(t_global *global);
-void	put_help_rect(t_mlx *mlx);
+void	draw_box(t_mlx *mlx, int size_w, int size_h);
 
 void	put_material_color_sample(t_mlx *mlx, int color);
 int		mouse_key_release(int key, int x, int y, t_global *global);

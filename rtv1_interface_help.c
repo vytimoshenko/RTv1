@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 00:31:45 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/13 09:15:53 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 06:14:55 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	info_header_and_author(t_mlx *mlx)
 	int pos_x;
 	int pos_y;
 
-	pos_x = (WIN_SIZE_W - MESSAGE_BOX_W) / 2 + MESSAGE_BOX_IDNT + 400;
-	pos_y = (WIN_SIZE_H - MESSAGE_BOX_H) / 2 + MESSAGE_BOX_IDNT;
+	pos_x = (WIN_SIZE_W - INFO_BOX_W) / 2 + INFO_BOX_INDENTATION + 400;
+	pos_y = (WIN_SIZE_H - INFO_BOX_H) / 2 + INFO_BOX_INDENTATION;
     mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y, TEXT_COLOR,
 	"-= RTv1 =-");
     mlx_string_put(mlx->mlx, mlx->win, pos_x - 60, pos_y + 20, TEXT_COLOR,
@@ -32,8 +32,8 @@ void	info_control_1(t_mlx *mlx)
 	int pos_x;
 	int pos_y;
 
-	pos_x = (WIN_SIZE_W - MESSAGE_BOX_W) / 2 + MESSAGE_BOX_IDNT;
-	pos_y = (WIN_SIZE_H - MESSAGE_BOX_H) / 2 + MESSAGE_BOX_IDNT + 70;
+	pos_x = (WIN_SIZE_W - INFO_BOX_W) / 2 + INFO_BOX_INDENTATION;
+	pos_y = (WIN_SIZE_H - INFO_BOX_H) / 2 + INFO_BOX_INDENTATION + 70;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y, TEXT_COLOR,
 	"              GENERAL");
     mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
@@ -65,8 +65,8 @@ void	info_control_2(t_mlx *mlx)
 	int pos_x;
 	int pos_y;
 
-	pos_x = (WIN_SIZE_W - MESSAGE_BOX_W) / 2 + MESSAGE_BOX_IDNT;
-	pos_y = (WIN_SIZE_H - MESSAGE_BOX_H) / 2 + MESSAGE_BOX_IDNT;
+	pos_x = (WIN_SIZE_W - INFO_BOX_W) / 2 + INFO_BOX_INDENTATION;
+	pos_y = (WIN_SIZE_H - INFO_BOX_H) / 2 + INFO_BOX_INDENTATION;
     (void)mlx;
 
 }
@@ -76,8 +76,8 @@ void	info_control_3(t_mlx *mlx)
 	int pos_x;
 	int pos_y;
 
-	pos_x = (WIN_SIZE_W - MESSAGE_BOX_W) / 2 + MESSAGE_BOX_IDNT + 500;
-	pos_y = (WIN_SIZE_H - MESSAGE_BOX_H) / 2 + MESSAGE_BOX_IDNT + 70;
+	pos_x = (WIN_SIZE_W - INFO_BOX_W) / 2 + INFO_BOX_INDENTATION + 500;
+	pos_y = (WIN_SIZE_H - INFO_BOX_H) / 2 + INFO_BOX_INDENTATION + 70;
     mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y, TEXT_COLOR,
 	"                LIGHT");
     mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
@@ -96,7 +96,6 @@ void	info_control_3(t_mlx *mlx)
 	"Apply material:             middle mouse button");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 250, TEXT_COLOR,
 	"Material edit:              M");
-
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 300, TEXT_COLOR,
 	"Pick color:     right mouse button");
 }

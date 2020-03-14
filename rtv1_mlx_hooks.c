@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 05:36:31 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 07:18:19 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,17 @@ int		mouse_key_release(int key, int x, int y, t_global *global)
 int		keyboard_key_press(int key, t_global *global)
 {
 	if (key == Y)
+	{
+		update_info_only(global);
 		save_screenshot(global->scene, global->mlx);
+		return (0);
+	}
 	else if (key == U)
-		save_scene(global->scene);
+	{
+		update_info_only(global);
+		save_scene(global->scene, global->mlx);
+		return (0);
+	}
 	else if (key == Q || key == ESC || key == SPACE || key == E)
 		extra_keyboard_key_press(key, global);
 	else if (key == A || key == D || key == W || key == S || key == MORE ||

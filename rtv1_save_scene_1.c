@@ -6,13 +6,13 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 02:02:59 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 05:08:20 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 08:58:33 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	save_scene(t_scene *scene)
+void	save_scene(t_scene *scene, t_mlx *mlx)
 {
 	int		fd;
 	char	*file_name;
@@ -24,10 +24,7 @@ void	save_scene(t_scene *scene)
 		ft_put_errno(PROGRAM_NAME);
 	write_all_info(scene, fd);
 	close(fd);
-	// mlx_string_put(mlx->mlx, mlx->win, WIN_SIZE_W - 700, WIN_SIZE_H - 30,
-	// TEXT_COLOR, "file saved:");
-	// mlx_string_put(mlx->mlx, mlx->win, WIN_SIZE_W - 580, WIN_SIZE_H - 30,
-	// TEXT_COLOR, file_name);
+	message_box(mlx, SAVE_MESSAGE_TITLE, file_name);
 	free(file_name);
 }
 

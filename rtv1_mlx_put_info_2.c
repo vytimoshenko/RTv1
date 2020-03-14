@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/13 08:28:26 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/14 06:40:05 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,6 +330,24 @@ void	put_status_5a(t_scene *scene, t_mlx *mlx)
 	}
 }
 
+void	draw_box(t_mlx *mlx, int size_w, int size_h)
+{
+	int		pos_x;
+	int		pos_y;
+	int		x;
+	int		y;
+
+	pos_x = (WIN_SIZE_W - size_w) / 2;
+	pos_y = (WIN_SIZE_H - size_h) / 2;
+	y = -1;
+	while (++y < size_h)
+	{
+		x = -1;
+		while (++x < size_w)
+			mlx_pixel_put(mlx->mlx, mlx->win, pos_x + x, pos_y + y, 0x50000000);
+	}
+}
+
 void	put_material_color_sample(t_mlx *mlx, int color)
 {
 	int		pos_x;
@@ -346,4 +364,20 @@ void	put_material_color_sample(t_mlx *mlx, int color)
 		while (++x < 18)
 			mlx_pixel_put(mlx->mlx, mlx->win, pos_x + x, pos_y + y, color);
 	}
+}
+
+void	message_box(t_mlx *mlx, char *message_title, char *message_content)
+{
+	int		pos_x;
+	int		pos_y;
+
+	pos_x = (WIN_SIZE_W - MESSAGE_BOX_W) / 2;
+	pos_y = (WIN_SIZE_H - MESSAGE_BOX_H) / 2;
+	draw_box(mlx, MESSAGE_BOX_W, MESSAGE_BOX_H);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + MESSAGE_BOX_W / 2 -
+	10 * ft_strlen(message_title) / 2, pos_y + MESSAGE_BOX_INDENTATION, TEXT_COLOR,
+	message_title);
+	mlx_string_put(mlx->mlx, mlx->win, pos_x + MESSAGE_BOX_W / 2 -
+	10 * ft_strlen(message_content) / 2, pos_y + MESSAGE_BOX_H / 2, TEXT_COLOR,
+	message_content);
 }
