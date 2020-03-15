@@ -29,6 +29,7 @@ t_scene	*init_scene(int argc, char **argv)
 	init_depth_buffer(scene);
 	init_aliasing_buffer(scene);
 	init_object_buffer(scene);
+	init_anaglyph_buffers(scene);
 	get_sin_cos(scene->cameras.array[scene->active_camera]);
 	scene->file_name_with_path = ft_strdup(argv[1]);
 	return (scene);

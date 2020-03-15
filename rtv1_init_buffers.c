@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 06:40:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/06 07:11:32 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 13:26:48 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,15 @@ void    init_aliasing_buffer(t_scene *scene)
 	* IMG_SIZE_W * IMG_SIZE_H)))
 		ft_put_errno(PROGRAM_NAME);
 	clean_aliasing_buffer(scene);
+}
+
+void    init_anaglyph_buffers(t_scene *scene)
+{
+	if (!(scene->anaglyph_left_buffer = (t_color *)ft_memalloc(sizeof(t_color)
+	* IMG_SIZE_W * IMG_SIZE_H)))
+		ft_put_errno(PROGRAM_NAME);
+	if (!(scene->anaglyph_right_buffer = (t_color *)ft_memalloc(sizeof(t_color)
+	* IMG_SIZE_W * IMG_SIZE_H)))
+		ft_put_errno(PROGRAM_NAME);
+	clean_anaglyph_buffers(scene);
 }

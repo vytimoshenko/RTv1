@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RTv1_render.c                                      :+:      :+:    :+:   */
+/*   rtv1_render.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 10:39:12 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 13:25:53 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	trace_rays(t_scene *scene)
 				{
 					anti_aliasing(scene, &pixel, jitter);
 					fill_frame_buffer(scene, pixel);
-					// ft_putstr("GGG");
 				}
 			}
 		}

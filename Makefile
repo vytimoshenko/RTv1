@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/15 11:46:31 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/15 13:28:32 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRC		= 	rtv1_main.c					\
 			rtv1_vector_1.c				\
 			rtv1_vector_2.c				\
 			rtv1_color.c				\
+			rtv1_effect_anaglyph.c 		\
 			rtv1_other.c
 		
 OBJ		= 	$(SRC:.c=.o)
