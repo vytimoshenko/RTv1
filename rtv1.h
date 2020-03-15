@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 06:49:34 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 08:40:36 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,6 +487,10 @@ void					put_error_pn(char *str);
 void					get_lights_statistics(t_scene *scene);
 void					get_objects_statistics(t_scene *scene);
 
+
+void    				init_motion_blur_buffer(t_scene *scene);
+
+void					get_macro_pixel(t_scene *scene, int pitch);
 void					pick_color(t_scene *scene, int x, int y);
 
 void					get_material(int x, int y, t_global *global);
@@ -494,14 +498,9 @@ int						apply_material(int x, int y, t_global *global);
 
 void					change_light(t_scene *scene, int key);
 void					change_light_intensity(t_scene *scene, int key);
-
-void    				init_motion_blur_buffer(t_scene *scene);
-
-void					get_macro_pixel(t_scene *scene, int pitch);
 t_color					get_average_color(t_scene *scene, int pitch);
 
 //EFFECTS
-
 t_color					effect_fog(t_scene *scene, int i, t_color color);
 t_color					effect_depth(t_scene *scene, int i);
 void					fill_depth_buffer(t_scene *scene, t_pixel pixel, double closest);
@@ -516,7 +515,6 @@ void					effect_pixelation(t_scene *scene);
 
 //ANTIALIASING
 void					anti_aliasing(t_scene *scene, t_pixel *pixel, double *rand);
-t_color					get_channel_diff(t_color c1, t_color c2);
 int						need_to_smooth(t_scene *scene, int i);
 void					get_jitter(double *random);
 
@@ -537,52 +535,6 @@ void					fill_frame_buffer(t_scene *scene, t_pixel pixel);
 void					fill_aliasing_buffer(t_scene *scene);
 void					final_processing(t_mlx *mlx, t_scene *scene);
 
-double					direct_and_diffuse_light(t_scene *scene,
-						t_point point, t_vector pixel, int i);
-
-void					trace_rays(t_scene *scene);
-void					get_pixel_position(t_scene *scene, t_pixel *pixel);
-void					get_sin_cos(t_camera *camera);
-void					rotate_pixel(t_pixel *pixel, t_camera *camera);
-void					put_pixel(t_mlx *mlx, int x, int y, int color);
-
-void					get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int reflection_depth);
-// void					get_point_properties(t_point *point, t_object *object);
-
-t_object				get_intersection(t_objects	objects, t_vector camera, t_vector pixel, double t_min, double t_max);
-void					select_object_function(t_object *object, t_vector camera, t_vector pixel);
-void					plane(t_object *object, t_vector camera, t_vector pixel);
-void					sphere(t_object *object, t_vector camera, t_vector pixel);
-void					cylinder(t_object *object, t_vector camera, t_vector pixel);
-void					cone(t_object *object, t_vector camera, t_vector pixel);
-
-double					get_lightning(t_scene *scene, t_point point, t_vector pixel);
-void					fill_object_buffer(t_scene *scene, t_pixel pixel, int id);
-
-int						is_in_shadow(t_objects	objects_arr, t_vector point, t_vector light, double t_max);
-double					diffuse(t_vector normal, t_vector light);
-double					specular(t_vector normal, t_vector light, t_vector pixel, double specular);
-t_vector				reflect_ray(t_vector ray, t_vector normal);
-
-double					dot(t_vector v1, t_vector v2);
-double					length(t_vector v1);
-t_vector				normalize(t_vector v);
-t_vector				add(t_vector v1, t_vector v2);
-t_vector				substract(t_vector v1, t_vector v2);
-t_vector				multiply_sv(double k, t_vector v);
-
-double					deg_to_rad(int degrees);
-int						unite_color_channels(t_color color);
-t_color					split_color(int color);
-t_color					add_color(t_color c1, t_color c2);
-t_color					multiply_color(double k, t_color c);
-
-t_color					pixel_post_processing(t_scene *scene, int i, t_color color);
-t_color					shade_unselesected(t_scene *scene, int i,
-						t_color color);
-t_color					effect_grayscale(t_color color);
-t_color					effect_negative(t_color color);
-t_color					effect_cartoon(t_color color);
 
 //CONTROL
 int						mouse_move(int x, int y, t_global *global);
@@ -606,6 +558,68 @@ void					get_mouse_position(t_scene *scene, int x, int y);
 int						select_object(int x, int y, t_global *global);
 void					change_camera(t_scene *scene);
 void					change_effect(t_scene *scene);
+void					change_material(t_scene *scene, int key);
+
+t_color					pixel_post_processing(t_scene *scene, int i, t_color color);
+t_color					shade_unselesected(t_scene *scene, int i,
+						t_color color);
+t_color					effect_grayscale(t_color color);
+t_color					effect_negative(t_color color);
+t_color					effect_cartoon(t_color color);
+
+//RAYTRACING
+
+void					trace_rays(t_scene *scene);
+void					get_pixel_position(t_scene *scene, t_pixel *pixel);
+void					get_sin_cos(t_camera *camera);
+void					rotate_pixel(t_pixel *pixel, t_camera *camera);
+void					put_pixel(t_mlx *mlx, int x, int y, int color);
+
+void					get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int reflection_depth);
+// void					get_point_properties(t_point *point, t_object *object);
+void					fill_object_buffer(t_scene *scene, t_pixel pixel, int id);
+int						is_in_shadow(t_objects	objects_arr, t_vector point, t_vector light, double t_max);
+
+//INTERSECTIONS
+t_object				get_intersection(t_objects	objects, t_vector camera,
+						t_vector pixel, double t_min, double t_max);
+void					select_object_intersect_function(t_object *object,
+						t_vector camera, t_vector pixel);
+
+void					plane(t_object *object, t_vector camera,
+						t_vector pixel);
+void					sphere(t_object *object, t_vector camera,
+						t_vector pixel);
+void					cylinder(t_object *object, t_vector camera,
+						t_vector pixel);
+void					cone(t_object *object, t_vector camera, t_vector pixel);
+
+//LIGHT
+double					get_lightning(t_scene *scene, t_point point,
+						t_vector pixel);
+double					diffuse_and_specular_light(t_scene *scene,
+						t_point point, t_vector pixel, int i);
+double					diffuse(t_vector normal, t_vector light);
+double					specular(t_vector normal, t_vector light,
+						t_vector pixel, double specular);
+t_vector				reflect_ray(t_vector ray, t_vector normal);
+
+//VECTOR OPERATIONS
+double					deg_to_rad(int degrees);
+double					dot(t_vector v1, t_vector v2);
+double					length(t_vector v1);
+t_vector				normalize(t_vector v);
+
+t_vector				add(t_vector v1, t_vector v2);
+t_vector				substract(t_vector v1, t_vector v2);
+t_vector				multiply_sv(double k, t_vector v);
+
+//COLOR OPERATIONS
+int						unite_color_channels(t_color color);
+t_color					split_color(int color);
+t_color					get_channel_diff(t_color c1, t_color c2);
+t_color					add_color(t_color c1, t_color c2);
+t_color					multiply_color(double k, t_color c);
 
 
 //INTERFACE
@@ -637,13 +651,15 @@ void					put_color(t_scene *scene, t_mlx *mlx);
 void					put_color_sample(t_mlx *mlx, int color);
 void					put_scene_file_name(t_scene *scene, t_mlx *mlx);
 
-
-
 void					info_header_and_author(t_mlx *mlx);
 void					info_help(t_mlx *mlx);
 void					info_author(t_mlx *mlx);
 void					show_help(t_global *global);
 void					draw_box(t_mlx *mlx, int size_w, int size_h);
-void					message_box(t_mlx *mlx, char *message_title, char *message_content);
+void					message_box(t_mlx *mlx, char *message_title,
+						char *message_content);
 void					put_material_color_sample(t_mlx *mlx, int color);
+
+void					material_info(t_scene *scene, t_mlx *mlx);
+
 #endif

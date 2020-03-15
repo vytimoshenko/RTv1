@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 01:40:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/05 21:32:24 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 08:08:28 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_mlx	*init_mlx(void)
 	if (!(mlx->data = (int *)mlx_get_data_addr(mlx->img, &(mlx->bits_per_pixel),
 	&(mlx->size_line), &(mlx->endian))))
 		put_mlx_error(mlx, "mlx_get_data_addr");
-	// reset_render_status(mlx);
 	return (mlx);
 }
 

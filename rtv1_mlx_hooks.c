@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 06:07:44 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 07:37:11 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ int		keyboard_key_press(int key, t_global *global)
 		change_effect_grade(global->scene, key);
 		change_light_intensity(global->scene, key);
 	}
-	else if (key == L || key == HOME || key == END)
-		change_light(global->scene, key);
-	// else if (key == M || key == HOME || key == END)
-	// 	change_material(global->scene, key);
+	// else if (key == L || key == HOME || key == END)
+	// 	change_light(global->scene, key);
+	else if (key == M || key == HOME || key == END)
+		change_material(global->scene, key);
 	else if (key == Q || key == ESC || key == SPACE || key == E)
 		extra_keyboard_key_press(key, global);
 	else

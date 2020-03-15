@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_main.c                                        :+:      :+:    :+:   */
+/*   rtv1_other.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/24 15:09:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 08:16:10 by mperseus         ###   ########.fr       */
+/*   Created: 2020/03/15 08:15:51 by mperseus          #+#    #+#             */
+/*   Updated: 2020/03/15 08:16:04 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int	main(int argc, char **argv)
+void	put_error_pn(char *str)
 {
-	t_global	global;
-
-	global.scene = init_scene(argc, argv);
-	global.mlx = init_mlx();
-	draw(&global);
-	loop(&global);
-	exit(0);
+	ft_putstr(PROGRAM_NAME);
+	ft_putstr(": ");
+	ft_putendl(str);
+	exit(1);
 }

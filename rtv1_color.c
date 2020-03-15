@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 03:38:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 06:37:59 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 08:06:14 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_color	split_color(int color)
 	t_color result;
 
 	result.r = color / 256 / 256;
-    result.g = color / 256 % 256;
-    result.b = color % 256;
+	result.g = color / 256 % 256;
+	result.b = color % 256;
 	return (result);
 }
 

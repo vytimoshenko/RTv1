@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_main.c                                        :+:      :+:    :+:   */
+/*   rtv1_vector_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/24 15:09:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 08:16:10 by mperseus         ###   ########.fr       */
+/*   Created: 2020/02/20 22:12:27 by mperseus          #+#    #+#             */
+/*   Updated: 2020/03/15 08:14:11 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int	main(int argc, char **argv)
+double		deg_to_rad(int degrees)
 {
-	t_global	global;
+	return ((double)degrees * PI / 180.0);
+}
 
-	global.scene = init_scene(argc, argv);
-	global.mlx = init_mlx();
-	draw(&global);
-	loop(&global);
-	exit(0);
+double		dot(t_vector v1, t_vector v2)
+{
+	return ((double)(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z));
+}
+
+double		length(t_vector v)
+{
+	return ((double)sqrt(dot(v, v)));
+}
+
+t_vector	normalize(t_vector v)
+{
+	return ((multiply_sv(1.0 / length(v), v)));
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_mlx_control_2.c                               :+:      :+:    :+:   */
+/*   rtv1_control_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:08:23 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 05:57:32 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 07:14:06 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	get_material(int x, int y, t_global *global)
 	if (x < 0 || x > IMG_SIZE_W || y < 0 || y > IMG_SIZE_H)
 		return;
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
-	global->scene->material_source = global->scene->objects.array[global->scene->object_buffer[i]]->material;
+	global->scene->material_source =
+	global->scene->objects.array[global->scene->object_buffer[i]]->material;
 }
 
 int		apply_material(int x, int y, t_global *global)

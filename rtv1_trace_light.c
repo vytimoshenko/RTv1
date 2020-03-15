@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_light.c                                       :+:      :+:    :+:   */
+/*   rtv1_trace_light.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:13:20 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/11 05:45:06 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 08:27:26 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ double		get_lightning(t_scene *scene, t_point point, t_vector pixel)
 		{
 			if (scene->lights.array[i]->type == LIGHT_TYPE_AMBIENT)
 				intensity += scene->lights.array[i]->intensity;
-			else if ((tmp = direct_and_diffuse_light(scene, point, pixel, i))
+			else if ((tmp = diffuse_and_specular_light(scene, point, pixel, i))
 			!= -1)
 				intensity += tmp;
 		}
@@ -34,7 +34,7 @@ double		get_lightning(t_scene *scene, t_point point, t_vector pixel)
 	return (intensity);
 }
 
-double		direct_and_diffuse_light(t_scene *scene, t_point point,
+double		diffuse_and_specular_light(t_scene *scene, t_point point,
 			t_vector pixel, int i)
 {
 	t_vector	l;

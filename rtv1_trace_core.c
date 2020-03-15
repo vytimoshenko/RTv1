@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/10 06:12:30 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 08:37:06 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,52 +97,4 @@ void		fill_object_buffer(t_scene *scene, t_pixel pixel, int id)
 		scene->object_buffer[i] = id;
 		scene->got_object[i] = TRUE;
 	}
-}
-
-t_object	get_intersection(t_objects objects, t_vector camera,
-			t_vector pixel, double t_min, double t_max)
-{
-	int			i;
-	t_object	closest_object;
-	double		closest;
-
-	i = -1;
-	closest = t_max;
-	closest_object.null = 0;
-	while (++i < objects.quantity)
-	{
-		select_object_function(objects.array[i], camera, pixel);
-		if (objects.array[i]->t1 >= t_min && objects.array[i]->t1 <=
-		t_max && objects.array[i]->t1 < closest)
-		{
-			closest = objects.array[i]->t1;
-			closest_object = *objects.array[i];
-			closest_object.null = 1;
-		}
-		if (objects.array[i]->t2 >= t_min && objects.array[i]->t2 <=
-		t_max && objects.array[i]->t2 < closest)
-		{
-			closest = objects.array[i]->t2;
-			closest_object = *objects.array[i];
-			closest_object.null = 1;
-		}
-	}
-	closest_object.closest = closest;
-	if (closest_object.null == 1)
-		closest_object.null = 1;
-	else
-		closest_object.null = 0;
-	return (closest_object);
-}
-
-void	select_object_function(t_object *object, t_vector camera, t_vector pixel)
-{
-	if (object->type == OBJECT_TYPE_PLANE)
-		plane(object, camera, pixel);
-	else if (object->type == OBJECT_TYPE_SPHERE)
-		sphere(object, camera, pixel);
-	else if (object->type == OBJECT_TYPE_CYLINDER)
-		cylinder(object, camera, pixel);
-	else if (object->type == OBJECT_TYPE_CONE)
-		cone(object, camera, pixel);
 }
