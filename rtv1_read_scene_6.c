@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 07:30:13 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 14:52:00 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 04:04:14 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,7 @@ void		validate_color(char *value, t_color color)
 {
 	if (color.r > 255 || color.g > 255 || color.b > 255 ||
 	color.r < 0 || color.g < 0 || color.b < 0)
-	{
-		ft_putstr("=> ");
-		ft_putendl(value);
-		put_error_pn("wrong color in scene");
-	}
+		put_error_wrong_scene_data(value, "wrong color in scene");
 }
 
 int			check_and_get_int_value(char *value)

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 07:24:15 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 14:57:13 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 04:30:29 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ int		parse_item_line(t_scene *scene, char *item_line)
 	char	*type;
 	char	*description;
 
-	i = ft_strindex('{', item_line);
+	if ((i = ft_strindex('{', item_line)) < 0)
+		put_error_wrong_scene_data(item_line, "missing '{'");
 	type = ft_strnew(i);
 	ft_strncpy(type, item_line, i);
 	type_id = define_item_type(scene, type);
 	while (--i >= -1)
 		item_line++;
-	i = ft_strindex('}', item_line);
+	if ((i = ft_strindex('}', item_line)) < 0)
+		put_error_wrong_scene_data(item_line, "missing '}'");
 	description = ft_strnew(i);
 	ft_strncpy(description, item_line, i);
 	parse_item_description(scene, type_id, description);
@@ -43,7 +45,8 @@ int		parse_item_description(t_scene *scene, int type_id, char *description)
 
 	if (!(*description))
 		return (0);
-	i = ft_strindex(':', description);
+	if ((i = ft_strindex(':', description)) < 0)
+		put_error_wrong_scene_data(description, "missing ':'");
 	property = ft_strnew(i);
 	ft_strncpy(property, description, i);
 	while (--i >= -1)

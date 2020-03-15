@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 09:00:27 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 14:39:28 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 04:02:08 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,7 @@ void	parse_item_by_property(t_scene *scene, int type_id, char *property,
 	else if (type_id == FILE_PARSE_OBJECT)
 		parse_object_description(scene, property, value);
 	else
-	{
-		ft_putstr("=> ");
-		ft_putendl(property);
-		put_error_pn("wrong item type name");
-	}
+		put_error_wrong_scene_data(property, "wrong item type name");
 }
 
 void	parse_scene_description(t_scene *scene, char *property, char *value)
@@ -40,11 +36,7 @@ void	parse_scene_description(t_scene *scene, char *property, char *value)
 	else if (!(ft_strcmp(property, FILE_SCENE_AUTHOR)))
 		scene->author = ft_strdup(value);
 	else
-	{
-		ft_putstr("=> ");
-		ft_putendl(property);
-		put_error_pn("wrong material property name");
-	}
+		put_error_wrong_scene_data(property, "wrong scene property name");
 }
 
 void	parse_camera_description(t_scene *scene, char *property, char *value)
@@ -57,11 +49,7 @@ void	parse_camera_description(t_scene *scene, char *property, char *value)
 	else if (!(ft_strcmp(property, FILE_CAMERA_DIRECTION)))
 		scene->cameras.array[i]->direction = parse_vector(value);
 	else
-	{
-		ft_putstr("=> ");
-		ft_putendl(property);
-		put_error_pn("wrong camera property name");
-	}
+		put_error_wrong_scene_data(property, "wrong camera property name");
 }
 
 void	parse_light_description(t_scene *scene, char *property, char *value)
@@ -76,11 +64,7 @@ void	parse_light_description(t_scene *scene, char *property, char *value)
 	else if (!(ft_strcmp(property, FILE_LIGHT_POSITION)))
 		scene->lights.array[i]->position = parse_vector(value);
 	else
-	{
-		ft_putstr("=> ");
-		ft_putendl(property);
-		put_error_pn("wrong light property name");
-	}
+		put_error_wrong_scene_data(property, "wrong light property name");
 }
 
 int		find_light_type(char *value)
@@ -91,8 +75,6 @@ int		find_light_type(char *value)
 		return (LIGHT_TYPE_DIRECTIONAL);
 	else if (!(ft_strcmp(value, FILE_LIGHT_TYPE_POINT)))
 		return (LIGHT_TYPE_POINT);
-	ft_putstr("=> ");
-	ft_putendl(value);
-	put_error_pn("wrong light type");
+	put_error_wrong_scene_data(value, "wrong light type");
 	return (-1);
 }

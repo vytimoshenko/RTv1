@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 07:13:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/13 07:24:24 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 04:58:56 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,19 @@ void	read_scene(t_scene *scene, char *file_name)
 	if (fd < 0 || read(fd, NULL, 0) == -1)
 		ft_put_errno(PROGRAM_NAME);
 	ret = read(fd, buff, READ_BUFF_SIZE);
-	buff[ret] = '\0';
+	if (!ret)
+		put_error_pn("scene file is empry");
 	if (read(fd, buff, READ_BUFF_SIZE))
 		put_error_pn("scene file is too big");
 	close(fd);
+	buff[ret] = '\0';
 	line = NULL;
 	line = delete_whitespaces(buff);
-	if (divide_to_items(scene, line) == -1)
-		put_error_pn("invalid scene data");
+	divide_to_items(scene, line);
 	free(line);
 }
 
-int		divide_to_items(t_scene *scene, char *line)
+void	divide_to_items(t_scene *scene, char *line)
 {
 	int		i;
 	int		items_count;
@@ -42,50 +43,34 @@ int		divide_to_items(t_scene *scene, char *line)
 	int		item_size;
 
 	if ((items_count = count_items(line)) == -1)
-		return (-1);
+		put_error_wrong_scene_data(line, "missing '{'");
 	items_array = (char **)(ft_memalloc(sizeof(char *) * (items_count + 2)));
 	i = -1;
 	while (++i < items_count)
 	{
-		item_size = count_item_size(line);
+		if ((item_size = ft_strindex('}', line) + 1) < 0)
+			put_error_wrong_scene_data(line, "missing '}'");
 		items_array[i] = (char *)(malloc(sizeof(char) * (item_size + 1)));
 		ft_strncpy(items_array[i], line, item_size);
 		items_array[i][item_size] = '\0';
+		if ((ft_strindex('}', items_array[i]) < 0))
+			put_error_wrong_scene_data(items_array[i], "missing '}'");
 		while (--item_size >= 0)
 			line++;
 	}
 	parse_each_item(scene, items_array);
-	return (0);
 }
 
 int		count_items(char *line)
 {
 	int	i;
 	int	a;
-	int	b;
 
 	a = 0;
 	i = 0;
 	while (line[i++] != '\0')
 		a = line[i] == '{' ? a + 1 : a;
-	b = 0;
-	i = 0;
-	while (line[i++] != '\0')
-		b = line[i] == '}' ? b + 1 : b;
-	if (a != b)
-		return (-1);
 	return (a);
-}
-
-int		count_item_size(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] != '}')
-		i++;
-	i++;
-	return (i);
 }
 
 int		parse_each_item(t_scene *scene, char **items_array)

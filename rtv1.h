@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 14:47:35 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 04:29:21 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -401,14 +401,14 @@ typedef struct			s_global
 
 //READ AND PARSE SCENE FILE
 void					read_scene(t_scene *scene, char *file_name);
-int						divide_to_items(t_scene *scene, char *line);
+void					divide_to_items(t_scene *scene, char *line);
 int						count_items(char *line);
-int						count_item_size(char *line);
 int						parse_each_item(t_scene *scene, char **items_array);
 
 int						count_items_by_type(t_scene *scene, char *item_line);
 int    					define_item_type(t_scene *scene, char *type);
-void					define_item_type_extra(char *type);
+void					put_error_wrong_scene_data(char *wrong_data,
+						char *message);
 void					save_quantities(t_scene *scene);
 void					allocate_memory(t_scene *scene);
 

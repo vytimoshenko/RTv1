@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 03:37:02 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/09 05:00:17 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 03:33:34 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void	put_scene_file_name(t_scene *scene, t_mlx *mlx)
 
 	pos_x = 20;
 	pos_y = WIN_SIZE_H - 30;
-	mlx_string_put(mlx->mlx, mlx->win, pos_x + 480, pos_y, TEXT_COLOR,
-	"scene file opened:");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 670, pos_y, TEXT_COLOR,
 	scene->file_name_with_path);
     // mlx_string_put(mlx->mlx, mlx->win, WIN_SIZE_W - 700, WIN_SIZE_H - 30,

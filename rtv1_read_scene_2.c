@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 08:45:30 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 14:58:35 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 04:51:12 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 int		count_items_by_type(t_scene *scene, char *item_line)
 {
 	int		i;
-	int		type_id;
 	char	*type;
 
-	i = ft_strindex('{', item_line);
+	if ((i = ft_strindex('{', item_line)) < 0)
+		put_error_wrong_scene_data(item_line, "missing '{'");
 	type = ft_strnew(i);
 	ft_strncpy(type, item_line, i);
-	if ((type_id = define_item_type(scene, type)) == -1)
-		return (-1);
+	define_item_type(scene, type);
 	ft_strdel(&type);
 	return (0);
 }
@@ -52,15 +51,15 @@ int		define_item_type(t_scene *scene, char *type)
 		return (FILE_PARSE_OBJECT);
 	}
 	else
-		define_item_type_extra(type);
+		put_error_wrong_scene_data(type, "wrong item type name");
 	return (0);
 }
 
-void	define_item_type_extra(char *type)
+void	put_error_wrong_scene_data(char *wrong_data, char *message)
 {
 	ft_putstr("=> ");
-	ft_putendl(type);
-	put_error_pn("wrong item type name");
+	ft_putendl(wrong_data);
+	put_error_pn(message);
 }
 
 void	save_quantities(t_scene *scene)

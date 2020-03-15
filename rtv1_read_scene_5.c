@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 07:09:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 14:59:23 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 04:20:34 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,7 @@ void	parse_material_description(t_scene *scene, char *property, char *value)
 	else if (!(ft_strcmp(property, FILE_MATERIAL_REFLECTIVE)))
 		scene->materials.array[i]->reflective = (double)ft_atoi(value) / 10.0;
 	else
-	{
-		ft_putstr("=> ");
-		ft_putendl(property);
-		put_error_pn("wrong material property name");
-	}
+		put_error_wrong_scene_data(property, "wrong material property name");
 }
 
 void	parse_object_description(t_scene *scene, char *property, char *value)
@@ -50,11 +46,7 @@ void	parse_object_description(t_scene *scene, char *property, char *value)
 	else if (!(ft_strcmp(property, FILE_OBJECT_RADIUS)))
 		scene->objects.array[i]->radius = ft_atoi(value);
 	else
-	{
-		ft_putstr("=> ");
-		ft_putendl(property);
-		put_error_pn("wrong object property name");
-	}
+		put_error_wrong_scene_data(property, "wrong object property name");
 }
 
 int		find_object_type(char *value)
@@ -67,9 +59,7 @@ int		find_object_type(char *value)
 		return (OBJECT_TYPE_CYLINDER);
 	else if (!(ft_strcmp(value, FILE_OBJECT_TYPE_CONE)))
 		return (OBJECT_TYPE_CONE);
-	ft_putstr("=> ");
-	ft_putendl(value);
-	put_error_pn("wrong object type");
+	put_error_wrong_scene_data(value, "wrong object type");
 	return (-1);
 }
 
@@ -83,8 +73,6 @@ int		find_object_material(t_scene *scene, char *value)
 		if (!(ft_strcmp(scene->materials.array[i]->name, value)))
 			return (i);
 	}
-	ft_putstr("=> ");
-	ft_putendl(value);
-	put_error_pn("wrong object material name");
+	put_error_wrong_scene_data(value, "wrong object material name");
 	return (-1);
 }
