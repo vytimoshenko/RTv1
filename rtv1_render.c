@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_render.c                                      :+:      :+:    :+:   */
+/*   RTv1_render.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 03:59:50 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 10:39:12 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ void	trace_rays(t_scene *scene)
 
 void	get_pixel_position(t_scene *scene, t_pixel *pixel)
 {
-	pixel->position.x = pixel->x * VIEWPORT_SIZE_W / IMG_SIZE_W;
-	pixel->position.y = pixel->y * VIEWPORT_SIZE_H / IMG_SIZE_H;
-	pixel->position.z = VIEWPORT_DISTANCE;
+	pixel->pos.x = pixel->x * VIEWPORT_SIZE_W / IMG_SIZE_W;
+	pixel->pos.y = pixel->y * VIEWPORT_SIZE_H / IMG_SIZE_H;
+	pixel->pos.z = VIEWPORT_DISTANCE;
 	rotate_pixel(pixel, scene->cameras.array[scene->active_camera]);
 }
 
@@ -101,18 +101,18 @@ void	rotate_pixel(t_pixel *pixel, t_camera *camera)
 	double temp1;
 	double temp2;
 
-	temp1 = pixel->position.y * camera->cos.x + pixel->position.z * camera->sin.x;
-	temp2 = -pixel->position.y * camera->sin.x + pixel->position.z * camera->cos.x;
-	pixel->position.y = temp1;
-	pixel->position.z = temp2;
-	temp1 = pixel->position.x * camera->cos.y + pixel->position.z * camera->sin.y;
-	temp2 = -pixel->position.x * camera->sin.y + pixel->position.z * camera->cos.y;
-	pixel->position.x = temp1;
-	pixel->position.z = temp2;
-	temp1 = pixel->position.x * camera->cos.z - pixel->position.y * camera->sin.z;
-	temp2 = pixel->position.x * camera->sin.z + pixel->position.y * camera->cos.z;
-	pixel->position.x = temp1;
-	pixel->position.y = temp2;
+	temp1 = pixel->pos.y * camera->cos.x + pixel->pos.z * camera->sin.x;
+	temp2 = -pixel->pos.y * camera->sin.x + pixel->pos.z * camera->cos.x;
+	pixel->pos.y = temp1;
+	pixel->pos.z = temp2;
+	temp1 = pixel->pos.x * camera->cos.y + pixel->pos.z * camera->sin.y;
+	temp2 = -pixel->pos.x * camera->sin.y + pixel->pos.z * camera->cos.y;
+	pixel->pos.x = temp1;
+	pixel->pos.z = temp2;
+	temp1 = pixel->pos.x * camera->cos.z - pixel->pos.y * camera->sin.z;
+	temp2 = pixel->pos.x * camera->sin.z + pixel->pos.y * camera->cos.z;
+	pixel->pos.x = temp1;
+	pixel->pos.y = temp2;
 }
 
 void		fill_frame_buffer(t_scene *scene, t_pixel pixel)

@@ -6,41 +6,45 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 08:30:52 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 08:38:55 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 10:16:12 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_object	get_intersection(t_objects objects, t_vector camera,
-			t_vector pixel, double t_min, double t_max)
+t_object	get_intersection(t_objects objects, t_vector camera, t_vector pixel,
+			t_t_min_max t_min_max)
 {
 	int			i;
 	t_object	closest_object;
-	double		closest;
 
 	i = -1;
-	closest = t_max;
+	t_min_max.t = t_min_max.t_max;
 	closest_object.null = 0;
 	while (++i < objects.quantity)
 	{
 		select_object_intersect_function(objects.array[i], camera, pixel);
-		if (objects.array[i]->t1 >= t_min && objects.array[i]->t1 <=
-		t_max && objects.array[i]->t1 < closest)
+		if (objects.array[i]->t1 >= t_min_max.t_min && objects.array[i]->t1 <=
+		t_min_max.t_max && objects.array[i]->t1 < t_min_max.t)
 		{
-			closest = objects.array[i]->t1;
+			t_min_max.t = objects.array[i]->t1;
 			closest_object = *objects.array[i];
 			closest_object.null = 1;
 		}
-		if (objects.array[i]->t2 >= t_min && objects.array[i]->t2 <=
-		t_max && objects.array[i]->t2 < closest)
+		if (objects.array[i]->t2 >= t_min_max.t_min && objects.array[i]->t2 <=
+		t_min_max.t_max && objects.array[i]->t2 < t_min_max.t)
 		{
-			closest = objects.array[i]->t2;
+			t_min_max.t = objects.array[i]->t2;
 			closest_object = *objects.array[i];
 			closest_object.null = 1;
 		}
 	}
-	closest_object.closest = closest;
+	return (check_closest_object(closest_object, t_min_max.t));
+}
+
+t_object	check_closest_object(t_object closest_object, double t)
+{
+	closest_object.closest = t;
 	if (closest_object.null == 1)
 		closest_object.null = 1;
 	else
@@ -48,8 +52,8 @@ t_object	get_intersection(t_objects objects, t_vector camera,
 	return (closest_object);
 }
 
-void	select_object_intersect_function(t_object *object, t_vector camera,
-		t_vector pixel)
+void		select_object_intersect_function(t_object *object, t_vector camera,
+			t_vector pixel)
 {
 	if (object->type == OBJECT_TYPE_PLANE)
 		plane(object, camera, pixel);

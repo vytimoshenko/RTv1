@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_mlx_run.c                                     :+:      :+:    :+:   */
+/*   rtv1_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 07:31:21 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 10:24:16 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,27 @@ void	draw(t_global *global)
 	global->mlx->img, IMG_INDT_W, IMG_INDT_H);
 	gettimeofday(&end, NULL);
 	count_frames(global->mlx, start, end);
-	put_info_to_window(global);
-	if (global->scene->in_motion_blur == TRUE) 
+	show_interface(global);
+	if (global->scene->in_motion_blur == TRUE)
 		keyboard_key_press(ARROW_LEFT, global);
 }
 
-void	update_info_only(t_global *global)
+void	count_frames(t_mlx *mlx, struct timeval start, struct timeval end)
+{
+	++mlx->frames;
+	mlx->frame_time = (double)(end.tv_usec - start.tv_usec) / 1000 +
+	(double)(end.tv_sec - start.tv_sec) * 1000;
+}
+
+void	update_interface_only(t_global *global)
 {
 	mlx_clear_window(global->mlx->mlx, global->mlx->win);
 	mlx_put_image_to_window(global->mlx->mlx, global->mlx->win,
 	global->mlx->img, IMG_INDT_W, IMG_INDT_H);
-	put_info_to_window(global);
+	show_interface(global);
 }
 
-void	put_info_to_window(t_global *global)
+void	show_interface(t_global *global)
 {
 	put_scene_summary_1(global->scene, global->mlx);
 	put_scene_summary_2(global->scene, global->mlx);
@@ -66,7 +73,6 @@ void	put_info_to_window(t_global *global)
 	info_render_1(global->mlx);
 	info_render_2(global->mlx);
 	info_help(global->mlx);
-
 	put_coordinates(global->scene, global->mlx);
 	if (global->scene->got_color == TRUE)
 		put_color(global->scene, global->mlx);
@@ -74,21 +80,3 @@ void	put_info_to_window(t_global *global)
 	if (global->scene->show_help == TRUE)
 		show_help(global);
 }
-
-void	count_frames(t_mlx *mlx, struct timeval start, struct timeval end)
-{
-	++mlx->frames;
-	mlx->frame_time = (double)(end.tv_usec - start.tv_usec) / 1000 +
-	(double)(end.tv_sec - start.tv_sec) * 1000;
-}
-
-void	show_help(t_global *global)
-{
-	draw_box(global->mlx, INFO_BOX_W, INFO_BOX_H);
-	info_header_and_author(global->mlx);
-	info_control_1(global->mlx);
-	info_control_2(global->mlx);
-	info_control_3(global->mlx);
-	// info_control_4(global->mlx);
-}
-

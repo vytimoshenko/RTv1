@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 08:40:36 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 10:39:28 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ typedef struct			s_pixel
 	int					x;
 	int					y;
 	
-	t_vector			position;
+	t_vector			pos;
 	t_color				color;
 
 	// int					object_id;
@@ -374,6 +374,13 @@ typedef struct			s_scene
 	int					quantity_lines;
 }						t_scene;
 
+typedef struct			s_t_min_max
+{
+	double				t;
+	double				t_min;
+	double				t_max;
+}						t_t_min_max;
+
 typedef struct			s_mlx
 {
 	void				*mlx;
@@ -408,10 +415,10 @@ void					put_mlx_error(t_mlx *mlx, char *str);
 
 void					loop(t_global *global);
 void					draw(t_global *global);
-void					update_info_only(t_global *global);
-void					put_info_to_window(t_global *global);
 void					count_frames(t_mlx *mlx, struct timeval start,
 						struct timeval end);
+void					update_interface_only(t_global *global);
+void					show_interface(t_global *global);
 
 //READ AND PARSE SCENE FILE
 void					read_scene(t_scene *scene, char *file_name);
@@ -542,9 +549,11 @@ int						mouse_key_press(int key, int x, int y,
 						t_global *global);
 int						mouse_key_release(int key, int x, int y,
 						t_global *global);
-int						keyboard_key_press(int key, t_global *global);
-void					extra_keyboard_key_press(int key, t_global *global);
 int						close_window(t_global *global);
+
+int						keyboard_key_press(int key, t_global *global);
+void					keyboard_key_press_extra_1(int key, t_global *global);
+void					keyboard_key_press_extra_2(int key, t_global *global);
 
 void					move_camera(t_scene *scene, int key);
 void					rotate_camera(t_scene *scene, int key);
@@ -582,7 +591,9 @@ int						is_in_shadow(t_objects	objects_arr, t_vector point, t_vector light, dou
 
 //INTERSECTIONS
 t_object				get_intersection(t_objects	objects, t_vector camera,
-						t_vector pixel, double t_min, double t_max);
+						t_vector pixel, t_t_min_max t_min_max);
+t_object				check_closest_object(t_object closest_object,
+						double closest);
 void					select_object_intersect_function(t_object *object,
 						t_vector camera, t_vector pixel);
 
@@ -620,7 +631,6 @@ t_color					split_color(int color);
 t_color					get_channel_diff(t_color c1, t_color c2);
 t_color					add_color(t_color c1, t_color c2);
 t_color					multiply_color(double k, t_color c);
-
 
 //INTERFACE
 void					put_scene_summary_1(t_scene *scene, t_mlx *mlx);

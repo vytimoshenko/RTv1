@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/15 08:41:15 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/15 10:42:51 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,13 +32,14 @@ SRC		= 	rtv1_main.c					\
 			rtv1_init_buffers.c			\
 			rtv1_clean_buffers.c		\
 			rtv1_antialiasing.c			\
-			rtv1_color_effects.c		\
+			rtv1_effect_color.c			\
 			rtv1_trace_core.c			\
 			rtv1_trace_intersect_1.c	\
 			rtv1_trace_intersect_2.c	\
 			rtv1_trace_light.c			\
 			rtv1_final_processing.c		\
-			rtv1_mlx_hooks.c			\
+			rtv1_mlx_hooks_1.c			\
+			rtv1_mlx_hooks_2.c			\
 			rtv1_mlx_put_info_2.c		\
 			rtv1_mlx_put_info_6.c		\
 			rtv1_mlx_put_info_7.c		\

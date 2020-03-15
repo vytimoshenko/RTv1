@@ -6,11 +6,21 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 00:31:45 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 06:14:55 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 10:23:48 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+void	show_help(t_global *global)
+{
+	draw_box(global->mlx, INFO_BOX_W, INFO_BOX_H);
+	info_header_and_author(global->mlx);
+	info_control_1(global->mlx);
+	info_control_2(global->mlx);
+	info_control_3(global->mlx);
+	// info_control_4(global->mlx);
+}
 
 void	info_header_and_author(t_mlx *mlx)
 {

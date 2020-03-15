@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:13:20 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 08:27:26 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 10:17:22 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ double		diffuse_and_specular_light(t_scene *scene, t_point point,
 		l = scene->lights.array[i]->position;
 		t_max = DRAW_DISTANCE_MAX;
 	}
-	shadow = get_intersection(scene->objects, point.xyz, l, 0.000001, t_max);
+	shadow = get_intersection(scene->objects, point.xyz, l,
+	(t_t_min_max){0, 0.000001, t_max});
 	if (shadow.null)
 		return (-1);
 	intensity = scene->lights.array[i]->intensity * diffuse(point.n, l);
