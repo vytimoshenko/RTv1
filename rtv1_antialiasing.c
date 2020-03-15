@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 07:09:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/08 04:00:11 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 06:43:56 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,17 @@ void	fill_aliasing_buffer(t_scene *scene)
 
 int	need_to_smooth(t_scene *scene, int i)
 {
+	int		t;
 	t_color	diff;
 
 	if (i == 0)
 		return (0);
 	diff = get_channel_diff(scene->frame_buffer[i], scene->frame_buffer[i - 1]);
-	if (diff.r > 16 || diff.g > 16 || diff.b > 16)
+	t = ANTIALIASING_COLOR_THRESHOLD;
+	if (diff.r >= t || diff.g >= t || diff.b >= t)
 		return (1);
 	else
 		return (0);
-}
-
-t_color	get_channel_diff(t_color c1, t_color c2)
-{
-	t_color	diff;
-
-	diff.r = abs((c1.r - c2.r));
-	diff.g = abs((c1.g - c2.g));
-	diff.b = abs((c1.b - c2.b));
-	return (diff);
 }
 
 void	anti_aliasing(t_scene *scene, t_pixel *pixel, double *jitter)

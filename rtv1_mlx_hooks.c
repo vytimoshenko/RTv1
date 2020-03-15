@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 07:18:19 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 06:07:44 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,18 @@ int		mouse_key_press(int key, int x, int y, t_global *global)
 		get_material(x, y, global);
 		return (0);
 	}
-	// else
-	// 	return (0);
 	draw(global);
 	return (0);
 }
 
 int		mouse_key_release(int key, int x, int y, t_global *global)
 {
-	if (key == MIDDLE_MOUSE_BUTTON && global->scene->material_source != NOTHING_SELECTED)
-		apply_material(x, y, global);
-	draw(global);
+	if (key == MIDDLE_MOUSE_BUTTON && global->scene->material_source
+	!= NOTHING_SELECTED)
+	{
+		if (apply_material(x, y, global))
+			draw(global);
+	}
 	return (0);
 }
 
@@ -65,8 +66,6 @@ int		keyboard_key_press(int key, t_global *global)
 		save_scene(global->scene, global->mlx);
 		return (0);
 	}
-	else if (key == Q || key == ESC || key == SPACE || key == E)
-		extra_keyboard_key_press(key, global);
 	else if (key == A || key == D || key == W || key == S || key == MORE ||
 	key == LESS)
 	{
@@ -91,16 +90,9 @@ int		keyboard_key_press(int key, t_global *global)
 		global->scene->show_help = global->scene->show_help ? 0 : 1;
 	// else if (key == M)
 	// 	global->scene->in_motion_blur = TRUE;
-	// else if (key == L || key == HOME || key == END)
-	// 	change_material(global->scene, key);
-	else if (key == I && global->scene->anti_aliasing == FALSE)
-	{
-		global->scene->anti_aliasing = TRUE;
-	}
-		else if (key == I && global->scene->anti_aliasing == TRUE)
-	{
-		global->scene->anti_aliasing = FALSE;
-	}
+	else if (key == I)
+		global->scene->anti_aliasing = global->scene->anti_aliasing == TRUE ?
+		FALSE : TRUE;
 	else if (key == PLUS || key == MINUS || key == O)
 	{
 		change_effect_grade(global->scene, key);
@@ -108,6 +100,10 @@ int		keyboard_key_press(int key, t_global *global)
 	}
 	else if (key == L || key == HOME || key == END)
 		change_light(global->scene, key);
+	// else if (key == M || key == HOME || key == END)
+	// 	change_material(global->scene, key);
+	else if (key == Q || key == ESC || key == SPACE || key == E)
+		extra_keyboard_key_press(key, global);
 	else
 		return (0);
 	draw(global);
@@ -118,8 +114,9 @@ void	extra_keyboard_key_press(int key, t_global *global)
 {
 	if (key == Q)
 		close_window(global);
-	else if (key == ESC && (global->scene->active_object != NOTHING_SELECTED
-		|| global->scene->active_light != NOTHING_SELECTED || global->scene->got_color == TRUE))
+	else if (key == ESC && (global->scene->active_object != NOTHING_SELECTED ||
+	global->scene->active_light != NOTHING_SELECTED ||
+	global->scene->got_color == TRUE))
 	{
 		global->scene->active_object = NOTHING_SELECTED;
 		global->scene->active_light = NOTHING_SELECTED;

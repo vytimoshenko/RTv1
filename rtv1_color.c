@@ -6,16 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 03:38:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/06 07:16:07 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 06:37:59 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-double	deg_to_rad(int degrees)
-{
-	return ((double)degrees * PI / 180.0);
-}
 
 int		unite_color_channels(t_color color)
 {
@@ -30,6 +25,16 @@ t_color	split_color(int color)
     result.g = color / 256 % 256;
     result.b = color % 256;
 	return (result);
+}
+
+t_color	get_channel_diff(t_color c1, t_color c2)
+{
+	t_color	diff;
+
+	diff.r = abs((c1.r - c2.r));
+	diff.g = abs((c1.g - c2.g));
+	diff.b = abs((c1.b - c2.b));
+	return (diff);
 }
 
 t_color	add_color(t_color c1, t_color c2)

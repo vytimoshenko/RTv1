@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:08:23 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/09 04:59:11 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/15 05:57:32 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,28 @@ void	get_material(int x, int y, t_global *global)
 	global->scene->material_source = global->scene->objects.array[global->scene->object_buffer[i]]->material;
 }
 
-void	apply_material(int x, int y, t_global *global)
+int		apply_material(int x, int y, t_global *global)
 {
 	int	i;
 
 	x = x - IMG_INDT_W;
 	y = y - IMG_INDT_H;
 	if (x < 0 || x > IMG_SIZE_W || y < 0 || y > IMG_SIZE_H)
-		return;
+	{
+		global->scene->material_source = NOTHING_SELECTED;
+		return (0);
+	}
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
+	if (global->scene->object_buffer[i] == -1)
+	{
+		global->scene->material_source = NOTHING_SELECTED;
+		return (0);
+	}
 	global->scene->objects.array[global->scene->object_buffer[i]]->material =
 	global->scene->material_source;
 	global->scene->material_source = NOTHING_SELECTED;
 	system("afplay /System/Library/Sounds/Submarine.aiff");
+	return (1);
 }
 
 void	change_camera(t_scene *scene)
