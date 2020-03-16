@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 13:51:14 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/16 11:58:57 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define SAVE_PATH						"./saves/"
 # define SCREENSHOT_PATH				"./screenshots/"
 
-# define WIN_SIZE_W						1916.0
-# define WIN_SIZE_H						1064.0
+# define WIN_SIZE_W						1916
+# define WIN_SIZE_H						1064
 # define IMG_SIZE_W						1536.0
 # define IMG_SIZE_H						1024.0
 # define IMG_INDT_W						10
@@ -125,7 +125,8 @@
 # define EFFECT_FOG						9
 # define EFFECT_OUTLINE_MAP				2
 
-# define ANTIALIASING_COLOR_THRESHOLD	8
+# define ANTIALIASING_COLOR_THRESHOLD	16
+# define ANTIALIASING_ADJACENT_PIXELS	4
 # define MULTI_SAMPLING_RATE			8
 
 # define DEPTH_MAP_INCREMENT			2
@@ -359,6 +360,7 @@ typedef struct			s_scene
 
 	int					anti_aliasing;
 	int					*aliasing_buffer;
+	double				aliasing_rate;
 
 	int					effect;
 
@@ -515,9 +517,12 @@ void		motion_blur(t_color *frame_buffer, t_color **motion_blur_frame_buffers);
 void		effect_pixelation(t_scene *scene);
 
 //ANTIALIASING
-void		anti_aliasing(t_scene *scene, t_pixel *pixel, double *rand);
+void		run_anti_aliasing(t_scene *scene);
+void		get_multisample_color(t_scene *scene, t_pixel *pixel, double *rand);
 int			need_to_smooth(t_scene *scene, int i);
+void		add_adjacent_pixels(t_scene *scene, int i);
 void		get_jitter(double *random);
+void		aliasing_buffer_rate(t_scene *scene);
 
 void		get_normal(t_point *point, t_object *object);
 void		get_point_properties(t_scene *scene, t_point *point, t_object *object);

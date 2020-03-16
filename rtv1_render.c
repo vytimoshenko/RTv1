@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 13:25:53 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/16 12:05:42 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,35 @@
 void	trace_rays(t_scene *scene)
 {
 	t_pixel		pixel;
-	double		jitter[MULTI_SAMPLING_RATE];
-	int i;
-	
+
 	clean_object_buffer(scene);
 	clean_depth_buffer(scene);
 	clean_aliasing_buffer(scene);
 	clean_frame_buffer(scene);
+	pixel.x = -IMG_SIZE_W / 2;
+	while (++pixel.x <= IMG_SIZE_W / 2)
+	{
+		pixel.y = -IMG_SIZE_H / 2;
+		while (++pixel.y <= IMG_SIZE_H / 2)
+		{
+			pixel.color = scene->background;
+			get_pixel_position(scene, &pixel);
+			get_pixel_color(scene, scene->cameras.array[scene->active_camera]->
+			position, &pixel, REFLECTION_DEPTH);
+			fill_frame_buffer(scene, pixel);
+		}
+	}
+	fill_aliasing_buffer(scene);
+	if (scene->anti_aliasing == TRUE)
+		run_anti_aliasing(scene);
+}
+
+void	run_anti_aliasing(t_scene *scene)
+{
+	t_pixel		pixel;
+	double		jitter[MULTI_SAMPLING_RATE];
+	int			i;
+	
 	get_jitter(jitter);
 	pixel.x = -IMG_SIZE_W / 2;
 	while (++pixel.x <= IMG_SIZE_W / 2)
@@ -29,53 +51,16 @@ void	trace_rays(t_scene *scene)
 		pixel.y = -IMG_SIZE_H / 2;
 		while (++pixel.y <= IMG_SIZE_H / 2)
 		{
-			// if (scene->anti_aliasing == TRUE)
-			// 	anti_aliasing(scene, &pixel, jitter);
-			// else
-			// {
-				pixel.color = scene->background;
-				get_pixel_position(scene, &pixel);
-				get_pixel_color(scene, scene->cameras.array[scene->active_camera]->
-				position, &pixel, REFLECTION_DEPTH);
-			// }
-			fill_frame_buffer(scene, pixel);
-		}
-	}
-	fill_aliasing_buffer(scene);
-	if (scene->anti_aliasing == TRUE)
-	{
-		pixel.x = -IMG_SIZE_W / 2;
-		while (++pixel.x <= IMG_SIZE_W / 2)
-		{
-			pixel.y = -IMG_SIZE_H / 2;
-			while (++pixel.y <= IMG_SIZE_H / 2)
+			i = (int)(IMG_SIZE_W * (IMG_SIZE_H / 2 - pixel.y - 1) +
+			IMG_SIZE_W / 2 + pixel.x);
+			if (scene->aliasing_buffer[i])
 			{
-				i = (int)(IMG_SIZE_W * (IMG_SIZE_H / 2 - pixel.y - 1) + IMG_SIZE_W / 2 + pixel.x);
-				if (scene->aliasing_buffer[i])
-				{
-					anti_aliasing(scene, &pixel, jitter);
-					fill_frame_buffer(scene, pixel);
-				}
+				get_multisample_color(scene, &pixel, jitter);
+				fill_frame_buffer(scene, pixel);
 			}
 		}
 	}
 }
-
-// void	run_anti_aliasing(t_scene *scene)
-// {
-// 	int	i;
-// 	double		jitter[MULTI_SAMPLING_RATE];
-
-// 	i = -1;
-// 	get_jitter(jitter);
-// 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-// 	{
-// 		if (scene->aliasing_buffer[i])
-// 			anti_aliasing(scene, frame_buffer, jitter);
-// 	}
-// }
-
-
 
 void	get_pixel_position(t_scene *scene, t_pixel *pixel)
 {
@@ -121,10 +106,6 @@ void		fill_frame_buffer(t_scene *scene, t_pixel pixel)
 	pixel.x = IMG_SIZE_W / 2 + pixel.x - 1;
 	pixel.y = IMG_SIZE_H / 2 - pixel.y;
 	i = (int)(IMG_SIZE_W * pixel.y + pixel.x);
-	// if (i == 1535 * 1023)
-	// 	ft_putstr("HHH");
-	// if (i == 1)
-	// ft_putnbr((int)(IMG_SIZE_W / 2 + IMG_SIZE_W / 2));
 	scene->frame_buffer[i] = pixel.color;
 }
 

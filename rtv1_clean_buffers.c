@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 06:42:59 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 13:26:37 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/16 09:07:14 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void    clean_aliasing_buffer(t_scene *scene)
 
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		scene->aliasing_buffer[i] = NOTHING_SELECTED;
+		scene->aliasing_buffer[i] = FALSE;
 }
 
 void    clean_anaglyph_buffers(t_scene *scene)

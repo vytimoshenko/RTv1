@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/16 08:05:44 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/16 08:48:35 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC		= 	rtv1_main.c					\
 			rtv1_render.c				\
 			rtv1_init_buffers.c			\
 			rtv1_clean_buffers.c		\
-			rtv1_antialiasing.c			\
+			rtv1_effect_antialiasing.c	\
 			rtv1_trace_core.c			\
 			rtv1_trace_intersect_1.c	\
 			rtv1_trace_intersect_2.c	\

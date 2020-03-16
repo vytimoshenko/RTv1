@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_antialiasing.c                                :+:      :+:    :+:   */
+/*   rtv1_effect_antialiasing.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 07:09:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 06:43:56 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/16 12:06:35 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,41 +20,23 @@ void	fill_aliasing_buffer(t_scene *scene)
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 	{
 		scene->aliasing_buffer[i] = need_to_smooth(scene, i);
-		if (scene->aliasing_buffer[i])
+		if (!((i + 1) % ((int)IMG_SIZE_W)) || !((i + 2) % ((int)IMG_SIZE_W)))
 		{
-			scene->aliasing_buffer[i - 2] = 1;
-			scene->aliasing_buffer[i - 1] = 1;
-			scene->aliasing_buffer[i + 1] = 1;
-			scene->aliasing_buffer[i + 2] = 1;
-			if (i - 2 - IMG_SIZE_W > 0)
-			{
-				scene->aliasing_buffer[i - 2 - (int)IMG_SIZE_W] = 1;
-				scene->aliasing_buffer[i - 1 - (int)IMG_SIZE_W] = 1;
-				scene->aliasing_buffer[i - (int)IMG_SIZE_W] = 1;
-				scene->aliasing_buffer[i + 1 - (int)IMG_SIZE_W] = 1;
-				scene->aliasing_buffer[i + 2 - (int)IMG_SIZE_W] = 1;
-			}
-			if (i + 2 + IMG_SIZE_W < IMG_SIZE_W * IMG_SIZE_H)
-			{
-				scene->aliasing_buffer[i - 2 + (int)IMG_SIZE_W] = 1;
-				scene->aliasing_buffer[i - 1 + (int)IMG_SIZE_W] = 1;
-				scene->aliasing_buffer[i + (int)IMG_SIZE_W] = 1;
-				scene->aliasing_buffer[i + 1 + (int)IMG_SIZE_W] = 1;
-				scene->aliasing_buffer[i + 2 + (int)IMG_SIZE_W] = 1;
-			}
-			i++;
+			i += 4;
+			continue;
 		}
+		if (scene->aliasing_buffer[i])
+			add_adjacent_pixels(scene, i);
 	}
+	aliasing_buffer_rate(scene);
 }
 
-int	need_to_smooth(t_scene *scene, int i)
+int		need_to_smooth(t_scene *scene, int i)
 {
 	int		t;
 	t_color	diff;
 
-	if (i == 0)
-		return (0);
-	diff = get_channel_diff(scene->frame_buffer[i], scene->frame_buffer[i - 1]);
+	diff = get_channel_diff(scene->frame_buffer[i], scene->frame_buffer[i + 1]);
 	t = ANTIALIASING_COLOR_THRESHOLD;
 	if (diff.r >= t || diff.g >= t || diff.b >= t)
 		return (1);
@@ -62,7 +44,28 @@ int	need_to_smooth(t_scene *scene, int i)
 		return (0);
 }
 
-void	anti_aliasing(t_scene *scene, t_pixel *pixel, double *jitter)
+void	add_adjacent_pixels(t_scene *scene, int pos)
+{
+	int	x;
+	int	y;
+	int	i;
+
+	y = ANTIALIASING_ADJACENT_PIXELS;
+	while (y >= -ANTIALIASING_ADJACENT_PIXELS)
+	{
+		i = pos - y * IMG_SIZE_W;
+		x = ANTIALIASING_ADJACENT_PIXELS;
+		while (x >= -ANTIALIASING_ADJACENT_PIXELS)
+		{
+			if (i - x > 0 && i - x < IMG_SIZE_W * IMG_SIZE_H)
+				scene->aliasing_buffer[i - x] = TRUE;
+			x--;
+		}
+		y--;
+	}
+}
+
+void	get_multisample_color(t_scene *scene, t_pixel *pixel, double *jitter)
 {
 	int			i;
 	t_color		sum;
@@ -77,8 +80,10 @@ void	anti_aliasing(t_scene *scene, t_pixel *pixel, double *jitter)
 		tmp.y = 0;
 		pixel->color = scene->background;
 		get_pixel_position(scene, pixel);
-		tmp.x = jitter[i] + scene->cameras.array[scene->active_camera]->position.x;
-		tmp.y = jitter[i] + scene->cameras.array[scene->active_camera]->position.y;
+		tmp.x = jitter[i] + scene->cameras.array[scene->active_camera]->
+		position.x;
+		tmp.y = jitter[i] + scene->cameras.array[scene->active_camera]->
+		position.y;
 		get_pixel_color(scene, tmp, pixel, REFLECTION_DEPTH);
 		sum.r += pixel->color.r;
 		sum.g += pixel->color.g;
@@ -91,15 +96,27 @@ void	anti_aliasing(t_scene *scene, t_pixel *pixel, double *jitter)
 
 void	get_jitter(double *random)
 {
-    int i;
+	int i;
 
-	srand(79);
-    i = -1;
-	for (i = 1; i <= MULTI_SAMPLING_RATE; i++)
+	srand(42);
+	i = -1;
+	while (++i <= MULTI_SAMPLING_RATE)
 	{
-    	random[i] = (rand() % 100 + 1.0) / 5000.0;
+		random[i] = (rand() % 100 + 1.0) / 5000.0;
 		if (i % 2)
-        	random[i] *= -1;
-		// printf("%f\n", random[i]);
- 	}
+			random[i] *= -1;
+	}
+}
+
+void	aliasing_buffer_rate(t_scene *scene)
+{
+	int	i;
+	int	p;
+
+	i = -1;
+	p = 0;
+	while (++i < IMG_SIZE_W * IMG_SIZE_H)
+		p = scene->aliasing_buffer[i] == TRUE ? p + 1 : p;
+	scene->aliasing_rate = p / (IMG_SIZE_W * IMG_SIZE_H);
+	printf("buffer: %d rate: %f\n", p, scene->aliasing_rate);
 }
