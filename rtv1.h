@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/16 11:58:57 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/16 16:21:08 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,9 @@
 # define DEPTH_MAP_MAX					1024
 
 # define PIXELATION_INCREMENT			2
-# define PIXELATION_MAX					200
-# define PIXELATION_MIN					4
+# define PIXELATION_INIT				16
+# define PIXELATION_MAX					512
+# define PIXELATION_MIN					4				
 
 # define CAMERA_MOVEMENT_INCREMENT		10
 # define CAMERA_ROTATION_INCREMENT		15
@@ -664,4 +665,8 @@ void   	 init_anaglyph_buffers(t_scene *scene);
 void 		get_final_anaglyph(t_scene *scene, t_mlx *mlx);
 
 t_color	effect_average(t_color color);
+
+
+void	draw_macro_pixel(t_scene *scene, t_color color, int pitch);
+
 #endif

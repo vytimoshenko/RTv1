@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/16 12:05:42 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/16 13:01:03 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,31 +140,11 @@ void		final_processing(t_mlx *mlx, t_scene *scene)
 		scene->in_motion_blur = FALSE;
 		scene->buffer_id = 0;
 	}
-	// if (scene->effect == EFFECT_PIXELATION)
-	// 	effect_pixelation(scene);
+	if (scene->effect == EFFECT_PIXELATION)
+		effect_pixelation(scene);
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 		mlx->data[i] = unite_color_channels(scene->frame_buffer[i]);
-}
-
-void	get_macro_pixel(t_scene *scene, int pitch)
-{
-	int i;
-	int j;
-	t_color tmp;
-
-	tmp = get_average_color(scene, pitch);
-	j = -1;
-	while (++j < scene->pixelation_k)
-	{
-		i = -1;
-		while (++i < scene->pixelation_k)
-		{
-			scene->frame_buffer[pitch + i + (int)(IMG_SIZE_W * j)].r = tmp.r;
-			scene->frame_buffer[pitch + i + (int)(IMG_SIZE_W * j)].g = tmp.g;
-			scene->frame_buffer[pitch + i + (int)(IMG_SIZE_W * j)].b = tmp.b;
-		}
-	}
 }
 
 void	motion_blur(t_color *frame_buffer, t_color **motion_blur_frame_buffers)
@@ -194,72 +174,4 @@ void	motion_blur(t_color *frame_buffer, t_color **motion_blur_frame_buffers)
 	}
 }
 
-t_color	get_average_color(t_scene *scene, int pitch)
-{
-	int		i;
-	int		j;
-	t_color	tmp;
-
-	tmp = (t_color){0, 0, 0};
-	j = -1;
-	while (++j < scene->pixelation_k)
-	{
-		i = -1;
-		while (++i < scene->pixelation_k)
-		{
-			tmp.r += scene->frame_buffer[pitch + i + (int)(IMG_SIZE_W * j)].r;
-			tmp.g += scene->frame_buffer[pitch + i + (int)(IMG_SIZE_W * j)].g;
-			tmp.b += scene->frame_buffer[pitch + i + (int)(IMG_SIZE_W * j)].b;
-		}
-	}
-	tmp.r /= scene->pixelation_k * scene->pixelation_k;
-	tmp.g /= scene->pixelation_k * scene->pixelation_k;
-	tmp.b /= scene->pixelation_k * scene->pixelation_k;
-	return (tmp);
-}
-
-// void	effect_pixelation(t_scene *scene)
-// {
-// 	int pitch;
-// 	int i;
-// 	int k;
-	
-// 	pitch = 0;
-// 	i = IMG_SIZE_H / scene->pixelation_k - 1;
-// 	k = 0;
-// 	while (k < IMG_SIZE_W * IMG_SIZE_H / (scene->pixelation_k * scene->pixelation_k))
-// 	{
-// 		while (pitch < i * IMG_SIZE_W * scene->pixelation_k)
-// 		{
-// 			get_macro_pixel(scene, pitch);
-// 			pitch += scene->pixelation_k;
-// 			k++;
-// 		}
-// 		i++;
-// 		ft_putnbr(pitch);
-// 		ft_putchar('\n');
-// 		// pitch += IMG_SIZE_W * scene->pixelation_k;
-// 	}
-// }
-
-void	effect_pixelation(t_scene *scene)
-{
-	int pitch;
-	int i;
-	
-	pitch = 0;
-	i = IMG_SIZE_H / scene->pixelation_k - 1;
-	while (pitch < IMG_SIZE_W * IMG_SIZE_H)
-	{
-		while (pitch < i * IMG_SIZE_W * scene->pixelation_k)
-		{
-			get_macro_pixel(scene, pitch);
-			pitch += scene->pixelation_k;
-		}
-		i++;
-		// ft_putnbr(pitch);
-		// ft_putchar('\n');
-		// pitch += IMG_SIZE_W * scene->pixelation_k;
-	}
-}
 

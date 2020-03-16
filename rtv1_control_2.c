@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:08:23 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 07:14:06 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/16 16:16:35 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ void	change_effect_grade(t_scene *scene, int key)
 	}
 	else if (scene->effect == EFFECT_PIXELATION)
 	{
-		if (key == MINUS && scene->pixelation_k < PIXELATION_MAX)
-			scene->pixelation_k *= PIXELATION_INCREMENT;
-		else if (key == PLUS && scene->pixelation_k > PIXELATION_MIN)
+		if (key == MINUS && scene->pixelation_k > PIXELATION_MIN)
 			scene->pixelation_k /= PIXELATION_INCREMENT;
+		else if (key == PLUS && scene->pixelation_k < PIXELATION_MAX)
+			scene->pixelation_k *= PIXELATION_INCREMENT;
 	}
 }
 
