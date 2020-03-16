@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_effect_color.c                                :+:      :+:    :+:   */
+/*   rtv1_color_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 07:14:17 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 15:04:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/16 08:05:05 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-t_color	effect_grayscale(t_color color)
-{
-	int tmp;
-
-	tmp = 0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b;
-	color.r = tmp;
-	color.g = tmp;
-	color.b = tmp;
-	return (color);
-}
 
 t_color	effect_average(t_color color)
 {
 	int tmp;
 
 	tmp = (color.r + color.g + color.b) / 3;
+	color.r = tmp;
+	color.g = tmp;
+	color.b = tmp;
+	return (color);
+}
+
+t_color	effect_grayscale(t_color color)
+{
+	int tmp;
+
+	tmp = 0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b;
 	color.r = tmp;
 	color.g = tmp;
 	color.b = tmp;

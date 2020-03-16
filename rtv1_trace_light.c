@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:13:20 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 10:17:22 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/16 06:58:45 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,12 @@ double		diffuse_and_specular_light(t_scene *scene, t_point point,
 	}
 	shadow = get_intersection(scene->objects, point.xyz, l,
 	(t_t_min_max){0, 0.000001, t_max});
-	if (shadow.null)
+//  Be sure to ensure that the ray intersects at a distance less than the light source distance
+	// if (dot(normalize(l), normalize(point.n)) < 0.0)
+	// 	shadow.null = 1;
+	// if (shadow.t1 > length(l) || shadow.t2 > length(l))
+	// 	shadow.null = 1;
+	if (shadow.null /*&& shadow.t1 < length(l) && shadow.t2 < length(l)*/)
 		return (-1);
 	intensity = scene->lights.array[i]->intensity * diffuse(point.n, l);
 	if (point.specular)

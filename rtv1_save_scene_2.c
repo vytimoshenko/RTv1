@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 05:35:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 08:58:34 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/16 08:23:46 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	write_cameras_info(t_scene *scene, int fd)
 	int	i;
 
 	i = -1;
-	while (++i < scene->cameras.quantity - 1)
+	while (++i < scene->cameras.quantity)
 	{
 		ft_putendl_fd(FILE_CAMERA, fd);
 		ft_putstr_fd("{\n\t", fd);
@@ -69,7 +69,7 @@ void	write_lights_info(t_scene *scene, int fd)
 	int	i;
 
 	i = -1;
-	while (++i < scene->lights.quantity - 1)
+	while (++i < scene->lights.quantity)
 	{
 		ft_putendl_fd(FILE_LIGHT, fd);
 		ft_putstr_fd("{\n\t", fd);

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 05:35:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 08:57:04 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/16 08:23:56 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	write_materials_info(t_scene *scene, int fd)
 	int	i;
 
 	i = -1;
-	while (++i < scene->materials.quantity - 1)
+	while (++i < scene->materials.quantity)
 	{
 		ft_putendl_fd(FILE_MATERIAL, fd);
 		ft_putstr_fd("{\n\t", fd);
@@ -54,7 +54,7 @@ void	write_objects_info(t_scene *scene, int fd)
 	int	i;
 
 	i = -1;
-	while (++i < scene->objects.quantity - 1)
+	while (++i < scene->objects.quantity)
 	{
 		ft_putendl_fd(FILE_OBJECT, fd);
 		ft_putstr_fd("{\n\t", fd);
