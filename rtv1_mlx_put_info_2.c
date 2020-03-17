@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/16 12:58:22 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/17 16:03:19 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	put_status_1(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
-		char	*str;
+	char	*str;
 
 	pos_x = WIN_SIZE_W - 350;
 	pos_y = 300;

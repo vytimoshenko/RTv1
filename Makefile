@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/17 14:41:12 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/17 15:06:41 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,12 +36,6 @@ SRC		= 	rtv1_main.c					\
 			rtv1_trace_intersect_2.c	\
 			rtv1_trace_light.c			\
 			rtv1_final_processing.c		\
-			rtv1_mlx_hooks_1.c			\
-			rtv1_mlx_hooks_2.c			\
-			rtv1_mlx_put_info_2.c		\
-			rtv1_mlx_put_info_6.c		\
-			rtv1_mlx_put_info_7.c		\
-			rtv1_put_bottom_line.c		\
 			rtv1_scene_init.c			\
 			rtv1_control_1.c			\
 			rtv1_control_2.c			\
@@ -54,6 +48,12 @@ SRC		= 	rtv1_main.c					\
 			rtv1_effect_anaglyph.c 		\
 			rtv1_effect_antialias_1.c	\
 			rtv1_effect_antialias_2.c	\
+			rtv1_mlx_hooks_1.c			\
+			rtv1_mlx_hooks_2.c			\
+			rtv1_mlx_put_info_2.c		\
+			rtv1_mlx_put_info_6.c		\
+			rtv1_mlx_put_info_7.c		\
+			rtv1_put_bottom_line.c		\
 			rtv1_vector_1.c				\
 			rtv1_vector_2.c				\
 			rtv1_color_1.c				\
