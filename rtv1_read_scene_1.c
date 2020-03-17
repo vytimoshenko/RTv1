@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 07:13:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 04:58:56 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/17 10:27:11 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int		count_items(char *line)
 	i = 0;
 	while (line[i++] != '\0')
 		a = line[i] == '{' ? a + 1 : a;
+	if (a == 0)
+		return (-1);
 	return (a);
 }
 

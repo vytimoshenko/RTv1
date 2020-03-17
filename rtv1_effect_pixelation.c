@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 12:55:58 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/16 16:25:46 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/16 16:30:31 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	effect_pixelation(t_scene *scene)
 		while (x < IMG_SIZE_W / scene->pixelation_k)
 		{
 			pitch = x * scene->pixelation_k + y * IMG_SIZE_W *
-			(scene->pixelation_k - 0);
+			scene->pixelation_k;
 			color = get_average_color(scene, pitch);
 			draw_macro_pixel(scene, color, pitch);
 			x++;
