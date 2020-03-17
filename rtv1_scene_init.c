@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RTv1_scene_init.c                                 :+:      :+:    :+:   */
+/*   rtv1_scene_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/13 01:34:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/02/28 01:54:19 by mperseus         ###   ########.fr       */
+/*   Created: 2020/03/17 14:29:21 by mperseus          #+#    #+#             */
+/*   Updated: 2020/03/17 14:29:37 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_scene	*init_scene(int argc, char **argv)
 {
 	t_scene		*scene;
-	
+
 	if (argc != 2)
 		ft_put_error("usage: RTv1 scene_name.rt");
 	if (!(scene = (t_scene *)ft_memalloc(sizeof(t_scene))))

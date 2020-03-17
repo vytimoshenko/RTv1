@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/16 12:58:07 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/17 14:41:12 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,6 @@ SRC		= 	rtv1_main.c					\
 			rtv1_render.c				\
 			rtv1_init_buffers.c			\
 			rtv1_clean_buffers.c		\
-			rtv1_effect_antialiasing.c	\
-			rtv1_effect_pixelation.c	\
 			rtv1_trace_core.c			\
 			rtv1_trace_intersect_1.c	\
 			rtv1_trace_intersect_2.c	\
@@ -47,15 +45,19 @@ SRC		= 	rtv1_main.c					\
 			rtv1_scene_init.c			\
 			rtv1_control_1.c			\
 			rtv1_control_2.c			\
+			rtv1_control_3.c			\
 			rtv1_control_light.c		\
 			rtv1_control_material.c		\
 			rtv1_interface_help.c		\
 			rtv1_interface_material.c	\
+			rtv1_effect_pixelation.c	\
+			rtv1_effect_anaglyph.c 		\
+			rtv1_effect_antialias_1.c	\
+			rtv1_effect_antialias_2.c	\
 			rtv1_vector_1.c				\
 			rtv1_vector_2.c				\
 			rtv1_color_1.c				\
 			rtv1_color_2.c				\
-			rtv1_effect_anaglyph.c 		\
 			rtv1_other.c
 		
 OBJ		= 	$(SRC:.c=.o)

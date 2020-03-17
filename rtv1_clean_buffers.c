@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/06 06:42:59 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/16 09:07:14 by mperseus         ###   ########.fr       */
+/*   Created: 2020/03/17 14:35:14 by mperseus          #+#    #+#             */
+/*   Updated: 2020/03/17 14:35:17 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void    clean_frame_buffer(t_scene *scene)
+void	clean_frame_buffer(t_scene *scene)
 {
 	int i;
 
@@ -33,7 +33,7 @@ void	clean_object_buffer(t_scene *scene)
 		scene->got_object[i] = FALSE;
 }
 
-void    clean_depth_buffer(t_scene *scene)
+void	clean_depth_buffer(t_scene *scene)
 {
 	int i;
 
@@ -45,7 +45,7 @@ void    clean_depth_buffer(t_scene *scene)
 		scene->got_depth[i] = FALSE;
 }
 
-void    clean_aliasing_buffer(t_scene *scene)
+void	clean_aliasing_buffer(t_scene *scene)
 {
 	int i;
 
@@ -54,7 +54,7 @@ void    clean_aliasing_buffer(t_scene *scene)
 		scene->aliasing_buffer[i] = FALSE;
 }
 
-void    clean_anaglyph_buffers(t_scene *scene)
+void	clean_anaglyph_buffers(t_scene *scene)
 {
 	int i;
 

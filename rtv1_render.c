@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/16 13:01:03 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/17 14:32:23 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,30 +36,6 @@ void	trace_rays(t_scene *scene)
 	fill_aliasing_buffer(scene);
 	if (scene->anti_aliasing == TRUE)
 		run_anti_aliasing(scene);
-}
-
-void	run_anti_aliasing(t_scene *scene)
-{
-	t_pixel		pixel;
-	double		jitter[MULTI_SAMPLING_RATE];
-	int			i;
-	
-	get_jitter(jitter);
-	pixel.x = -IMG_SIZE_W / 2;
-	while (++pixel.x <= IMG_SIZE_W / 2)
-	{
-		pixel.y = -IMG_SIZE_H / 2;
-		while (++pixel.y <= IMG_SIZE_H / 2)
-		{
-			i = (int)(IMG_SIZE_W * (IMG_SIZE_H / 2 - pixel.y - 1) +
-			IMG_SIZE_W / 2 + pixel.x);
-			if (scene->aliasing_buffer[i])
-			{
-				get_multisample_color(scene, &pixel, jitter);
-				fill_frame_buffer(scene, pixel);
-			}
-		}
-	}
 }
 
 void	get_pixel_position(t_scene *scene, t_pixel *pixel)
@@ -121,7 +97,7 @@ void		final_processing(t_mlx *mlx, t_scene *scene)
 	{
 		i = -1;
 		while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		scene->motion_blur_buffers[scene->buffer_id][i] = scene->frame_buffer[i];
+			scene->motion_blur_buffers[scene->buffer_id][i] = scene->frame_buffer[i];
 		++scene->buffer_id;
 	}
 	if (scene->in_motion_blur == TRUE && scene->buffer_id == MOTION_BLUR_BUFFERS - 1)
@@ -154,7 +130,7 @@ void	motion_blur(t_color *frame_buffer, t_color **motion_blur_frame_buffers)
 	int sum_r;
 	int sum_g;
 	int sum_b;
-	
+
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 	{
@@ -173,5 +149,3 @@ void	motion_blur(t_color *frame_buffer, t_color **motion_blur_frame_buffers)
 		frame_buffer[i].b = (int)(sum_b / MOTION_BLUR_BUFFERS);
 	}
 }
-
-

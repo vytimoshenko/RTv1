@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 23:04:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/15 08:38:52 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/17 14:27:59 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ void	plane(t_object *object, t_vector camera, t_vector pixel)
 	double		t;
 	t_vector	n;
 	t_vector	x;
-	
+	double		xdn;
+	double		pdn;
+
 	n = object->position;
 	x = substract(camera, n);
-	double xdn = dot(x, n);
-	double pdn = dot(pixel, n);
+	xdn = dot(x, n);
+	pdn = dot(pixel, n);
 	if (!pdn)
 	{
 		object->t1 = -1;
@@ -72,9 +74,12 @@ void	cylinder(t_object *object, t_vector camera, t_vector pixel)
 
 	object->position = normalize(object->position);
 	r = substract(camera, object->position);
-	k1 = dot(pixel, pixel) - dot(pixel, object->position) * dot(pixel, object->position);
-	k2 = 2 * dot(pixel, r) - 2 * dot(pixel, object->position) * dot(r, object->position);
-	k3 = dot(r, r) - dot(r, object->position) * dot(r, object->position) - object->radius * object->radius;
+	k1 = dot(pixel, pixel) - dot(pixel, object->position) *
+	dot(pixel, object->position);
+	k2 = 2 * dot(pixel, r) - 2 * dot(pixel, object->position) *
+	dot(r, object->position);
+	k3 = dot(r, r) - dot(r, object->position) * dot(r, object->position) -
+	object->radius * object->radius;
 	d = k2 * k2 - 4 * k1 * k3;
 	if (d < 0)
 	{
@@ -86,7 +91,6 @@ void	cylinder(t_object *object, t_vector camera, t_vector pixel)
 	object->t2 = (-k2 - sqrt(d)) / (2 * k1);
 }
 
-
 void	cone(t_object *object, t_vector camera, t_vector pixel)
 {
 	t_vector	r;
@@ -97,9 +101,12 @@ void	cone(t_object *object, t_vector camera, t_vector pixel)
 
 	object->position = normalize(object->position);
 	r = substract(camera, object->position);
-	k1 = dot(pixel, pixel) - (1 + object->k * object->k) * dot(pixel, object->position) * dot(pixel, object->position);
-	k2 = 2 * dot(pixel, r) - 2 * (1 + object->k * object->k) * dot(pixel, object->position) * dot(r, object->position);
-	k3 = dot(r, r) - (1 + object->k * object->k) * dot(r, object->position) * dot(r, object->position);
+	k1 = dot(pixel, pixel) - (1 + object->k * object->k) *
+	dot(pixel, object->position) * dot(pixel, object->position);
+	k2 = 2 * dot(pixel, r) - 2 * (1 + object->k * object->k) *
+	dot(pixel, object->position) * dot(r, object->position);
+	k3 = dot(r, r) - (1 + object->k * object->k) * dot(r, object->position)
+	* dot(r, object->position);
 	d = k2 * k2 - 4 * k1 * k3;
 	if (d < 0)
 	{

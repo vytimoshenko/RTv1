@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_effect_antialiasing.c                         :+:      :+:    :+:   */
+/*   rtv1_effect_antialiasing_1.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 07:09:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/16 14:26:00 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/17 14:18:01 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,6 @@ void	get_multisample_color(t_scene *scene, t_pixel *pixel, double *jitter)
 	pixel->color.r = (int)(sum.r / (MULTI_SAMPLING_RATE));
 	pixel->color.g = (int)(sum.g / (MULTI_SAMPLING_RATE));
 	pixel->color.b = (int)(sum.b / (MULTI_SAMPLING_RATE));
-}
-
-void	get_jitter(double *random)
-{
-	int i;
-
-	srand(42);
-	i = -1;
-	while (++i <= MULTI_SAMPLING_RATE)
-	{
-		random[i] = (rand() % 100 + 1.0) / 5000.0;
-		if (i % 2)
-			random[i] *= -1;
-	}
 }
 
 void	aliasing_buffer_rate(t_scene *scene)

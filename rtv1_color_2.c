@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 07:14:17 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/16 08:49:39 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/17 14:36:07 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ t_color	effect_cartoon(t_color color)
 
 t_color	effect_depth(t_scene *scene, int i)
 {
-	double  tmp;
+	double	tmp;
 	t_color color;
-	
+
 	tmp = scene->depth_buffer[i];
 	tmp = (int)(scene->depth_map_k / log(0.05 * (double)tmp));
 	if (tmp > 255)

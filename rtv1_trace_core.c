@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/16 06:58:40 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/17 14:28:55 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,6 @@ void	get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int k)
 	}
 }
 
-void	fill_depth_buffer(t_scene *scene, t_pixel pixel, double close)
-{
-	int	i;
-
-	pixel.x = IMG_SIZE_W / 2 + pixel.x;
-	pixel.y = IMG_SIZE_H / 2 - pixel.y;
-	i = (int)(IMG_SIZE_W * (pixel.y - 1) + pixel.x);
-	if (i > 0 && scene->got_depth[i] == FALSE)
-	{
-		scene->depth_buffer[i] = close;
-		scene->got_depth[i] = TRUE;
-	}
-}
-
 void	get_point_properties(t_scene *scene, t_point *point, t_object *object)
 {
 	get_normal(point, object);
@@ -77,6 +63,20 @@ void	get_normal(t_point *point, t_object *object)
 		point->n = substract(point->xyz, object->position);
 	else if (object->type == OBJECT_TYPE_CONE)
 		point->n = substract(point->xyz, object->position);
+}
+
+void	fill_depth_buffer(t_scene *scene, t_pixel pixel, double close)
+{
+	int	i;
+
+	pixel.x = IMG_SIZE_W / 2 + pixel.x;
+	pixel.y = IMG_SIZE_H / 2 - pixel.y;
+	i = (int)(IMG_SIZE_W * (pixel.y - 1) + pixel.x);
+	if (i > 0 && scene->got_depth[i] == FALSE)
+	{
+		scene->depth_buffer[i] = close;
+		scene->got_depth[i] = TRUE;
+	}
 }
 
 void	fill_object_buffer(t_scene *scene, t_pixel pixel, int id)
