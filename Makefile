@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/17 15:06:41 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/19 13:59:20 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,51 +14,13 @@ NAME	= 	RTv1
 
 HDR		= 	rtv1.h
 
-SRC		= 	rtv1_main.c					\
-			rtv1_read_scene_1.c 		\
-			rtv1_read_scene_2.c 		\
-			rtv1_read_scene_3.c 		\
-			rtv1_read_scene_4.c 		\
-			rtv1_read_scene_5.c 		\
-			rtv1_read_scene_6.c 		\
-			rtv1_read_scene_7.c	 		\
-			rtv1_save_scene_1.c			\
-			rtv1_save_scene_2.c			\
-			rtv1_save_scene_3.c			\
-			rtv1_save_screenshot.c		\
-			rtv1_mlx_init.c				\
-			rtv1_loop.c					\
-			rtv1_render.c				\
-			rtv1_init_buffers.c			\
-			rtv1_clean_buffers.c		\
-			rtv1_trace_core.c			\
-			rtv1_trace_intersect_1.c	\
-			rtv1_trace_intersect_2.c	\
-			rtv1_trace_light.c			\
-			rtv1_final_processing.c		\
-			rtv1_scene_init.c			\
-			rtv1_control_1.c			\
-			rtv1_control_2.c			\
-			rtv1_control_3.c			\
-			rtv1_control_light.c		\
-			rtv1_control_material.c		\
-			rtv1_interface_help.c		\
-			rtv1_interface_material.c	\
-			rtv1_effect_pixelation.c	\
-			rtv1_effect_anaglyph.c 		\
-			rtv1_effect_antialias_1.c	\
-			rtv1_effect_antialias_2.c	\
-			rtv1_mlx_hooks_1.c			\
-			rtv1_mlx_hooks_2.c			\
-			rtv1_mlx_put_info_2.c		\
-			rtv1_mlx_put_info_6.c		\
-			rtv1_mlx_put_info_7.c		\
-			rtv1_put_bottom_line.c		\
-			rtv1_vector_1.c				\
-			rtv1_vector_2.c				\
-			rtv1_color_1.c				\
-			rtv1_color_2.c				\
-			rtv1_other.c
+SRC		= 	$(wildcard src_start/*.c)		\
+			$(wildcard src_file/*.c)		\
+			$(wildcard src_trace/*.c)		\
+			$(wildcard src_effect/*.c)		\
+			$(wildcard src_control/*.c)		\
+			$(wildcard src_interface/*.c)	\
+			$(wildcard src_other/*.c)
 		
 OBJ		= 	$(SRC:.c=.o)
 

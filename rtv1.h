@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/16 16:21:08 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 14:07:44 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,21 @@
 # include "./SDL2/headers/SDL_image.h"
 # include <math.h>
 # include <sys/time.h>
+// # include ".src_file/rtv1_file.h"
 
 # define PROGRAM_NAME					"RTv1"
 
 # define SAVE_PATH						"./saves/"
 # define SCREENSHOT_PATH				"./screenshots/"
 
-# define WIN_SIZE_W						1916
-# define WIN_SIZE_H						1064
-# define IMG_SIZE_W						1536.0
-# define IMG_SIZE_H						1024.0
+// # define WIN_SIZE_W						1916
+// # define WIN_SIZE_H						1064
+// # define IMG_SIZE_W						1536.0
+// # define IMG_SIZE_H						1024.0
+# define WIN_SIZE_W						1316
+# define WIN_SIZE_H						664
+# define IMG_SIZE_W						936.0
+# define IMG_SIZE_H						624.0
 # define IMG_INDT_W						10
 # define IMG_INDT_H						10
 
@@ -166,6 +171,7 @@
 # define W								13
 # define E								14
 # define Y								16
+# define T								17
 # define PLUS							24
 # define MINUS							27
 # define O								31
@@ -379,6 +385,7 @@ typedef struct			s_scene
 	int					material_target;
 
 	int					show_help;
+	int					show_info;
 
 	int					quantity_lines;
 }						t_scene;
