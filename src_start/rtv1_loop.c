@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 14:47:13 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 22:29:06 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	draw(t_global *global)
 	gettimeofday(&end, NULL);
 	count_frames(global->mlx, start, end);
 	show_interface(global);
-	if (global->scene->in_motion_blur == TRUE)
-		keyboard_key_press(ARROW_LEFT, global);
 }
 
 void	count_frames(t_mlx *mlx, struct timeval start, struct timeval end)

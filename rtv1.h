@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 22:16:41 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 22:25:14 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,11 +359,6 @@ typedef struct			s_scene
 
 	t_color				*anaglif_left_buffer;
 
-	int					in_motion_blur;
-	int					motion_blur_key;
-	int					buffer_id;
-	t_color				**motion_blur_buffers;
-
 	double				*depth_buffer;
 	int					*got_depth;
 	t_color				*depth_frame_buffer;
@@ -506,8 +501,6 @@ void		put_error_pn(char *str);
 void		get_lights_statistics(t_scene *scene);
 void		get_objects_statistics(t_scene *scene);
 
-void    	init_motion_blur_buffer(t_scene *scene);
-
 void		get_macro_pixel(t_scene *scene, int pitch);
 void		pick_color(t_scene *scene, int x, int y);
 
@@ -527,8 +520,6 @@ t_color		effect_outline(t_scene *scene, int i);
 t_color		mix_color(t_color c1, t_color c2);
 void		change_effect_grade(t_scene *scene, int key);
 
-void		motion_blur_script(t_global *global);
-void		motion_blur(t_color *frame_buffer, t_color **motion_blur_frame_buffers);
 void		effect_pixelation(t_scene *scene);
 
 //ANTIALIASING

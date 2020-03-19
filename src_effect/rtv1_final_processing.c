@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 22:22:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 18:54:03 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 22:29:46 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_color		pixel_post_processing(t_scene *scene, int i, t_color color)
 {
-	if (scene->active_object != NOTHING_SELECTED && scene->in_motion_blur == FALSE)
+	if (scene->active_object != NOTHING_SELECTED)
 		color = shade_unselesected(scene, i, color);
 	if (scene->effect == EFFECT_GRAYSCALE)
 		color = effect_grayscale(color);

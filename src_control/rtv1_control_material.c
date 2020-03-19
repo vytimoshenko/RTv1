@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 07:13:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 13:25:21 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 22:23:51 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,3 @@ void	change_material(t_scene *scene, int key)
 			scene->active_material = scene->materials.quantity - 1;
 	}
 }
-
-// void	change_material_reflective(t_scene *scene, int key)
-// {
-// 	int i;
-
-// 	i = scene->active_material;
-// 	if (scene->active_material != NOTHING_SELECTED)
-// 	{
-// 		if (key == MINUS && scene->materials.array[i]->intensity >
-// 		material_INTENSITY_MIN + material_INTENSITY_INCREMENT)
-// 			scene->materials.array[i]->intensity -= material_INTENSITY_INCREMENT;
-// 		else if (key == PLUS && scene->materials.array[i]->intensity <
-// 		material_INTENSITY_MAX)
-// 			scene->materials.array[i]->intensity += material_INTENSITY_INCREMENT;
-// 		if (key == O && scene->materials.array[i]->off == TRUE)
-// 			scene->materials.array[i]->off = FALSE;
-// 		else if (key == O && scene->materials.array[i]->off == FALSE)
-// 			scene->materials.array[i]->off = TRUE;
-// 	}
-// }

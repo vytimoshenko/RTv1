@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 20:36:34 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 22:21:21 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,29 +93,6 @@ void		final_processing(t_mlx *mlx, t_scene *scene)
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 		scene->frame_buffer[i] = pixel_post_processing(scene, i,
 		scene->frame_buffer[i]);
-	if (scene->in_motion_blur == TRUE && scene->buffer_id != MOTION_BLUR_BUFFERS - 1)
-	{
-		i = -1;
-		while (++i < IMG_SIZE_W * IMG_SIZE_H)
-			scene->motion_blur_buffers[scene->buffer_id][i] = scene->frame_buffer[i];
-		++scene->buffer_id;
-	}
-	if (scene->in_motion_blur == TRUE && scene->buffer_id == MOTION_BLUR_BUFFERS - 1)
-	{
-		motion_blur(scene->frame_buffer, scene->motion_blur_buffers);
-		i = -1;
-		while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		{
-			if (scene->object_buffer[i] == scene->active_object)
-			{
-				scene->frame_buffer[i].r = scene->motion_blur_buffers[MOTION_BLUR_BUFFERS - 2][i].r;
-				scene->frame_buffer[i].g = scene->motion_blur_buffers[MOTION_BLUR_BUFFERS - 2][i].g;
-				scene->frame_buffer[i].b = scene->motion_blur_buffers[MOTION_BLUR_BUFFERS - 2][i].b;
-			}
-		}
-		scene->in_motion_blur = FALSE;
-		scene->buffer_id = 0;
-	}
 	if (scene->effect == EFFECT_PIXELATION)
 		effect_pixelation(scene);
 	i = -1;
