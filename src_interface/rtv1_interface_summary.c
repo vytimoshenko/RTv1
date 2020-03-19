@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_interface_summary.c                           :+:      :+:    :+:   */
+/*   rtv1_interface_info.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 03:05:11 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 12:48:15 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 14:48:52 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
 
-void	put_scene_summary_1(t_scene *scene, t_mlx *mlx)
+void	show_scene_info(t_global *global)
+{
+	draw_box(global->mlx, INFO_BOX_W, INFO_BOX_H);
+	put_scene_info_1(global->scene, global->mlx);
+	put_scene_info_2(global->scene, global->mlx);
+	put_scene_info_3(global->scene, global->mlx);
+	put_scene_info_4(global->scene, global->mlx);
+}
+
+void	put_scene_info_1(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -37,7 +46,7 @@ void	put_scene_summary_1(t_scene *scene, t_mlx *mlx)
 	free(str);
 }
 
-void	put_scene_summary_2(t_scene *scene, t_mlx *mlx)
+void	put_scene_info_2(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -62,7 +71,7 @@ void	put_scene_summary_2(t_scene *scene, t_mlx *mlx)
 	free(str);
 }
 
-void	put_scene_summary_3(t_scene *scene, t_mlx *mlx)
+void	put_scene_info_3(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -87,7 +96,7 @@ void	put_scene_summary_3(t_scene *scene, t_mlx *mlx)
 	free(str);
 }
 
-void	put_scene_summary_4(t_scene *scene, t_mlx *mlx)
+void	put_scene_info_4(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -112,7 +121,7 @@ void	put_scene_summary_4(t_scene *scene, t_mlx *mlx)
 	free(str);
 }
 
-void	put_scene_summary_5(t_scene *scene, t_mlx *mlx)
+void	put_scene_info_5(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;

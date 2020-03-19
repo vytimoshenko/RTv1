@@ -6,13 +6,13 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:16:54 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 13:12:34 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 20:35:45 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
 
-void	run_anti_aliasing(t_scene *scene)
+void	run_antialiasing(t_scene *scene)
 {
 	t_pixel		pixel;
 	double		jitter[MULTI_SAMPLING_RATE];

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 14:07:44 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 22:16:41 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "./SDL2/headers/SDL_image.h"
 # include <math.h>
 # include <sys/time.h>
-// # include ".src_file/rtv1_file.h"
+// # include "./src_file/rtv1_file.h"
 
 # define PROGRAM_NAME					"RTv1"
 
@@ -31,10 +31,10 @@
 // # define WIN_SIZE_H						1064
 // # define IMG_SIZE_W						1536.0
 // # define IMG_SIZE_H						1024.0
-# define WIN_SIZE_W						1316
-# define WIN_SIZE_H						664
-# define IMG_SIZE_W						936.0
-# define IMG_SIZE_H						624.0
+# define WIN_SIZE_W						1340
+# define WIN_SIZE_H						808
+# define IMG_SIZE_W						960.0
+# define IMG_SIZE_H						768.0
 # define IMG_INDT_W						10
 # define IMG_INDT_H						10
 
@@ -92,7 +92,8 @@
 # define FILE_OBJECT_ORIENTATION		"orientation"
 # define FILE_OBJECT_RADIUS				"radius"
 
-# define VIEWPORT_SIZE_W				1.5
+// # define VIEWPORT_SIZE_W				1.5
+# define VIEWPORT_SIZE_W				1.25
 # define VIEWPORT_SIZE_H				1
 # define VIEWPORT_DISTANCE				1
 
@@ -114,34 +115,40 @@
 # define OBJECT_SELECTED				1
 # define SHADE_UNSELECTED				0.5
 
-
 # define MOTION_BLUR_BUFFERS			20
 
-# define EFFECTS_QUANTITY				11
+# define EFFECTS_QUANTITY				6
 # define NO_EFFECT						0
-# define EFFECT_PIXELATION				1
-# define EFFECT_CARTOON					8
-# define EFFECT_GRAYSCALE				3
-# define EFFECT_NEGATIVE				4
-# define EFFECT_RED_CHANNEL				5
-# define EFFECT_GREEN_CHANNEL			6
-# define EFFECT_BLUE_CHANNEL			7
-# define EFFECT_DEPTH_MAP				10
-# define EFFECT_FOG						9
-# define EFFECT_OUTLINE_MAP				2
+# define EFFECT_GRAYSCALE				1
+# define EFFECT_NEGATIVE				2
+# define EFFECT_CARTOON					3
+# define EFFECT_PIXELATION				4
+# define EFFECT_DEPTH					5
+# define EFFECT_OUTLINE					6
 
 # define ANTIALIASING_COLOR_THRESHOLD	16
-# define ANTIALIASING_ADJACENT_PIXELS	4
+# define ANTIALIASING_OUTLINE_WIDTH		3
 # define MULTI_SAMPLING_RATE			8
 
-# define DEPTH_MAP_INCREMENT			2
-# define DEPTH_MAP_MIN					8
-# define DEPTH_MAP_MAX					1024
+# define CARTOON_INCREMENT				2
+# define CARTOON_INIT					16
+# define CARTOON_MAX					64
+# define CARTOON_MIN					8
 
 # define PIXELATION_INCREMENT			2
 # define PIXELATION_INIT				16
-# define PIXELATION_MAX					512
-# define PIXELATION_MIN					4				
+# define PIXELATION_MAX					256
+# define PIXELATION_MIN					4
+		
+# define DEPTH_MAP_INCREMENT			2
+# define DEPTH_MAP_INIT					128
+# define DEPTH_MAP_MIN					32
+# define DEPTH_MAP_MAX					512
+
+# define OUTLINE_INCREMENT				1
+# define OUTLINE_INIT					2
+# define OUTLINE_MIN					0
+# define OUTLINE_MAX					4
 
 # define CAMERA_MOVEMENT_INCREMENT		10
 # define CAMERA_ROTATION_INCREMENT		15
@@ -359,20 +366,20 @@ typedef struct			s_scene
 
 	double				*depth_buffer;
 	int					*got_depth;
-	int					depth_map_k;
 	t_color				*depth_frame_buffer;
 
 	int					*object_buffer;
 	int					*got_object;
 
-	int					anti_aliasing;
+	int					antialiasing;
 	int					*aliasing_buffer;
 	double				aliasing_rate;
 
 	int					effect;
 
-	int					pixelation_k;
-
+	int					k_cartoon;
+	int					k_pixelation;
+	int					k_depth_map;
 	int					got_color;
 	t_color				picked_color;
 
@@ -525,12 +532,11 @@ void		motion_blur(t_color *frame_buffer, t_color **motion_blur_frame_buffers);
 void		effect_pixelation(t_scene *scene);
 
 //ANTIALIASING
-void		run_anti_aliasing(t_scene *scene);
+void		run_antialiasing(t_scene *scene);
 void		get_multisample_color(t_scene *scene, t_pixel *pixel, double *rand);
 int			need_to_smooth(t_scene *scene, int i);
 void		add_adjacent_pixels(t_scene *scene, int i);
 void		get_jitter(double *random);
-void		aliasing_buffer_rate(t_scene *scene);
 
 void		get_normal(t_point *point, t_object *object);
 void		get_point_properties(t_scene *scene, t_point *point, t_object *object);
@@ -578,7 +584,7 @@ t_color		pixel_post_processing(t_scene *scene, int i, t_color color);
 t_color		shade_unselesected(t_scene *scene, int i, t_color color);
 t_color		effect_grayscale(t_color color);
 t_color		effect_negative(t_color color);
-t_color		effect_cartoon(t_color color);
+t_color		effect_cartoon(t_scene *scene, t_color color);
 
 //RAYTRACING
 
@@ -628,15 +634,19 @@ t_color		add_color(t_color c1, t_color c2);
 t_color		multiply_color(double k, t_color c);
 
 //INTERFACE
-void		put_scene_summary_1(t_scene *scene, t_mlx *mlx);
-void		put_scene_summary_2(t_scene *scene, t_mlx *mlx);
-void		put_scene_summary_3(t_scene *scene, t_mlx *mlx);
-void		put_scene_summary_4(t_scene *scene, t_mlx *mlx);
-void		put_scene_summary_5(t_scene *scene, t_mlx *mlx);
+void		show_scene_info(t_global *global);
+void		put_scene_info_1(t_scene *scene, t_mlx *mlx);
+void		put_scene_info_2(t_scene *scene, t_mlx *mlx);
+void		put_scene_info_3(t_scene *scene, t_mlx *mlx);
+void		put_scene_info_4(t_scene *scene, t_mlx *mlx);
+void		put_scene_info_5(t_scene *scene, t_mlx *mlx);
 
-void		put_status_1(t_scene *scene, t_mlx *mlx);
-void		put_status_2(t_scene *scene, t_mlx *mlx);
-void		put_status_3(t_scene *scene, t_mlx *mlx);
+void		put_effect_1(t_scene *scene, t_mlx *mlx);
+void		put_effect_2(t_scene *scene, t_mlx *mlx);
+void		put_effect_3(t_scene *scene, t_mlx *mlx);
+void		put_camera_1(t_scene *scene, t_mlx *mlx);
+void		put_camera_2(t_scene *scene, t_mlx *mlx);
+
 void		object_info_1(t_scene *scene, t_mlx *mlx);
 void		light_info(t_scene *scene, t_mlx *mlx);
 void		put_status_5(t_scene *scene, t_mlx *mlx);

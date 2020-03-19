@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 07:09:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 13:12:29 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 20:32:40 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	fill_aliasing_buffer(t_scene *scene)
 		if (scene->aliasing_buffer[i])
 			add_adjacent_pixels(scene, i);
 	}
-	aliasing_buffer_rate(scene);
 }
 
 int		need_to_smooth(t_scene *scene, int i)
@@ -50,12 +49,12 @@ void	add_adjacent_pixels(t_scene *scene, int pos)
 	int	y;
 	int	i;
 
-	y = ANTIALIASING_ADJACENT_PIXELS;
-	while (y >= -ANTIALIASING_ADJACENT_PIXELS)
+	y = ANTIALIASING_OUTLINE_WIDTH;
+	while (y >= -ANTIALIASING_OUTLINE_WIDTH)
 	{
 		i = pos - y * IMG_SIZE_W;
-		x = ANTIALIASING_ADJACENT_PIXELS;
-		while (x >= -ANTIALIASING_ADJACENT_PIXELS)
+		x = ANTIALIASING_OUTLINE_WIDTH;
+		while (x >= -ANTIALIASING_OUTLINE_WIDTH)
 		{
 			if (i - x > 0 && i - x < IMG_SIZE_W * IMG_SIZE_H)
 				scene->aliasing_buffer[i - x] = TRUE;
@@ -92,17 +91,4 @@ void	get_multisample_color(t_scene *scene, t_pixel *pixel, double *jitter)
 	pixel->color.r = (int)(sum.r / (MULTI_SAMPLING_RATE));
 	pixel->color.g = (int)(sum.g / (MULTI_SAMPLING_RATE));
 	pixel->color.b = (int)(sum.b / (MULTI_SAMPLING_RATE));
-}
-
-void	aliasing_buffer_rate(t_scene *scene)
-{
-	int	i;
-	int	p;
-
-	i = -1;
-	p = 0;
-	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		p = scene->aliasing_buffer[i] == TRUE ? p + 1 : p;
-	scene->aliasing_rate = p / (IMG_SIZE_W * IMG_SIZE_H);
-	printf("buffer: %d rate: %f\n", p, scene->aliasing_rate);
 }

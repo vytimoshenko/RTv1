@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:37:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 13:25:14 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 19:51:50 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,26 @@ void	change_effect(t_scene *scene)
 
 void	change_effect_grade(t_scene *scene, int key)
 {
-	if (scene->effect == EFFECT_DEPTH_MAP || scene->effect == EFFECT_FOG)
+	if (scene->effect == EFFECT_CARTOON)
 	{
-		if (key == MINUS && scene->depth_map_k < DEPTH_MAP_MAX)
-			scene->depth_map_k *= DEPTH_MAP_INCREMENT;
-		else if (key == PLUS && scene->depth_map_k > DEPTH_MAP_MIN)
-			scene->depth_map_k /= DEPTH_MAP_INCREMENT;
+		if (key == MINUS && scene->k_cartoon > CARTOON_MIN)
+			scene->k_cartoon /= CARTOON_INCREMENT;
+		else if (key == PLUS && scene->k_cartoon < CARTOON_MAX)
+			scene->k_cartoon *= CARTOON_INCREMENT;
 	}
 	else if (scene->effect == EFFECT_PIXELATION)
 	{
-		if (key == MINUS && scene->pixelation_k > PIXELATION_MIN)
-			scene->pixelation_k /= PIXELATION_INCREMENT;
-		else if (key == PLUS && scene->pixelation_k < PIXELATION_MAX)
-			scene->pixelation_k *= PIXELATION_INCREMENT;
+		if (key == MINUS && scene->k_pixelation > PIXELATION_MIN)
+			scene->k_pixelation /= PIXELATION_INCREMENT;
+		else if (key == PLUS && scene->k_pixelation < PIXELATION_MAX)
+			scene->k_pixelation *= PIXELATION_INCREMENT;
+	}
+	else if (scene->effect == EFFECT_DEPTH)
+	{
+		if (key == MINUS && scene->k_depth_map > DEPTH_MAP_MIN)
+			scene->k_depth_map /= DEPTH_MAP_INCREMENT;
+		else if (key == PLUS && scene->k_depth_map < DEPTH_MAP_MAX)
+			scene->k_depth_map *= DEPTH_MAP_INCREMENT;
 	}
 }
 

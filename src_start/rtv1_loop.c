@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 13:46:36 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 14:47:13 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,28 +55,4 @@ void	update_interface_only(t_global *global)
 	show_interface(global);
 }
 
-void	show_interface(t_global *global)
-{
-	put_scene_summary_1(global->scene, global->mlx);
-	put_scene_summary_2(global->scene, global->mlx);
-	put_scene_summary_3(global->scene, global->mlx);
-	put_scene_summary_4(global->scene, global->mlx);
-	put_status_1(global->scene, global->mlx);
-	put_status_2(global->scene, global->mlx);
-	put_status_3(global->scene, global->mlx);
-	object_info_1(global->scene, global->mlx);
-	light_info(global->scene, global->mlx);
-	material_info(global->scene, global->mlx);
-	put_status_5(global->scene, global->mlx);
-	put_status_5a(global->scene, global->mlx);
-	put_status_6(global->scene, global->mlx);
-	info_render_1(global->mlx);
-	info_render_2(global->mlx);
-	info_help(global->mlx);
-	put_coordinates(global->scene, global->mlx);
-	if (global->scene->got_color == TRUE)
-		put_color(global->scene, global->mlx);
-	put_scene_file_name(global->scene, global->mlx);
-	if (global->scene->show_help == TRUE)
-		show_help(global);
-}
+

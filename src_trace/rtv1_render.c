@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 13:47:41 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 20:36:34 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void		fill_frame_buffer(t_scene *scene, t_pixel pixel)
 {
 	int i;
 
-	pixel.x = IMG_SIZE_W / 2 + pixel.x - 1;
+	pixel.x = IMG_SIZE_W / 2 + pixel.x;
 	pixel.y = IMG_SIZE_H / 2 - pixel.y;
 	i = (int)(IMG_SIZE_W * pixel.y + pixel.x);
 	scene->frame_buffer[i] = pixel.color;
@@ -87,8 +87,8 @@ void		final_processing(t_mlx *mlx, t_scene *scene)
 	int	i;
 
 	fill_aliasing_buffer(scene);
-	if (scene->anti_aliasing == TRUE)
-		run_anti_aliasing(scene);
+	if (scene->antialiasing == TRUE)
+		run_antialiasing(scene);
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 		scene->frame_buffer[i] = pixel_post_processing(scene, i,

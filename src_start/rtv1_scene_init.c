@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:29:21 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 13:46:49 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 19:52:27 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_scene	*init_scene(int argc, char **argv)
 	init_aliasing_buffer(scene);
 	init_object_buffer(scene);
 	init_anaglyph_buffers(scene);
-	scene->pixelation_k = PIXELATION_INIT;
 	get_sin_cos(scene->cameras.array[scene->active_camera]);
 	scene->file_name_with_path = ft_strdup(argv[1]);
 	return (scene);
@@ -39,9 +38,9 @@ t_scene	*init_scene(int argc, char **argv)
 void	set_initial_status(t_scene *scene)
 {
 	scene->background = (t_color){0, 0, 0};
-	scene->depth_map_k = 64;
-	scene->pixelation_k = PIXELATION_MIN;
-	scene->pixelation_k = 256;
+	scene->k_cartoon = CARTOON_INIT;
+	scene->k_pixelation = PIXELATION_INIT;
+	scene->k_depth_map = DEPTH_MAP_INIT;
 	scene->active_camera = 0;
 	scene->active_light = NOTHING_SELECTED;
 	scene->active_material = NOTHING_SELECTED;

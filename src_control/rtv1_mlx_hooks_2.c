@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 10:25:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 13:25:31 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/19 20:38:13 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		keyboard_key_press(int key, t_global *global)
 {
-	if (key == Y)
+	if (key == P)
 	{
 		update_interface_only(global);
 		save_screenshot(global->scene, global->mlx);
@@ -59,19 +59,25 @@ int		keyboard_key_press(int key, t_global *global)
 	// else if (key == M)
 	// 	global->scene->in_motion_blur = TRUE;
 	else if (key == T)
-		global->scene->anti_aliasing = global->scene->anti_aliasing == TRUE ?
+		global->scene->antialiasing = global->scene->antialiasing == TRUE ?
 		FALSE : TRUE;
 	else if (key == PLUS || key == MINUS || key == O)
 	{
 		change_effect_grade(global->scene, key);
 		change_light_intensity(global->scene, key);
+		update_interface_only(global);
 	}
 	else if (key == L || key == HOME || key == END)
 		change_light(global->scene, key);
 	else if (key == M || key == HOME || key == END)
 		change_material(global->scene, key);
-	else if (key == Q || key == ESC || key == SPACE || key == E)
+	else if (key == Q || key == ESC || key == SPACE)
 		keyboard_key_press_extra_1(key, global);
+	else if (key == E)
+	{
+		change_effect(global->scene);
+		update_interface_only(global);
+	}
 	else
 		return (0);
 	draw(global);
@@ -94,8 +100,7 @@ void	keyboard_key_press_extra_1(int key, t_global *global)
 		global->scene->effect = NO_EFFECT;
 	else if (key == SPACE)
 		change_camera(global->scene);
-	else if (key == E)
-		change_effect(global->scene);
+	
 }
 
 void	keyboard_key_press_extra_1(int key, t_global *global);
