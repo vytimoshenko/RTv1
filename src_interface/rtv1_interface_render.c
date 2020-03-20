@@ -6,11 +6,12 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/01 18:27:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 21:01:52 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/20 16:39:14 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
+#include "../rtv1_interface.h"
 
 void	info_render_1(t_mlx *mlx)
 {
@@ -56,4 +57,3 @@ void	info_render_2(t_mlx *mlx)
 	str = ft_itoa(mlx->frame_time));
 	free(str);
 }
-

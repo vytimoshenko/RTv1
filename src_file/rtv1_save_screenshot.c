@@ -6,11 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 01:37:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 14:08:30 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/20 14:56:42 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rtv1.h"
+#include "../rtv1_file.h"
 
 void	save_screenshot(t_scene *scene, t_mlx *mlx)
 {
@@ -27,7 +27,7 @@ void	save_screenshot(t_scene *scene, t_mlx *mlx)
 		put_error_pn("SDL_CreateRGBSurfaceFrom");
 	if (IMG_SaveJPG(surface, file_name, 100))
 		put_error_pn("IMG_SaveJPG");
-	message_box(mlx, SCREENSHOT_MESSAGE_TITLE, file_name);
+	info_message_box(mlx, SCREENSHOT_MESSAGE_TITLE, file_name);
 	free(file_name);
 	SDL_FreeSurface(surface);
 }

@@ -11,17 +11,9 @@
 /* ************************************************************************** */
 
 #include "../rtv1.h"
+#include "../rtv1_interface.h"
 
-void	show_scene_info(t_global *global)
-{
-	draw_box(global->mlx, INFO_BOX_W, INFO_BOX_H);
-	put_scene_info_1(global->scene, global->mlx);
-	put_scene_info_2(global->scene, global->mlx);
-	put_scene_info_3(global->scene, global->mlx);
-	put_scene_info_4(global->scene, global->mlx);
-}
-
-void	put_scene_info_1(t_scene *scene, t_mlx *mlx)
+void	info_scene_1(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -46,7 +38,7 @@ void	put_scene_info_1(t_scene *scene, t_mlx *mlx)
 	free(str);
 }
 
-void	put_scene_info_2(t_scene *scene, t_mlx *mlx)
+void	info_scene_2(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -71,7 +63,7 @@ void	put_scene_info_2(t_scene *scene, t_mlx *mlx)
 	free(str);
 }
 
-void	put_scene_info_3(t_scene *scene, t_mlx *mlx)
+void	info_scene_3(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -96,7 +88,7 @@ void	put_scene_info_3(t_scene *scene, t_mlx *mlx)
 	free(str);
 }
 
-void	put_scene_info_4(t_scene *scene, t_mlx *mlx)
+void	info_scene_4(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -121,7 +113,7 @@ void	put_scene_info_4(t_scene *scene, t_mlx *mlx)
 	free(str);
 }
 
-void	put_scene_info_5(t_scene *scene, t_mlx *mlx)
+void	info_scene_5(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 22:25:14 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/20 16:52:59 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "./SDL2/headers/SDL_image.h"
 # include <math.h>
 # include <sys/time.h>
-// # include "./src_file/rtv1_file.h"
+// # include "rtv1_file.h"
 
 # define PROGRAM_NAME					"RTv1"
 
@@ -40,57 +40,18 @@
 
 # define TEXT_COLOR 					0xFFFFFF
 
-# define INFO_BOX_W						1000
-# define INFO_BOX_H						500
+# define HELP_BOX_W						1000
+# define HELP_BOX_H						500
+
+# define INFO_BOX_W						500
+# define INFO_BOX_H						400
+
 # define INFO_BOX_INDENTATION			30
 
-# define MESSAGE_BOX_W					700
-# define MESSAGE_BOX_H					80
-# define MESSAGE_BOX_INDENTATION		10
+// # define MESSAGE_BOX_W					700
+// # define MESSAGE_BOX_H					80
+// # define MESSAGE_BOX_INDENTATION		10
 
-# define SCENE_FILE_EXTENSION			".rt"
-# define SCREENSHOT_FILE_EXTENSION		".jpg"
-# define CURRENT_TIME_STR_LENGTH		24
-
-# define SAVE_MESSAGE_TITLE				"SCENE SAVED AS"
-# define SCREENSHOT_MESSAGE_TITLE		"SCREENSHOT SAVED"
-
-# define READ_BUFF_SIZE					8192
-
-# define FILE_PARSE_SCENE				0
-# define FILE_PARSE_CAMERA				1
-# define FILE_PARSE_LIGHT				2
-# define FILE_PARSE_MATERIAL			3
-# define FILE_PARSE_OBJECT				4
-
-# define FILE_SCENE						"scene"
-# define FILE_SCENE_NAME				"name"
-# define FILE_SCENE_AUTHOR				"author"
-# define FILE_CAMERA					"camera"
-# define FILE_CAMERA_POSITION			"position"
-# define FILE_CAMERA_DIRECTION			"direction"
-# define FILE_LIGHT						"light"
-# define FILE_LIGHT_TYPE				"type"
-# define FILE_LIGHT_TYPE_AMBIENT		"ambient"
-# define FILE_LIGHT_TYPE_DIRECTIONAL	"directional"
-# define FILE_LIGHT_TYPE_POINT			"point"
-# define FILE_LIGHT_INTENSITY			"intensity"
-# define FILE_LIGHT_POSITION			"position"
-# define FILE_MATERIAL					"material"
-# define FILE_MATERIAL_NAME				"name"
-# define FILE_MATERIAL_COLOR			"color"
-# define FILE_MATERIAL_SPECULAR			"specular"
-# define FILE_MATERIAL_REFLECTIVE		"reflective"
-# define FILE_OBJECT					"object"
-# define FILE_OBJECT_TYPE				"type"
-# define FILE_OBJECT_TYPE_PLANE			"plane"
-# define FILE_OBJECT_TYPE_SPHERE		"sphere"
-# define FILE_OBJECT_TYPE_CYLINDER		"cylinder"
-# define FILE_OBJECT_TYPE_CONE			"cone"
-# define FILE_OBJECT_MATERIAL			"material"
-# define FILE_OBJECT_POSITION			"position"
-# define FILE_OBJECT_ORIENTATION		"orientation"
-# define FILE_OBJECT_RADIUS				"radius"
 
 // # define VIEWPORT_SIZE_W				1.5
 # define VIEWPORT_SIZE_W				1.25
@@ -420,6 +381,9 @@ typedef struct			s_global
 	t_mlx				*mlx;
 }						t_global;
 
+# include "rtv1_file.h"
+# include "rtv1_interface.h"
+
 int			main(int argc, char **argv);
 
 //READ AND PARSE SCENE FILE
@@ -435,66 +399,7 @@ void		loop(t_global *global);
 void		draw(t_global *global);
 void		count_frames(t_mlx *mlx, struct timeval start, struct timeval end);
 void		update_interface_only(t_global *global);
-void		show_interface(t_global *global);
 
-//READ AND PARSE SCENE FILE
-void		read_scene(t_scene *scene, char *file_name);
-void		divide_to_items(t_scene *scene, char *line);
-int			count_items(char *line);
-int			parse_each_item(t_scene *scene, char **items_array);
-
-int			count_items_by_type(t_scene *scene, char *item_line);
-int    		define_item_type(t_scene *scene, char *type);
-void		put_error_wrong_scene_data(char *wrong_data, char *message);
-void		save_quantities(t_scene *scene);
-void		allocate_memory(t_scene *scene);
-
-int			parse_item_line(t_scene *scene, char *item_line);
-int			parse_item_description(t_scene *scene, int type_id, char *description);
-char		*prepare_value_to_write(char *value);
-char		*any_whitespace_to_space(char *value);
-
-void    	parse_item_by_property(t_scene *scene, int type_id, char *property, char *value);
-void		parse_scene_description(t_scene *scene, char *property, char *value);
-void		parse_camera_description(t_scene *scene, char *property, char *value);
-void		parse_light_description(t_scene *scene, char *property, char *value);
-int			find_light_type(char *value);
-
-void		parse_material_description(t_scene *scene, char *property, char *value);
-void		parse_object_description(t_scene *scene, char *property, char *value);
-int    		find_object_type(char *value);
-int     	find_object_material(t_scene *scene, char *value);
-
-t_vector	parse_vector(char *value);
-t_color		parse_color(char *value);
-int			check_and_get_int_value(char *value);
-void		validate_color(char *value, t_color color);
-
-char		*delete_whitespaces(char *line);
-int			count_whitespaces(char *line);
-int			is_whitespace(char c);
-void		copy_without_whitespaces(char *line, char *clean_line);
-
-//SAVE SCENE FILE
-void    	save_scene(t_scene *scene, t_mlx *mlx);
-void		create_save_file_name(t_scene *scene, char **file_name);
-void    	get_current_time_string(char *time_string);
-
-void    	write_all_info(t_scene *scene, int fd);
-void		write_scene_info(t_scene *scene, int fd);
-void		write_cameras_info(t_scene *scene, int fd);
-void		write_lights_info(t_scene *scene, int fd);
-void		write_lights_info_extra(t_scene *scene, int fd, int i);
-
-void		write_materials_info(t_scene *scene, int fd);
-void		write_materials_info_extra(t_scene *scene, int fd, int i);
-void		write_objects_info(t_scene *scene, int fd);
-void		write_objects_info_extra_1(t_scene *scene, int fd, int i);
-void		write_objects_info_extra_2(t_scene *scene, int fd, int i);
-
-//SAVE SCREENSHOT
-void		save_screenshot(t_scene *scene, t_mlx *mlx);
-void		create_screenshot_file_name(t_scene *scene, char **file_name);
 
 void		put_error_pn(char *str);
 
@@ -624,48 +529,6 @@ t_color		get_channel_diff(t_color c1, t_color c2);
 t_color		add_color(t_color c1, t_color c2);
 t_color		multiply_color(double k, t_color c);
 
-//INTERFACE
-void		show_scene_info(t_global *global);
-void		put_scene_info_1(t_scene *scene, t_mlx *mlx);
-void		put_scene_info_2(t_scene *scene, t_mlx *mlx);
-void		put_scene_info_3(t_scene *scene, t_mlx *mlx);
-void		put_scene_info_4(t_scene *scene, t_mlx *mlx);
-void		put_scene_info_5(t_scene *scene, t_mlx *mlx);
-
-void		put_effect_1(t_scene *scene, t_mlx *mlx);
-void		put_effect_2(t_scene *scene, t_mlx *mlx);
-void		put_effect_3(t_scene *scene, t_mlx *mlx);
-void		put_camera_1(t_scene *scene, t_mlx *mlx);
-void		put_camera_2(t_scene *scene, t_mlx *mlx);
-
-void		object_info_1(t_scene *scene, t_mlx *mlx);
-void		light_info(t_scene *scene, t_mlx *mlx);
-void		put_status_5(t_scene *scene, t_mlx *mlx);
-void		put_status_5a(t_scene *scene, t_mlx *mlx);
-void		put_status_6(t_scene *scene, t_mlx *mlx);
-void		put_status_7(t_scene *scene, t_mlx *mlx);
-
-void		info_control_1(t_mlx *mlx);
-void		info_control_2(t_mlx *mlx);
-void		info_control_3(t_mlx *mlx);
-void		info_control_4(t_mlx *mlx);
-void		info_render_1(t_mlx *mlx);
-void		info_render_2(t_mlx *mlx);
-
-void		put_coordinates(t_scene *scene, t_mlx *mlx);
-void		put_color(t_scene *scene, t_mlx *mlx);
-void		put_color_sample(t_mlx *mlx, int color);
-void		put_scene_file_name(t_scene *scene, t_mlx *mlx);
-
-void		info_header_and_author(t_mlx *mlx);
-void		info_help(t_mlx *mlx);
-void		info_author(t_mlx *mlx);
-void		show_help(t_global *global);
-void		draw_box(t_mlx *mlx, int size_w, int size_h);
-void		message_box(t_mlx *mlx, char *message_title, char *message_content);
-void		put_material_color_sample(t_mlx *mlx, int color);
-
-void		material_info(t_scene *scene, t_mlx *mlx);
 
 
 void   	 clean_anaglyph_buffers(t_scene *scene);

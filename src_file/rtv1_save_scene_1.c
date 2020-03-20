@@ -6,11 +6,12 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 02:02:59 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 14:08:19 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/20 14:56:23 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
+#include "../rtv1_file.h"
 
 void	save_scene(t_scene *scene, t_mlx *mlx)
 {
@@ -24,7 +25,7 @@ void	save_scene(t_scene *scene, t_mlx *mlx)
 		ft_put_errno(PROGRAM_NAME);
 	write_all_info(scene, fd);
 	close(fd);
-	message_box(mlx, SAVE_MESSAGE_TITLE, file_name);
+	info_message_box(mlx, SAVE_MESSAGE_TITLE, file_name);
 	free(file_name);
 }
 

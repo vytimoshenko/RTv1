@@ -6,29 +6,20 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 00:31:45 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 12:47:50 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/20 16:38:47 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
-
-void	show_help(t_global *global)
-{
-	draw_box(global->mlx, INFO_BOX_W, INFO_BOX_H);
-	info_header_and_author(global->mlx);
-	info_control_1(global->mlx);
-	info_control_2(global->mlx);
-	info_control_3(global->mlx);
-	// info_control_4(global->mlx);
-}
+#include "../rtv1_interface.h"
 
 void	info_header_and_author(t_mlx *mlx)
 {
 	int pos_x;
 	int pos_y;
 
-	pos_x = (WIN_SIZE_W - INFO_BOX_W) / 2 + INFO_BOX_INDENTATION + 400;
-	pos_y = (WIN_SIZE_H - INFO_BOX_H) / 2 + INFO_BOX_INDENTATION;
+	pos_x = (WIN_SIZE_W - HELP_BOX_W) / 2 + INFO_BOX_INDENTATION + 400;
+	pos_y = (WIN_SIZE_H - HELP_BOX_H) / 2 + INFO_BOX_INDENTATION;
     mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y, TEXT_COLOR,
 	"-= RTv1 =-");
     mlx_string_put(mlx->mlx, mlx->win, pos_x - 60, pos_y + 20, TEXT_COLOR,
@@ -42,8 +33,8 @@ void	info_control_1(t_mlx *mlx)
 	int pos_x;
 	int pos_y;
 
-	pos_x = (WIN_SIZE_W - INFO_BOX_W) / 2 + INFO_BOX_INDENTATION;
-	pos_y = (WIN_SIZE_H - INFO_BOX_H) / 2 + INFO_BOX_INDENTATION + 70;
+	pos_x = (WIN_SIZE_W - HELP_BOX_W) / 2 + INFO_BOX_INDENTATION;
+	pos_y = (WIN_SIZE_H - HELP_BOX_H) / 2 + INFO_BOX_INDENTATION + 70;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y, TEXT_COLOR,
 	"              GENERAL");
     mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
@@ -75,8 +66,8 @@ void	info_control_2(t_mlx *mlx)
 	int pos_x;
 	int pos_y;
 
-	pos_x = (WIN_SIZE_W - INFO_BOX_W) / 2 + INFO_BOX_INDENTATION;
-	pos_y = (WIN_SIZE_H - INFO_BOX_H) / 2 + INFO_BOX_INDENTATION;
+	pos_x = (WIN_SIZE_W - HELP_BOX_W) / 2 + INFO_BOX_INDENTATION;
+	pos_y = (WIN_SIZE_H - HELP_BOX_H) / 2 + INFO_BOX_INDENTATION;
     (void)mlx;
 
 }
@@ -86,8 +77,8 @@ void	info_control_3(t_mlx *mlx)
 	int pos_x;
 	int pos_y;
 
-	pos_x = (WIN_SIZE_W - INFO_BOX_W) / 2 + INFO_BOX_INDENTATION + 500;
-	pos_y = (WIN_SIZE_H - INFO_BOX_H) / 2 + INFO_BOX_INDENTATION + 70;
+	pos_x = (WIN_SIZE_W - HELP_BOX_W) / 2 + INFO_BOX_INDENTATION + 500;
+	pos_y = (WIN_SIZE_H - HELP_BOX_H) / 2 + INFO_BOX_INDENTATION + 70;
     mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y, TEXT_COLOR,
 	"                LIGHT");
     mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,

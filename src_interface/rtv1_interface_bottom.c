@@ -6,13 +6,13 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 03:37:02 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 10:49:38 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/20 16:33:49 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rtv1.h"
+#include "../rtv1_interface.h"
 
-void	put_coordinates(t_scene *scene, t_mlx *mlx)
+void	info_coordinates(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -29,7 +29,7 @@ void	put_coordinates(t_scene *scene, t_mlx *mlx)
 	free(str);
 }
 
-void	put_color(t_scene *scene, t_mlx *mlx)
+void	info_color(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -48,10 +48,10 @@ void	put_color(t_scene *scene, t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 160, pos_y, TEXT_COLOR,
 	str = ft_itoa(scene->picked_color.b));
 	free(str);
-	put_color_sample(mlx, unite_color_channels(scene->picked_color));
+	info_color_sample(mlx, unite_color_channels(scene->picked_color));
 }
 
-void	put_color_sample(t_mlx *mlx, int color)
+void	info_color_sample(t_mlx *mlx, int color)
 {
 	int		pos_x;
 	int		pos_y;
@@ -69,7 +69,7 @@ void	put_color_sample(t_mlx *mlx, int color)
 	}
 }
 
-void	put_scene_file_name(t_scene *scene, t_mlx *mlx)
+void	info_scene_file_name(t_scene *scene, t_mlx *mlx)
 {
 	int		pos_x;
 	int		pos_y;
@@ -78,4 +78,15 @@ void	put_scene_file_name(t_scene *scene, t_mlx *mlx)
 	pos_y = WIN_SIZE_H - 30;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 370, pos_y, TEXT_COLOR,
 	scene->file_name_with_path);
+}
+
+void	info_help(t_mlx *mlx)
+{
+	int		pos_x;
+	int		pos_y;
+
+	pos_x = WIN_SIZE_W - 300;
+	pos_y = WIN_SIZE_H - 55;
+    mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y, TEXT_COLOR,
+	"<< PRESS H FOR HELP >>");
 }

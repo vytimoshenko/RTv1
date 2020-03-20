@@ -6,11 +6,12 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 07:13:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 14:08:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/20 11:55:09 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
+#include "../rtv1_file.h"
 
 char	*delete_whitespaces(char *line)
 {

@@ -6,11 +6,12 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 07:24:15 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 14:08:05 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/20 11:55:34 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
+#include "../rtv1_file.h"
 
 int		parse_item_line(t_scene *scene, char *item_line)
 {
