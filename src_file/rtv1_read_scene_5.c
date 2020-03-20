@@ -6,12 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 07:09:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 11:55:21 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/20 19:24:53 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
-#include "../rtv1_file.h"
 
 void	parse_material_description(t_scene *scene, char *property, char *value)
 {

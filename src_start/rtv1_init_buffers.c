@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 06:40:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 22:26:19 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/20 19:19:50 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void    init_frame_buffer(t_scene *scene)
 		ft_put_errno(PROGRAM_NAME);
 }
 
-void    init_object_buffer(t_scene *scene)
+void    init_object_buffers(t_scene *scene)
 {
 	if (!(scene->object_buffer = (int *)malloc(sizeof(int)
 	* IMG_SIZE_W * IMG_SIZE_H)))
@@ -27,10 +27,10 @@ void    init_object_buffer(t_scene *scene)
 	if (!(scene->got_object = (int *)malloc(sizeof(int)
 	* IMG_SIZE_W * IMG_SIZE_H)))
 		ft_put_errno(PROGRAM_NAME);
-	clean_object_buffer(scene);
+	clean_object_buffers(scene);
 }
 
-void    init_depth_buffer(t_scene *scene)
+void    init_depth_buffers(t_scene *scene)
 {
 	if (!(scene->depth_buffer = (double *)malloc(sizeof(double)
 	* IMG_SIZE_W * IMG_SIZE_H)))
@@ -38,7 +38,7 @@ void    init_depth_buffer(t_scene *scene)
 	if (!(scene->got_depth = (int *)malloc(sizeof(int)
 	* IMG_SIZE_W * IMG_SIZE_H)))
 		ft_put_errno(PROGRAM_NAME);
-	clean_depth_buffer(scene);
+	clean_depth_buffers(scene);
 }
 
 void    init_aliasing_buffer(t_scene *scene)

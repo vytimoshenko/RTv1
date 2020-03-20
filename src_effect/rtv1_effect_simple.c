@@ -1,40 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_color_2.c                                     :+:      :+:    :+:   */
+/*   rtv1_effect_simple.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/06 07:14:17 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 19:28:08 by mperseus         ###   ########.fr       */
+/*   Created: 2020/03/20 18:19:30 by mperseus          #+#    #+#             */
+/*   Updated: 2020/03/20 18:20:25 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
-
-t_color	mix_color(t_color c1, t_color c2)
-{
-	t_color result;
-
-	if ((result.r = (c1.r + c2.r) / 2) > 255)
-		result.r = 255;
-	if ((result.g = (c1.g + c2.g) / 2) > 255)
-		result.g = 255;
-	if ((result.b = (c1.b + c2.b) / 2) > 255)
-		result.b = 255;
-	return (result);
-}
-
-t_color	effect_average(t_color color)
-{
-	int tmp;
-
-	tmp = (color.r + color.g + color.b) / 3;
-	color.r = tmp;
-	color.g = tmp;
-	color.b = tmp;
-	return (color);
-}
 
 t_color	effect_grayscale(t_color color)
 {

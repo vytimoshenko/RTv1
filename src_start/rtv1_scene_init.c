@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:29:21 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 22:25:59 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/20 19:13:47 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ t_scene	*init_scene(int argc, char **argv)
 	get_lights_statistics(scene);
 	get_objects_statistics(scene);
 	init_frame_buffer(scene);
-	init_depth_buffer(scene);
+	init_depth_buffers(scene);
 	init_aliasing_buffer(scene);
-	init_object_buffer(scene);
+	init_object_buffers(scene);
 	init_anaglyph_buffers(scene);
 	get_sin_cos(scene->cameras.array[scene->active_camera]);
 	scene->file_name_with_path = ft_strdup(argv[1]);

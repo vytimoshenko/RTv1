@@ -6,12 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 07:30:13 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 11:55:14 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/20 19:24:56 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
-#include "../rtv1_file.h"
 
 t_vector	parse_vector(char *value)
 {

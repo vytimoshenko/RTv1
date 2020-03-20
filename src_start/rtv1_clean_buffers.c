@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:35:14 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 13:46:21 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/20 19:12:49 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	clean_frame_buffer(t_scene *scene)
 		scene->frame_buffer[i] = (t_color){0, 0, 0};
 }
 
-void	clean_object_buffer(t_scene *scene)
+void	clean_object_buffers(t_scene *scene)
 {
 	int i;
 
@@ -33,7 +33,7 @@ void	clean_object_buffer(t_scene *scene)
 		scene->got_object[i] = FALSE;
 }
 
-void	clean_depth_buffer(t_scene *scene)
+void	clean_depth_buffers(t_scene *scene)
 {
 	int i;
 

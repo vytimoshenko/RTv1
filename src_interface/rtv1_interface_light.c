@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 20:40:47 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 16:38:51 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/20 19:10:27 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	info_light_2(t_scene *scene, t_mlx *mlx)
         "on");
     if (scene->lights.array[scene->active_light]->off == TRUE)
         mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 30, TEXT_COLOR,
-        "off");mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 50, TEXT_COLOR,
+        "off");
+    mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 50, TEXT_COLOR,
     "- intensity (x10):");
     mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 50, TEXT_COLOR,
     str = ft_itoa(10 * scene->lights.array[scene->active_light]->intensity));
