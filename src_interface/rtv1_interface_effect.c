@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 16:38:42 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 22:00:34 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ void	info_effect_3(t_scene *scene, t_mlx *mlx)
 
 	pos_x = WIN_SIZE_W - 350;
 	pos_y = 50;
-	if (scene->effect == EFFECT_DEPTH)
+	if (scene->effect == EFFECT_OUTLINE)
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
+		"Outline");
+	else if (scene->effect == EFFECT_DEPTH)
 	{
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 150, pos_y, TEXT_COLOR,
 		str = ft_itoa(scene->k_depth_map));
@@ -77,9 +80,18 @@ void	info_effect_3(t_scene *scene, t_mlx *mlx)
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 120, pos_y, TEXT_COLOR,
 		"x1/    Depth");
 	}
-	else if (scene->effect == EFFECT_OUTLINE)
+	else if (scene->effect == EFFECT_ANAGLYPH)
 		mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y, TEXT_COLOR,
-		"Outline");
+		"Anaglyph");
+}
+
+void	info_effect_4(t_scene *scene, t_mlx *mlx)
+{
+	int		pos_x;
+	int		pos_y;
+
+	pos_x = WIN_SIZE_W - 350;
+	pos_y = 50;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 30, TEXT_COLOR,
 	"Antialiasing:");
 	if (scene->antialiasing == TRUE)

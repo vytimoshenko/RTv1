@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 14:39:13 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 17:17:05 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct			s_camera
 	t_vector			sin;
 	t_vector			cos;
 }						t_camera;
-
 
 typedef struct			s_object
 {

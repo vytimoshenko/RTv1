@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 11:32:41 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 21:48:46 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # define SHADE_UNSELECTED				0.5
 
-# define EFFECTS_QUANTITY				6
+# define EFFECTS_QUANTITY				7
 # define NO_EFFECT						0
 # define EFFECT_GRAYSCALE				1
 # define EFFECT_NEGATIVE				2
@@ -26,6 +26,7 @@
 # define EFFECT_PIXELATION				4
 # define EFFECT_OUTLINE					5
 # define EFFECT_DEPTH					6
+# define EFFECT_ANAGLYPH				7
 
 # define CARTOON_INCREMENT				2
 # define CARTOON_INIT					16
@@ -70,7 +71,7 @@ t_color		effect_depth(t_scene *scene, int i);
 //ANAGLYPH
 void   	    init_anaglyph_buffers(t_scene *scene);
 void   	    clean_anaglyph_buffers(t_scene *scene);
-void 	    effect_anaglyph(t_scene *scene, t_mlx *mlx);
+void 	    effect_anaglyph(t_scene *scene);
 
 //OUTLINE AND ANTIALIASING
 void		init_aliasing_buffer(t_scene *scene);

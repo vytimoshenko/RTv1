@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 15:05:59 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 21:59:29 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void		show_help(t_mlx *mlx);
 void		info_effect_1(t_scene *scene, t_mlx *mlx);
 void		info_effect_2(t_scene *scene, t_mlx *mlx);
 void		info_effect_3(t_scene *scene, t_mlx *mlx);
+void		info_effect_4(t_scene *scene, t_mlx *mlx);
 
 void		info_camera_1(t_scene *scene, t_mlx *mlx);
 void		info_camera_2(t_scene *scene, t_mlx *mlx);

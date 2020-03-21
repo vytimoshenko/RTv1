@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 22:22:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 11:27:54 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 21:48:36 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ void		final_processing(t_mlx *mlx, t_scene *scene)
 	fill_aliasing_buffer(scene);
 	if (scene->antialiasing == TRUE)
 		run_antialiasing(scene);
+	if (scene->effect == EFFECT_PIXELATION)
+		effect_pixelation(scene);
+	if (scene->effect == EFFECT_ANAGLYPH)
+		effect_anaglyph(scene);
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 		scene->frame_buffer[i] = pixel_post_processing(scene, i,
 		scene->frame_buffer[i]);
-	if (scene->effect == EFFECT_PIXELATION)
-		effect_pixelation(scene);
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 		mlx->data[i] = unite_color_channels(scene->frame_buffer[i]);
