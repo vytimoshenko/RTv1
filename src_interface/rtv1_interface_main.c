@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 14:48:22 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 16:37:05 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 15:54:03 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ void	show_interface_2(t_global *global)
         info_light_2(global->scene, global->mlx);
         info_light_3(global->scene, global->mlx);
         info_light_4(global->scene, global->mlx);
+    }
+	if (global->scene->active_material != NOTHING_SELECTED)
+	{
+        info_material_1(global->scene, global->mlx);
+        info_material_2(global->scene, global->mlx);
+        info_material_3(global->scene, global->mlx);
     }
     if (global->scene->active_object != NOTHING_SELECTED)
 	{

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 10:25:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 15:40:18 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 16:29:35 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,43 @@ int		keyboard_key_press(int key, t_global *global)
 	else if (key == T)
 		global->scene->antialiasing = global->scene->antialiasing == TRUE ?
 		FALSE : TRUE;
-	else if (key == PLUS || key == MINUS || key == O)
+	else if (key == O && global->scene->active_light != NOTHING_SELECTED)
+	{
+		change_light_intensity(global->scene, key);
+		draw(global);
+	}
+	else if (key == PLUS || key == MINUS)
 	{
 		change_effect_grade(global->scene, key);
-		change_light_intensity(global->scene, key);
 		update_interface_only(global);
 	}
 	else if (key == L || key == HOME || key == END)
+	{
 		change_light(global->scene, key);
+		update_interface_only(global);
+		return (0);
+	}
 	else if (key == M || key == HOME || key == END)
-		change_material(global->scene, key);
+	{
+		if (global->scene->active_object != NOTHING_SELECTED)
+		{
+			change_material(global->scene, key);
+			draw(global);
+		}
+		else
+		{
+			change_material(global->scene, key);
+			update_interface_only(global);
+			return (0);
+		}
+	}
 	if (key == ESC && (global->scene->active_light != NOTHING_SELECTED ||
+	global->scene->active_material != NOTHING_SELECTED ||
 	global->scene->show_help == TRUE || global->scene->show_info == TRUE ||
 	global->scene->got_color == TRUE))
 	{
 		global->scene->active_light = NOTHING_SELECTED;
+		global->scene->active_material = NOTHING_SELECTED;
 		global->scene->show_help = FALSE;
 		global->scene->show_info = FALSE;
 		global->scene->got_color = FALSE;
@@ -115,5 +137,3 @@ void	keyboard_key_press_extra_1(int key, t_global *global)
 	else if (key == SPACE)
 		change_camera(global->scene);
 }
-
-void	keyboard_key_press_extra_1(int key, t_global *global);

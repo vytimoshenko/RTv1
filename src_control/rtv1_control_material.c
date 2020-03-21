@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 07:13:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 22:23:51 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 16:06:25 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	change_material(t_scene *scene, int key)
 		if (scene->active_material == NOTHING_SELECTED)
 		{
 			scene->active_material = 0;
+			scene->active_light = NOTHING_SELECTED;
 			scene->active_object = NOTHING_SELECTED;
 		}
 		else

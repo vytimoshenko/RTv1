@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 01:08:23 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 13:25:10 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 16:10:19 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		select_object(int x, int y, t_global *global)
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
 	object_id = global->scene->object_buffer[i];
 	global->scene->active_light = NOTHING_SELECTED;
+	global->scene->active_material = NOTHING_SELECTED;
 	if (global->scene->active_object == object_id)
 		return (0);
 	else

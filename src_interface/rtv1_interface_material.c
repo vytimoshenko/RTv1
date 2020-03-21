@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 07:25:35 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 19:39:07 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 16:23:04 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,14 @@ void	info_material_1(t_scene *scene, t_mlx *mlx)
 
 	pos_x = WIN_SIZE_W - 350;
 	pos_y = 320;
-	i = scene->objects.array[scene->active_object]->material;
+	if (scene->active_material != NOTHING_SELECTED)
+	{
+		mlx_string_put(mlx->mlx, mlx->win, pos_x + 80, pos_y + 70, TEXT_COLOR,
+	"MATERIAL CONTROL");
+		i = scene->active_material;
+	}
+	else
+		i = scene->objects.array[scene->active_object]->material;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 100, TEXT_COLOR,
 	"Material:         #");
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 100, TEXT_COLOR,
@@ -43,7 +50,10 @@ void	info_material_2(t_scene *scene, t_mlx *mlx)
 
 	pos_x = WIN_SIZE_W - 350;
 	pos_y = 320;
-	i = scene->objects.array[scene->active_object]->material;
+	if (scene->active_material != NOTHING_SELECTED)
+		i = scene->active_material;
+	else
+		i = scene->objects.array[scene->active_object]->material;
 	mlx_string_put(mlx->mlx, mlx->win, pos_x + 190, pos_y + 130, TEXT_COLOR,
 	str = ft_itoa(scene->materials.array[i]->color.r));
 	free(str);
@@ -64,7 +74,10 @@ void	info_material_3(t_scene *scene, t_mlx *mlx)
 
 	pos_x = WIN_SIZE_W - 350;
 	pos_y = 320;
-	i = scene->objects.array[scene->active_object]->material;
+	if (scene->active_material != NOTHING_SELECTED)
+		i = scene->active_material;
+	else
+		i = scene->objects.array[scene->active_object]->material;
 	info_material_color_sample(mlx,
 	unite_color_channels(scene->materials.array[i]->color));
 	mlx_string_put(mlx->mlx, mlx->win, pos_x, pos_y + 150, TEXT_COLOR,
