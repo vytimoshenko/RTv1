@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 10:25:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 15:15:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 15:40:18 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,22 @@ int		keyboard_key_press(int key, t_global *global)
 		change_light(global->scene, key);
 	else if (key == M || key == HOME || key == END)
 		change_material(global->scene, key);
-	else if (key == Q || key == ESC || key == SPACE)
+	if (key == ESC && (global->scene->active_light != NOTHING_SELECTED ||
+	global->scene->show_help == TRUE || global->scene->show_info == TRUE ||
+	global->scene->got_color == TRUE))
+	{
+		global->scene->active_light = NOTHING_SELECTED;
+		global->scene->show_help = FALSE;
+		global->scene->show_info = FALSE;
+		global->scene->got_color = FALSE;
+		update_interface_only(global);
+		return (0);
+	}
+	else if (key == ESC && global->scene->active_object != NOTHING_SELECTED)
+		global->scene->active_object = NOTHING_SELECTED;
+	else if (key == ESC && global->scene->effect != NO_EFFECT)
+		global->scene->effect = NO_EFFECT;
+	else if (key == Q || key == SPACE)
 		keyboard_key_press_extra_1(key, global);
 	else if (key == E)
 	{
@@ -96,19 +111,9 @@ void	keyboard_key_press_extra_1(int key, t_global *global)
 {
 	if (key == Q)
 		close_window(global);
-	else if (key == ESC && (global->scene->active_object != NOTHING_SELECTED ||
-	global->scene->active_light != NOTHING_SELECTED ||
-	global->scene->got_color == TRUE))
-	{
-		global->scene->active_object = NOTHING_SELECTED;
-		global->scene->active_light = NOTHING_SELECTED;
-		global->scene->got_color = FALSE;
-	}
-	else if (key == ESC && global->scene->effect != NO_EFFECT)
-		global->scene->effect = NO_EFFECT;
+
 	else if (key == SPACE)
 		change_camera(global->scene);
-	
 }
 
 void	keyboard_key_press_extra_1(int key, t_global *global);
