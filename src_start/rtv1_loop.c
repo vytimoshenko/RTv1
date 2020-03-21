@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 14:46:33 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 12:09:06 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,12 @@ void	update_interface_only(t_global *global)
 	global->mlx->img, IMG_INDT_W, IMG_INDT_H);
 	show_interface_1(global);
 	show_interface_2(global);
+}
+
+void	put_error_pn(char *str)
+{
+	ft_putstr(PROGRAM_NAME);
+	ft_putstr(": ");
+	ft_putendl(str);
+	exit(1);
 }

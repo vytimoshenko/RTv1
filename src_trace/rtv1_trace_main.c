@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 10:37:58 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 12:09:48 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,4 @@ void	rotate_pixel(t_pixel *pixel, t_camera *camera)
 	temp2 = pixel->pos.x * camera->sin.z + pixel->pos.y * camera->cos.z;
 	pixel->pos.x = temp1;
 	pixel->pos.y = temp2;
-}
-
-void		fill_frame_buffer(t_scene *scene, t_pixel pixel)
-{
-	int i;
-
-	pixel.x = IMG_SIZE_W / 2 + pixel.x;
-	pixel.y = IMG_SIZE_H / 2 - pixel.y;
-	i = (int)(IMG_SIZE_W * pixel.y + pixel.x);
-	scene->frame_buffer[i] = pixel.color;
 }

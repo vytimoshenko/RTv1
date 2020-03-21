@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 18:37:02 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 11:05:51 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 12:15:16 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@
 
 # define PI								3.14159265
 
+//FRAME BUFFER
+void		init_frame_buffer(t_scene *scene);
+void		clean_frame_buffer(t_scene *scene);
+void		fill_frame_buffer(t_scene *scene, t_pixel pixel);
+
 //RAYTRACING
 void		trace_rays(t_scene *scene);
 void		get_pixel_position(t_scene *scene, t_pixel *pixel);
@@ -42,7 +47,6 @@ void		rotate_pixel(t_pixel *pixel, t_camera *camera);
 void		put_pixel(t_mlx *mlx, int x, int y, int color);
 
 void		get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int reflection_depth);
-// void		get_point_properties(t_point *point, t_object *object);
 int			is_in_shadow(t_objects	objects_arr, t_vector point, t_vector light, double t_max);
 
 void		get_normal(t_point *point, t_object *object);
