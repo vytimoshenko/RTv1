@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 17:58:17 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 15:05:59 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define HELP_BOX_W						1000
 # define HELP_BOX_H						500
 
-# define INFO_BOX_W						500
-# define INFO_BOX_H						400
+# define INFO_BOX_W						420
+# define INFO_BOX_H						280
 
 # define INFO_BOX_INDENTATION			30
 

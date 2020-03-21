@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 11:43:29 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 14:39:13 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,6 @@ typedef struct			s_color
 	int					g;
 	int					b;
 }						t_color;
-
-typedef struct			s_point
-{
-	t_vector			xyz;
-	t_color				color;
-	double				specular;
-	double				reflective;
-	double				refractive;
-	double				transparency;
-
-	double				light;
-	t_vector			n;
-
-	double				light_intensity;
-	t_color				final_color;
-}						t_point;
-
-typedef struct			s_pixel
-{
-	int					i;
-	int					x;
-	int					y;
-	
-	t_vector			pos;
-	t_color				color;
-
-	// int					object_id;
-}						t_pixel;
 
 typedef struct			s_camera
 {
@@ -198,13 +170,6 @@ typedef struct			s_scene
 
 	int					quantity_lines;
 }						t_scene;
-
-typedef struct			s_t_min_max
-{
-	double				t;
-	double				t_min;
-	double				t_max;
-}						t_t_min_max;
 
 typedef struct			s_mlx
 {

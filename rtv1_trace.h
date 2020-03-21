@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 18:37:02 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 12:15:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 14:38:59 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,41 @@
 # define DRAW_DISTANCE_MAX				1000000
 
 # define PI								3.14159265
+
+typedef struct			s_pixel
+{
+	int					i;
+	int					x;
+	int					y;
+	
+	t_vector			pos;
+	t_color				color;
+
+	// int					object_id;
+}						t_pixel;
+
+typedef struct			s_point
+{
+	t_vector			xyz;
+	t_color				color;
+	double				specular;
+	double				reflective;
+	double				refractive;
+	double				transparency;
+
+	double				light;
+	t_vector			n;
+
+	double				light_intensity;
+	t_color				final_color;
+}						t_point;
+
+typedef struct			s_t_min_max
+{
+	double				t;
+	double				t_min;
+	double				t_max;
+}						t_t_min_max;
 
 //FRAME BUFFER
 void		init_frame_buffer(t_scene *scene);
