@@ -6,12 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 00:31:45 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 16:38:47 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 23:31:13 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
-#include "../rtv1_interface.h"
 
 void	info_header_and_author(t_mlx *mlx)
 {
