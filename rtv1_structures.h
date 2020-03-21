@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 19:18:42 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 11:43:29 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,6 @@ typedef struct			s_scene
 
 	t_color				*anaglyph_left_buffer;
 	t_color				*anaglyph_right_buffer;
-
-	t_color				*anaglif_left_buffer;
 
 	double				*depth_buffer;
 	int					*got_depth;

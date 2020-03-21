@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 19:21:06 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 11:41:02 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@
 # define ARROW_DOWN						125
 # define ARROW_UP						126
 
-
 int			mouse_move(int x, int y, t_global *global);
 int			mouse_key_press(int key, int x, int y, t_global *global);
 int			mouse_key_release(int key, int x, int y, t_global *global);
@@ -101,6 +100,8 @@ void		change_light_intensity(t_scene *scene, int key);
 
 void		get_material(int x, int y, t_global *global);
 int			apply_material(int x, int y, t_global *global);
+
+void		change_effect_grade(t_scene *scene, int key);
 
 void		pick_color(t_scene *scene, int x, int y);
 

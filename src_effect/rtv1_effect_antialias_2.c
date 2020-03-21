@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:16:54 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 20:35:45 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 10:53:18 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,41 @@ void	get_jitter(double *random)
 		if (i % 2)
 			random[i] *= -1;
 	}
+}
+
+void	get_multisample_color(t_scene *scene, t_pixel *pixel, double *jitter)
+{
+	int			i;
+	t_color		sum;
+	t_vector	tmp;
+
+	sum = (t_color){0, 0, 0};
+	i = -1;
+	tmp.z = scene->cameras.array[scene->active_camera]->position.z;
+	while (++i < MULTI_SAMPLING_RATE)
+	{
+		tmp.x = 0;
+		tmp.y = 0;
+		pixel->color = scene->background;
+		get_pixel_position(scene, pixel);
+		tmp.x = jitter[i] + scene->cameras.array[scene->active_camera]->
+		position.x;
+		tmp.y = jitter[i] + scene->cameras.array[scene->active_camera]->
+		position.y;
+		get_pixel_color(scene, tmp, pixel, REFLECTION_DEPTH);
+		sum.r += pixel->color.r;
+		sum.g += pixel->color.g;
+		sum.b += pixel->color.b;
+	}
+	pixel->color.r = (int)(sum.r / (MULTI_SAMPLING_RATE));
+	pixel->color.g = (int)(sum.g / (MULTI_SAMPLING_RATE));
+	pixel->color.b = (int)(sum.b / (MULTI_SAMPLING_RATE));
+}
+
+t_color	effect_outline(t_scene *scene, int i)
+{
+	if (scene->aliasing_buffer[i])
+		return ((t_color){255, 255, 255});
+	else
+		return ((t_color){0, 0, 0});
 }

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 06:40:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 19:19:50 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 11:01:01 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,43 +19,8 @@ void    init_frame_buffer(t_scene *scene)
 		ft_put_errno(PROGRAM_NAME);
 }
 
-void    init_object_buffers(t_scene *scene)
-{
-	if (!(scene->object_buffer = (int *)malloc(sizeof(int)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	if (!(scene->got_object = (int *)malloc(sizeof(int)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	clean_object_buffers(scene);
-}
 
-void    init_depth_buffers(t_scene *scene)
-{
-	if (!(scene->depth_buffer = (double *)malloc(sizeof(double)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	if (!(scene->got_depth = (int *)malloc(sizeof(int)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	clean_depth_buffers(scene);
-}
 
-void    init_aliasing_buffer(t_scene *scene)
-{
-	if (!(scene->aliasing_buffer = (int *)malloc(sizeof(int)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	clean_aliasing_buffer(scene);
-}
 
-void    init_anaglyph_buffers(t_scene *scene)
-{
-	if (!(scene->anaglyph_left_buffer = (t_color *)ft_memalloc(sizeof(t_color)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	if (!(scene->anaglyph_right_buffer = (t_color *)ft_memalloc(sizeof(t_color)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	clean_anaglyph_buffers(scene);
-}
+
+

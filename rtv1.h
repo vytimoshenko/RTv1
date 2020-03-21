@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 19:27:51 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 11:35:07 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,9 @@ void		get_lights_statistics(t_scene *scene);
 void		get_objects_statistics(t_scene *scene);
 
 void		init_frame_buffer(t_scene *scene);
-void		init_object_buffers(t_scene *scene);
-void		init_aliasing_buffer(t_scene *scene);
 
 void		clean_frame_buffer(t_scene *scene);
-void		clean_object_buffers(t_scene *scene);
-
-void		init_depth_buffers(t_scene *scene);
-void		clean_depth_buffers(t_scene *scene);
-
-void		clean_aliasing_buffer(t_scene *scene);
 
 void		fill_frame_buffer(t_scene *scene, t_pixel pixel);
-
-void   	 init_anaglyph_buffers(t_scene *scene);
-void   	 clean_anaglyph_buffers(t_scene *scene);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 19:14:35 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 10:37:58 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	trace_rays(t_scene *scene)
 {
 	t_pixel		pixel;
 
+	clean_frame_buffer(scene);
 	clean_object_buffers(scene);
 	clean_depth_buffers(scene);
 	clean_aliasing_buffer(scene);
-	clean_frame_buffer(scene);
 	pixel.x = -IMG_SIZE_W / 2;
 	while (++pixel.x <= IMG_SIZE_W / 2)
 	{
@@ -80,22 +80,4 @@ void		fill_frame_buffer(t_scene *scene, t_pixel pixel)
 	pixel.y = IMG_SIZE_H / 2 - pixel.y;
 	i = (int)(IMG_SIZE_W * pixel.y + pixel.x);
 	scene->frame_buffer[i] = pixel.color;
-}
-
-void		final_processing(t_mlx *mlx, t_scene *scene)
-{
-	int	i;
-
-	fill_aliasing_buffer(scene);
-	if (scene->antialiasing == TRUE)
-		run_antialiasing(scene);
-	i = -1;
-	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		scene->frame_buffer[i] = pixel_post_processing(scene, i,
-		scene->frame_buffer[i]);
-	if (scene->effect == EFFECT_PIXELATION)
-		effect_pixelation(scene);
-	i = -1;
-	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		mlx->data[i] = unite_color_channels(scene->frame_buffer[i]);
 }

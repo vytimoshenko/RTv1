@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 13:07:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 11:07:07 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int k)
 	fill_depth_buffer(scene, *pixel, close_object.closest);
 	if (close_object.closest == DRAW_DISTANCE_MAX)
 		return ;
-	fill_object_buffer(scene, *pixel, close_object.id);
+	fill_object_buffers(scene, *pixel, close_object.id);
 	point.xyz = add(camera, multiply_sv(close_object.closest, pixel->pos));
 	get_point_properties(scene, &point, &close_object);
 	point.light = get_lightning(scene, point, multiply_sv(-1.0, pixel->pos));
@@ -63,32 +63,4 @@ void	get_normal(t_point *point, t_object *object)
 		point->n = substract(point->xyz, object->position);
 	else if (object->type == OBJECT_TYPE_CONE)
 		point->n = substract(point->xyz, object->position);
-}
-
-void	fill_depth_buffer(t_scene *scene, t_pixel pixel, double close)
-{
-	int	i;
-
-	pixel.x = IMG_SIZE_W / 2 + pixel.x;
-	pixel.y = IMG_SIZE_H / 2 - pixel.y;
-	i = (int)(IMG_SIZE_W * (pixel.y - 1) + pixel.x);
-	if (i > 0 && scene->got_depth[i] == FALSE)
-	{
-		scene->depth_buffer[i] = close;
-		scene->got_depth[i] = TRUE;
-	}
-}
-
-void	fill_object_buffer(t_scene *scene, t_pixel pixel, int id)
-{
-	int	i;
-
-	pixel.x = IMG_SIZE_W / 2 + pixel.x - 1;
-	pixel.y = IMG_SIZE_H / 2 - pixel.y + 1;
-	i = (int)(IMG_SIZE_W * (pixel.y - 1) + pixel.x);
-	if (i > 0 && scene->got_object[i] == FALSE)
-	{
-		scene->object_buffer[i] = id;
-		scene->got_object[i] = TRUE;
-	}
 }
