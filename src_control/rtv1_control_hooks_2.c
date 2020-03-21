@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 10:25:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 15:10:08 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/21 15:15:16 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,15 @@ int		keyboard_key_press(int key, t_global *global)
 	{
 		global->scene->show_help = global->scene->show_help ? FALSE : TRUE;
 		global->scene->show_info = FALSE;
+		update_interface_only(global);
+		return (0);
 	}
 	else if (key == I)
 	{
 		global->scene->show_info = global->scene->show_info ? FALSE : TRUE;
 		global->scene->show_help = FALSE;
+		update_interface_only(global);
+		return (0);
 	}
 	else if (key == T)
 		global->scene->antialiasing = global->scene->antialiasing == TRUE ?
