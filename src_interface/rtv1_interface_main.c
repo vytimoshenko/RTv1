@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 14:48:22 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 23:31:46 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/22 19:20:10 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,28 @@
 
 void	show_interface_1(t_global *global)
 {
-	info_effect(global->scene, global->mlx);
 	info_camera(global->scene, global->mlx);
 	info_render(global->mlx);
 	info_coordinates(global->scene, global->mlx);
 	if (global->scene->got_color == TRUE)
 		info_color(global->scene, global->mlx);
 	info_scene_file_name(global->scene, global->mlx);
-    info_help(global->mlx);
+    info_help_string(global->mlx);
 }
 
 void	show_interface_2(t_global *global)
 {
-    if (global->scene->active_light != NOTHING_SELECTED)
+    if (global->scene->active_mode == MODE_LIGHT)
 		info_light(global->scene, global->mlx);
-	if (global->scene->active_material != NOTHING_SELECTED)
+	if (global->scene->active_mode == MODE_MATERIAL)
         info_material(global->scene, global->mlx);
-    if (global->scene->active_object != NOTHING_SELECTED)
+    if (global->scene->active_mode == MODE_OBJECT)
 	{
         info_object(global->scene, global->mlx);
         info_material(global->scene, global->mlx);
     }
+	if (global->scene->active_mode == MODE_EFFECT)
+        info_effect(global->scene, global->mlx);
 	if (global->scene->show_info == TRUE)
 	{
 		info_draw_box(global->mlx, INFO_BOX_W, INFO_BOX_H);

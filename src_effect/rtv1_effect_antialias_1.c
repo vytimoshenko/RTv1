@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 07:09:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 10:34:52 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/22 20:03:48 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	fill_aliasing_buffer(t_scene *scene)
 		scene->aliasing_buffer[i] = need_to_smooth(scene, i);
 		if (!((i + 1) % ((int)IMG_SIZE_W)) || !((i + 2) % ((int)IMG_SIZE_W)))
 		{
-			i += 4;
+			i++;
 			continue;
 		}
 		if (scene->aliasing_buffer[i])

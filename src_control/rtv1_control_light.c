@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 00:33:55 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 16:07:19 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/22 18:18:06 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,14 @@
 
 void	change_light(t_scene *scene, int key)
 {
-	if (key == L)
-	{
-		if (scene->active_light == NOTHING_SELECTED)
-		{
-			scene->active_light = 0;
-			scene->active_material = NOTHING_SELECTED;
-			scene->active_object = NOTHING_SELECTED;
-		}
-		else
-			scene->active_light = NOTHING_SELECTED;
-	}
-	else if (scene->active_light != NOTHING_SELECTED)
-	{
-		if (key == HOME && scene->active_light != scene->lights.quantity - 1)
-			scene->active_light++;
-		else if (key == HOME && scene->active_light == scene->lights.quantity - 1)
-			scene->active_light = 0;
-		else if (key == END && scene->active_light != 0)
-			scene->active_light--;
-		else if (key == END && scene->active_light == 0)
-			scene->active_light = scene->lights.quantity - 1;
-	}
-}
-
-void	change_light_intensity(t_scene *scene, int key)
-{
-	int i;
-
-	i = scene->active_light;
-	if (scene->active_light != NOTHING_SELECTED)
-	{
-		if (key == MINUS && scene->lights.array[i]->intensity >
-		LIGHT_INTENSITY_MIN + LIGHT_INTENSITY_INCREMENT)
-			scene->lights.array[i]->intensity -= LIGHT_INTENSITY_INCREMENT;
-		else if (key == PLUS && scene->lights.array[i]->intensity <
-		LIGHT_INTENSITY_MAX)
-			scene->lights.array[i]->intensity += LIGHT_INTENSITY_INCREMENT;
-		if (key == O && scene->lights.array[i]->off == TRUE)
-			scene->lights.array[i]->off = FALSE;
-		else if (key == O && scene->lights.array[i]->off == FALSE)
-			scene->lights.array[i]->off = TRUE;
-	}
+	if (key == MORE && scene->active_light != scene->lights.quantity - 1)
+		scene->active_light++;
+	else if (key == MORE && scene->active_light == scene->lights.quantity - 1)
+		scene->active_light = 0;
+	else if (key == LESS && scene->active_light != 0)
+		scene->active_light--;
+	else if (key == LESS && scene->active_light == 0)
+		scene->active_light = scene->lights.quantity - 1;
 }
 
 void	move_light(t_scene *scene, int key)
@@ -71,9 +37,9 @@ void	move_light(t_scene *scene, int key)
 		scene->lights.array[i]->position.x += OBJECT_MOVEMENT_INCREMENT;
 	else if (key == ARROW_LEFT)
 		scene->lights.array[i]->position.x -= OBJECT_MOVEMENT_INCREMENT;
-	else if (key == PAGE_UP)
+	else if (key == BRACKET_RIGHT)
 		scene->lights.array[i]->position.z += OBJECT_MOVEMENT_INCREMENT;
-	else if (key == PAGE_DOWN)
+	else if (key == BRACKET_LEFT)
 		scene->lights.array[i]->position.z -= OBJECT_MOVEMENT_INCREMENT;
 }
 
@@ -90,8 +56,25 @@ void	rotate_light(t_scene *scene, int key)
 		scene->lights.array[i]->direction.x += OBJECT_ROTATION_INCREMENT;
 	else if (key == A)
 		scene->lights.array[i]->direction.x -= OBJECT_ROTATION_INCREMENT;
-	else if (key == MORE)
+	else if (key == Z)
 		scene->lights.array[i]->direction.z += OBJECT_ROTATION_INCREMENT;
-	else if (key == LESS)
+	else if (key == X)
 		scene->lights.array[i]->direction.z -= OBJECT_ROTATION_INCREMENT;
+}
+
+void	change_light_intensity(t_scene *scene, int key)
+{
+	int i;
+
+	i = scene->active_light;
+	if (key == MINUS && scene->lights.array[i]->intensity >
+	LIGHT_INTENSITY_MIN + LIGHT_INTENSITY_INCREMENT)
+		scene->lights.array[i]->intensity -= LIGHT_INTENSITY_INCREMENT;
+	else if (key == PLUS && scene->lights.array[i]->intensity <
+	LIGHT_INTENSITY_MAX)
+		scene->lights.array[i]->intensity += LIGHT_INTENSITY_INCREMENT;
+	if (key == O && scene->lights.array[i]->off == TRUE)
+		scene->lights.array[i]->off = FALSE;
+	else if (key == O && scene->lights.array[i]->off == FALSE)
+		scene->lights.array[i]->off = TRUE;
 }

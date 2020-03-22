@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/21 10:58:58 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 11:07:52 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/22 20:15:44 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	fill_object_buffers(t_scene *scene, t_pixel pixel, int id)
 {
 	int	i;
 
-	pixel.x = IMG_SIZE_W / 2 + pixel.x - 1;
-	pixel.y = IMG_SIZE_H / 2 - pixel.y + 1;
-	i = (int)(IMG_SIZE_W * (pixel.y - 1) + pixel.x);
+	pixel.x = IMG_SIZE_W / 2 + pixel.x;
+	pixel.y = IMG_SIZE_H / 2 - pixel.y;
+	i = (int)(IMG_SIZE_W * (pixel.y) + pixel.x);
 	if (i > 0 && scene->got_object[i] == FALSE)
 	{
 		scene->object_buffer[i] = id;

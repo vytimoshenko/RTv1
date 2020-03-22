@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 23:29:06 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/22 19:20:47 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		info_coordinates(t_scene *scene, t_mlx *mlx);
 void		info_color(t_scene *scene, t_mlx *mlx);
 void		info_color_sample(t_mlx *mlx, int color);
 void		info_scene_file_name(t_scene *scene, t_mlx *mlx);
-void		info_help(t_mlx *mlx);
+void		info_help_string(t_mlx *mlx);
 
 void		info_light(t_scene *scene, t_mlx *mlx);
 void		info_light_1(t_scene *scene, t_mlx *mlx, int x, int y);

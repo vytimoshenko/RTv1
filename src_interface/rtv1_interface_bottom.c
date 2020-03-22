@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 03:37:02 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 23:32:15 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/22 19:20:29 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	info_scene_file_name(t_scene *scene, t_mlx *mlx)
 	scene->file_name_with_path);
 }
 
-void	info_help(t_mlx *mlx)
+void	info_help_string(t_mlx *mlx)
 {
 	int	x;
 	int	y;

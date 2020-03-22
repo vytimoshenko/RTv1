@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 21:48:46 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/22 16:44:39 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@
 # define SHADE_UNSELECTED				0.5
 
 # define EFFECTS_QUANTITY				7
-# define NO_EFFECT						0
-# define EFFECT_GRAYSCALE				1
-# define EFFECT_NEGATIVE				2
-# define EFFECT_CARTOON					3
-# define EFFECT_PIXELATION				4
-# define EFFECT_OUTLINE					5
-# define EFFECT_DEPTH					6
-# define EFFECT_ANAGLYPH				7
+# define EFFECT_GRAYSCALE				0
+# define EFFECT_NEGATIVE				1
+# define EFFECT_CARTOON					2
+# define EFFECT_PIXELATION				3
+# define EFFECT_OUTLINE					4
+# define EFFECT_DEPTH					5
+# define EFFECT_ANAGLYPH				6
 
 # define CARTOON_INCREMENT				2
 # define CARTOON_INIT					16

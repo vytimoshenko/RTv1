@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_mlx_hooks_1.c                                 :+:      :+:    :+:   */
+/*   rtv1_control_mouse.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 13:25:25 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/22 19:42:40 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,4 @@ int		mouse_key_release(int key, int x, int y, t_global *global)
 			draw(global);
 	}
 	return (0);
-}
-
-int		close_window(t_global *global)
-{
-	clean_mlx(global->mlx);
-	IMG_Quit();
-	SDL_Quit();
-	exit(0);
 }

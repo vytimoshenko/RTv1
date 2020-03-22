@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_render.c                                      :+:      :+:    :+:   */
+/*   rtv1_trace_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 12:09:48 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/22 20:08:54 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	trace_rays(t_scene *scene)
 	clean_object_buffers(scene);
 	clean_depth_buffers(scene);
 	clean_aliasing_buffer(scene);
-	pixel.x = -IMG_SIZE_W / 2;
-	while (++pixel.x <= IMG_SIZE_W / 2)
+	pixel.x = -IMG_SIZE_W / 2 - 1;
+	while (++pixel.x < IMG_SIZE_W / 2)
 	{
-		pixel.y = -IMG_SIZE_H / 2;
-		while (++pixel.y <= IMG_SIZE_H / 2)
+		pixel.y = -IMG_SIZE_H / 2 - 1;
+		while (++pixel.y < IMG_SIZE_H / 2)
 		{
 			pixel.color = scene->background;
 			get_pixel_position(scene, &pixel);

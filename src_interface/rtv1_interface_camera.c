@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 22:45:32 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/22 19:29:42 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	info_camera(t_scene *scene, t_mlx *mlx)
 	int	y;
 
 	x = WIN_SIZE_W - 350;
-	y = 80;
+	y = 30;
 	info_camera_1(scene, mlx, x, y);
 	info_camera_2(scene, mlx, x, y);
 }
@@ -27,6 +27,7 @@ void	info_camera_1(t_scene *scene, t_mlx *mlx, int x, int y)
 {
 	char	*str;
 
+	mlx_string_put(mlx->mlx, mlx->win, x + 125, y, TEXT_COLOR, "CAMERA");
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 30, TEXT_COLOR,
 	"Camera:           #");
 	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 30, TEXT_COLOR,
@@ -60,4 +61,9 @@ void	info_camera_2(t_scene *scene, t_mlx *mlx, int x, int y)
 	mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 80, TEXT_COLOR,
 	str = ft_itoa(scene->cameras.array[scene->active_camera]->direction.z));
 	free(str);
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 120, TEXT_COLOR, "Antialiasing:");
+	if (scene->antialiasing == TRUE)
+		mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 120, TEXT_COLOR, "on");
+	else if (scene->antialiasing == FALSE)
+		mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 120, TEXT_COLOR, "off");
 }

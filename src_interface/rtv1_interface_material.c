@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 07:25:35 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 23:31:36 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/22 18:35:06 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	info_material_1(t_scene *scene, t_mlx *mlx, int x, int y)
 
 	x = WIN_SIZE_W - 350;
 	y = 320;
-	if (scene->active_material != NOTHING_SELECTED)
+	if (scene->active_mode == MODE_MATERIAL)
 	{
 		mlx_string_put(mlx->mlx, mlx->win, x + 80, y + 70, TEXT_COLOR,
 	"MATERIAL CONTROL");
@@ -55,7 +55,7 @@ void	info_material_2(t_scene *scene, t_mlx *mlx, int x, int y)
 	int		i;
 	char	*str;
 
-	if (scene->active_material != NOTHING_SELECTED)
+	if (scene->active_mode == MODE_MATERIAL)
 		i = scene->active_material;
 	else
 		i = scene->objects.array[scene->active_object]->material;
@@ -75,7 +75,7 @@ void	info_material_3(t_scene *scene, t_mlx *mlx, int x, int y)
 	int		i;
 	char	*str;
 
-	if (scene->active_material != NOTHING_SELECTED)
+	if (scene->active_mode == MODE_MATERIAL)
 		i = scene->active_material;
 	else
 		i = scene->objects.array[scene->active_object]->material;

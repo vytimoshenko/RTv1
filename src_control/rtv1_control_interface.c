@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_control_2.c                                   :+:      :+:    :+:   */
+/*   rtv1_control_interface.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/26 01:08:23 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 16:10:19 by mperseus         ###   ########.fr       */
+/*   Created: 2020/03/22 19:40:45 by mperseus          #+#    #+#             */
+/*   Updated: 2020/03/22 19:43:55 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,37 +24,16 @@ void	get_mouse_position(t_scene *scene, int x, int y)
 	}
 }
 
-int		select_object(int x, int y, t_global *global)
-{
-	int	i;
-	int object_id;
-
-	x = x - IMG_INDT_W;
-	y = y - IMG_INDT_H;
-	if (x < 0 || x > IMG_SIZE_W || y < 0 || y > IMG_SIZE_H)
-		return (-1);
-	i = (int)(IMG_SIZE_W * (y - 1) + x);
-	object_id = global->scene->object_buffer[i];
-	global->scene->active_light = NOTHING_SELECTED;
-	global->scene->active_material = NOTHING_SELECTED;
-	if (global->scene->active_object == object_id)
-		return (0);
-	else
-	{
-		global->scene->active_object = object_id;
-		return (1);
-	}
-}
-
-void	get_material(int x, int y, t_global *global)
+void	pick_color(t_scene *scene, int x, int y)
 {
 	int	i;
 
 	x = x - IMG_INDT_W;
 	y = y - IMG_INDT_H;
 	if (x < 0 || x > IMG_SIZE_W || y < 0 || y > IMG_SIZE_H)
-		return ;
+		return;
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
-	global->scene->material_source =
-	global->scene->objects.array[global->scene->object_buffer[i]]->material;
+	scene->picked_color = scene->frame_buffer[i];
+	scene->got_color = 1;
+	system("afplay /System/Library/Sounds/Tink.aiff");
 }

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 17:17:05 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/22 17:25:09 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,41 @@ typedef struct			s_color
 	int					g;
 	int					b;
 }						t_color;
+
+typedef struct			s_pixel
+{
+	int					i;
+	int					x;
+	int					y;
+	
+	t_vector			pos;
+	t_color				color;
+
+	// int					object_id;
+}						t_pixel;
+
+typedef struct			s_point
+{
+	t_vector			xyz;
+	t_color				color;
+	double				specular;
+	double				reflective;
+	double				refractive;
+	double				transparency;
+
+	double				light;
+	t_vector			n;
+
+	double				light_intensity;
+	t_color				final_color;
+}						t_point;
+
+typedef struct			s_t_min_max
+{
+	double				t;
+	double				t_min;
+	double				t_max;
+}						t_t_min_max;
 
 typedef struct			s_camera
 {
@@ -60,7 +95,6 @@ typedef struct			s_object
 	double				closest;
 	int					null;
 }						t_object;
-
 
 typedef struct			s_light
 {
@@ -116,10 +150,12 @@ typedef struct			s_objects
 
 typedef struct			s_scene
 {
+	int					active_mode;
 	int					active_camera;
 	int					active_light;
 	int					active_material;
 	int					active_object;
+	int					active_effect;
 	
 	char				*file_name_with_path;
 	char				*name;
@@ -148,7 +184,6 @@ typedef struct			s_scene
 	int					*aliasing_buffer;
 	double				aliasing_rate;
 
-	int					effect;
 
 	int					k_cartoon;
 	int					k_pixelation;
