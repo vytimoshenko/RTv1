@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 01:13:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 23:12:13 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 09:16:20 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	draw(t_global *global)
 	global->mlx->img, IMG_INDT_W, IMG_INDT_H);
 	gettimeofday(&end, NULL);
 	count_frames(global->mlx, start, end);
-	show_interface_1(global);
-	show_interface_2(global);
+	show_interface(global);
 }
 
 void	count_frames(t_mlx *mlx, struct timeval start, struct timeval end)
@@ -41,8 +40,7 @@ void	update_interface_only(t_global *global)
 	mlx_clear_window(global->mlx->mlx, global->mlx->win);
 	mlx_put_image_to_window(global->mlx->mlx, global->mlx->win,
 	global->mlx->img, IMG_INDT_W, IMG_INDT_H);
-	show_interface_1(global);
-	show_interface_2(global);
+	show_interface(global);
 }
 
 void	put_error_pn(char *str)

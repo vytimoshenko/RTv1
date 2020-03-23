@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 19:20:47 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 11:14:54 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@
 # define IMG_INDT_H						10
 
 # define TEXT_COLOR 					0xFFFFFF
-# define BOX_COLOR						0x50000000
+# define BOX_COLOR						0x40000000
 
-# define HELP_BOX_W						1000
-# define HELP_BOX_H						500
+# define HELP_BOX_W						1070
+# define HELP_BOX_H						600
 
 # define INFO_BOX_W						420
 # define INFO_BOX_H						280
@@ -42,9 +42,7 @@
 # define MESSAGE_BOX_H					80
 # define MESSAGE_BOX_INDENTATION		10
 
-void		show_interface_1(t_global *global);
-void		show_interface_2(t_global *global);
-void		show_help(t_mlx *mlx);
+void		show_interface(t_global *global);
 
 void		info_effect(t_scene *scene, t_mlx *mlx);
 void		info_effect_1(t_scene *scene, t_mlx *mlx, int x, int y);
@@ -88,11 +86,15 @@ void		info_scene_2(t_scene *scene, t_mlx *mlx, int x, int y);
 void		info_scene_3(t_scene *scene, t_mlx *mlx, int x, int y);
 void		info_scene_4(t_scene *scene, t_mlx *mlx, int x, int y);
 
-void		info_header_and_author(t_mlx *mlx);
-void		info_author(t_mlx *mlx);
-void		info_control_1(t_mlx *mlx);
-void		info_control_2(t_mlx *mlx);
-void		info_control_3(t_mlx *mlx);
+void		show_help(t_mlx *mlx);
+void		info_header_and_author(t_mlx *mlx, int x, int y);
+void		info_help_general(t_mlx *mlx, int x, int y);
+void		info_help_effect(t_mlx *mlx, int x, int y);
+void		info_help_camera(t_mlx *mlx, int x, int y);
+
+void		info_help_light(t_mlx *mlx, int x, int y);
+void		info_help_material(t_mlx *mlx, int x, int y);
+void		info_help_object(t_mlx *mlx, int x, int y);
 
 void		info_draw_box(t_mlx *mlx, int size_w, int size_h);
 void		info_message_box(t_mlx *mlx, char *message_title,

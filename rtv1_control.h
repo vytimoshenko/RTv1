@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 23:14:20 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 08:51:56 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 # define H								4
 # define Z								6
 # define X								7
+# define B								11
 # define Q								12
 # define W								13
 # define E								14

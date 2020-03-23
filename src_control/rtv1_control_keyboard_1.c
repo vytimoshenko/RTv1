@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 10:25:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 23:18:30 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 08:53:31 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	change_item(t_global *global, int key)
 
 void	change_grade(t_global *global, int key)
 {
-	if (key == PLUS || key == MINUS)
+	if (key == PLUS || key == MINUS || key == B)
 	{
 		if (global->scene->active_mode == MODE_LIGHT)
 			change_light_intensity(global->scene, key);
