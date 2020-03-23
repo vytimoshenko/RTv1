@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 16:51:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 18:58:44 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 17:03:14 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		select_object(int x, int y, t_global *global)
     if (object_id == NOTHING_SELECTED)
     {
           global->scene->active_mode = MODE_CAMERA;
+		  global->scene->active_object = NOTHING_SELECTED;
           return (1);
     }
 	global->scene->active_mode = MODE_OBJECT;

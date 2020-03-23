@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 07:25:35 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 18:35:06 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 16:42:48 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	info_material(t_scene *scene, t_mlx *mlx)
 	int		y;
 
 	x = WIN_SIZE_W - 350;
-	y = 320;
+	y = 250;
+	if (scene->active_mode == MODE_OBJECT)
+		y = 350;
 	info_material_1(scene, mlx, x, y);
 	info_material_2(scene, mlx, x, y);
 	info_material_3(scene, mlx, x, y);
@@ -29,24 +31,22 @@ void	info_material_1(t_scene *scene, t_mlx *mlx, int x, int y)
 	int		i;
 	char	*str;
 
-	x = WIN_SIZE_W - 350;
-	y = 320;
 	if (scene->active_mode == MODE_MATERIAL)
 	{
-		mlx_string_put(mlx->mlx, mlx->win, x + 80, y + 70, TEXT_COLOR,
+		mlx_string_put(mlx->mlx, mlx->win, x + 80, y - 30, TEXT_COLOR,
 	"MATERIAL CONTROL");
 		i = scene->active_material;
 	}
 	else
 		i = scene->objects.array[scene->active_object]->material;
-	mlx_string_put(mlx->mlx, mlx->win, x, y + 100, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y, TEXT_COLOR,
 	"Material:         #");
-	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 100, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x + 190, y, TEXT_COLOR,
 	str = ft_itoa(i));
 	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, x + 210, y + 100, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x + 210, y, TEXT_COLOR,
 	scene->materials.array[i]->name);
-	mlx_string_put(mlx->mlx, mlx->win, x, y + 130, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 30, TEXT_COLOR,
 	"- color (RGB):");
 }
 
@@ -59,13 +59,13 @@ void	info_material_2(t_scene *scene, t_mlx *mlx, int x, int y)
 		i = scene->active_material;
 	else
 		i = scene->objects.array[scene->active_object]->material;
-	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 130, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 30, TEXT_COLOR,
 	str = ft_itoa(scene->materials.array[i]->color.r));
 	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, x + 240, y + 130, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x + 240, y + 30, TEXT_COLOR,
 	str = ft_itoa(scene->materials.array[i]->color.g));
 	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 130, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 30, TEXT_COLOR,
 	str = ft_itoa(scene->materials.array[i]->color.b));
 	free(str);
 }
@@ -81,15 +81,15 @@ void	info_material_3(t_scene *scene, t_mlx *mlx, int x, int y)
 		i = scene->objects.array[scene->active_object]->material;
 	info_material_color_sample(mlx,
 	unite_color_channels(scene->materials.array[i]->color),
-	WIN_SIZE_W - 200, 452);
-	mlx_string_put(mlx->mlx, mlx->win, x, y + 150, TEXT_COLOR,
+	x + 150, y + 33);
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 50, TEXT_COLOR,
 	"- specular:");
-	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 150, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 50, TEXT_COLOR,
 	str = ft_itoa(scene->materials.array[i]->specular));
 	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, x, y + 170, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 70, TEXT_COLOR,
 	"- reflective (x10):");
-	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 170, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 70, TEXT_COLOR,
 	str = ft_itoa(10 * scene->materials.array[i]->reflective));
 	free(str);
 }

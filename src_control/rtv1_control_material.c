@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 07:13:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 18:29:39 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 17:07:32 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	get_material(int x, int y, t_global *global)
 
 	x = x - IMG_INDT_W;
 	y = y - IMG_INDT_H;
-	if (x >= WIN_SIZE_W - 200 && x < WIN_SIZE_W - 182 && y >= 452 && y < 470)
+	if (x >= WIN_SIZE_W - 200 && x < WIN_SIZE_W - 182 && y >= 217 && y < 235)
 	{
 		global->scene->material_source = global->scene->active_material;
 		return ;

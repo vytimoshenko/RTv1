@@ -6,19 +6,37 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 10:25:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/23 08:53:31 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 17:20:29 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
 
+void	escape_key(t_global *global, int key)
+{
+	if (key == ESC)
+	{
+		global->scene->show_help = FALSE;
+		global->scene->show_info = FALSE;
+		global->scene->got_color = FALSE;
+		if (global->scene->active_mode == MODE_OBJECT)
+		{
+			global->scene->active_mode = MODE_CAMERA;
+			draw(global);
+		}
+		else
+		{
+			global->scene->active_mode = MODE_CAMERA;
+			update_interface_only(global);
+		}
+	}
+}
+
 void	change_mode(t_global *global, int key)
 {
-	if (key == ESC || key == L || key == M || key == O || key == E)
+	if (key == L || key == M || key == O || key == E)
 	{
-		if (key == ESC)
-			global->scene->active_mode = MODE_CAMERA;
-		else if (key == L && global->scene->active_mode != MODE_LIGHT)
+		if (key == L && global->scene->active_mode != MODE_LIGHT)
 			global->scene->active_mode = MODE_LIGHT;
 		else if (key == L && global->scene->active_mode == MODE_LIGHT)
 			global->scene->active_mode = MODE_CAMERA;

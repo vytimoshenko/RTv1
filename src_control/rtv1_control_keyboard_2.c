@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 23:09:56 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 23:10:18 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 17:26:46 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,7 @@ void	rotate_item(t_global *global, int key)
 
 void	interface_actions(t_global *global, int key)
 {
-	if (key == U)
-	{
-		update_interface_only(global);
-		save_scene(global->scene, global->mlx);
-		return;
-	}
-	else if (key == P)
-	{
-		update_interface_only(global);
-		save_screenshot(global->scene, global->mlx);
-		return;
-	}
-	else if (key == H)
+	if (key == H)
 	{
 		global->scene->show_help = global->scene->show_help ? FALSE : TRUE;
 		global->scene->show_info = FALSE;
@@ -72,5 +60,30 @@ void	interface_actions(t_global *global, int key)
 	}
 	else if (key == Q)
 		close_window(global);
+	else
+		return;
+	update_interface_only(global);
+}
+
+void	save_actions(t_global *global, int key)
+{
+	if (key == U)
+	{
+		global->scene->show_help = FALSE;
+		global->scene->show_info = FALSE;
+		update_interface_only(global);
+		save_scene(global->scene, global->mlx);
+		return;
+	}
+	else if (key == P)
+	{
+		global->scene->show_help = FALSE;
+		global->scene->show_info = FALSE;
+		update_interface_only(global);
+		save_screenshot(global->scene, global->mlx);
+		return;
+	}
+	else
+		return;
 	update_interface_only(global);
 }

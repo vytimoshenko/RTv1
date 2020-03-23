@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_color_1.c                                     :+:      :+:    :+:   */
+/*   rtv1_effect_color_1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 03:38:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 18:57:57 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 16:08:20 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ t_color	split_color(int color)
 {
 	t_color result;
 
-	result.r = color / 256 / 256;
-	result.g = color / 256 % 256;
-	result.b = color % 256;
+	result.r = color & 0xFF0000;
+	result.g = color & 0x00FF00;
+	result.b = color & 0x0000FF;
 	return (result);
 }
 

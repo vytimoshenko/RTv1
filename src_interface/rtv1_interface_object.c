@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 23:31:31 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 16:28:20 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	info_object(t_scene *scene, t_mlx *mlx)
 	int		y;
 
 	x = WIN_SIZE_W - 350;
-	y = 320;
+	y = 250;
 	info_object_1(scene, mlx, x, y);
 	info_object_2(scene, mlx, x, y);
 	info_object_3(scene, mlx, x, y);

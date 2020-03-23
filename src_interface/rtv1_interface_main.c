@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 14:48:22 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/23 09:09:10 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 16:50:42 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	show_interface(t_global *global)
         info_object(global->scene, global->mlx);
         info_material(global->scene, global->mlx);
     }
-	if (global->scene->active_mode == MODE_EFFECT)
-        info_effect(global->scene, global->mlx);
+	info_effect(global->scene, global->mlx);
 	if (global->scene->show_info == TRUE)
 	{
 		info_draw_box(global->mlx, INFO_BOX_W, INFO_BOX_H);

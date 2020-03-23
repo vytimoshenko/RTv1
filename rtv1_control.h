@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/23 08:51:56 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 17:28:28 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int		mouse_key_release(int key, int x, int y, t_global *global);
 int		keyboard_key_press(int key, t_global *global);
 int		close_window(t_global *global);
 
+void	escape_key(t_global *global, int key);
 void	change_mode(t_global *global, int key);
 void	change_item(t_global *global, int key);
 void	change_grade(t_global *global, int key);
@@ -88,6 +89,7 @@ void	change_grade(t_global *global, int key);
 void	move_item(t_global *global, int key);
 void	rotate_item(t_global *global, int key);
 void	interface_actions(t_global *global, int key);
+void	save_actions(t_global *global, int key);
 
 void	change_camera(t_scene *scene, int key);
 void	move_camera(t_scene *scene, int key);

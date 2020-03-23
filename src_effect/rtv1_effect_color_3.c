@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 18:19:30 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 11:26:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 15:59:56 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ t_color	to_grayscale(t_color color)
 
 t_color	to_negative(t_color color)
 {
-	color.r = 255 - color.r;
-	color.g = 255 - color.g;
-	color.b = 255 - color.b;
+	color.r ^= 0x0000ff;
+	color.g ^= 0x0000ff;
+	color.b ^= 0x0000ff;
 	return (color);
 }
 

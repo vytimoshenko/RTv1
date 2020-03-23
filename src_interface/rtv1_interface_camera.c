@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 19:29:42 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 17:04:37 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,19 @@ void	info_camera_1(t_scene *scene, t_mlx *mlx, int x, int y)
 {
 	char	*str;
 
-	mlx_string_put(mlx->mlx, mlx->win, x + 125, y, TEXT_COLOR, "CAMERA");
-	mlx_string_put(mlx->mlx, mlx->win, x, y + 30, TEXT_COLOR,
-	"Camera:           #");
-	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 30, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x + 110, y, TEXT_COLOR, "CAMERA #");
+	mlx_string_put(mlx->mlx, mlx->win, x + 190, y, TEXT_COLOR,
 	str = ft_itoa(scene->active_camera + 1));
 	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, x, y + 60, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 30, TEXT_COLOR,
 	"- position (XYZ):");
-	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 60, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 30, TEXT_COLOR,
 	str = ft_itoa(scene->cameras.array[scene->active_camera]->position.x));
 	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, x + 240, y + 60, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x + 240, y + 30, TEXT_COLOR,
 	str = ft_itoa(scene->cameras.array[scene->active_camera]->position.y));
 	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 60, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 30, TEXT_COLOR,
 	str = ft_itoa(scene->cameras.array[scene->active_camera]->position.z));
 	free(str);
 }
@@ -50,20 +48,20 @@ void	info_camera_2(t_scene *scene, t_mlx *mlx, int x, int y)
 {
 	char	*str;
 
-	mlx_string_put(mlx->mlx, mlx->win, x, y + 80, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 50, TEXT_COLOR,
 	"- rotation (XYZ):");
-	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 80, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 50, TEXT_COLOR,
 	str = ft_itoa(scene->cameras.array[scene->active_camera]->direction.x));
 	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, x + 240, y + 80, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x + 240, y + 50, TEXT_COLOR,
 	str = ft_itoa(scene->cameras.array[scene->active_camera]->direction.y));
 	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 80, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 50, TEXT_COLOR,
 	str = ft_itoa(scene->cameras.array[scene->active_camera]->direction.z));
 	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, x, y + 120, TEXT_COLOR, "Antialiasing:");
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 90, TEXT_COLOR, "Antialiasing:");
 	if (scene->antialiasing == TRUE)
-		mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 120, TEXT_COLOR, "on");
+		mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 90, TEXT_COLOR, "on");
 	else if (scene->antialiasing == FALSE)
-		mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 120, TEXT_COLOR, "off");
+		mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 90, TEXT_COLOR, "off");
 }
