@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 07:13:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/24 18:26:11 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/24 18:32:31 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ int		apply_material(int x, int y, t_global *global)
 		return (0);
 	}
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
-	if (global->scene->object_buffer[i] == -1)
+	if (global->scene->object_buffer[i] == -1 || global->scene->
+	objects.array[global->scene->object_buffer[i]]->material ==
+	global->scene->material_source)
 	{
 		global->scene->material_source = NOTHING_SELECTED;
 		return (0);
