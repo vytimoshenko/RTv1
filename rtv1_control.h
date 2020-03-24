@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/23 17:28:28 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/24 16:01:18 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 # define Q								12
 # define W								13
 # define E								14
+# define R								15
 # define T								17
 # define PLUS							24
 # define MINUS							27
@@ -114,5 +115,8 @@ void	change_effect_grade(t_scene *scene, int key);
 
 void	get_mouse_position(t_scene *scene, int x, int y);
 void	pick_color(t_scene *scene, int x, int y);
+
+void	reset(t_global *global, int key);
+void	clean_scene(t_scene *scene);
 
 #endif

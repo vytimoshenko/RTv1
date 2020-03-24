@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 08:45:30 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 19:24:44 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/24 15:33:08 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,17 @@ void	put_error_wrong_scene_data(char *wrong_data, char *message)
 void	save_quantities(t_scene *scene)
 {
 	scene->cameras.quantity = scene->active_camera;
+	if (scene->cameras.quantity == 0)
+		put_error_pn("scene file must contain at least one camera");
 	scene->lights.quantity = scene->active_light;
+	if (scene->lights.quantity == 0)
+		put_error_pn("scene file must contain at least one light");
 	scene->materials.quantity = scene->active_material;
+	if (scene->materials.quantity == 0)
+		put_error_pn("scene file must contain at least one material");
 	scene->objects.quantity = scene->active_object;
+	if (scene->objects.quantity == 0)
+		put_error_pn("scene file must contain at least one object");
 	scene->active_camera = NOTHING_SELECTED;
 	scene->active_light = NOTHING_SELECTED;
 	scene->active_material = NOTHING_SELECTED;

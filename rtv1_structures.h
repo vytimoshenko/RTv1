@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/24 14:34:05 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/24 15:49:45 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,12 +196,9 @@ typedef struct			s_scene
 	int					middle_mouse_button;
 
 	int					material_source;
-	int					material_target;
 
 	int					show_help;
 	int					show_info;
-
-	int					quantity_lines;
 }						t_scene;
 
 typedef struct			s_mlx
