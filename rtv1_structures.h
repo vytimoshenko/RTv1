@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 17:25:09 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/24 14:34:05 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,6 @@ typedef struct			s_scene
 	int					antialiasing;
 	int					*aliasing_buffer;
 	double				aliasing_rate;
-
 
 	int					k_cartoon;
 	int					k_pixelation;

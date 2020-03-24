@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/23 16:50:04 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/23 17:39:36 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,20 @@ void	info_effect(t_scene *scene, t_mlx *mlx)
 
 	x = WIN_SIZE_W - 350;
 	y = 150;
-	info_effect_1(scene, mlx, x, y);
-	info_effect_2(scene, mlx, x, y);
-	info_effect_3(scene, mlx, x, y);
+	mlx_string_put(mlx->mlx, mlx->win, x, y, TEXT_COLOR, "Effect:");
+	if (scene->active_mode != MODE_EFFECT)
+		mlx_string_put(mlx->mlx, mlx->win, x + 190, y, TEXT_COLOR, "no");
+	else
+	{
+		info_effect_1(scene, mlx, x, y);
+		info_effect_2(scene, mlx, x, y);
+		info_effect_3(scene, mlx, x, y);
+	}
 }
 
 void	info_effect_1(t_scene *scene, t_mlx *mlx, int x, int y)
 {
-	mlx_string_put(mlx->mlx, mlx->win, x, y, TEXT_COLOR, "Effect:");
-	if (scene->active_mode != MODE_EFFECT)
-		mlx_string_put(mlx->mlx, mlx->win, x + 190, y, TEXT_COLOR, "no");
-	else if (scene->active_effect == EFFECT_GRAYSCALE)
+	if (scene->active_effect == EFFECT_GRAYSCALE)
 		mlx_string_put(mlx->mlx, mlx->win, x + 190, y, TEXT_COLOR, "Grayscale");
 	else if (scene->active_effect == EFFECT_NEGATIVE)
 		mlx_string_put(mlx->mlx, mlx->win, x + 190, y, TEXT_COLOR, "Negative");
