@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 12:30:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 17:59:04 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/24 19:05:15 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define SCREENSHOT_PATH				"./screenshots/"
 
 # define SCENE_FILE_EXTENSION			".rt"
-# define SCREENSHOT_FILE_EXTENSION		".jpg"
+# define SCREENSHOT_FILE_EXTENSION		".png"
 # define CURRENT_TIME_STR_LENGTH		24
 
 # define SAVE_MESSAGE_TITLE				"SCENE SAVED AS"

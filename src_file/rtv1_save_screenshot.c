@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 01:37:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 19:25:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/24 19:05:48 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	save_screenshot(t_scene *scene, t_mlx *mlx)
 	if (!(surface = SDL_CreateRGBSurfaceFrom(mlx->data, IMG_SIZE_W, IMG_SIZE_H,
 	32, sizeof(int) * IMG_SIZE_W, 0, 0, 0, 0)))
 		put_error_pn("SDL_CreateRGBSurfaceFrom");
-	if (IMG_SaveJPG(surface, file_name, 100))
-		put_error_pn("IMG_SaveJPG");
+	if (IMG_SavePNG(surface, file_name))
+		put_error_pn("IMG_SavePNG");
 	info_message_box(mlx, SCREENSHOT_MESSAGE_TITLE, file_name);
 	free(file_name);
 	SDL_FreeSurface(surface);
