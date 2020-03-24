@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:29:21 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/24 15:47:19 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/24 18:17:31 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	set_initial_status(t_scene *scene)
 	scene->k_pixelation = PIXELATION_INIT;
 	scene->k_depth_map = DEPTH_MAP_INIT;
 	scene->active_camera = 0;
+	scene->active_material = 0;
+	scene->material_source = NOTHING_SELECTED;
 }
 
 void	get_lights_statistics(t_scene *scene)

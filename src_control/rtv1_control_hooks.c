@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/24 15:14:50 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/24 18:26:42 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	mouse_key_press(int key, int x, int y, t_global *global)
 			return (0);
 		}
 	}
-	else if (key == RIGHT_MOUSE_BUTTON)
+	if (key == RIGHT_MOUSE_BUTTON)
 	{
 		pick_color(global->scene, x, y);
 		update_interface_only(global);
