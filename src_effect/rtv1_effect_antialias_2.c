@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:16:54 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 10:53:18 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 13:24:10 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	get_multisample_color(t_scene *scene, t_pixel *pixel, double *jitter)
 		tmp.x = 0;
 		tmp.y = 0;
 		pixel->color = scene->background;
-		get_pixel_position(scene, pixel);
+		get_pixel_viewport_coordinates(scene, pixel);
 		tmp.x = jitter[i] + scene->cameras.array[scene->active_camera]->
 		position.x;
 		tmp.y = jitter[i] + scene->cameras.array[scene->active_camera]->

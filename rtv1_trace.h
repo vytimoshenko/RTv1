@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 18:37:02 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 16:18:51 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 13:57:21 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define VIEWPORT_SIZE_W				1.25
 # define VIEWPORT_SIZE_H				1
 # define VIEWPORT_DISTANCE				1
+
+# define EMPTY							-2
 
 # define LIGHT_TYPE_AMBIENT				0
 # define LIGHT_TYPE_POINT				1
@@ -34,8 +36,6 @@
 
 # define PI								3.14159265
 
-
-
 //FRAME BUFFER
 void		init_frame_buffer(t_scene *scene);
 void		clean_frame_buffer(t_scene *scene);
@@ -43,7 +43,8 @@ void		fill_frame_buffer(t_scene *scene, t_pixel pixel);
 
 //RAYTRACING
 void		trace_rays(t_scene *scene);
-void		get_pixel_position(t_scene *scene, t_pixel *pixel);
+void		get_centered_coordinates(t_pixel *pixel);
+void		get_pixel_viewport_coordinates(t_scene *scene, t_pixel *pixel);
 void		get_sin_cos(t_camera *camera);
 void		rotate_pixel(t_pixel *pixel, t_camera *camera);
 void		put_pixel(t_mlx *mlx, int x, int y, int color);

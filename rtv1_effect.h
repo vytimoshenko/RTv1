@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 16:44:39 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 14:19:42 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define PIXELATION_INIT				16
 # define PIXELATION_MIN					4
 # define PIXELATION_MAX					256
-		
+
 # define DEPTH_MAP_INCREMENT			2
 # define DEPTH_MAP_INIT					128
 # define DEPTH_MAP_MIN					32
@@ -45,6 +45,9 @@
 # define ANTIALIASING_COLOR_THRESHOLD	16
 # define ANTIALIASING_OUTLINE_WIDTH		3
 # define MULTI_SAMPLING_RATE			8
+
+void    init_pixel_buffer(t_scene *scene);
+void    clean_pixel_buffer(t_scene *scene);
 
 //MAIN
 void		final_processing(t_mlx *mlx, t_scene *scene);

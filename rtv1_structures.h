@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/24 15:49:45 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 13:25:51 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ typedef struct			s_pixel
 	int					i;
 	int					x;
 	int					y;
-	
+
 	t_vector			pos;
 	t_color				color;
 
-	// int					object_id;
+	int					object_id;
 }						t_pixel;
 
 typedef struct			s_point
@@ -156,7 +156,7 @@ typedef struct			s_scene
 	int					active_material;
 	int					active_object;
 	int					active_effect;
-	
+
 	char				*file_name_with_path;
 	char				*name;
 	char				*author;
@@ -169,6 +169,7 @@ typedef struct			s_scene
 	t_materials			materials;
 
 	t_color				*frame_buffer;
+	t_pixel				*pixel_buffer;
 
 	t_color				*anaglyph_left_buffer;
 	t_color				*anaglyph_right_buffer;

@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/21 11:07:07 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 14:54:52 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,13 @@ void	get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int k)
 	close_object = get_intersection(scene->objects, camera, pixel->pos,
 	(t_t_min_max){0, DRAW_DISTANCE_MIN, DRAW_DISTANCE_MAX});
 	fill_depth_buffer(scene, *pixel, close_object.closest);
+	if (close_object.closest == DRAW_DISTANCE_MAX && pixel->object_id == EMPTY)
+		pixel->object_id = NOTHING_SELECTED;
 	if (close_object.closest == DRAW_DISTANCE_MAX)
 		return ;
-	fill_object_buffers(scene, *pixel, close_object.id);
+	if (pixel->object_id == EMPTY)
+		pixel->object_id = close_object.id;
+	// fill_object_buffers(scene, *pixel, close_object.id);
 	point.xyz = add(camera, multiply_sv(close_object.closest, pixel->pos));
 	get_point_properties(scene, &point, &close_object);
 	point.light = get_lightning(scene, point, multiply_sv(-1.0, pixel->pos));

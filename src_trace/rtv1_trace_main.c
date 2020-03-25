@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 20:08:54 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 14:18:45 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,34 @@
 
 void	trace_rays(t_scene *scene)
 {
-	t_pixel		pixel;
+	int	i;
 
 	clean_frame_buffer(scene);
 	clean_object_buffers(scene);
 	clean_depth_buffers(scene);
 	clean_aliasing_buffer(scene);
-	pixel.x = -IMG_SIZE_W / 2 - 1;
-	while (++pixel.x < IMG_SIZE_W / 2)
+	clean_pixel_buffer(scene);
+	i = -1;
+	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 	{
-		pixel.y = -IMG_SIZE_H / 2 - 1;
-		while (++pixel.y < IMG_SIZE_H / 2)
-		{
-			pixel.color = scene->background;
-			get_pixel_position(scene, &pixel);
-			get_pixel_color(scene, scene->cameras.array[scene->active_camera]->
-			position, &pixel, REFLECTION_DEPTH);
-			fill_frame_buffer(scene, pixel);
-		}
+		scene->pixel_buffer[i].i = i;
+		scene->pixel_buffer[i].object_id = EMPTY;
+		get_centered_coordinates(&scene->pixel_buffer[i]);
+		get_pixel_viewport_coordinates(scene, &scene->pixel_buffer[i]);
+		get_pixel_color(scene, scene->cameras.array[scene->active_camera]->
+		position, &scene->pixel_buffer[i], REFLECTION_DEPTH);
+		scene->object_buffer[i] = scene->pixel_buffer[i].object_id;
+		fill_frame_buffer(scene, scene->pixel_buffer[i]);
 	}
 }
 
-void	get_pixel_position(t_scene *scene, t_pixel *pixel)
+void	get_centered_coordinates(t_pixel *pixel)
+{
+	pixel->x = pixel->i % (int)IMG_SIZE_W - 0.5 * (int)IMG_SIZE_W;
+	pixel->y = 0.5 * (int)IMG_SIZE_H - pixel->i / (int)IMG_SIZE_W;
+}
+
+void	get_pixel_viewport_coordinates(t_scene *scene, t_pixel *pixel)
 {
 	pixel->pos.x = pixel->x * VIEWPORT_SIZE_W / IMG_SIZE_W;
 	pixel->pos.y = pixel->y * VIEWPORT_SIZE_H / IMG_SIZE_H;
