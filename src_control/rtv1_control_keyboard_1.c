@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 10:25:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/23 17:20:29 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 20:50:50 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,12 @@ void	escape_key(t_global *global, int key)
 		if (global->scene->active_mode == MODE_OBJECT)
 		{
 			global->scene->active_mode = MODE_CAMERA;
-			draw(global);
+			update_interface_and_frame(global);
+		}
+		if (global->scene->active_mode == MODE_EFFECT)
+		{
+			global->scene->active_mode = MODE_CAMERA;
+			update_interface_and_frame(global);
 		}
 		else
 		{
@@ -32,19 +37,35 @@ void	escape_key(t_global *global, int key)
 	}
 }
 
-void	change_mode(t_global *global, int key)
+void	change_mode_1(t_global *global, int key)
 {
-	if (key == L || key == M || key == O || key == E)
+	if (key == L || key == M)
 	{
 		if (key == L && global->scene->active_mode != MODE_LIGHT)
 			global->scene->active_mode = MODE_LIGHT;
 		else if (key == L && global->scene->active_mode == MODE_LIGHT)
 			global->scene->active_mode = MODE_CAMERA;
 		else if (key == M && global->scene->active_mode != MODE_MATERIAL)
+		{
+			if (global->scene->active_mode == MODE_OBJECT)
+			{
+				global->scene->active_mode = MODE_MATERIAL;
+				update_interface_and_frame(global);
+				return ;
+			}
 			global->scene->active_mode = MODE_MATERIAL;
+		}
 		else if (key == M && global->scene->active_mode == MODE_MATERIAL)
 			global->scene->active_mode = MODE_CAMERA;
-		else if (key == O && global->scene->active_mode != MODE_OBJECT)
+		update_interface_only(global);
+	}
+}
+
+void	change_mode_2(t_global *global, int key)
+{
+	if (key == O || key == E)
+	{
+		if (key == O && global->scene->active_mode != MODE_OBJECT)
 			global->scene->active_mode = MODE_OBJECT;
 		else if (key == O && global->scene->active_mode == MODE_OBJECT)
 			global->scene->active_mode = MODE_CAMERA;
@@ -52,10 +73,7 @@ void	change_mode(t_global *global, int key)
 			global->scene->active_mode = MODE_EFFECT;
 		else if (key == E && global->scene->active_mode == MODE_EFFECT)
 			global->scene->active_mode = MODE_CAMERA;
-		if (key == L || key == M)
-			update_interface_only(global);
-		else
-			draw(global);
+		update_interface_and_frame(global);
 	}
 }
 
@@ -64,7 +82,11 @@ void	change_item(t_global *global, int key)
 	if (key == LESS || key == MORE)
 	{
 		if (global->scene->active_mode == MODE_CAMERA)
+		{
 			change_camera(global->scene, key);
+			draw(global);
+			return ;
+		}
 		else if (global->scene->active_mode == MODE_LIGHT)
 			change_light(global->scene, key);
 		else if (global->scene->active_mode == MODE_OBJECT)
@@ -77,7 +99,7 @@ void	change_item(t_global *global, int key)
 		global->scene->active_mode == MODE_MATERIAL)
 			update_interface_only(global);
 		else
-			draw(global);
+			update_interface_and_frame(global);
 	}
 }
 
@@ -88,7 +110,11 @@ void	change_grade(t_global *global, int key)
 		if (global->scene->active_mode == MODE_LIGHT)
 			change_light_intensity(global->scene, key);
 		else if (global->scene->active_mode == MODE_EFFECT)
+		{
 			change_effect_grade(global->scene, key);
+			update_interface_and_frame(global);
+			return ;
+		}
 		else
 			return;
 		draw(global);

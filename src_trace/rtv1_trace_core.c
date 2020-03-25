@@ -6,13 +6,13 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 15:16:33 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 18:41:44 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
 
-void	get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int k)
+void	trace_pixel(t_scene *scene, t_vector camera, t_pixel *pixel, int k)
 {
 	t_point		point;
 	t_object	close_object;
@@ -38,7 +38,7 @@ void	get_pixel_color(t_scene *scene, t_vector camera, t_pixel *pixel, int k)
 	if (point.reflective > 0)
 	{
 		pixel->pos = reflect_ray(multiply_sv(-1.0, pixel->pos), point.n);
-		get_pixel_color(scene, point.xyz, pixel, k - 1);
+		trace_pixel(scene, point.xyz, pixel, k - 1);
 		pixel->color = add_color(multiply_color(1.0 - point.reflective,
 		point.final_color), multiply_color(point.reflective, pixel->color));
 	}

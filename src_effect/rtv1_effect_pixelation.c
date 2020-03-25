@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 12:55:58 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 19:21:41 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 18:45:21 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ t_color	get_average_color(t_scene *scene, int pitch)
 		i = pitch + y * IMG_SIZE_W - 1;
 		while (i++ < pitch + y * IMG_SIZE_W - 1 + scene->k_pixelation)
 		{
-			color_r += scene->frame_buffer[i].r;
-			color_g += scene->frame_buffer[i].g;
-			color_b += scene->frame_buffer[i].b;
+			color_r += scene->pixel_buffer[i].color.r;
+			color_g += scene->pixel_buffer[i].color.g;
+			color_b += scene->pixel_buffer[i].color.b;
 		}
 		y++;
 	}
@@ -74,7 +74,7 @@ void	draw_macro_pixel(t_scene *scene, t_color color, int pitch)
 	{
 		i = pitch + y * IMG_SIZE_W - 1;
 		while (i++ < pitch + y * IMG_SIZE_W - 1 + scene->k_pixelation)
-			scene->frame_buffer[i] = color;
+			scene->pixel_buffer[i].frame = color;
 		y++;
 	}
 }

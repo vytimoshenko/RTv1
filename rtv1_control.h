@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/24 16:01:18 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 20:49:45 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int		keyboard_key_press(int key, t_global *global);
 int		close_window(t_global *global);
 
 void	escape_key(t_global *global, int key);
-void	change_mode(t_global *global, int key);
+void	change_mode_1(t_global *global, int key);
+void	change_mode_2(t_global *global, int key);
 void	change_item(t_global *global, int key);
 void	change_grade(t_global *global, int key);
 

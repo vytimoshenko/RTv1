@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 22:22:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/23 16:23:00 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 20:03:12 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,28 @@ void		final_processing(t_mlx *mlx, t_scene *scene)
 {
 	int	i;
 
-	fill_aliasing_buffer(scene);
+	i = -1;
 	if (scene->antialiasing == TRUE && scene->active_mode != MODE_EFFECT)
 		run_antialiasing(scene);
-	if (scene->active_mode == MODE_EFFECT)
+	if (scene->active_mode != MODE_EFFECT && scene->active_mode != MODE_OBJECT)
 	{
-		if (scene->active_effect == EFFECT_PIXELATION)
-			effect_pixelation(scene);
-		if (scene->active_effect == EFFECT_ANAGLYPH)
-			effect_anaglyph(scene);
+		while (++i < IMG_SIZE_W * IMG_SIZE_H)
+		mlx->data[i] = unite_color_channels(scene->pixel_buffer[i].color);
+		return ;
+	}
+	else if (scene->active_effect == EFFECT_PIXELATION)
+		effect_pixelation(scene);
+	else if (scene->active_effect == EFFECT_ANAGLYPH)
+		effect_anaglyph(scene);
+	else
+	{
+		while (++i < IMG_SIZE_W * IMG_SIZE_H)
+			scene->pixel_buffer[i].frame = pixel_post_processing(scene, i,
+			scene->pixel_buffer[i].color);
 	}
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		scene->frame_buffer[i] = pixel_post_processing(scene, i,
-		scene->frame_buffer[i]);
-	i = -1;
-	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		mlx->data[i] = unite_color_channels(scene->frame_buffer[i]);
+		mlx->data[i] = unite_color_channels(scene->pixel_buffer[i].frame);
 }
 
 t_color		pixel_post_processing(t_scene *scene, int i, t_color color)

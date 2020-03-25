@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 16:51:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 14:55:26 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 18:30:33 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,7 @@ int		select_object(int x, int y, t_global *global)
 	if (x < 0 || x > IMG_SIZE_W || y < 0 || y > IMG_SIZE_H)
 		return (-1);
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
-	ft_putnbr(i);
-	ft_putendl(NULL);
-	ft_putnbr(global->scene->object_buffer[i]);
-	ft_putendl(NULL);
-	object_id = global->scene->object_buffer[i];
+	object_id = global->scene->pixel_buffer[i].object_id;
     if (object_id == NOTHING_SELECTED)
     {
 		global->scene->active_mode = MODE_CAMERA;

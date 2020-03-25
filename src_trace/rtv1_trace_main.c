@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 15:21:23 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 20:34:15 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@ void	trace_rays(t_scene *scene)
 {
 	int	i;
 
-	clean_frame_buffer(scene);
-	clean_object_buffers(scene);
-	clean_aliasing_buffer(scene);
 	clean_pixel_buffer(scene);
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
@@ -27,11 +24,10 @@ void	trace_rays(t_scene *scene)
 		scene->pixel_buffer[i].object_id = EMPTY;
 		get_centered_coordinates(&scene->pixel_buffer[i]);
 		get_pixel_viewport_coordinates(scene, &scene->pixel_buffer[i]);
-		get_pixel_color(scene, scene->cameras.array[scene->active_camera]->
+		trace_pixel(scene, scene->cameras.array[scene->active_camera]->
 		position, &scene->pixel_buffer[i], REFLECTION_DEPTH);
-		scene->object_buffer[i] = scene->pixel_buffer[i].object_id;
-		fill_frame_buffer(scene, scene->pixel_buffer[i]);
 	}
+	fill_aliasing_buffer(scene);
 }
 
 void	get_centered_coordinates(t_pixel *pixel)

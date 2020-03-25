@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 00:33:55 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/23 08:52:46 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 20:05:56 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	change_light_intensity(t_scene *scene, int key)
 	int i;
 
 	i = scene->active_light;
-	if (key == MINUS && scene->lights.array[i]->intensity >
+	if (key == MINUS && scene->lights.array[i]->intensity >=
 	LIGHT_INTENSITY_MIN + LIGHT_INTENSITY_INCREMENT)
 		scene->lights.array[i]->intensity -= LIGHT_INTENSITY_INCREMENT;
 	else if (key == PLUS && scene->lights.array[i]->intensity <

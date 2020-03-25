@@ -6,28 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 07:09:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 20:03:48 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 18:59:53 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
-
-void    init_aliasing_buffer(t_scene *scene)
-{
-	if (!(scene->aliasing_buffer = (int *)malloc(sizeof(int)
-	* IMG_SIZE_W * IMG_SIZE_H)))
-		ft_put_errno(PROGRAM_NAME);
-	clean_aliasing_buffer(scene);
-}
-
-void	clean_aliasing_buffer(t_scene *scene)
-{
-	int i;
-
-	i = -1;
-	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		scene->aliasing_buffer[i] = FALSE;
-}
 
 void	fill_aliasing_buffer(t_scene *scene)
 {
@@ -36,13 +19,13 @@ void	fill_aliasing_buffer(t_scene *scene)
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 	{
-		scene->aliasing_buffer[i] = need_to_smooth(scene, i);
+		scene->pixel_buffer[i].aliasing = need_to_smooth(scene, i);
 		if (!((i + 1) % ((int)IMG_SIZE_W)) || !((i + 2) % ((int)IMG_SIZE_W)))
 		{
 			i++;
 			continue;
 		}
-		if (scene->aliasing_buffer[i])
+		if (scene->pixel_buffer[i].aliasing)
 			add_adjacent_pixels(scene, i);
 	}
 }
@@ -52,7 +35,7 @@ int		need_to_smooth(t_scene *scene, int i)
 	int		t;
 	t_color	diff;
 
-	diff = get_channel_diff(scene->frame_buffer[i], scene->frame_buffer[i + 1]);
+	diff = get_channel_diff(scene->pixel_buffer[i].color, scene->pixel_buffer[i + 1].color);
 	t = ANTIALIASING_COLOR_THRESHOLD;
 	if (diff.r >= t || diff.g >= t || diff.b >= t)
 		return (1);
@@ -74,9 +57,17 @@ void	add_adjacent_pixels(t_scene *scene, int pos)
 		while (x >= -ANTIALIASING_OUTLINE_WIDTH)
 		{
 			if (i - x > 0 && i - x < IMG_SIZE_W * IMG_SIZE_H)
-				scene->aliasing_buffer[i - x] = TRUE;
+				scene->pixel_buffer[i - x].aliasing = TRUE;
 			x--;
 		}
 		y--;
 	}
+}
+
+t_color	effect_outline(t_scene *scene, int i)
+{
+	if (scene->pixel_buffer[i].aliasing)
+		return ((t_color){255, 255, 255});
+	else
+		return ((t_color){0, 0, 0});
 }

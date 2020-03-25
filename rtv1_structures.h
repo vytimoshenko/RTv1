@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 15:13:06 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 20:56:08 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ typedef struct			s_pixel
 	t_color				color;
 	double				depth;
 	int					object_id;
+	int					aliasing;
+	t_color				anaglyph;
+	t_color				frame;
 }						t_pixel;
 
 typedef struct			s_point
@@ -160,28 +163,14 @@ typedef struct			s_scene
 	char				*name;
 	char				*author;
 
-	t_color				background;
-
 	t_cameras			cameras;
 	t_lights			lights;
 	t_objects			objects;
 	t_materials			materials;
 
-	t_color				*frame_buffer;
 	t_pixel				*pixel_buffer;
 
-	t_color				*anaglyph_left_buffer;
-	t_color				*anaglyph_right_buffer;
-
-	double				*depth_buffer;
-	int					*got_depth;
-	t_color				*depth_frame_buffer;
-
-	int					*object_buffer;
-	int					*got_object;
-
 	int					antialiasing;
-	int					*aliasing_buffer;
 	double				aliasing_rate;
 
 	int					k_cartoon;

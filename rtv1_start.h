@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/21 12:17:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 23:12:54 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 20:51:55 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,15 @@ t_mlx		*init_mlx(void);
 void		clean_mlx(t_mlx *mlx);
 void		put_mlx_error(t_mlx *mlx, char *str);
 
+//PIXEL_BUFFER
+void   		init_pixel_buffer(t_scene *scene);
+void    	clean_pixel_buffer(t_scene *scene);
+
 //DRAW
 void		draw(t_global *global);
 void		count_frames(t_mlx *mlx, struct timeval start, struct timeval end);
 void		update_interface_only(t_global *global);
+void		update_interface_and_frame(t_global *global);
 void		put_error_pn(char *str);
 
 //MAIN

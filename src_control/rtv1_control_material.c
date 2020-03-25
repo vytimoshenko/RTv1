@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 07:13:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/24 18:32:31 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 19:02:40 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	get_material(int x, int y, t_global *global)
 	if (x < 0 || x > IMG_SIZE_W || y < 0 || y > IMG_SIZE_H)
 		return ;
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
-	if (global->scene->object_buffer[i] == NOTHING_SELECTED)
+	if (global->scene->pixel_buffer[i].object_id == NOTHING_SELECTED)
 		return ;
 	global->scene->material_source =
-	global->scene->objects.array[global->scene->object_buffer[i]]->material;
+	global->scene->objects.array[global->scene->pixel_buffer[i].object_id]->material;
 }
 
 int		apply_material(int x, int y, t_global *global)
@@ -57,14 +57,14 @@ int		apply_material(int x, int y, t_global *global)
 		return (0);
 	}
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
-	if (global->scene->object_buffer[i] == -1 || global->scene->
-	objects.array[global->scene->object_buffer[i]]->material ==
+	if (global->scene->pixel_buffer[i].object_id == -1 || global->scene->
+	objects.array[global->scene->pixel_buffer[i].object_id]->material ==
 	global->scene->material_source)
 	{
 		global->scene->material_source = NOTHING_SELECTED;
 		return (0);
 	}
-	global->scene->objects.array[global->scene->object_buffer[i]]->material =
+	global->scene->objects.array[global->scene->pixel_buffer[i].object_id]->material =
 	global->scene->material_source;
 	global->scene->material_source = NOTHING_SELECTED;
 	system("afplay /System/Library/Sounds/Submarine.aiff");
