@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 20:56:08 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 21:09:52 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ typedef struct			s_camera
 	int					id;
 	t_vector			position;
 	t_vector			direction;
-	double				zoom;
 	t_vector			sin;
 	t_vector			cos;
 }						t_camera;
@@ -152,6 +151,14 @@ typedef struct			s_objects
 
 typedef struct			s_scene
 {
+	char				*file_name_with_path;
+	char				*name;
+	char				*author;
+	t_cameras			cameras;
+	t_lights			lights;
+	t_objects			objects;
+	t_materials			materials;
+
 	int					active_mode;
 	int					active_camera;
 	int					active_light;
@@ -159,32 +166,19 @@ typedef struct			s_scene
 	int					active_object;
 	int					active_effect;
 
-	char				*file_name_with_path;
-	char				*name;
-	char				*author;
-
-	t_cameras			cameras;
-	t_lights			lights;
-	t_objects			objects;
-	t_materials			materials;
-
 	t_pixel				*pixel_buffer;
 
 	int					antialiasing;
-	double				aliasing_rate;
-
 	int					k_cartoon;
 	int					k_pixelation;
 	int					k_depth_map;
+
 	int					got_color;
 	t_color				picked_color;
-
+	int					material_source;
 	int					x_mouse_position;
 	int					y_mouse_position;
-
 	int					middle_mouse_button;
-
-	int					material_source;
 
 	int					show_help;
 	int					show_info;

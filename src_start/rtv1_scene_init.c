@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:29:21 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 20:56:55 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 21:14:33 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_scene	*init_scene(int argc, char **argv)
 
 void	set_initial_status(t_scene *scene)
 {
+	scene->active_mode = MODE_CAMERA;
 	scene->k_cartoon = CARTOON_INIT;
 	scene->k_pixelation = PIXELATION_INIT;
 	scene->k_depth_map = DEPTH_MAP_INIT;

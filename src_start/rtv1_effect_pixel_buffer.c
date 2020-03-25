@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_effect_selection.c                            :+:      :+:    :+:   */
+/*   rtv1_effect_pixel_buffer.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/21 10:58:58 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 20:41:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 21:06:00 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,3 @@ void    clean_pixel_buffer(t_scene *scene)
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 		ft_memset(&scene->pixel_buffer[i].color, 0, sizeof(t_color));
 }
-
-
