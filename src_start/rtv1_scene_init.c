@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:29:21 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 14:12:17 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 15:20:53 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_scene	*init_scene(int argc, char **argv)
 	get_objects_statistics(scene);
 	init_pixel_buffer(scene);
 	init_frame_buffer(scene);
-	init_depth_buffers(scene);
 	init_aliasing_buffer(scene);
 	init_object_buffers(scene);
 	init_anaglyph_buffers(scene);

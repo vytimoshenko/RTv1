@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 14:19:42 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 15:21:42 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,6 @@ t_color		get_average_color(t_scene *scene, int pitch);
 void	    draw_macro_pixel(t_scene *scene, t_color color, int pitch);
 
 //DEPTH
-void		init_depth_buffers(t_scene *scene);
-void		clean_depth_buffers(t_scene *scene);
-void		fill_depth_buffer(t_scene *scene, t_pixel pixel, double closest);
 t_color		effect_depth(t_scene *scene, int i);
 
 //ANAGLYPH

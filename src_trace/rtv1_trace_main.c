@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 14:18:45 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/25 15:21:23 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	trace_rays(t_scene *scene)
 
 	clean_frame_buffer(scene);
 	clean_object_buffers(scene);
-	clean_depth_buffers(scene);
 	clean_aliasing_buffer(scene);
 	clean_pixel_buffer(scene);
 	i = -1;
