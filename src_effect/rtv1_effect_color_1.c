@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 03:38:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/26 16:51:38 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/26 19:09:03 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		unite_color_channels(t_color color)
 
 t_color	average_color_channels(t_color color)
 {
-	unsigned char tmp;
+	int tmp;
 
 	tmp = (color.r + color.g + color.b) / 3;
 	color.r = tmp;

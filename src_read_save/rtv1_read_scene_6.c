@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 07:30:13 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 19:24:56 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/26 19:21:05 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,34 +45,34 @@ t_color		parse_color(char *value)
 	int			i;
 	char		*tmp;
 	char		*value_start;
-	t_color		color;
+	t_vector	color;
 
 	value_start = value;
 	tmp = ft_strnew(10);
 	if ((i = ft_strindex(',', value)) < 0)
 		put_error_wrong_scene_data(value_start, "missing ','");
 	tmp = ft_strncat(tmp, value, i);
-	color.r = check_and_get_int_value(tmp);
+	color.x = check_and_get_int_value(tmp);
 	ft_bzero(tmp, 10);
 	while (i-- >= 0)
 		value++;
 	if ((i = ft_strindex(',', value)) < 0)
 		put_error_wrong_scene_data(value_start, "missing ','");
 	tmp = ft_strncat(tmp, value, i);
-	color.g = check_and_get_int_value(tmp);
+	color.y = check_and_get_int_value(tmp);
 	ft_bzero(tmp, 10);
 	while (i-- >= 0)
 		value++;
-	color.b = check_and_get_int_value(value);
+	color.z = check_and_get_int_value(value);
 	ft_strdel(&tmp);
 	validate_color(value_start, color);
-	return (color);
+	return ((t_color){color.x, color.y, color.z});
 }
 
-void		validate_color(char *value, t_color color)
+void		validate_color(char *value, t_vector color)
 {
-	if (color.r > 255 || color.g > 255 || color.b > 255 ||
-	color.r < 0 || color.g < 0 || color.b < 0)
+	if (color.x > 255 || color.y > 255 || color.z > 255 ||
+	color.x < 0 || color.y < 0 || color.z < 0)
 		put_error_wrong_scene_data(value, "wrong color in scene");
 }
 

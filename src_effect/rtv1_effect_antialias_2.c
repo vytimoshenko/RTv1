@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:16:54 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/26 16:48:18 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/26 19:09:57 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	get_multisample_color(t_scene *scene, t_pixel *pixel, double *jitter)
 		sum.y += pixel->color.g;
 		sum.z += pixel->color.b;
 	}
-	pixel->color.r = (unsigned char)(sum.x / (MULTI_SAMPLING_RATE));
-	pixel->color.g = (unsigned char)(sum.y / (MULTI_SAMPLING_RATE));
-	pixel->color.b = (unsigned char)(sum.z / (MULTI_SAMPLING_RATE));
+	pixel->color.r = (sum.x / (MULTI_SAMPLING_RATE));
+	pixel->color.g = (sum.y / (MULTI_SAMPLING_RATE));
+	pixel->color.b = (sum.z / (MULTI_SAMPLING_RATE));
 }

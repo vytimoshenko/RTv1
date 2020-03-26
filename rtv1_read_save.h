@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_file.h                                        :+:      :+:    :+:   */
+/*   rtv1_read_save.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 12:30:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/26 11:29:11 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/26 19:25:09 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTV1_FILE_H
+#ifndef RTV1_READ_SAVE_H
 
-# define RTV1_FILE_H
+# define RTV1_READ_SAVE_H
 
 # include "rtv1.h"
 
@@ -98,7 +98,7 @@ int     	find_object_material(t_scene *scene, char *value);
 t_vector    parse_vector(char *value);
 t_color		parse_color(char *value);
 int			check_and_get_int_value(char *value);
-void		validate_color(char *value, t_color color);
+void		validate_color(char *value, t_vector color);
 
 //WHITESPACES
 char		*delete_whitespaces(char *line);
