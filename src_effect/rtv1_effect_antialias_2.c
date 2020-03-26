@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:16:54 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 21:02:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/26 16:48:18 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	get_jitter(double *random)
 void	get_multisample_color(t_scene *scene, t_pixel *pixel, double *jitter)
 {
 	int			i;
-	t_color		sum;
+	t_vector	sum;
 	t_vector	tmp;
 
-	sum = (t_color){0, 0, 0};
+	sum = (t_vector){0, 0, 0};
 	i = -1;
 	tmp.z = scene->cameras.array[scene->active_camera]->position.z;
 	while (++i < MULTI_SAMPLING_RATE)
@@ -66,11 +66,11 @@ void	get_multisample_color(t_scene *scene, t_pixel *pixel, double *jitter)
 		tmp.y = jitter[i] + scene->cameras.array[scene->active_camera]->
 		position.y;
 		trace_pixel(scene, tmp, pixel, REFLECTION_DEPTH);
-		sum.r += pixel->color.r;
-		sum.g += pixel->color.g;
-		sum.b += pixel->color.b;
+		sum.x += pixel->color.r;
+		sum.y += pixel->color.g;
+		sum.z += pixel->color.b;
 	}
-	pixel->color.r = (int)(sum.r / (MULTI_SAMPLING_RATE));
-	pixel->color.g = (int)(sum.g / (MULTI_SAMPLING_RATE));
-	pixel->color.b = (int)(sum.b / (MULTI_SAMPLING_RATE));
+	pixel->color.r = (unsigned char)(sum.x / (MULTI_SAMPLING_RATE));
+	pixel->color.g = (unsigned char)(sum.y / (MULTI_SAMPLING_RATE));
+	pixel->color.b = (unsigned char)(sum.z / (MULTI_SAMPLING_RATE));
 }

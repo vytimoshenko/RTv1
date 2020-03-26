@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1_effect_anaglyph.c                             :+:      :+:    :+:   */
+/*   rtv1_effect_other.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 12:14:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 20:41:38 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/26 16:44:37 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ t_color	effect_depth(t_scene *scene, int i)
 	tmp = (int)(scene->k_depth_map / log(0.05 * (double)tmp));
 	if (tmp > 255)
 		tmp = 255;
-	color.r = (int)tmp;
-	color.g = (int)tmp;
-	color.b = (int)tmp;
+	color.r = (unsigned char)tmp;
+	color.g = (unsigned char)tmp;
+	color.b = (unsigned char)tmp;
 	color = to_negative(color);
 	return (color);
 }

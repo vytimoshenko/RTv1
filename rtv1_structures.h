@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 21:09:52 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/26 16:41:25 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ typedef struct			s_vector
 
 typedef struct			s_color
 {
-	int					r;
-	int					g;
-	int					b;
+	unsigned char		r;
+	unsigned char		g;
+	unsigned char		b;
 }						t_color;
 
 typedef struct			s_pixel
