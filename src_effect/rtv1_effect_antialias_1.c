@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 07:09:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 18:59:53 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/26 11:19:16 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int		need_to_smooth(t_scene *scene, int i)
 	int		t;
 	t_color	diff;
 
-	diff = get_channel_diff(scene->pixel_buffer[i].color, scene->pixel_buffer[i + 1].color);
+	diff = get_channel_diff(scene->pixel_buffer[i].color,
+	scene->pixel_buffer[i + 1].color);
 	t = ANTIALIASING_COLOR_THRESHOLD;
 	if (diff.r >= t || diff.g >= t || diff.b >= t)
 		return (1);

@@ -6,12 +6,13 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 18:41:44 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/26 12:14:40 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../rtv1.h"
 
+//NEED TO SPLIT
 void	trace_pixel(t_scene *scene, t_vector camera, t_pixel *pixel, int k)
 {
 	t_point		point;
