@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 22:22:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/27 18:54:27 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/28 00:07:17 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		final_processing(t_mlx *mlx, t_scene *scene)
 
 	if (scene->antialiasing == TRUE && scene->active_mode != MODE_EFFECT)
 		run_antialiasing(scene);
-	else if (scene->active_mode == MODE_EFFECT &&
+	if (scene->active_mode == MODE_EFFECT &&
 	scene->active_effect == EFFECT_PIXELATION)
 		effect_pixelation(scene);
 	else if (scene->active_mode == MODE_EFFECT &&
