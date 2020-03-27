@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 12:30:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/26 19:25:09 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/26 19:28:57 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,26 @@ void		allocate_memory(t_scene *scene);
 
 //PARSE LINE
 int			parse_item_line(t_scene *scene, char *item_line);
-int			parse_item_description(t_scene *scene, int type_id, char *description);
+int			parse_item_description(t_scene *scene, int type_id,
+			char *description);
 char		*prepare_value_to_write(char *value);
 char		*any_whitespace_to_space(char *value);
 
 //PARSE ITEM DESCRIPTION
-void    	parse_item_by_property(t_scene *scene, int type_id, char *property, char *value);
-void		parse_scene_description(t_scene *scene, char *property, char *value);
-void		parse_camera_description(t_scene *scene, char *property, char *value);
-void		parse_light_description(t_scene *scene, char *property, char *value);
+void    	parse_item_by_property(t_scene *scene, int type_id, char *property,
+			char *value);
+void		parse_scene_description(t_scene *scene, char *property,
+			char *value);
+void		parse_camera_description(t_scene *scene, char *property,
+			char *value);
+void		parse_light_description(t_scene *scene, char *property,
+			char *value);
 int			find_light_type(char *value);
 
-void		parse_material_description(t_scene *scene, char *property, char *value);
-void		parse_object_description(t_scene *scene, char *property, char *value);
+void		parse_material_description(t_scene *scene, char *property,
+			char *value);
+void		parse_object_description(t_scene *scene, char *property,
+			char *value);
 int    		find_object_type(char *value);
 int     	find_object_material(t_scene *scene, char *value);
 

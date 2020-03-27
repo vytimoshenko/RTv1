@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 03:38:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/26 19:09:03 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/27 15:06:10 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ t_color	split_color(int color)
 {
 	t_color result;
 
-	result.r = color & 0xFF0000;
-	result.g = color & 0x00FF00;
-	result.b = color & 0x0000FF;
+	result.r = (unsigned char)(color & 0xFF0000);
+	result.g = (unsigned char)(color & 0x00FF00);
+	result.b = (unsigned char)(color & 0x0000FF);
 	return (result);
 }
 

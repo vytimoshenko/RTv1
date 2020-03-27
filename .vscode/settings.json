@@ -41,6 +41,7 @@
         "__memory": "c",
         "locale": "c",
         "system_error": "c",
-        "random": "c"
+        "random": "c",
+        "sdl.h": "c"
     }
 }

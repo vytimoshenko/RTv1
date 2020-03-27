@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/26 12:07:20 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/27 15:21:41 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,10 @@ SRC		= 	$(wildcard src_start/*.c)		\
 			$(wildcard src_effect/*.c)		\
 			$(wildcard src_control/*.c)		\
 			$(wildcard src_interface/*.c)
+
 OBJ		= 	$(SRC:.c=.o)
+
+CMPLR	=	gcc-9
 
 MK_FT	=	make			-C libft
 CL_FT	=	make clean		-C libft
@@ -35,9 +38,9 @@ ADD_ERR =	-Wall -Wextra -Werror
 
 ADD_OPT =	-Ofast
 
-ADD_LIB =	-L ./libft				-l ft\
-			-L ./mlx				-l mlx\
-			-L ./SDL2/SDL2 			-l SDL2\
+ADD_LIB =	-L ./libft				-l ft			\
+			-L ./mlx				-l mlx			\
+			-L ./SDL2/SDL2 			-l SDL2			\
 			-L ./SDL2/SDL2_image	-l SDL2_image
 
 ADD_FMW =	-lmlx -framework OpenGL -framework AppKit
@@ -47,11 +50,11 @@ all:		$(NAME)
 $(NAME):	$(OBJ)
 			$(MK_FT)
 			$(MK_MLX)
-			gcc -o $(NAME) $(OBJ) $(ADD_ERR) $(ADD_OPT) $(ADD_LIB) $(ADD_FMW)
+			$(CMPLR) -o $(NAME) $(SRC) $(ADD_ERR) $(ADD_OPT) $(ADD_LIB) $(ADD_FMW)
 			$(MK_DIR)
 
 %.o:		%.c
-			gcc -I $(HDR) $< -c -o $@ $(ADD_ERR) $(ADD_OPT)
+			$(CMPLR) $< -c -o $@
 
 clean:
 			@/bin/rm -f $(OBJ)
