@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 03:37:02 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 19:20:29 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/27 18:28:22 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void	info_color(t_scene *scene, t_mlx *mlx)
 	y = WIN_SIZE_H - 30;
 	mlx_string_put(mlx->mlx, mlx->win, x, y, TEXT_COLOR, "R:     G:     B:");
 	mlx_string_put(mlx->mlx, mlx->win, x + 20, y, TEXT_COLOR,
-	str = ft_itoa(scene->picked_color.r));
+	str = ft_itoa((int)scene->picked_color.r));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 90, y, TEXT_COLOR,
-	str = ft_itoa(scene->picked_color.g));
+	str = ft_itoa((int)scene->picked_color.g));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 160, y, TEXT_COLOR,
-	str = ft_itoa(scene->picked_color.b));
+	str = ft_itoa((int)scene->picked_color.b));
 	free(str);
 	info_color_sample(mlx, unite_color_channels(scene->picked_color));
 }

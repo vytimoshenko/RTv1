@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/26 19:22:24 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/27 18:23:30 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct			s_pixel
 	t_vector			pos;
 	t_color				color;
 	double				depth;
-	int					object_id;
-	int					aliasing;
+	short				object_id;
+	bool				aliasing;
 	t_color				anaglyph;
 	t_color				frame;
 }						t_pixel;

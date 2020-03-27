@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/26 11:18:31 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/27 17:07:37 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	save_actions(t_global *global, int key);
 void	change_camera(t_scene *scene, int key);
 void	move_camera(t_scene *scene, int key);
 void	rotate_camera(t_scene *scene, int key);
+void	get_sin_cos(t_camera *camera);
 
 //LIGHT
 void	change_light(t_scene *scene, int key);

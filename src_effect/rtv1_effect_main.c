@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 22:22:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/27 15:11:36 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/27 18:54:27 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,17 @@ void		final_processing(t_mlx *mlx, t_scene *scene)
 {
 	int	i;
 
-	i = -1;
 	if (scene->antialiasing == TRUE && scene->active_mode != MODE_EFFECT)
 		run_antialiasing(scene);
-	if (scene->active_mode != MODE_EFFECT && scene->active_mode != MODE_OBJECT)
-	{
-		while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		mlx->data[i] = unite_color_channels(scene->pixel_buffer[i].color);
-		return ;
-	}
-	else if (scene->active_effect == EFFECT_PIXELATION)
+	else if (scene->active_mode == MODE_EFFECT &&
+	scene->active_effect == EFFECT_PIXELATION)
 		effect_pixelation(scene);
-	else if (scene->active_effect == EFFECT_ANAGLYPH)
+	else if (scene->active_mode == MODE_EFFECT &&
+	scene->active_effect == EFFECT_ANAGLYPH)
 		effect_anaglyph(scene);
 	else
 	{
+		i = -1;
 		while (++i < IMG_SIZE_W * IMG_SIZE_H)
 			scene->pixel_buffer[i].frame = pixel_post_processing(scene, i,
 			scene->pixel_buffer[i].color);

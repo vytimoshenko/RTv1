@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 19:40:45 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 19:00:35 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/27 18:31:04 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void	pick_color(t_scene *scene, int x, int y)
 		return;
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
 	scene->picked_color = scene->pixel_buffer[i].frame;
-	scene->got_color = 1;
+	scene->got_color = TRUE;
 	system("afplay /System/Library/Sounds/Tink.aiff");
 }

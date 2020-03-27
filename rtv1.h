@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/27 14:57:12 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/27 17:47:37 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "./SDL2/headers/SDL_image.h"
 # include <math.h>
 # include <sys/time.h>
+# include <stdbool.h>
 
 # include "rtv1_structures.h"
 # include "rtv1_trace.h"

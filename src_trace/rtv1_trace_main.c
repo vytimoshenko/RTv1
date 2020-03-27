@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/27 13:50:29 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/27 17:33:11 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,25 @@ void	trace_rays(t_scene *scene)
 	int	i;
 
 	clean_pixel_buffer(scene);
+	prepare_pixels(scene);
+	i = -1;
+	while (++i < IMG_SIZE_W * IMG_SIZE_H)
+		trace_pixel(scene, scene->cameras.array[scene->active_camera]->
+		position, &scene->pixel_buffer[i], REFLECTION_DEPTH);
+	fill_aliasing_buffer(scene);
+}
+
+void	prepare_pixels(t_scene *scene)
+{
+	int	i;
+
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 	{
 		scene->pixel_buffer[i].i = i;
-		scene->pixel_buffer[i].object_id = EMPTY;
 		get_centered_coordinates(&scene->pixel_buffer[i]);
 		get_pixel_viewport_coordinates(scene, &scene->pixel_buffer[i]);
-		trace_pixel(scene, scene->cameras.array[scene->active_camera]->
-		position, &scene->pixel_buffer[i], REFLECTION_DEPTH);
 	}
-	fill_aliasing_buffer(scene);
 }
 
 void	get_centered_coordinates(t_pixel *pixel)
@@ -42,16 +50,6 @@ void	get_pixel_viewport_coordinates(t_scene *scene, t_pixel *pixel)
 	pixel->pos.y = pixel->y * VIEWPORT_SIZE_H / IMG_SIZE_H;
 	pixel->pos.z = VIEWPORT_DISTANCE;
 	rotate_pixel(pixel, scene->cameras.array[scene->active_camera]);
-}
-
-void	get_sin_cos(t_camera *camera)
-{
-	camera->sin.x = sin(deg_to_rad(camera->direction.x));
-	camera->sin.y = sin(deg_to_rad(camera->direction.y));
-	camera->sin.z = sin(deg_to_rad(camera->direction.z));
-	camera->cos.x = cos(deg_to_rad(camera->direction.x));
-	camera->cos.y = cos(deg_to_rad(camera->direction.y));
-	camera->cos.z = cos(deg_to_rad(camera->direction.z));
 }
 
 void	rotate_pixel(t_pixel *pixel, t_camera *camera)

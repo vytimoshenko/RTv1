@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 18:37:02 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/26 12:16:00 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/27 17:07:22 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@
 
 //MAIN
 void		trace_rays(t_scene *scene);
+void		prepare_pixels(t_scene *scene);
 void		get_centered_coordinates(t_pixel *pixel);
 void		get_pixel_viewport_coordinates(t_scene *scene, t_pixel *pixel);
-void		get_sin_cos(t_camera *camera);
 void		rotate_pixel(t_pixel *pixel, t_camera *camera);
 
 //CORE

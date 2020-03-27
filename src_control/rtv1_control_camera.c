@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 17:28:16 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/22 18:24:54 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/27 17:31:54 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,14 @@ void	rotate_camera(t_scene *scene, int key)
 	else if (key == X)
 		scene->cameras.array[i]->direction.z -= CAMERA_ROTATION_INCREMENT;
 	get_sin_cos(scene->cameras.array[i]);
+}
+
+void	get_sin_cos(t_camera *camera)
+{
+	camera->sin.x = sin(deg_to_rad(camera->direction.x));
+	camera->sin.y = sin(deg_to_rad(camera->direction.y));
+	camera->sin.z = sin(deg_to_rad(camera->direction.z));
+	camera->cos.x = cos(deg_to_rad(camera->direction.x));
+	camera->cos.y = cos(deg_to_rad(camera->direction.y));
+	camera->cos.z = cos(deg_to_rad(camera->direction.z));
 }
