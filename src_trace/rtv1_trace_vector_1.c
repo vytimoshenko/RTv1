@@ -6,11 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 22:12:27 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/27 15:15:54 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/28 21:31:42 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rtv1.h"
+#include "../incl/rtv1.h"
 
 double		deg_to_rad(int degrees)
 {

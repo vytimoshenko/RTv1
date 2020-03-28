@@ -6,11 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 17:28:16 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/27 17:31:54 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/28 21:25:13 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rtv1.h"
+#include "../incl/rtv1.h"
 
 void	change_camera(t_scene *scene, int key)
 {

@@ -6,13 +6,13 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/27 23:59:03 by mperseus         ###   ########.fr        #
+#    Updated: 2020/03/28 21:33:46 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= 	RTv1
 
-HDR		= 	rtv1.h
+HDR		= 	./incl
 
 SRC		= 	$(wildcard src_start/*.c)		\
 			$(wildcard src_read_save/*.c)	\
@@ -50,7 +50,7 @@ all:		$(NAME)
 $(NAME):	$(OBJ)
 			$(MK_FT)
 			$(MK_MLX)
-			$(CMPLR) -o $(NAME) $(SRC) $(ADD_ERR) $(ADD_OPT) $(ADD_LIB) $(ADD_FMW)
+			$(CMPLR) -o $(NAME) -I $(HDR) $(SRC) $(ADD_ERR) $(ADD_OPT) $(ADD_LIB) $(ADD_FMW)
 			$(MK_DIR)
 
 %.o:		%.c
@@ -60,8 +60,7 @@ clean:
 			@/bin/rm -f $(OBJ)
 			$(CL_FT)
 			$(CL_MLX)
-			@/bin/rm -rf saves
-			@/bin/rm -rf screenshots
+			@/bin/rm -rf saves screenshots
 
 fclean: 	clean
 			@/bin/rm -f $(NAME)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rtv1.h"
+#include "../incl/rtv1.h"
 
 void	info_scene(t_scene *scene, t_mlx *mlx)
 {

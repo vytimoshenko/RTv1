@@ -6,11 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 07:13:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/20 19:24:40 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/28 21:29:36 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rtv1.h"
+#include "../incl/rtv1.h"
 
 void	read_scene(t_scene *scene, char *file_name)
 {

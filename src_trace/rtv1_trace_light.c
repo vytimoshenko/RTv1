@@ -6,11 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:13:20 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/19 13:07:31 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/28 21:31:31 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rtv1.h"
+#include "../incl/rtv1.h"
 
 double		get_lightning(t_scene *scene, t_point point, t_vector pixel)
 {

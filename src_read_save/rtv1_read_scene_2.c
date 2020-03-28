@@ -6,11 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 08:45:30 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/24 15:33:08 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/28 21:29:40 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rtv1.h"
+#include "../incl/rtv1.h"
 
 int		count_items_by_type(t_scene *scene, char *item_line)
 {

@@ -6,11 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:16:54 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/26 19:09:57 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/28 21:27:28 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rtv1.h"
+#include "../incl/rtv1.h"
 
 void	run_antialiasing(t_scene *scene)
 {

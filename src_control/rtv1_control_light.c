@@ -6,11 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 00:33:55 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 20:05:56 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/28 21:26:30 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rtv1.h"
+#include "../incl/rtv1.h"
 
 void	change_light(t_scene *scene, int key)
 {

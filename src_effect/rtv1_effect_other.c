@@ -6,11 +6,11 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 12:14:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/26 16:44:37 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/03/28 21:28:00 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../rtv1.h"
+#include "../incl/rtv1.h"
 
 t_color	shade_unselesected(t_scene *scene, int i, t_color color)
 {
