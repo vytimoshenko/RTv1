@@ -6,7 +6,7 @@
 #    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/03/28 21:33:46 by mperseus         ###   ########.fr        #
+#    Updated: 2020/04/02 16:01:29 by mperseus         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRC		= 	$(wildcard src_start/*.c)		\
 			$(wildcard src_trace/*.c)		\
 			$(wildcard src_effect/*.c)		\
 			$(wildcard src_control/*.c)		\
-			$(wildcard src_interface/*.c)
+			$(wildcard src_interface/*.c)	\
+			# $(wildcard src_open_cl/*.c)
 
 OBJ		= 	$(SRC:.c=.o)
 

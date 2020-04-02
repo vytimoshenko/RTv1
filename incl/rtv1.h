@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:34:19 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/04/02 16:02:40 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "../mlx/mlx.h"
 # include "../SDL2/headers/SDL.h"
 # include "../SDL2/headers/SDL_image.h"
+# include <OpenCL/opencl.h>
 # include <math.h>
 # include <sys/time.h>
 # include <stdbool.h>

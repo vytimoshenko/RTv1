@@ -6,7 +6,7 @@
 /*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/27 22:49:22 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/04/02 16:06:12 by mperseus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,10 +199,58 @@ typedef struct			s_mlx
 	float				frame_time;
 }						t_mlx;
 
+typedef struct			s_open_cl
+{
+	cl_platform_id		platform_id;
+	cl_device_id		device_id;
+	cl_context			context;
+	cl_command_queue	command_queue;
+	cl_program			program;
+	cl_kernel			kernel;
+
+	char				*platform_name;
+	char				*device_name;
+	char				*driver_ver;
+	cl_uint				device_comp_units;
+	cl_uint				device_frequency;
+
+	size_t				source_size;
+	char				*source_str;
+	char				*program_build_log;
+
+	size_t				global_work_size;
+	size_t				local_work_size;
+
+	cl_mem				buf;
+
+	int					execution_time;
+}						t_open_cl;
+
+typedef struct			s_kernel_arg
+{
+	int					img_size_x;
+
+	int					fractal_type;
+
+	int					color_theme;
+	int					iter;
+	int					pause;
+	double				zoom;
+
+	double				x_center;
+	double				y_center;
+	double				x_shift;
+	double				y_shift;
+
+	double				x_julia;
+	double				y_julia;
+}						t_kernel_arg;
+
 typedef struct			s_global
 {
 	t_scene				*scene;
 	t_mlx				*mlx;
+	t_open_cl			*open_cl;
 }						t_global;
 
 #endif
