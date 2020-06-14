@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_control.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/27 17:07:37 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/14 12:09:42 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ int		select_object(int x, int y, t_global *global);
 void	change_object(t_scene *scene, int key);
 void	move_object(t_scene *scene, int key);
 void	rotate_object(t_scene *scene, int key);
+void	get_sin_cos_obj(t_object *object);
+void	rotate_vector(t_object *object);
 
 //EFFECT
 void	change_effect(t_scene *scene, int key);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+         #
+#    By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/04/02 16:01:29 by mperseus         ###   ########.fr        #
+#    Updated: 2020/06/12 20:58:46 by vitaly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC		= 	$(wildcard src_start/*.c)		\
 
 OBJ		= 	$(SRC:.c=.o)
 
-CMPLR	=	gcc-9
+CMPLR	=	gcc
 
 MK_FT	=	make			-C libft
 CL_FT	=	make clean		-C libft
@@ -41,8 +41,8 @@ ADD_OPT =	-Ofast
 
 ADD_LIB =	-L ./libft				-l ft			\
 			-L ./mlx				-l mlx			\
-			-L ./SDL2/SDL2 			-l SDL2			\
-			-L ./SDL2/SDL2_image	-l SDL2_image
+			# -L ./SDL2/SDL2 			-l SDL2			\
+			# -L ./SDL2/SDL2_image	-l SDL2_image
 
 ADD_FMW =	-lmlx -framework OpenGL -framework AppKit
 

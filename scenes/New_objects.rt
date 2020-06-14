@@ -101,9 +101,9 @@ object
 {
 	type:		<cylinder>;
 	material:	"Shiny red";
-	position:	[0, -10, 50];
-	orientation:[1, 1, 1];
-	radius:		10;
+	position:	[0, 30, 50];
+	orientation:[45, 30, 90];
+	radius:		3;
 }
 
 object

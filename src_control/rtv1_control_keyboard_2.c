@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_control_keyboard_2.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 23:09:56 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:26:24 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/12 21:00:04 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ void	save_actions(t_global *global, int key)
 		save_scene(global->scene, global->mlx);
 		return;
 	}
-	else if (key == P)
-	{
-		global->scene->show_help = FALSE;
-		global->scene->show_info = FALSE;
-		update_interface_only(global);
-		save_screenshot(global->scene, global->mlx);
-		return;
-	}
+	// else if (key == P)
+	// {
+	// 	global->scene->show_help = FALSE;
+	// 	global->scene->show_info = FALSE;
+	// 	update_interface_only(global);
+	// 	save_screenshot(global->scene, global->mlx);
+	// 	return;
+	// }
 	else
 		return;
 	update_interface_only(global);

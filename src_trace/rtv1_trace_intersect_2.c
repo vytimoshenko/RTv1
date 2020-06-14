@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_trace_intersect_2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 23:04:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:31:26 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/14 14:18:41 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,12 @@ void	cylinder(t_object *object, t_vector camera, t_vector pixel)
 	double		k3;
 	double		d;
 
-	object->position = normalize(object->position);
 	r = substract(camera, object->position);
-	k1 = dot(pixel, pixel) - dot(pixel, object->position) *
-	dot(pixel, object->position);
-	k2 = 2 * dot(pixel, r) - 2 * dot(pixel, object->position) *
-	dot(r, object->position);
-	k3 = dot(r, r) - dot(r, object->position) * dot(r, object->position) -
+	k1 = dot(pixel, pixel) - dot(pixel, object->direction) *
+	dot(pixel, object->direction);
+	k2 = 2 * (dot(pixel, r) - dot(pixel, object->direction) *
+	dot(r, object->direction));
+	k3 = dot(r, r) - dot(r, object->direction) * dot(r, object->direction) -
 	object->radius * object->radius;
 	d = k2 * k2 - 4 * k1 * k3;
 	if (d < 0)
@@ -99,14 +98,12 @@ void	cone(t_object *object, t_vector camera, t_vector pixel)
 	double		k3;
 	double		d;
 
-	object->position = normalize(object->position);
 	r = substract(camera, object->position);
-	k1 = dot(pixel, pixel) - (1 + object->k * object->k) *
-	dot(pixel, object->position) * dot(pixel, object->position);
-	k2 = 2 * dot(pixel, r) - 2 * (1 + object->k * object->k) *
-	dot(pixel, object->position) * dot(r, object->position);
-	k3 = dot(r, r) - (1 + object->k * object->k) * dot(r, object->position)
-	* dot(r, object->position);
+	k1 = dot(pixel, pixel) - (1 + object->radius * object->radius) * dot(pixel, object->direction) *
+	dot(pixel, object->direction);
+	k2 = 2 * (dot(pixel, r) - (1 + object->radius * object->radius) * dot(pixel, object->direction) *
+	dot(r, object->direction));
+	k3 = dot(r, r) - (1 + object->radius * object->radius) * dot(r, object->direction) * dot(r, object->direction);
 	d = k2 * k2 - 4 * k1 * k3;
 	if (d < 0)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_trace.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 18:37:02 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/27 17:07:22 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/14 15:29:27 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void		rotate_pixel(t_pixel *pixel, t_camera *camera);
 //CORE
 void		trace_pixel(t_scene *scene, t_vector camera, t_pixel *pixel,
 			int reflection_depth);
-void		get_point_properties(t_scene *scene, t_point *point,
+void		get_point_properties(t_scene *scene, t_vector pixel, t_point *point,
 			t_object *object);
-void		get_normal(t_point *point, t_object *object);
+void		get_normal(t_point *point, t_vector pixel, t_object *object, t_vector camera);
 
 //INTERSECTIONS
 t_object	get_intersection(t_objects	objects, t_vector camera,

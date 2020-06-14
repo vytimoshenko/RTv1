@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_trace_core.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:31:12 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/14 15:29:06 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	trace_pixel(t_scene *scene, t_vector camera, t_pixel *pixel, int k)
 	if (pixel->object_id == EMPTY)
 		pixel->object_id = close_object.id;
 	point.xyz = add(camera, multiply_sv(close_object.closest, pixel->pos));
-	get_point_properties(scene, &point, &close_object);
+	get_point_properties(scene, pixel->pos, &point, &close_object);
 	point.light = get_lightning(scene, point, multiply_sv(-1.0, pixel->pos));
 	point.final_color = multiply_color(point.light, point.color);
 	if (k == 0 || (point.reflective <= 0 && point.transparency <= 0))
@@ -45,9 +45,9 @@ void	trace_pixel(t_scene *scene, t_vector camera, t_pixel *pixel, int k)
 	}
 }
 
-void	get_point_properties(t_scene *scene, t_point *point, t_object *object)
+void	get_point_properties(t_scene *scene, t_vector pixel, t_point *point, t_object *object)
 {
-	get_normal(point, object);
+	get_normal(point, pixel, object, scene->cameras.array[scene->active_camera]->position);
 	point->n = normalize(point->n);
 	point->color = scene->materials.array[object->material]->color;
 	point->specular = scene->materials.array[object->material]->specular;
@@ -57,14 +57,20 @@ void	get_point_properties(t_scene *scene, t_point *point, t_object *object)
 	point->refractive = scene->materials.array[object->material]->refractive;
 }
 
-void	get_normal(t_point *point, t_object *object)
+void	get_normal(t_point *point, t_vector pixel, t_object *object, t_vector camera)
 {
+	double m;
+	t_vector r;
+	
 	if (object->type == OBJECT_TYPE_PLANE)
 		point->n = multiply_sv(-1, object->position);
 	else if (object->type == OBJECT_TYPE_SPHERE)
 		point->n = substract(point->xyz, object->position);
-	else if (object->type == OBJECT_TYPE_CYLINDER)
-		point->n = substract(point->xyz, object->position);
+	else if (object->type == OBJECT_TYPE_CYLINDER) {
+		r = substract(camera, object->position);
+		m = object->t1 * dot(pixel, object->direction) + dot(r, object->direction);
+		point->n = substract(substract(point->xyz, object->position), multiply_sv(m, object->direction));
+	}
 	else if (object->type == OBJECT_TYPE_CONE)
 		point->n = substract(point->xyz, object->position);
 }

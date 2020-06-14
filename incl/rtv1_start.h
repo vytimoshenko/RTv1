@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_start.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/21 12:17:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/27 18:23:37 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/14 12:59:47 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_scene		*init_scene(int argc, char **argv);
 void		set_initial_status(t_scene *scene);
 void		get_lights_statistics(t_scene *scene);
 void		get_objects_statistics(t_scene *scene);
+void        set_initial_angles(t_scene *scene);
 
 //INIT MLX
 t_mlx		*init_mlx(void);

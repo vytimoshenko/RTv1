@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_structures.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/04/02 16:06:12 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/14 12:02:39 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ typedef struct			s_object
 	double				radius;
 	t_vector			position;
 	t_vector			orientation;
+	t_vector			sin;
+	t_vector			cos;
+	t_vector			direction;
 	double				k;
 
 	double				t1;

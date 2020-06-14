@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_start_scene_init.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:29:21 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:31:03 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/14 12:59:11 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_scene	*init_scene(int argc, char **argv)
 	get_lights_statistics(scene);
 	get_objects_statistics(scene);
 	init_pixel_buffer(scene);
-	get_sin_cos(scene->cameras.array[scene->active_camera]);
+	set_initial_angles(scene);
 	scene->file_name_with_path = ft_strdup(argv[1]);
 	return (scene);
 }
@@ -77,5 +77,21 @@ void	get_objects_statistics(t_scene *scene)
 			scene->objects.quantity_cylinders++;
 		if (scene->objects.array[i]->type == OBJECT_TYPE_CONE)
 			scene->objects.quantity_cones++;
+	}
+}
+
+void set_initial_angles(t_scene *scene)
+{
+	int i;
+	
+	get_sin_cos(scene->cameras.array[scene->active_camera]);
+	i = 0;
+	while (i < scene->objects.quantity) {
+		if (scene->objects.array[i]->type == OBJECT_TYPE_CYLINDER ||
+		scene->objects.array[i]->type == OBJECT_TYPE_CONE) {
+			get_sin_cos_obj(scene->objects.array[i]);
+			rotate_vector(scene->objects.array[i]);
+		}
+		i++;
 	}
 }

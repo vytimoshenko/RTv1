@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_control_hooks.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:26:04 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/12 21:04:44 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		keyboard_key_press(int key, t_global *global)
 int		close_window(t_global *global)
 {
 	clean_mlx(global->mlx);
-	IMG_Quit();
-	SDL_Quit();
+	// IMG_Quit();
+	// SDL_Quit();
 	exit(0);
 }
