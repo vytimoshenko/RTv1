@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_control_reset.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 15:15:10 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:26:53 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/14 16:09:55 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	reset(t_global *global, int key)
 		set_initial_status(global->scene);
 		get_lights_statistics(global->scene);
 		get_objects_statistics(global->scene);
-		get_sin_cos(global->scene->cameras.array[global->scene->active_camera]);
+		set_initial_angles(global->scene);
 		draw(global);
 	}
 }

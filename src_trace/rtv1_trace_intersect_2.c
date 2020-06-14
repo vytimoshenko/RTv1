@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 23:04:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/14 14:18:41 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/14 16:55:48 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 void	plane(t_object *object, t_vector camera, t_vector pixel)
 {
 	double		t;
-	t_vector	n;
 	t_vector	x;
 	double		xdn;
 	double		pdn;
 
-	n = object->position;
-	x = substract(camera, n);
-	xdn = dot(x, n);
-	pdn = dot(pixel, n);
+	x = substract(camera, object->position);
+	xdn = dot(x, object->position);
+	pdn = dot(pixel, object->position);
 	if (!pdn)
 	{
 		object->t1 = -1;
@@ -99,11 +97,14 @@ void	cone(t_object *object, t_vector camera, t_vector pixel)
 	double		d;
 
 	r = substract(camera, object->position);
-	k1 = dot(pixel, pixel) - (1 + object->radius * object->radius) * dot(pixel, object->direction) *
+	r = substract(camera, object->position);
+	double m = object->t1 * dot(pixel, object->direction) + dot(r, object->direction);
+	double k = object->radius / m;
+	k1 = dot(pixel, pixel) - (1 + k * k) * dot(pixel, object->direction) *
 	dot(pixel, object->direction);
-	k2 = 2 * (dot(pixel, r) - (1 + object->radius * object->radius) * dot(pixel, object->direction) *
+	k2 = 2 * (dot(pixel, r) - (1 + k * k) * dot(pixel, object->direction) *
 	dot(r, object->direction));
-	k3 = dot(r, r) - (1 + object->radius * object->radius) * dot(r, object->direction) * dot(r, object->direction);
+	k3 = dot(r, r) - (1 + k * k) * dot(r, object->direction) * dot(r, object->direction);
 	d = k2 * k2 - 4 * k1 * k3;
 	if (d < 0)
 	{

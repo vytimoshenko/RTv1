@@ -85,8 +85,8 @@ material
 {
 	name:		"Deep magenta";
 	color:		[255, 0, 255];
-	specular:	1000;
-	reflective:	5;
+	specular:	5;
+	reflective:	1;
 }
 
 material
@@ -100,7 +100,7 @@ material
 object
 {
 	type:		<cylinder>;
-	material:	"Shiny red";
+	material:	"Deep magenta";
 	position:	[0, 30, 50];
 	orientation:[45, 30, 90];
 	radius:		3;
