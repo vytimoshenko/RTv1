@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/14 16:58:37 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/14 17:09:24 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,7 @@ void	get_normal(t_point *point, t_vector pixel, t_object *object, t_vector camer
 	{
 		r = substract(camera, object->position);
 		m = object->closest * dot(pixel, object->direction) + dot(r, object->direction);
-		// 
 		k = object->radius / m;
-		// 
 		point->n = substract(substract(point->xyz, object->position),
 		multiply_sv(m * (1 + k * k), object->direction));
 	}
