@@ -99,7 +99,7 @@ material
 
 object
 {
-	type:		<cone>;
+	type:		<cylinder>;
 	material:	"Deep magenta";
 	position:	[0, 30, 50];
 	orientation:[45, 30, 90];

@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 16:51:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/14 14:32:03 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/14 18:38:06 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,29 +72,30 @@ void	move_object(t_scene *scene, int key)
 
 void	rotate_object(t_scene *scene, int key)
 {
-	int i;
+	t_vector dir;
 
-	i = scene->active_object;
+	dir = scene->objects.array[scene->active_object]->orientation;
 	if (key == W)
-		scene->objects.array[i]->orientation.y += OBJECT_ROTATION_INCREMENT;
+		dir.y += OBJECT_ROTATION_INCREMENT;
 	else if (key == S)
-		scene->objects.array[i]->orientation.y -= OBJECT_ROTATION_INCREMENT;
+		dir.y -= OBJECT_ROTATION_INCREMENT;
 	else if (key == D)
-		scene->objects.array[i]->orientation.x += OBJECT_ROTATION_INCREMENT;
+		dir.x += OBJECT_ROTATION_INCREMENT;
 	else if (key == A)
-		scene->objects.array[i]->orientation.x -= OBJECT_ROTATION_INCREMENT;
+		dir.x -= OBJECT_ROTATION_INCREMENT;
 	else if (key == Z)
-		scene->objects.array[i]->orientation.z += OBJECT_ROTATION_INCREMENT;
+		dir.z += OBJECT_ROTATION_INCREMENT;
 	else if (key == X)
-		scene->objects.array[i]->orientation.z -= OBJECT_ROTATION_INCREMENT;
-	// scene->objects.array[i]->orientation.x = scene->objects.array[i]->orientation.x >= 360 ?
-	// 0 : scene->objects.array[i]->orientation.x;
-	// scene->objects.array[i]->orientation.y = scene->objects.array[i]->orientation.y == 360 ?
-	// 0 : scene->objects.array[i]->orientation.y;
-	// scene->objects.array[i]->orientation.z = scene->objects.array[i]->orientation.z == 360 ?
-	// 0 : scene->objects.array[i]->orientation.z;
-	get_sin_cos_obj(scene->objects.array[i]);
-	rotate_vector(scene->objects.array[i]);
+		dir.z -= OBJECT_ROTATION_INCREMENT;
+	dir.x = dir.x >= 360 ? dir.x - 360 : dir.x;
+	dir.y = dir.y >= 360 ? dir.x - 360 : dir.y;
+	dir.z = dir.z >= 360 ? dir.x - 360 : dir.z;
+	dir.x = dir.x <= -360 ? dir.x + 360 : dir.x;
+	dir.y = dir.y <= -360 ? dir.x + 360 : dir.y;
+	dir.z = dir.z <= -360 ? dir.x + 360 : dir.z;
+	scene->objects.array[scene->active_object]->orientation = dir;
+	get_sin_cos_obj(scene->objects.array[scene->active_object]);
+	rotate_vector(scene->objects.array[scene->active_object]);
 }
 
 void	get_sin_cos_obj(t_object *object)
@@ -109,19 +110,21 @@ void	get_sin_cos_obj(t_object *object)
 
 void	rotate_vector(t_object *object)
 {
-	double temp1;
-	double temp2;
+	double		temp1;
+	double		temp2;
+	t_vector	position;
 
-	temp1 = object->position.y * object->cos.x + object->position.z * object->sin.x;
-	temp2 = -object->position.y * object->sin.x + object->position.z * object->cos.x;
+	position = object->position;
+	temp1 = position.y * object->cos.x + position.z * object->sin.x;
+	temp2 = -position.y * object->sin.x + position.z * object->cos.x;
 	object->direction.y = temp1;
 	object->direction.z = temp2;
-	temp1 = object->position.x * object->cos.y + object->position.z * object->sin.y;
-	temp2 = -object->position.x * object->sin.y + object->position.z * object->cos.y;
+	temp1 = position.x * object->cos.y + position.z * object->sin.y;
+	temp2 = -position.x * object->sin.y + position.z * object->cos.y;
 	object->direction.x = temp1;
 	object->direction.z = temp2;
-	temp1 = object->position.x * object->cos.z - object->position.y * object->sin.z;
-	temp2 = object->position.x * object->sin.z + object->position.y * object->cos.z;
+	temp1 = position.x * object->cos.z - position.y * object->sin.z;
+	temp2 = position.x * object->sin.z + position.y * object->cos.z;
 	object->direction.x = temp1;
 	object->direction.y = temp2;
 	object->direction = normalize(object->direction);

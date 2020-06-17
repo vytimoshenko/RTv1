@@ -6,7 +6,7 @@
 #    By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/06/12 20:58:46 by vitaly           ###   ########.fr        #
+#    Updated: 2020/06/17 10:37:11 by vitaly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ CL_MLX	=	make clean		-C mlx
 MK_DIR	=	@/bin/mkdir saves screenshots
 
 ADD_ERR =	-Wall -Wextra -Werror
+ADD_DEP =	-Wno-deprecated-declarations
 
 ADD_OPT =	-Ofast
 
@@ -51,7 +52,7 @@ all:		$(NAME)
 $(NAME):	$(OBJ)
 			$(MK_FT)
 			$(MK_MLX)
-			$(CMPLR) -o $(NAME) -I $(HDR) $(SRC) $(ADD_ERR) $(ADD_OPT) $(ADD_LIB) $(ADD_FMW)
+			$(CMPLR) -o $(NAME) -I $(HDR) $(SRC) $(ADD_ERR) $(ADD_OPT) $(ADD_LIB) $(ADD_FMW) $(ADD_DEP)
 			$(MK_DIR)
 
 %.o:		%.c
