@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 10:52:32 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 13:37:41 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	mouse_key_press(int key, int x, int y, t_global *global)
 	{
 		if (!(select_object(x, y, global)))
 		{
-			update_interface_only(global);
+			update_interface_and_frame(global);
 			return (0);
 		}
 	}
@@ -46,7 +46,7 @@ int	mouse_key_press(int key, int x, int y, t_global *global)
 
 int	mouse_key_release(int key, int x, int y, t_global *global)
 {
-	if (key == MIDDLE_MOUSE_BUTTON && global->scene->material_source
+	if (key == MIDDLE_MOUSE_BUTTON && global->scene->mat_source
 	!= NOTHING_SELECTED)
 	{
 		if (apply_material(x, y, global))

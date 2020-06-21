@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_interface_effect.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:28:31 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 12:36:13 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	info_effect(t_scene *scene, t_mlx *mlx)
 	x = WIN_SIZE_W - 350;
 	y = 150;
 	mlx_string_put(mlx->mlx, mlx->win, x, y, TEXT_COLOR, "Effect:");
-	if (scene->active_mode != MODE_EFFECT)
+	if (scene->act_mod != MODE_EFFECT)
 		mlx_string_put(mlx->mlx, mlx->win, x + 190, y, TEXT_COLOR, "no");
 	else
 	{
@@ -32,9 +32,9 @@ void	info_effect(t_scene *scene, t_mlx *mlx)
 
 void	info_effect_1(t_scene *scene, t_mlx *mlx, int x, int y)
 {
-	if (scene->active_effect == EFFECT_GRAYSCALE)
+	if (scene->act_eff == EFFECT_GRAYSCALE)
 		mlx_string_put(mlx->mlx, mlx->win, x + 190, y, TEXT_COLOR, "Grayscale");
-	else if (scene->active_effect == EFFECT_NEGATIVE)
+	else if (scene->act_eff == EFFECT_NEGATIVE)
 		mlx_string_put(mlx->mlx, mlx->win, x + 190, y, TEXT_COLOR, "Negative");
 }
 
@@ -42,7 +42,7 @@ void	info_effect_2(t_scene *scene, t_mlx *mlx, int x, int y)
 {
 	char	*str;
 
-	if (scene->active_effect == EFFECT_CARTOON)
+	if (scene->act_eff == EFFECT_CARTOON)
 	{
 		mlx_string_put(mlx->mlx, mlx->win, x + 150, y, TEXT_COLOR,
 		str = ft_itoa(scene->k_cartoon));
@@ -50,7 +50,7 @@ void	info_effect_2(t_scene *scene, t_mlx *mlx, int x, int y)
 		mlx_string_put(mlx->mlx, mlx->win, x + 120, y, TEXT_COLOR,
 		"x1/    Cartoon");
 	}
-	else if (scene->active_effect == EFFECT_PIXELATION)
+	else if (scene->act_eff == EFFECT_PIXELATION)
 	{
 		mlx_string_put(mlx->mlx, mlx->win, x + 150, y, TEXT_COLOR,
 		str = ft_itoa(scene->k_pixelation));
@@ -58,7 +58,7 @@ void	info_effect_2(t_scene *scene, t_mlx *mlx, int x, int y)
 		mlx_string_put(mlx->mlx, mlx->win, x + 140, y, TEXT_COLOR,
 		"x    Pixelation");
 	}
-	else if (scene->active_effect == EFFECT_OUTLINE)
+	else if (scene->act_eff == EFFECT_OUTLINE)
 		mlx_string_put(mlx->mlx, mlx->win, x + 190, y, TEXT_COLOR, "Outline");
 }
 
@@ -66,7 +66,7 @@ void	info_effect_3(t_scene *scene, t_mlx *mlx, int x, int y)
 {
 	char	*str;
 
-	if (scene->active_effect == EFFECT_DEPTH)
+	if (scene->act_eff == EFFECT_DEPTH)
 	{
 		mlx_string_put(mlx->mlx, mlx->win, x + 150, y, TEXT_COLOR,
 		str = ft_itoa(scene->k_depth_map));
@@ -74,6 +74,6 @@ void	info_effect_3(t_scene *scene, t_mlx *mlx, int x, int y)
 		mlx_string_put(mlx->mlx, mlx->win, x + 120, y, TEXT_COLOR,
 		"x1/    Depth");
 	}
-	else if (scene->active_effect == EFFECT_ANAGLYPH)
+	else if (scene->act_eff == EFFECT_ANAGLYPH)
 		mlx_string_put(mlx->mlx, mlx->win, x + 190, y, TEXT_COLOR, "Anaglyph");
 }

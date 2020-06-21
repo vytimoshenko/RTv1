@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_save_scene_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 05:35:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:30:23 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 13:48:56 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,25 @@ void	write_cameras_info(t_scene *scene, int fd)
 	int	i;
 
 	i = -1;
-	while (++i < scene->cameras.quantity)
+	while (++i < scene->cams.quant)
 	{
 		ft_putendl_fd(FILE_CAMERA, fd);
 		ft_putstr_fd("{\n\t", fd);
 		ft_putstr_fd(FILE_CAMERA_POSITION, fd);
 		ft_putstr_fd(":\t[", fd);
-		ft_putnbr_fd(scene->cameras.array[i]->position.x, fd);
+		ft_putnbr_fd(scene->cams.arr[i]->pos.x, fd);
 		ft_putstr_fd(", ", fd);
-		ft_putnbr_fd(scene->cameras.array[i]->position.y, fd);
+		ft_putnbr_fd(scene->cams.arr[i]->pos.y, fd);
 		ft_putstr_fd(", ", fd);
-		ft_putnbr_fd(scene->cameras.array[i]->position.z, fd);
+		ft_putnbr_fd(scene->cams.arr[i]->pos.z, fd);
 		ft_putstr_fd("];\n\t", fd);
 		ft_putstr_fd(FILE_CAMERA_DIRECTION, fd);
 		ft_putstr_fd(":\t[", fd);
-		ft_putnbr_fd(scene->cameras.array[i]->direction.x, fd);
+		ft_putnbr_fd(scene->cams.arr[i]->dir.x, fd);
 		ft_putstr_fd(", ", fd);
-		ft_putnbr_fd(scene->cameras.array[i]->direction.y, fd);
+		ft_putnbr_fd(scene->cams.arr[i]->dir.y, fd);
 		ft_putstr_fd(", ", fd);
-		ft_putnbr_fd(scene->cameras.array[i]->direction.z, fd);
+		ft_putnbr_fd(scene->cams.arr[i]->dir.z, fd);
 		ft_putendl_fd("];\n}\n", fd);
 	}
 }
@@ -69,42 +69,42 @@ void	write_lights_info(t_scene *scene, int fd)
 	int	i;
 
 	i = -1;
-	while (++i < scene->lights.quantity)
+	while (++i < scene->lights.quant)
 	{
 		ft_putendl_fd(FILE_LIGHT, fd);
 		ft_putstr_fd("{\n\t", fd);
 		ft_putstr_fd(FILE_LIGHT_TYPE, fd);
 		ft_putstr_fd(":\t\t", fd);
 		ft_putstr_fd("<", fd);
-		if (scene->lights.array[i]->type == LIGHT_TYPE_AMBIENT)
+		if (scene->lights.arr[i]->type == LIGHT_TYPE_AMBIENT)
 			ft_putstr_fd(FILE_LIGHT_TYPE_AMBIENT, fd);
-		else if (scene->lights.array[i]->type == LIGHT_TYPE_DIRECTIONAL)
+		else if (scene->lights.arr[i]->type == LIGHT_TYPE_DIRECTIONAL)
 			ft_putstr_fd(FILE_LIGHT_TYPE_DIRECTIONAL, fd);
-		else if (scene->lights.array[i]->type == LIGHT_TYPE_POINT)
+		else if (scene->lights.arr[i]->type == LIGHT_TYPE_POINT)
 			ft_putstr_fd(FILE_LIGHT_TYPE_POINT, fd);
 		ft_putstr_fd(">", fd);
 		ft_putstr_fd(";\n\t", fd);
 		ft_putstr_fd(FILE_LIGHT_INTENSITY, fd);
 		ft_putstr_fd(":\t", fd);
-		ft_putnbr_fd((int)(10 * scene->lights.array[i]->intensity), fd);
+		ft_putnbr_fd((int)(10 * scene->lights.arr[i]->intens), fd);
 		write_lights_info_extra(scene, fd, i);
 	}
 }
 
 void	write_lights_info_extra(t_scene *scene, int fd, int i)
 {
-	if (scene->lights.array[i]->type == LIGHT_TYPE_AMBIENT)
+	if (scene->lights.arr[i]->type == LIGHT_TYPE_AMBIENT)
 		ft_putendl_fd(";\n}\n", fd);
 	else
 	{
 		ft_putstr_fd(";\n\t", fd);
 		ft_putstr_fd(FILE_LIGHT_POSITION, fd);
 		ft_putstr_fd(":\t[", fd);
-		ft_putnbr_fd(scene->lights.array[i]->position.x, fd);
+		ft_putnbr_fd(scene->lights.arr[i]->pos.x, fd);
 		ft_putstr_fd(", ", fd);
-		ft_putnbr_fd(scene->lights.array[i]->position.y, fd);
+		ft_putnbr_fd(scene->lights.arr[i]->pos.y, fd);
 		ft_putstr_fd(", ", fd);
-		ft_putnbr_fd(scene->lights.array[i]->position.z, fd);
+		ft_putnbr_fd(scene->lights.arr[i]->pos.z, fd);
 		ft_putendl_fd("];\n}\n", fd);
 	}
 }

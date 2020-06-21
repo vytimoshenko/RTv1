@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 03:37:02 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 11:00:22 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 13:37:27 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	info_coordinates(t_scene *scene, t_mlx *mlx)
 	y = WIN_SIZE_H - 30;
 	mlx_string_put(mlx->mlx, mlx->win, x, y, TEXT_COLOR, "X:      Y:");
 	mlx_string_put(mlx->mlx, mlx->win, x + 20, y, TEXT_COLOR,
-	str = ft_itoa(scene->x_mouse_position));
+	str = ft_itoa(scene->x_mouse_pos));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 100, y, TEXT_COLOR,
-	str = ft_itoa(scene->y_mouse_position));
+	str = ft_itoa(scene->y_mouse_pos));
 	free(str);
 }
 

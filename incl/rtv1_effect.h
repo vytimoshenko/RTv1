@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_effect.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/25 20:44:21 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 13:26:43 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,40 +48,40 @@
 
 //MAIN
 void		final_processing(t_mlx *mlx, t_scene *scene);
-t_color		pixel_post_processing(t_scene *scene, int i, t_color color);
+t_clr		pixel_post_processing(t_scene *scene, int i, t_clr color);
 
 //OUTLINE AND ANTIALIASING
 void		fill_aliasing_buffer(t_scene *scene);
 int			need_to_smooth(t_scene *scene, int i);
 void		add_adjacent_pixels(t_scene *scene, int i);
-t_color		effect_outline(t_scene *scene, int i);
+t_clr		effect_outline(t_scene *scene, int i);
 
 void		run_antialiasing(t_scene *scene);
 void		get_jitter(double *random);
-void		get_multisample_color(t_scene *scene, t_pixel *pixel, double *rand);
+void		get_multisample_color(t_scene *scene, t_pix *pixel, double *rand);
 
 //PIXELATION
 void		effect_pixelation(t_scene *scene);
-t_color		get_average_color(t_scene *scene, int pitch);
-void	    draw_macro_pixel(t_scene *scene, t_color color, int pitch);
+t_clr		get_average_color(t_scene *scene, int pitch);
+void	    draw_macro_pixel(t_scene *scene, t_clr color, int pitch);
 
 //OTHER
-t_color		shade_unselesected(t_scene *scene, int i, t_color color);
-t_color		effect_depth(t_scene *scene, int i);
+t_clr		shade_unselesected(t_scene *scene, int i, t_clr color);
+t_clr		effect_depth(t_scene *scene, int i);
 void 	    effect_anaglyph(t_scene *scene);
 
 //COLOR
-int			unite_color_channels(t_color color);
-t_color		average_color_channels(t_color color);
-t_color		split_color(int color);
-t_color		get_channel_diff(t_color c1, t_color c2);
+int			unite_color_channels(t_clr color);
+t_clr		average_color_channels(t_clr color);
+t_clr		split_color(int color);
+t_clr		get_channel_diff(t_clr c1, t_clr c2);
 
-t_color		add_color(t_color c1, t_color c2);
-t_color		multiply_color(double k, t_color c);
-t_color		mix_color(t_color c1, t_color c2);
+t_clr		add_color(t_clr c1, t_clr c2);
+t_clr		multiply_color(double k, t_clr c);
+t_clr		mix_color(t_clr c1, t_clr c2);
 
-t_color		to_grayscale(t_color color);
-t_color		to_negative(t_color color);
-t_color		to_cartoon(t_scene *scene, t_color color);
+t_clr		to_grayscale(t_clr color);
+t_clr		to_negative(t_clr color);
+t_clr		to_cartoon(t_scene *scene, t_clr color);
 
 #endif

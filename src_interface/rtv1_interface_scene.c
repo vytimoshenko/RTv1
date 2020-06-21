@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 11:05:18 by vitaly            #+#    #+#             */
-/*   Updated: 2020/06/21 11:05:20 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 13:52:56 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	info_scene_1(t_scene *scene, t_mlx *mlx, int x, int y)
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 80, TEXT_COLOR,
 	"Cameras:");
 	mlx_string_put(mlx->mlx, mlx->win, x + 150, y + 80, TEXT_COLOR,
-	str = ft_itoa(scene->cameras.quantity));
+	str = ft_itoa(scene->cams.quant));
 	free(str);
 }
 
@@ -53,22 +53,22 @@ void	info_scene_2(t_scene *scene, t_mlx *mlx, int x, int y)
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 110, TEXT_COLOR,
 	"Light sources:");
 	mlx_string_put(mlx->mlx, mlx->win, x + 150, y + 110, TEXT_COLOR,
-	str = ft_itoa(scene->lights.quantity));
+	str = ft_itoa(scene->lights.quant));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 130, TEXT_COLOR,
 	"- ambient:");
 	mlx_string_put(mlx->mlx, mlx->win, x + 150, y + 130, TEXT_COLOR,
-	str = ft_itoa(scene->lights.quantity_ambient));
+	str = ft_itoa(scene->lights.quant_ambient));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 150, TEXT_COLOR,
 	"- directional:");
 	mlx_string_put(mlx->mlx, mlx->win, x + 150, y + 150, TEXT_COLOR,
-	str = ft_itoa(scene->lights.quantity_directional));
+	str = ft_itoa(scene->lights.quant_directional));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 170, TEXT_COLOR,
 	"- point:");
 	mlx_string_put(mlx->mlx, mlx->win, x + 150, y + 170, TEXT_COLOR,
-	str = ft_itoa(scene->lights.quantity_point));
+	str = ft_itoa(scene->lights.quant_point));
 	free(str);
 }
 
@@ -79,17 +79,17 @@ void	info_scene_3(t_scene *scene, t_mlx *mlx, int x, int y)
 	mlx_string_put(mlx->mlx, mlx->win, x + 220, y + 80, TEXT_COLOR,
 	"Materials:");
 	mlx_string_put(mlx->mlx, mlx->win, x + 350, y + 80, TEXT_COLOR,
-	str = ft_itoa(scene->materials.quantity));
+	str = ft_itoa(scene->mats.quant));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 220, y + 110, TEXT_COLOR,
 	"Objects:");
 	mlx_string_put(mlx->mlx, mlx->win, x + 350, y + 110, TEXT_COLOR,
-	str = ft_itoa(scene->objects.quantity));
+	str = ft_itoa(scene->objs.quant));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 220, y + 130, TEXT_COLOR,
 	"- planes:");
 	mlx_string_put(mlx->mlx, mlx->win, x + 350, y + 130, TEXT_COLOR,
-	str = ft_itoa(scene->objects.quantity_planes));
+	str = ft_itoa(scene->objs.quant_planes));
 	free(str);
 }
 
@@ -100,16 +100,16 @@ void	info_scene_4(t_scene *scene, t_mlx *mlx, int x, int y)
 	mlx_string_put(mlx->mlx, mlx->win, x + 220, y + 150, TEXT_COLOR,
 	"- spheres:");
 	mlx_string_put(mlx->mlx, mlx->win, x + 350, y + 150, TEXT_COLOR,
-	str = ft_itoa(scene->objects.quantity_spheres));
+	str = ft_itoa(scene->objs.quant_spheres));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 220, y + 170, TEXT_COLOR,
 	"- cones:");
 	mlx_string_put(mlx->mlx, mlx->win, x + 350, y + 170, TEXT_COLOR,
-	str = ft_itoa(scene->objects.quantity_cones));
+	str = ft_itoa(scene->objs.quant_cones));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 220, y + 190, TEXT_COLOR,
 	"- cylinders:");
 	mlx_string_put(mlx->mlx, mlx->win, x + 350, y + 190, TEXT_COLOR,
-	str = ft_itoa(scene->objects.quantity_cylinders));
+	str = ft_itoa(scene->objs.quant_cylinders));
 	free(str);
 }

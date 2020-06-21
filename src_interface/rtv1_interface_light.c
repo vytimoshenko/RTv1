@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 11:11:20 by vitaly            #+#    #+#             */
-/*   Updated: 2020/06/21 11:36:55 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 13:46:33 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ void	info_light_1(t_scene *scene, t_mlx *mlx, int x, int y)
 	mlx_string_put(mlx->mlx, mlx->win, x, y, TEXT_COLOR,
 	"Light source:     #");
 	mlx_string_put(mlx->mlx, mlx->win, x + 190, y, TEXT_COLOR,
-	str = ft_itoa(scene->active_light));
+	str = ft_itoa(scene->act_light));
 	free(str);
-	if (scene->lights.array[scene->active_light]->type == LIGHT_TYPE_AMBIENT)
+	if (scene->lights.arr[scene->act_light]->type == LIGHT_TYPE_AMBIENT)
 		mlx_string_put(mlx->mlx, mlx->win, x + 210, y, TEXT_COLOR, "Ambient");
-	else if (scene->lights.array[scene->active_light]->type ==
+	else if (scene->lights.arr[scene->act_light]->type ==
 	LIGHT_TYPE_DIRECTIONAL)
 		mlx_string_put(mlx->mlx, mlx->win, x + 210, y, TEXT_COLOR,
 	"Directional");
-	else if (scene->lights.array[scene->active_light]->type == LIGHT_TYPE_POINT)
+	else if (scene->lights.arr[scene->act_light]->type == LIGHT_TYPE_POINT)
 		mlx_string_put(mlx->mlx, mlx->win, x + 210, y, TEXT_COLOR, "Point");
 }
 
@@ -51,14 +51,14 @@ void	info_light_2(t_scene *scene, t_mlx *mlx, int x, int y)
 	char	*str;
 
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 30, TEXT_COLOR, "- switch:");
-	if (scene->lights.array[scene->active_light]->off == FALSE)
+	if (scene->lights.arr[scene->act_light]->off == FALSE)
 		mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 30, TEXT_COLOR, "on");
-	else if (scene->lights.array[scene->active_light]->off == TRUE)
+	else if (scene->lights.arr[scene->act_light]->off == TRUE)
 		mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 30, TEXT_COLOR, "off");
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 50, TEXT_COLOR,
 	"- intensity (x10):");
 	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 50, TEXT_COLOR,
-	str = ft_itoa(10 * scene->lights.array[scene->active_light]->intensity));
+	str = ft_itoa(10 * scene->lights.arr[scene->act_light]->intens));
 	free(str);
 }
 
@@ -66,20 +66,20 @@ void	info_light_3(t_scene *scene, t_mlx *mlx, int x, int y)
 {
 	char	*str;
 
-	if (scene->lights.array[scene->active_light]->type ==
-	LIGHT_TYPE_POINT || scene->lights.array[scene->active_light]->type ==
+	if (scene->lights.arr[scene->act_light]->type ==
+	LIGHT_TYPE_POINT || scene->lights.arr[scene->act_light]->type ==
 	LIGHT_TYPE_DIRECTIONAL)
 	{
 		mlx_string_put(mlx->mlx, mlx->win, x, y + 70, TEXT_COLOR,
 		"- position (XYZ):");
 		mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 70, TEXT_COLOR,
-		str = ft_itoa(scene->lights.array[scene->active_light]->position.x));
+		str = ft_itoa(scene->lights.arr[scene->act_light]->pos.x));
 		free(str);
 		mlx_string_put(mlx->mlx, mlx->win, x + 240, y + 70, TEXT_COLOR,
-		str = ft_itoa(scene->lights.array[scene->active_light]->position.y));
+		str = ft_itoa(scene->lights.arr[scene->act_light]->pos.y));
 		free(str);
 		mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 70, TEXT_COLOR,
-		str = ft_itoa(scene->lights.array[scene->active_light]->position.z));
+		str = ft_itoa(scene->lights.arr[scene->act_light]->pos.z));
 		free(str);
 	}
 }
@@ -88,19 +88,19 @@ void	info_light_4(t_scene *scene, t_mlx *mlx, int x, int y)
 {
 	char	*str;
 
-	if (scene->lights.array[scene->active_light]->type ==
+	if (scene->lights.arr[scene->act_light]->type ==
 	LIGHT_TYPE_DIRECTIONAL)
 	{
 		mlx_string_put(mlx->mlx, mlx->win, x, y + 90, TEXT_COLOR,
 		"- direction (XYZ):");
 		mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 90, TEXT_COLOR,
-		str = ft_itoa(scene->lights.array[scene->active_light]->direction.x));
+		str = ft_itoa(scene->lights.arr[scene->act_light]->dir.x));
 		free(str);
 		mlx_string_put(mlx->mlx, mlx->win, x + 240, y + 90, TEXT_COLOR,
-		str = ft_itoa(scene->lights.array[scene->active_light]->direction.y));
+		str = ft_itoa(scene->lights.arr[scene->act_light]->dir.y));
 		free(str);
 		mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 90, TEXT_COLOR,
-		str = ft_itoa(scene->lights.array[scene->active_light]->direction.z));
+		str = ft_itoa(scene->lights.arr[scene->act_light]->dir.z));
 		free(str);
 	}
 }

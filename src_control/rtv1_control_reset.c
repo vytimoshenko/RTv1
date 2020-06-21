@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 15:15:10 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/14 16:09:55 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 13:50:14 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ void	clean_scene(t_scene *scene)
 	free(scene->name);
 	free(scene->author);
 	i = -1;
-	while (++i < scene->cameras.quantity)
-		free(scene->cameras.array[i]);
-	free(scene->cameras.array);
+	while (++i < scene->cams.quant)
+		free(scene->cams.arr[i]);
+	free(scene->cams.arr);
 	i = -1;
-	while (++i < scene->lights.quantity)
-		free(scene->lights.array[i]);
-	free(scene->lights.array);
+	while (++i < scene->lights.quant)
+		free(scene->lights.arr[i]);
+	free(scene->lights.arr);
 	i = -1;
-	while (++i < scene->materials.quantity)
-		free(scene->materials.array[i]);
-	free(scene->materials.array);
+	while (++i < scene->mats.quant)
+		free(scene->mats.arr[i]);
+	free(scene->mats.arr);
 	i = -1;
-	while (++i < scene->objects.quantity)
-		free(scene->objects.array[i]);
-	free(scene->objects.array);
+	while (++i < scene->objs.quant)
+		free(scene->objs.arr[i]);
+	free(scene->objs.arr);
 }

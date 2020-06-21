@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 23:09:56 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 10:48:54 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 12:34:32 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	move_item(t_global *global, int key)
 	if (key == ARROW_LEFT || key == ARROW_RIGHT || key == ARROW_DOWN
 	|| key == ARROW_UP || key == BRACKET_LEFT || key == BRACKET_RIGHT)
 	{
-		if (global->scene->active_mode == MODE_CAMERA)
+		if (global->scene->act_mod == MODE_CAMERA)
 			move_camera(global->scene, key);
-		else if (global->scene->active_mode == MODE_LIGHT)
+		else if (global->scene->act_mod == MODE_LIGHT)
 			move_light(global->scene, key);
-		else if (global->scene->active_mode == MODE_OBJECT)
+		else if (global->scene->act_mod == MODE_OBJECT)
 			move_object(global->scene, key);
 		else
 			return ;
@@ -34,11 +34,11 @@ void	rotate_item(t_global *global, int key)
 	if (key == A || key == D || key == W || key == S || key == X ||
 	key == Z)
 	{
-		if (global->scene->active_mode == MODE_CAMERA)
+		if (global->scene->act_mod == MODE_CAMERA)
 			rotate_camera(global->scene, key);
-		else if (global->scene->active_mode == MODE_LIGHT)
+		else if (global->scene->act_mod == MODE_LIGHT)
 			rotate_light(global->scene, key);
-		else if (global->scene->active_mode == MODE_OBJECT)
+		else if (global->scene->act_mod == MODE_OBJECT)
 			rotate_object(global->scene, key);
 		else
 			return ;

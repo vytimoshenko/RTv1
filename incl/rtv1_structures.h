@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/14 12:02:39 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 13:52:56 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,49 +16,47 @@
 
 # include "rtv1.h"
 
-typedef struct			s_vector
+typedef struct			s_vec
 {
 	double				x;
 	double				y;
 	double				z;
-}						t_vector;
+}						t_vec;
 
-typedef struct			s_color
+typedef struct			s_clr
 {
 	unsigned char		r;
 	unsigned char		g;
 	unsigned char		b;
-}						t_color;
+}						t_clr;
 
-typedef struct			s_pixel
+typedef struct			s_pix
 {
 	int					i;
 	int					x;
 	int					y;
-	t_vector			pos;
-	t_color				color;
+	t_vec				pos;
+	t_clr				color;
 	double				depth;
-	short				object_id;
+	short				obj_id;
 	bool				aliasing;
-	t_color				anaglyph;
-	t_color				frame;
-}						t_pixel;
+	t_clr				anaglyph;
+	t_clr				frame;
+}						t_pix;
 
-typedef struct			s_point
+typedef struct			s_pnt
 {
-	t_vector			xyz;
-	t_color				color;
-	double				specular;
-	double				reflective;
-	double				refractive;
-	double				transparency;
-
+	t_vec				xyz;
+	t_clr				color;
+	double				spec;
+	double				refl;
+	double				refr;
+	double				trns;
 	double				light;
-	t_vector			n;
-
-	double				light_intensity;
-	t_color				final_color;
-}						t_point;
+	t_vec				n;
+	double				light_intens;
+	t_clr				final_clr;
+}						t_pnt;
 
 typedef struct			s_t_min_max
 {
@@ -67,109 +65,108 @@ typedef struct			s_t_min_max
 	double				t_max;
 }						t_t_min_max;
 
-typedef struct			s_camera
+typedef struct			s_cam
 {
 	int					id;
-	t_vector			position;
-	t_vector			direction;
-	t_vector			sin;
-	t_vector			cos;
-}						t_camera;
+	t_vec				pos;
+	t_vec				dir;
+	t_vec				sin;
+	t_vec				cos;
+}						t_cam;
 
-typedef struct			s_object
+typedef struct			s_obj
 {
 	int					id;
 	int					type;
-	int					material;
-	t_color				color;
-	double				specular;
-	double				reflective;
-	double				refractive;
-	double				transparency;
+	int					mat;
+	t_clr				color;
+	double				spec;
+	double				refl;
+	double				refr;
+	double				transp;
 	double				radius;
-	t_vector			position;
-	t_vector			orientation;
-	t_vector			sin;
-	t_vector			cos;
-	t_vector			direction;
+	t_vec				pos;
+	t_vec				dir;
+	t_vec				sin;
+	t_vec				cos;
 	double				k;
 
 	double				t1;
 	double				t2;
 	double				closest;
 	int					null;
-}						t_object;
+}						t_obj;
 
 typedef struct			s_light
 {
 	int					id;
 	int					type;
 	int					off;
-	double				intensity;
-	t_vector			position;
-	t_vector			direction;
+	double				intens;
+	t_vec				pos;
+	t_vec				dir;
 }						t_light;
 
-typedef struct			s_material
+typedef struct			s_mat
 {
 	int					id;
 	char				*name;
-	t_color				color;
-	double				specular;
-	double				reflective;
-	double				transparency;
-	double				refractive;
-}						t_material;
+	t_clr				color;
+	double				spec;
+	double				refl;
+	double				transp;
+	double				refr;
+}						t_mat;
 
-typedef struct			s_cameras
+typedef struct			s_cams
 {
-	int					quantity;
-	t_camera			**array;
-}						t_cameras;
+	int					quant;
+	t_cam				**arr;
+}						t_cams;
 
 typedef struct			s_lights
 {
-	int					quantity;
-	int					quantity_ambient;
-	int					quantity_directional;
-	int					quantity_point;
-	t_light				**array;
+	int					quant;
+	int					quant_ambient;
+	int					quant_directional;
+	int					quant_point;
+	t_light				**arr;
 }						t_lights;
 
-typedef struct			s_materials
+typedef struct			s_mats
 {
-	int					quantity;
-	t_material			**array;
-}						t_materials;
+	int					quant;
+	t_mat				**arr;
+}						t_mats;
 
-typedef struct			s_objects
+typedef struct			s_objs
 {
-	int					quantity;
-	int					quantity_planes;
-	int					quantity_spheres;
-	int					quantity_cylinders;
-	int					quantity_cones;
-	t_object			**array;
-}						t_objects;
+	int					quant;
+	int					quant_planes;
+	int					quant_spheres;
+	int					quant_cylinders;
+	int					quant_cones;
+	t_obj				**arr;
+}						t_objs;
 
 typedef struct			s_scene
 {
 	char				*file_name_with_path;
 	char				*name;
 	char				*author;
-	t_cameras			cameras;
+	t_cams				cams;
 	t_lights			lights;
-	t_objects			objects;
-	t_materials			materials;
+	t_objs				objs;
+	t_mats				mats;
 
-	int					active_mode;
-	int					active_camera;
-	int					active_light;
-	int					active_material;
-	int					active_object;
-	int					active_effect;
+	int					act_mod;
+	int					act_cam;
+	int					act_light;
+	int					act_mat;
+	int					act_obj;
+	int					act_eff;
 
-	t_pixel				*pixel_buffer;
+	t_pix				*pixel_buffer;
 
 	int					antialiasing;
 	int					k_cartoon;
@@ -177,10 +174,10 @@ typedef struct			s_scene
 	int					k_depth_map;
 
 	int					got_color;
-	t_color				picked_color;
-	int					material_source;
-	int					x_mouse_position;
-	int					y_mouse_position;
+	t_clr				picked_color;
+	int					mat_source;
+	int					x_mouse_pos;
+	int					y_mouse_pos;
 	int					middle_mouse_button;
 
 	int					show_help;
@@ -202,58 +199,10 @@ typedef struct			s_mlx
 	float				frame_time;
 }						t_mlx;
 
-typedef struct			s_open_cl
-{
-	cl_platform_id		platform_id;
-	cl_device_id		device_id;
-	cl_context			context;
-	cl_command_queue	command_queue;
-	cl_program			program;
-	cl_kernel			kernel;
-
-	char				*platform_name;
-	char				*device_name;
-	char				*driver_ver;
-	cl_uint				device_comp_units;
-	cl_uint				device_frequency;
-
-	size_t				source_size;
-	char				*source_str;
-	char				*program_build_log;
-
-	size_t				global_work_size;
-	size_t				local_work_size;
-
-	cl_mem				buf;
-
-	int					execution_time;
-}						t_open_cl;
-
-typedef struct			s_kernel_arg
-{
-	int					img_size_x;
-
-	int					fractal_type;
-
-	int					color_theme;
-	int					iter;
-	int					pause;
-	double				zoom;
-
-	double				x_center;
-	double				y_center;
-	double				x_shift;
-	double				y_shift;
-
-	double				x_julia;
-	double				y_julia;
-}						t_kernel_arg;
-
 typedef struct			s_global
 {
 	t_scene				*scene;
 	t_mlx				*mlx;
-	t_open_cl			*open_cl;
 }						t_global;
 
 #endif

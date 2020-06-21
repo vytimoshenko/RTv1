@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_read_scene_5.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 07:09:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:29:59 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 13:49:54 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	parse_material_description(t_scene *scene, char *property, char *value)
 {
 	int i;
 
-	i = scene->active_material;
+	i = scene->act_mat;
 	if (!(ft_strcmp(property, FILE_MATERIAL_NAME)))
-		scene->materials.array[i]->name = ft_strdup(value);
+		scene->mats.arr[i]->name = ft_strdup(value);
 	else if (!(ft_strcmp(property, FILE_MATERIAL_COLOR)))
-		scene->materials.array[i]->color = parse_color(value);
+		scene->mats.arr[i]->color = parse_color(value);
 	else if (!(ft_strcmp(property, FILE_MATERIAL_SPECULAR)))
-		scene->materials.array[i]->specular = ft_atoi(value);
+		scene->mats.arr[i]->spec = ft_atoi(value);
 	else if (!(ft_strcmp(property, FILE_MATERIAL_REFLECTIVE)))
-		scene->materials.array[i]->reflective = (double)ft_atoi(value) / 10.0;
+		scene->mats.arr[i]->refl = (double)ft_atoi(value) / 10.0;
 	else
 		put_error_wrong_scene_data(property, "wrong material property name");
 }
@@ -33,18 +33,18 @@ void	parse_object_description(t_scene *scene, char *property, char *value)
 {
 	int i;
 
-	i = scene->active_object;
-	scene->objects.array[i]->id = i;
+	i = scene->act_obj;
+	scene->objs.arr[i]->id = i;
 	if (!(ft_strcmp(property, FILE_OBJECT_TYPE)))
-		scene->objects.array[i]->type = find_object_type(value);
+		scene->objs.arr[i]->type = find_object_type(value);
 	else if (!(ft_strcmp(property, FILE_OBJECT_MATERIAL)))
-		scene->objects.array[i]->material = find_object_material(scene, value);
+		scene->objs.arr[i]->mat = find_object_material(scene, value);
 	else if (!(ft_strcmp(property, FILE_OBJECT_POSITION)))
-		scene->objects.array[i]->position = parse_vector(value);
+		scene->objs.arr[i]->pos = parse_vector(value);
 	else if (!(ft_strcmp(property, FILE_OBJECT_ORIENTATION)))
-		scene->objects.array[i]->orientation = parse_vector(value);
+		scene->objs.arr[i]->dir = parse_vector(value);
 	else if (!(ft_strcmp(property, FILE_OBJECT_RADIUS)))
-		scene->objects.array[i]->radius = ft_atoi(value);
+		scene->objs.arr[i]->radius = ft_atoi(value);
 	else
 		put_error_wrong_scene_data(property, "wrong object property name");
 }
@@ -68,9 +68,9 @@ int		find_object_material(t_scene *scene, char *value)
 	int	i;
 
 	i = -1;
-	while (++i < scene->materials.quantity - 1)
+	while (++i < scene->mats.quant - 1)
 	{
-		if (!(ft_strcmp(scene->materials.array[i]->name, value)))
+		if (!(ft_strcmp(scene->mats.arr[i]->name, value)))
 			return (i);
 	}
 	put_error_wrong_scene_data(value, "wrong object material name");

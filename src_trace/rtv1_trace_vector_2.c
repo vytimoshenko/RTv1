@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_trace_vector_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 07:57:12 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:31:47 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 13:15:56 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/rtv1.h"
 
-t_vector	add(t_vector v1, t_vector v2)
+t_vec	add(t_vec v1, t_vec v2)
 {
-	t_vector result;
+	t_vec result;
 
 	result.x = v1.x + v2.x;
 	result.y = v1.y + v2.y;
@@ -22,9 +22,9 @@ t_vector	add(t_vector v1, t_vector v2)
 	return (result);
 }
 
-t_vector	substract(t_vector v1, t_vector v2)
+t_vec	sub(t_vec v1, t_vec v2)
 {
-	t_vector result;
+	t_vec result;
 
 	result.x = v1.x - v2.x;
 	result.y = v1.y - v2.y;
@@ -32,9 +32,9 @@ t_vector	substract(t_vector v1, t_vector v2)
 	return (result);
 }
 
-t_vector	multiply_sv(double k, t_vector v)
+t_vec	mult_sv(double k, t_vec v)
 {
-	t_vector result;
+	t_vec result;
 
 	result.x = k * v.x;
 	result.y = k * v.y;

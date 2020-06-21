@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_read_scene_4.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 09:00:27 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:29:52 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 13:43:03 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	parse_camera_description(t_scene *scene, char *property, char *value)
 {
 	int i;
 
-	i = scene->active_camera;
+	i = scene->act_cam;
 	if (!(ft_strcmp(property, FILE_CAMERA_POSITION)))
-		scene->cameras.array[i]->position = parse_vector(value);
+		scene->cams.arr[i]->pos = parse_vector(value);
 	else if (!(ft_strcmp(property, FILE_CAMERA_DIRECTION)))
-		scene->cameras.array[i]->direction = parse_vector(value);
+		scene->cams.arr[i]->dir = parse_vector(value);
 	else
 		put_error_wrong_scene_data(property, "wrong camera property name");
 }
@@ -56,13 +56,13 @@ void	parse_light_description(t_scene *scene, char *property, char *value)
 {
 	int i;
 
-	i = scene->active_light;
+	i = scene->act_light;
 	if (!(ft_strcmp(property, FILE_LIGHT_TYPE)))
-		scene->lights.array[i]->type = find_light_type(value);
+		scene->lights.arr[i]->type = find_light_type(value);
 	else if (!(ft_strcmp(property, FILE_LIGHT_INTENSITY)))
-		scene->lights.array[i]->intensity = (double)ft_atoi(value) / 10.0;
+		scene->lights.arr[i]->intens = (double)ft_atoi(value) / 10.0;
 	else if (!(ft_strcmp(property, FILE_LIGHT_POSITION)))
-		scene->lights.array[i]->position = parse_vector(value);
+		scene->lights.arr[i]->pos = parse_vector(value);
 	else
 		put_error_wrong_scene_data(property, "wrong light property name");
 }

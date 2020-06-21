@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_interface_camera.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:28:23 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 13:28:22 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@ void	info_camera_1(t_scene *scene, t_mlx *mlx, int x, int y)
 
 	mlx_string_put(mlx->mlx, mlx->win, x + 110, y, TEXT_COLOR, "CAMERA #");
 	mlx_string_put(mlx->mlx, mlx->win, x + 190, y, TEXT_COLOR,
-	str = ft_itoa(scene->active_camera + 1));
+	str = ft_itoa(scene->act_cam + 1));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 30, TEXT_COLOR,
 	"- position (XYZ):");
 	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 30, TEXT_COLOR,
-	str = ft_itoa(scene->cameras.array[scene->active_camera]->position.x));
+	str = ft_itoa(scene->cams.arr[scene->act_cam]->pos.x));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 240, y + 30, TEXT_COLOR,
-	str = ft_itoa(scene->cameras.array[scene->active_camera]->position.y));
+	str = ft_itoa(scene->cams.arr[scene->act_cam]->pos.y));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 30, TEXT_COLOR,
-	str = ft_itoa(scene->cameras.array[scene->active_camera]->position.z));
+	str = ft_itoa(scene->cams.arr[scene->act_cam]->pos.z));
 	free(str);
 }
 
@@ -51,13 +51,13 @@ void	info_camera_2(t_scene *scene, t_mlx *mlx, int x, int y)
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 50, TEXT_COLOR,
 	"- rotation (XYZ):");
 	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 50, TEXT_COLOR,
-	str = ft_itoa(scene->cameras.array[scene->active_camera]->direction.x));
+	str = ft_itoa(scene->cams.arr[scene->act_cam]->dir.x));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 240, y + 50, TEXT_COLOR,
-	str = ft_itoa(scene->cameras.array[scene->active_camera]->direction.y));
+	str = ft_itoa(scene->cams.arr[scene->act_cam]->dir.y));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 50, TEXT_COLOR,
-	str = ft_itoa(scene->cameras.array[scene->active_camera]->direction.z));
+	str = ft_itoa(scene->cams.arr[scene->act_cam]->dir.z));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 90, TEXT_COLOR, "Antialiasing:");
 	if (scene->antialiasing == TRUE)

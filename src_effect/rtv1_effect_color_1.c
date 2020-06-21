@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_effect_color_1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 03:38:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:27:35 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 13:23:04 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/rtv1.h"
 
-int		unite_color_channels(t_color color)
+int		unite_color_channels(t_clr color)
 {
 	return (256 * 256 * color.r + 256 * color.g + color.b);
 }
 
-t_color	average_color_channels(t_color color)
+t_clr	average_color_channels(t_clr color)
 {
 	int tmp;
 
@@ -28,9 +28,9 @@ t_color	average_color_channels(t_color color)
 	return (color);
 }
 
-t_color	split_color(int color)
+t_clr	split_color(int color)
 {
-	t_color result;
+	t_clr result;
 
 	result.r = (unsigned char)(color & 0xFF0000);
 	result.g = (unsigned char)(color & 0x00FF00);
@@ -38,9 +38,9 @@ t_color	split_color(int color)
 	return (result);
 }
 
-t_color	get_channel_diff(t_color c1, t_color c2)
+t_clr	get_channel_diff(t_clr c1, t_clr c2)
 {
-	t_color	diff;
+	t_clr	diff;
 
 	diff.r = abs((c1.r - c2.r));
 	diff.g = abs((c1.g - c2.g));

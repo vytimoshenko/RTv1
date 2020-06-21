@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 18:37:02 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/14 15:29:27 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 13:36:53 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,46 +39,46 @@
 //MAIN
 void		trace_rays(t_scene *scene);
 void		prepare_pixels(t_scene *scene);
-void		get_centered_coordinates(t_pixel *pixel);
-void		get_pixel_viewport_coordinates(t_scene *scene, t_pixel *pixel);
-void		rotate_pixel(t_pixel *pixel, t_camera *camera);
+void		get_centered_coordinates(t_pix *pixel);
+void		get_pixel_viewport_coordinates(t_scene *scene, t_pix *pixel);
+void		rotate_pixel(t_pix *pixel, t_cam *camera);
 
 //CORE
-void		trace_pixel(t_scene *scene, t_vector camera, t_pixel *pixel,
+void		trace_pixel(t_scene *scene, t_vec camera, t_pix *pixel,
 			int reflection_depth);
-void		get_point_properties(t_scene *scene, t_vector pixel, t_point *point,
-			t_object *object);
-void		get_normal(t_point *point, t_vector pixel, t_object *object, t_vector camera);
+void		get_prop(t_scene *scene, t_vec pixel, t_pnt *point,
+			t_obj *object);
+void		get_normal(t_pnt *point, t_vec pixel, t_obj *object, t_vec camera);
 
 //INTERSECTIONS
-t_object	get_intersection(t_objects	objects, t_vector camera,
-			t_vector pixel, t_t_min_max t_min_max);
-t_object	check_closest_object(t_object closest_object, double closest);
-void		select_object_intersect_function(t_object *object, t_vector camera,
-			t_vector pixel);
+t_obj	get_intersection(t_objs	objects, t_vec camera,
+			t_vec pixel, t_t_min_max t_min_max);
+t_obj	check_closest_object(t_obj closest_object, double closest);
+void		select_object_intersect_function(t_obj *object, t_vec camera,
+			t_vec pixel);
 
-void		plane(t_object *object, t_vector camera, t_vector pixel);
-void		sphere(t_object *object, t_vector camera, t_vector pixel);
-void		cylinder(t_object *object, t_vector camera, t_vector pixel);
-void		cone(t_object *object, t_vector camera, t_vector pixel);
+void		plane(t_obj *object, t_vec camera, t_vec pixel);
+void		sphere(t_obj *object, t_vec camera, t_vec pixel);
+void		cylinder(t_obj *object, t_vec camera, t_vec pixel);
+void		cone(t_obj *object, t_vec camera, t_vec pixel);
 
 //LIGHT
-double		get_lightning(t_scene *scene, t_point point, t_vector pixel);
-double		diffuse_and_specular_light(t_scene *scene, t_point point,
-			t_vector pixel, int i);
-double		diffuse(t_vector normal, t_vector light);
-double		specular(t_vector normal, t_vector light, t_vector pixel,
+double		get_lightning(t_scene *scene, t_pnt point, t_vec pixel);
+double		diffuse_and_specular_light(t_scene *scene, t_pnt point,
+			t_vec pixel, int i);
+double		diffuse(t_vec normal, t_vec light);
+double		specular(t_vec normal, t_vec light, t_vec pixel,
 			double specular);
-t_vector	reflect_ray(t_vector ray, t_vector normal);
+t_vec	reflect_ray(t_vec ray, t_vec normal);
 
 //VECTOR OPERATIONS
 double		deg_to_rad(int degrees);
-double		dot(t_vector v1, t_vector v2);
-double		length(t_vector v1);
-t_vector	normalize(t_vector v);
+double		dot(t_vec v1, t_vec v2);
+double		length(t_vec v1);
+t_vec	normalize(t_vec v);
 
-t_vector	add(t_vector v1, t_vector v2);
-t_vector	substract(t_vector v1, t_vector v2);
-t_vector	multiply_sv(double k, t_vector v);
+t_vec	add(t_vec v1, t_vec v2);
+t_vec	sub(t_vec v1, t_vec v2);
+t_vec	mult_sv(double k, t_vec v);
 
 #endif

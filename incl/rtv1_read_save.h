@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 12:30:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 11:27:50 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 13:23:04 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ int    		find_object_type(char *value);
 int     	find_object_material(t_scene *scene, char *value);
 
 //PARSE DATA TYPES
-t_vector    parse_vector(char *value);
-t_color		parse_color(char *value);
+t_vec    parse_vector(char *value);
+t_clr		parse_color(char *value);
 int			check_and_get_int_value(char *value);
-void		validate_color(char *value, t_vector color);
+void		validate_color(char *value, t_vec color);
 
 //WHITESPACES
 char		*delete_whitespaces(char *line);

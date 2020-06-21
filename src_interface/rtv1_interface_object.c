@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_interface_object.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:29:08 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 13:33:51 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	info_object_1(t_scene *scene, t_mlx *mlx, int x, int y)
 	mlx_string_put(mlx->mlx, mlx->win, x + 180, y, TEXT_COLOR,
 	"#");
 	mlx_string_put(mlx->mlx, mlx->win, x + 190, y, TEXT_COLOR,
-	str = ft_itoa(scene->active_object));
+	str = ft_itoa(scene->act_obj));
 	free(str);
-	if (scene->objects.array[scene->active_object]->type ==
+	if (scene->objs.arr[scene->act_obj]->type ==
 	OBJECT_TYPE_PLANE)
 		mlx_string_put(mlx->mlx, mlx->win, x + 210, y, TEXT_COLOR,
 		"Plane");
-	else if (scene->objects.array[scene->active_object]->type ==
+	else if (scene->objs.arr[scene->act_obj]->type ==
 	OBJECT_TYPE_SPHERE)
 		mlx_string_put(mlx->mlx, mlx->win, x + 210, y, TEXT_COLOR,
 		"Sphere");
@@ -51,24 +51,24 @@ void	info_object_2(t_scene *scene, t_mlx *mlx, int x, int y)
 {
 	char	*str;
 
-	if (scene->objects.array[scene->active_object]->type ==
+	if (scene->objs.arr[scene->act_obj]->type ==
 	OBJECT_TYPE_CONE)
 		mlx_string_put(mlx->mlx, mlx->win, x + 210, y, TEXT_COLOR,
 		"Cone");
-	else if (scene->objects.array[scene->active_object]->type ==
+	else if (scene->objs.arr[scene->act_obj]->type ==
 	OBJECT_TYPE_CYLINDER)
 		mlx_string_put(mlx->mlx, mlx->win, x + 210, y, TEXT_COLOR,
 		"Cylinder");
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 30, TEXT_COLOR,
 	"- position (XYZ):");
 	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 30, TEXT_COLOR,
-	str = ft_itoa(scene->objects.array[scene->active_object]->position.x));
+	str = ft_itoa(scene->objs.arr[scene->act_obj]->pos.x));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 240, y + 30, TEXT_COLOR,
-	str = ft_itoa(scene->objects.array[scene->active_object]->position.y));
+	str = ft_itoa(scene->objs.arr[scene->act_obj]->pos.y));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 30, TEXT_COLOR,
-	str = ft_itoa(scene->objects.array[scene->active_object]->position.z));
+	str = ft_itoa(scene->objs.arr[scene->act_obj]->pos.z));
 	free(str);
 }
 
@@ -79,20 +79,20 @@ void	info_object_3(t_scene *scene, t_mlx *mlx, int x, int y)
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 50, TEXT_COLOR,
 	"- rotation (XYZ):");
 	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 50, TEXT_COLOR,
-	str = ft_itoa(scene->objects.array[scene->active_object]->orientation.x));
+	str = ft_itoa(scene->objs.arr[scene->act_obj]->dir.x));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 240, y + 50, TEXT_COLOR,
-	str = ft_itoa(scene->objects.array[scene->active_object]->orientation.y));
+	str = ft_itoa(scene->objs.arr[scene->act_obj]->dir.y));
 	free(str);
 	mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 50, TEXT_COLOR,
-	str = ft_itoa(scene->objects.array[scene->active_object]->orientation.z));
+	str = ft_itoa(scene->objs.arr[scene->act_obj]->dir.z));
 	free(str);
-	if (scene->objects.array[scene->active_object]->type != OBJECT_TYPE_PLANE)
+	if (scene->objs.arr[scene->act_obj]->type != OBJECT_TYPE_PLANE)
 	{
 		mlx_string_put(mlx->mlx, mlx->win, x, y + 70, TEXT_COLOR,
 		"- radius:");
 		mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 70, TEXT_COLOR,
-		str = ft_itoa(scene->objects.array[scene->active_object]->radius));
+		str = ft_itoa(scene->objs.arr[scene->act_obj]->radius));
 		free(str);
 	}
 }

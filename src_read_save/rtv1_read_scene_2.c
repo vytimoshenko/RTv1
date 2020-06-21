@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_read_scene_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 08:45:30 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:29:40 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 13:50:14 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@ int		define_item_type(t_scene *scene, char *type)
 		return (FILE_PARSE_SCENE);
 	else if (!(ft_strcmp(type, FILE_CAMERA)))
 	{
-		scene->active_camera++;
+		scene->act_cam++;
 		return (FILE_PARSE_CAMERA);
 	}
 	else if (!(ft_strcmp(type, FILE_LIGHT)))
 	{
-		scene->active_light++;
+		scene->act_light++;
 		return (FILE_PARSE_LIGHT);
 	}
 	else if (!(ft_strcmp(type, FILE_MATERIAL)))
 	{
-		scene->active_material++;
+		scene->act_mat++;
 		return (FILE_PARSE_MATERIAL);
 	}
 	else if (!(ft_strcmp(type, FILE_OBJECT)))
 	{
-		scene->active_object++;
+		scene->act_obj++;
 		return (FILE_PARSE_OBJECT);
 	}
 	else
@@ -64,47 +64,47 @@ void	put_error_wrong_scene_data(char *wrong_data, char *message)
 
 void	save_quantities(t_scene *scene)
 {
-	scene->cameras.quantity = scene->active_camera;
-	if (scene->cameras.quantity == 0)
+	scene->cams.quant = scene->act_cam;
+	if (scene->cams.quant == 0)
 		put_error_pn("scene file must contain at least one camera");
-	scene->lights.quantity = scene->active_light;
-	if (scene->lights.quantity == 0)
+	scene->lights.quant = scene->act_light;
+	if (scene->lights.quant == 0)
 		put_error_pn("scene file must contain at least one light");
-	scene->materials.quantity = scene->active_material;
-	if (scene->materials.quantity == 0)
+	scene->mats.quant = scene->act_mat;
+	if (scene->mats.quant == 0)
 		put_error_pn("scene file must contain at least one material");
-	scene->objects.quantity = scene->active_object;
-	if (scene->objects.quantity == 0)
+	scene->objs.quant = scene->act_obj;
+	if (scene->objs.quant == 0)
 		put_error_pn("scene file must contain at least one object");
-	scene->active_camera = NOTHING_SELECTED;
-	scene->active_light = NOTHING_SELECTED;
-	scene->active_material = NOTHING_SELECTED;
-	scene->active_object = NOTHING_SELECTED;
+	scene->act_cam = NOTHING_SELECTED;
+	scene->act_light = NOTHING_SELECTED;
+	scene->act_mat = NOTHING_SELECTED;
+	scene->act_obj = NOTHING_SELECTED;
 }
 
 void	allocate_memory(t_scene *scene)
 {
 	int	i;
 
-	scene->cameras.array = (t_camera **)ft_memalloc(sizeof(t_camera *) *
-	scene->cameras.quantity);
+	scene->cams.arr = (t_cam **)ft_memalloc(sizeof(t_cam *) *
+	scene->cams.quant);
 	i = -1;
-	while (++i < scene->cameras.quantity)
-		scene->cameras.array[i] = (t_camera *)ft_memalloc(sizeof(t_camera));
-	scene->lights.array = (t_light **)ft_memalloc(sizeof(t_light *) *
-	scene->lights.quantity);
+	while (++i < scene->cams.quant)
+		scene->cams.arr[i] = (t_cam *)ft_memalloc(sizeof(t_cam));
+	scene->lights.arr = (t_light **)ft_memalloc(sizeof(t_light *) *
+	scene->lights.quant);
 	i = -1;
-	while (++i < scene->lights.quantity)
-		scene->lights.array[i] = (t_light *)ft_memalloc(sizeof(t_light));
-	scene->materials.array = (t_material **)ft_memalloc(sizeof(t_material *) *
-	scene->materials.quantity);
+	while (++i < scene->lights.quant)
+		scene->lights.arr[i] = (t_light *)ft_memalloc(sizeof(t_light));
+	scene->mats.arr = (t_mat **)ft_memalloc(sizeof(t_mat *) *
+	scene->mats.quant);
 	i = -1;
-	while (++i < scene->materials.quantity)
-		scene->materials.array[i] =
-		(t_material *)ft_memalloc(sizeof(t_material));
-	scene->objects.array = (t_object **)ft_memalloc(sizeof(t_object *) *
-	scene->objects.quantity);
+	while (++i < scene->mats.quant)
+		scene->mats.arr[i] =
+		(t_mat *)ft_memalloc(sizeof(t_mat));
+	scene->objs.arr = (t_obj **)ft_memalloc(sizeof(t_obj *) *
+	scene->objs.quant);
 	i = -1;
-	while (++i < scene->objects.quantity)
-		scene->objects.array[i] = (t_object *)ft_memalloc(sizeof(t_object));
+	while (++i < scene->objs.quant)
+		scene->objs.arr[i] = (t_obj *)ft_memalloc(sizeof(t_obj));
 }

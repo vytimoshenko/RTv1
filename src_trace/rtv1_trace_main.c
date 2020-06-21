@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_trace_main.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:48:28 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:31:36 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 13:28:22 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	trace_rays(t_scene *scene)
 	prepare_pixels(scene);
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		trace_pixel(scene, scene->cameras.array[scene->active_camera]->
-		position, &scene->pixel_buffer[i], 1);
+		trace_pixel(scene, scene->cams.arr[scene->act_cam]->
+		pos, &scene->pixel_buffer[i], 1);
 	fill_aliasing_buffer(scene);
 }
 
@@ -38,21 +38,21 @@ void	prepare_pixels(t_scene *scene)
 	}
 }
 
-void	get_centered_coordinates(t_pixel *pixel)
+void	get_centered_coordinates(t_pix *pixel)
 {
 	pixel->x = pixel->i % (int)IMG_SIZE_W - 0.5 * (int)IMG_SIZE_W;
 	pixel->y = 0.5 * (int)IMG_SIZE_H - pixel->i / (int)IMG_SIZE_W;
 }
 
-void	get_pixel_viewport_coordinates(t_scene *scene, t_pixel *pixel)
+void	get_pixel_viewport_coordinates(t_scene *scene, t_pix *pixel)
 {
 	pixel->pos.x = pixel->x * VIEWPORT_SIZE_W / IMG_SIZE_W;
 	pixel->pos.y = pixel->y * VIEWPORT_SIZE_H / IMG_SIZE_H;
 	pixel->pos.z = VIEWPORT_DISTANCE;
-	rotate_pixel(pixel, scene->cameras.array[scene->active_camera]);
+	rotate_pixel(pixel, scene->cams.arr[scene->act_cam]);
 }
 
-void	rotate_pixel(t_pixel *pixel, t_camera *camera)
+void	rotate_pixel(t_pix *pixel, t_cam *camera)
 {
 	double temp1;
 	double temp2;

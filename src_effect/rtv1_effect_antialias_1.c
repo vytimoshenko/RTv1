@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_effect_antialias_1.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 07:09:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:27:16 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 13:23:04 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	fill_aliasing_buffer(t_scene *scene)
 int		need_to_smooth(t_scene *scene, int i)
 {
 	int		t;
-	t_color	diff;
+	t_clr	diff;
 
 	diff = get_channel_diff(scene->pixel_buffer[i].color,
 	scene->pixel_buffer[i + 1].color);
@@ -65,10 +65,10 @@ void	add_adjacent_pixels(t_scene *scene, int pos)
 	}
 }
 
-t_color	effect_outline(t_scene *scene, int i)
+t_clr	effect_outline(t_scene *scene, int i)
 {
 	if (scene->pixel_buffer[i].aliasing)
-		return ((t_color){255, 255, 255});
+		return ((t_clr){255, 255, 255});
 	else
-		return ((t_color){0, 0, 0});
+		return ((t_clr){0, 0, 0});
 }

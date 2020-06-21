@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 16:51:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 10:50:28 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 13:50:14 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,59 +22,59 @@ int		select_object(int x, int y, t_global *global)
 	if (x < 0 || x > IMG_SIZE_W || y < 0 || y > IMG_SIZE_H)
 		return (-1);
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
-	object_id = global->scene->pixel_buffer[i].object_id;
+	object_id = global->scene->pixel_buffer[i].obj_id;
 	if (object_id == NOTHING_SELECTED)
 	{
-		global->scene->active_mode = MODE_CAMERA;
-		global->scene->active_object = NOTHING_SELECTED;
+		global->scene->act_mod = MODE_CAMERA;
+		global->scene->act_obj = NOTHING_SELECTED;
 		return (1);
 	}
-	global->scene->active_mode = MODE_OBJECT;
-	if (global->scene->active_object == object_id)
+	global->scene->act_mod = MODE_OBJECT;
+	if (global->scene->act_obj == object_id)
 		return (0);
 	else
 	{
-		global->scene->active_object = object_id;
+		global->scene->act_obj = object_id;
 		return (1);
 	}
 }
 
 void	change_object(t_scene *scene, int key)
 {
-	if (key == MORE && scene->active_object != scene->objects.quantity - 1)
-		scene->active_object++;
-	else if (key == MORE && scene->active_object == scene->objects.quantity - 1)
-		scene->active_object = 0;
-	else if (key == LESS && scene->active_object != 0)
-		scene->active_object--;
-	else if (key == LESS && scene->active_object == 0)
-		scene->active_object = scene->objects.quantity - 1;
+	if (key == MORE && scene->act_obj != scene->objs.quant - 1)
+		scene->act_obj++;
+	else if (key == MORE && scene->act_obj == scene->objs.quant - 1)
+		scene->act_obj = 0;
+	else if (key == LESS && scene->act_obj != 0)
+		scene->act_obj--;
+	else if (key == LESS && scene->act_obj == 0)
+		scene->act_obj = scene->objs.quant - 1;
 }
 
 void	move_object(t_scene *scene, int key)
 {
 	int i;
 
-	i = scene->active_object;
+	i = scene->act_obj;
 	if (key == ARROW_DOWN)
-		scene->objects.array[i]->position.y -= OBJECT_MOVEMENT_INCREMENT;
+		scene->objs.arr[i]->pos.y -= OBJECT_MOVEMENT_INCREMENT;
 	else if (key == ARROW_UP)
-		scene->objects.array[i]->position.y += OBJECT_MOVEMENT_INCREMENT;
+		scene->objs.arr[i]->pos.y += OBJECT_MOVEMENT_INCREMENT;
 	else if (key == ARROW_RIGHT)
-		scene->objects.array[i]->position.x += OBJECT_MOVEMENT_INCREMENT;
+		scene->objs.arr[i]->pos.x += OBJECT_MOVEMENT_INCREMENT;
 	else if (key == ARROW_LEFT)
-		scene->objects.array[i]->position.x -= OBJECT_MOVEMENT_INCREMENT;
+		scene->objs.arr[i]->pos.x -= OBJECT_MOVEMENT_INCREMENT;
 	else if (key == BRACKET_RIGHT)
-		scene->objects.array[i]->position.z += OBJECT_MOVEMENT_INCREMENT;
+		scene->objs.arr[i]->pos.z += OBJECT_MOVEMENT_INCREMENT;
 	else if (key == BRACKET_LEFT)
-		scene->objects.array[i]->position.z -= OBJECT_MOVEMENT_INCREMENT;
+		scene->objs.arr[i]->pos.z -= OBJECT_MOVEMENT_INCREMENT;
 }
 
 void	rotate_object(t_scene *scene, int key)
 {
-	t_vector dir;
+	t_vec dir;
 
-	dir = scene->objects.array[scene->active_object]->orientation;
+	dir = scene->objs.arr[scene->act_obj]->dir;
 	if (key == W)
 		dir.y += OBJECT_ROTATION_INCREMENT;
 	else if (key == S)
@@ -93,39 +93,39 @@ void	rotate_object(t_scene *scene, int key)
 	dir.x = dir.x <= -360 ? dir.x + 360 : dir.x;
 	dir.y = dir.y <= -360 ? dir.x + 360 : dir.y;
 	dir.z = dir.z <= -360 ? dir.x + 360 : dir.z;
-	scene->objects.array[scene->active_object]->orientation = dir;
-	get_sin_cos_obj(scene->objects.array[scene->active_object]);
-	rotate_vector(scene->objects.array[scene->active_object]);
+	scene->objs.arr[scene->act_obj]->dir = dir;
+	get_sin_cos_obj(scene->objs.arr[scene->act_obj]);
+	rotate_vector(scene->objs.arr[scene->act_obj]);
 }
 
-void	get_sin_cos_obj(t_object *object)
+void	get_sin_cos_obj(t_obj *object)
 {
-	object->sin.x = sin(deg_to_rad(object->orientation.x));
-	object->sin.y = sin(deg_to_rad(object->orientation.y));
-	object->sin.z = sin(deg_to_rad(object->orientation.z));
-	object->cos.x = cos(deg_to_rad(object->orientation.x));
-	object->cos.y = cos(deg_to_rad(object->orientation.y));
-	object->cos.z = cos(deg_to_rad(object->orientation.z));
+	object->sin.x = sin(deg_to_rad(object->dir.x));
+	object->sin.y = sin(deg_to_rad(object->dir.y));
+	object->sin.z = sin(deg_to_rad(object->dir.z));
+	object->cos.x = cos(deg_to_rad(object->dir.x));
+	object->cos.y = cos(deg_to_rad(object->dir.y));
+	object->cos.z = cos(deg_to_rad(object->dir.z));
 }
 
-void	rotate_vector(t_object *object)
+void	rotate_vector(t_obj *object)
 {
 	double		temp1;
 	double		temp2;
-	t_vector	position;
+	t_vec	position;
 
-	position = object->position;
+	position = object->pos;
 	temp1 = position.y * object->cos.x + position.z * object->sin.x;
 	temp2 = -position.y * object->sin.x + position.z * object->cos.x;
-	object->direction.y = temp1;
-	object->direction.z = temp2;
+	object->dir.y = temp1;
+	object->dir.z = temp2;
 	temp1 = position.x * object->cos.y + position.z * object->sin.y;
 	temp2 = -position.x * object->sin.y + position.z * object->cos.y;
-	object->direction.x = temp1;
-	object->direction.z = temp2;
+	object->dir.x = temp1;
+	object->dir.z = temp2;
 	temp1 = position.x * object->cos.z - position.y * object->sin.z;
 	temp2 = position.x * object->sin.z + position.y * object->cos.z;
-	object->direction.x = temp1;
-	object->direction.y = temp2;
-	object->direction = normalize(object->direction);
+	object->dir.x = temp1;
+	object->dir.y = temp2;
+	object->dir = normalize(object->dir);
 }

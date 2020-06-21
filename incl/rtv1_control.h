@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/14 12:09:42 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 13:27:11 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	save_actions(t_global *global, int key);
 void	change_camera(t_scene *scene, int key);
 void	move_camera(t_scene *scene, int key);
 void	rotate_camera(t_scene *scene, int key);
-void	get_sin_cos(t_camera *camera);
+void	get_sin_cos(t_cam *camera);
 
 //LIGHT
 void	change_light(t_scene *scene, int key);
@@ -118,8 +118,8 @@ int		select_object(int x, int y, t_global *global);
 void	change_object(t_scene *scene, int key);
 void	move_object(t_scene *scene, int key);
 void	rotate_object(t_scene *scene, int key);
-void	get_sin_cos_obj(t_object *object);
-void	rotate_vector(t_object *object);
+void	get_sin_cos_obj(t_obj *object);
+void	rotate_vector(t_obj *object);
 
 //EFFECT
 void	change_effect(t_scene *scene, int key);

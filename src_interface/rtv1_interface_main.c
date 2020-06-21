@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 10:59:59 by vitaly            #+#    #+#             */
-/*   Updated: 2020/06/21 11:15:24 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 12:34:32 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	show_interface(t_global *global)
 {
 	info_camera(global->scene, global->mlx);
-	if (global->scene->active_mode == MODE_LIGHT)
+	if (global->scene->act_mod == MODE_LIGHT)
 		info_light(global->scene, global->mlx);
-	else if (global->scene->active_mode == MODE_MATERIAL)
+	else if (global->scene->act_mod == MODE_MATERIAL)
 		info_material(global->scene, global->mlx);
-	else if (global->scene->active_mode == MODE_OBJECT)
+	else if (global->scene->act_mod == MODE_OBJECT)
 	{
 		info_object(global->scene, global->mlx);
 		info_material(global->scene, global->mlx);

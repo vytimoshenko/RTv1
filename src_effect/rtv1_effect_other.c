@@ -6,24 +6,24 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 12:14:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 10:56:22 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 13:28:22 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/rtv1.h"
 
-t_color	shade_unselesected(t_scene *scene, int i, t_color color)
+t_clr	shade_unselesected(t_scene *scene, int i, t_clr color)
 {
-	if (scene->pixel_buffer[i].object_id != scene->active_object)
+	if (scene->pixel_buffer[i].obj_id != scene->act_obj)
 		return (multiply_color(SHADE_UNSELECTED, color));
 	else
 		return (color);
 }
 
-t_color	effect_depth(t_scene *scene, int i)
+t_clr	effect_depth(t_scene *scene, int i)
 {
 	double	tmp;
-	t_color color;
+	t_clr color;
 
 	tmp = scene->pixel_buffer[i].depth + 10;
 	tmp = (int)(scene->k_depth_map / log(0.05 * (double)tmp));
@@ -43,7 +43,7 @@ void	effect_anaglyph(t_scene *scene)
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 		scene->pixel_buffer[i].anaglyph = scene->pixel_buffer[i].color;
-	scene->cameras.array[scene->active_camera]->position.x += 1;
+	scene->cams.arr[scene->act_cam]->pos.x += 1;
 	trace_rays(scene);
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
