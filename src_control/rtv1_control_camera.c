@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_control_camera.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 17:28:16 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:25:13 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 10:46:56 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	change_camera(t_scene *scene, int key)
 		scene->active_camera--;
 	else if (key == LESS && scene->active_camera == 0)
 		scene->active_camera = scene->cameras.quantity - 1;
-    get_sin_cos(scene->cameras.array[scene->active_camera]);
+	get_sin_cos(scene->cameras.array[scene->active_camera]);
 }
 
 void	move_camera(t_scene *scene, int key)

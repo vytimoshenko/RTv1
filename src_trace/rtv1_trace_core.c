@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:04:49 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/14 17:09:24 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 11:50:50 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,21 @@ void	get_point_properties(t_scene *scene, t_vector pixel, t_point *point, t_obje
 
 void	get_normal(t_point *point, t_vector pixel, t_object *object, t_vector camera)
 {
-	double m;
-	double k;
-	t_vector r;
-	
+	double		m;
+	double		k;
+	t_vector	r;
+
 	if (object->type == OBJECT_TYPE_PLANE)
-		point->n = dot(pixel, object->position) < 0 ? object->position : multiply_sv(-1, object->position);
+		point->n = dot(pixel, object->position) < 0 ? object->position :
+		multiply_sv(-1, object->position);
 	else if (object->type == OBJECT_TYPE_SPHERE)
 		point->n = substract(point->xyz, object->position);
-	else if (object->type == OBJECT_TYPE_CYLINDER) {
+	else if (object->type == OBJECT_TYPE_CYLINDER)
+	{
 		r = substract(camera, object->position);
 		m = object->closest * dot(pixel, object->direction) + dot(r, object->direction);
-		point->n = substract(substract(point->xyz, object->position), multiply_sv(m, object->direction));
+		point->n = substract(substract(point->xyz, object->position),
+		multiply_sv(m, object->direction));
 	}
 	else if (object->type == OBJECT_TYPE_CONE)
 	{

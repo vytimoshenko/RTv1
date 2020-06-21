@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:29:21 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/14 19:02:05 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 11:44:01 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,17 @@ void	get_objects_statistics(t_scene *scene)
 	}
 }
 
-void set_initial_angles(t_scene *scene)
+void	set_initial_angles(t_scene *scene)
 {
 	int i;
-	
+
 	get_sin_cos(scene->cameras.array[scene->active_camera]);
 	i = 0;
-	while (i < scene->objects.quantity) {
+	while (i < scene->objects.quantity)
+	{
 		if (scene->objects.array[i]->type == OBJECT_TYPE_CYLINDER ||
-		scene->objects.array[i]->type == OBJECT_TYPE_CONE) {
+		scene->objects.array[i]->type == OBJECT_TYPE_CONE)
+		{
 			get_sin_cos_obj(scene->objects.array[i]);
 			rotate_vector(scene->objects.array[i]);
 		}

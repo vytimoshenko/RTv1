@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/02 19:44:00 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/12 21:04:44 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 10:52:32 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	mouse_key_release(int key, int x, int y, t_global *global)
 	return (0);
 }
 
-int		keyboard_key_press(int key, t_global *global)
+int	keyboard_key_press(int key, t_global *global)
 {
 	escape_key(global, key);
 	change_mode_1(global, key);
@@ -70,7 +70,7 @@ int		keyboard_key_press(int key, t_global *global)
 	return (0);
 }
 
-int		close_window(t_global *global)
+int	close_window(t_global *global)
 {
 	clean_mlx(global->mlx);
 	// IMG_Quit();

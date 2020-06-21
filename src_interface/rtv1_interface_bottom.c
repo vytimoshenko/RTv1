@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_interface_bottom.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 03:37:02 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:28:18 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 11:00:22 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ void	info_help_string(t_mlx *mlx)
 
 	x = WIN_SIZE_W - 300;
 	y = WIN_SIZE_H - 55;
-    mlx_string_put(mlx->mlx, mlx->win, x, y, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y, TEXT_COLOR,
 	"<< PRESS H FOR HELP >>");
 }

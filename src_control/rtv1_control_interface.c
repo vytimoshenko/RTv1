@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_control_interface.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 19:40:45 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:26:10 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 10:47:52 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	pick_color(t_scene *scene, int x, int y)
 	x = x - IMG_INDT_W;
 	y = y - IMG_INDT_H;
 	if (x < 0 || x > IMG_SIZE_W || y < 0 || y > IMG_SIZE_H)
-		return;
+		return ;
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
 	scene->picked_color = scene->pixel_buffer[i].frame;
 	scene->got_color = TRUE;

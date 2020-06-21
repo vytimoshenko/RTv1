@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_effect_other.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 12:14:57 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:28:00 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 10:56:22 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_color	effect_depth(t_scene *scene, int i)
 	return (color);
 }
 
-void effect_anaglyph(t_scene *scene)
+void	effect_anaglyph(t_scene *scene)
 {
 	int i;
 

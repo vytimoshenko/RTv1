@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_control_keyboard_1.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 10:25:29 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:26:18 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 10:49:16 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	change_grade(t_global *global, int key)
 			return ;
 		}
 		else
-			return;
+			return ;
 		draw(global);
 	}
 	else if (key == T)

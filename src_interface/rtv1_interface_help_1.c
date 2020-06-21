@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_interface_help_1.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 00:31:45 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:28:36 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 11:03:28 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	show_help(t_mlx *mlx)
 
 void	info_header_and_author(t_mlx *mlx, int x, int y)
 {
-    mlx_string_put(mlx->mlx, mlx->win, x, y - 10, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y - 10, TEXT_COLOR,
 	"-= RTv1 =-");
-    mlx_string_put(mlx->mlx, mlx->win, x - 60, y + 10, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x - 60, y + 10, TEXT_COLOR,
 	"basic raytracing render");
 	mlx_string_put(mlx->mlx, mlx->win, x + 20, y + 540, TEXT_COLOR,
 	"-= Developed by mperseus at 21 School, Moscow, 2020 =-");
@@ -43,13 +43,13 @@ void	info_help_general(t_mlx *mlx, int x, int y)
 {
 	mlx_string_put(mlx->mlx, mlx->win, x, y, TEXT_COLOR,
 	"                 GENERAL");
-    mlx_string_put(mlx->mlx, mlx->win, x, y + 30, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 30, TEXT_COLOR,
 	"Save as:                    U");
-    mlx_string_put(mlx->mlx, mlx->win, x, y + 50, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 50, TEXT_COLOR,
 	"Save screenshot:            P");
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 70, TEXT_COLOR,
 	"Pick color:                 right mouse button");
-    mlx_string_put(mlx->mlx, mlx->win, x, y + 90, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 90, TEXT_COLOR,
 	"Reset:                      R");
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 110, TEXT_COLOR,
 	"Help:                       H");
@@ -61,25 +61,25 @@ void	info_help_general(t_mlx *mlx, int x, int y)
 
 void	info_help_effect(t_mlx *mlx, int x, int y)
 {
-    mlx_string_put(mlx->mlx, mlx->win, x, y, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y, TEXT_COLOR,
 	"                 EFFECTS");
-    mlx_string_put(mlx->mlx, mlx->win, x, y + 30, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 30, TEXT_COLOR,
 	"Effect control mode:        E");
-    mlx_string_put(mlx->mlx, mlx->win, x, y + 50, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 50, TEXT_COLOR,
 	"Change effect:              </>");
-    mlx_string_put(mlx->mlx, mlx->win, x, y + 70, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 70, TEXT_COLOR,
 	"Change effect grade:        +/-");
-    mlx_string_put(mlx->mlx, mlx->win, x, y + 90, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 90, TEXT_COLOR,
 	"Antialiasing on/off:        T");
 }
 
 void	info_help_camera(t_mlx *mlx, int x, int y)
 {
-    mlx_string_put(mlx->mlx, mlx->win, x, y, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y, TEXT_COLOR,
 	"                 CAMERAS");
-    mlx_string_put(mlx->mlx, mlx->win, x, y + 30, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 30, TEXT_COLOR,
 	"Camera control mode:        ESC");
-    mlx_string_put(mlx->mlx, mlx->win, x, y + 50, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 50, TEXT_COLOR,
 	"Change camera:              </>");
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 70, TEXT_COLOR,
 	"Move camera:                arrows/[/]");

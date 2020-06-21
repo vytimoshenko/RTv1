@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_control_effect.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/22 16:56:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:25:57 by mperseus         ###   ########.fr       */
+/*   Created: 2020/06/21 10:55:08 by vitaly            #+#    #+#             */
+/*   Updated: 2020/06/21 10:55:11 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	change_effect(t_scene *scene, int key)
 {
-    if (key == MORE && scene->active_effect != EFFECTS_QUANTITY - 1)
-        scene->active_effect++;
-    else if (key == MORE && scene->active_effect == EFFECTS_QUANTITY - 1)
-        scene->active_effect = 0;
-    else if (key == LESS && scene->active_effect != 0)
-        scene->active_effect--;
-    else if (key == LESS && scene->active_effect == 0)
-        scene->active_effect = EFFECTS_QUANTITY - 1;
+	if (key == MORE && scene->active_effect != EFFECTS_QUANTITY - 1)
+		scene->active_effect++;
+	else if (key == MORE && scene->active_effect == EFFECTS_QUANTITY - 1)
+		scene->active_effect = 0;
+	else if (key == LESS && scene->active_effect != 0)
+		scene->active_effect--;
+	else if (key == LESS && scene->active_effect == 0)
+		scene->active_effect = EFFECTS_QUANTITY - 1;
 }
 
 void	change_effect_grade(t_scene *scene, int key)

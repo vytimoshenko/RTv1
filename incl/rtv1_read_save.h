@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_read_save.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 12:30:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/26 19:28:57 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 11:27:50 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int			parse_item_description(t_scene *scene, int type_id,
 			char *description);
 char		*prepare_value_to_write(char *value);
 char		*any_whitespace_to_space(char *value);
+void		str_free(char **property, char **value, char **prepared_value);
 
 //PARSE ITEM DESCRIPTION
 void    	parse_item_by_property(t_scene *scene, int type_id, char *property,

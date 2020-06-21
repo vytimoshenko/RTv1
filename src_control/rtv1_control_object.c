@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 16:51:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/14 18:38:06 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 10:50:28 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int		select_object(int x, int y, t_global *global)
 		return (-1);
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
 	object_id = global->scene->pixel_buffer[i].object_id;
-    if (object_id == NOTHING_SELECTED)
-    {
+	if (object_id == NOTHING_SELECTED)
+	{
 		global->scene->active_mode = MODE_CAMERA;
 		global->scene->active_object = NOTHING_SELECTED;
 		return (1);
-    }
+	}
 	global->scene->active_mode = MODE_OBJECT;
 	if (global->scene->active_object == object_id)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 23:04:43 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/14 19:01:53 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 11:49:09 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,10 @@ void	cone(t_object *object, t_vector camera, t_vector pixel)
 	double		k2;
 	double		k3;
 	double		d;
+	double		k;
 
 	r = substract(camera, object->position);
-	double k = tan(deg_to_rad(object->radius / 2));
+	k = tan(deg_to_rad(object->radius / 2));
 	k1 = dot(pixel, pixel) - (1 + k * k) * dot(pixel, object->direction) *
 	dot(pixel, object->direction);
 	k2 = 2 * (dot(pixel, r) - (1 + k * k) * dot(pixel, object->direction) *

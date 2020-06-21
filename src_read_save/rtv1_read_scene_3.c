@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_read_scene_3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 07:24:15 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/28 21:29:47 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 11:39:31 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ int		parse_item_description(t_scene *scene, int type_id, char *description)
 	ft_strncpy(value, description, i);
 	prepared_value = prepare_value_to_write(value);
 	parse_item_by_property(scene, type_id, property, prepared_value);
-	ft_strdel(&property);
-	ft_strdel(&value);
-	ft_strdel(&prepared_value);
+	str_free(&property, &value, &prepared_value);
 	while (--i >= -1)
 		description++;
 	if (parse_item_description(scene, type_id, description) == -1)
@@ -96,4 +94,11 @@ char	*any_whitespace_to_space(char *value)
 			value[i] = ' ';
 	}
 	return (value);
+}
+
+void	str_free(char **property, char **value, char **prepared_value)
+{
+	ft_strdel(property);
+	ft_strdel(value);
+	ft_strdel(prepared_value);
 }
