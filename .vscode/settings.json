@@ -46,7 +46,8 @@
 		"__node_handle": "cpp",
 		"__cxx_version": "cpp",
 		"__tuple": "cpp",
-		"optional": "cpp"
+		"optional": "cpp",
+		"__string": "c"
 	},
 	"C_Cpp.errorSquiggles": "Disabled"
 }

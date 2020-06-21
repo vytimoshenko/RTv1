@@ -126,6 +126,15 @@ object
 
 object
 {
+	type:		<cone>;
+	material:	"Super blue";
+	position:	[-20, 0, 40];
+	orientation:	[0, 0, 0];
+	radius:		8;
+}
+
+object
+{
 	type:		<plane>;
 	material:	"Glossy white";
 	position:	[0, -10, 0];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_interface.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/27 22:49:33 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 19:48:45 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void		info_help_object(t_mlx *mlx, int x, int y);
 
 //OTHER
 void		info_draw_box(t_mlx *mlx, int size_w, int size_h);
-void		info_message_box(t_mlx *mlx, char *message_title,
-			char *message_content);
+void		info_message_box(t_mlx *mlx, char *title, char *content);
 
 #endif

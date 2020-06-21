@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:16:54 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 13:28:22 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 15:04:36 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ void	run_antialiasing(t_scene *scene)
 {
 	int			i;
 	double		jitter[MULTI_SAMPLING_RATE];
-	t_pix		pixel;
+	t_pix		pix;
 
 	get_jitter(jitter);
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
 	{
-		if (scene->pixel_buffer[i].aliasing)
+		if (scene->pix_buff[i].aliasing)
 		{
-			pixel.x = scene->pixel_buffer[i].x;
-			pixel.y = scene->pixel_buffer[i].y;
-			get_multisample_color(scene, &pixel, jitter);
-			scene->pixel_buffer[i].color = pixel.color;
+			pix.x = scene->pix_buff[i].x;
+			pix.y = scene->pix_buff[i].y;
+			get_multisample_color(scene, &pix, jitter);
+			scene->pix_buff[i].color = pix.color;
 		}
 	}
 }
@@ -46,9 +46,9 @@ void	get_jitter(double *random)
 	}
 }
 
-void	get_multisample_color(t_scene *scene, t_pix *pixel, double *jitter)
+void	get_multisample_color(t_scene *scene, t_pix *pix, double *jitter)
 {
-	int			i;
+	int		i;
 	t_vec	sum;
 	t_vec	tmp;
 
@@ -59,18 +59,18 @@ void	get_multisample_color(t_scene *scene, t_pix *pixel, double *jitter)
 	{
 		tmp.x = 0;
 		tmp.y = 0;
-		pixel->color = (t_clr){0, 0, 0};
-		get_pixel_viewport_coordinates(scene, pixel);
+		pix->color = (t_clr){0, 0, 0};
+		get_pix_viewport_coordinates(scene, pix);
 		tmp.x = jitter[i] + scene->cams.arr[scene->act_cam]->
 		pos.x;
 		tmp.y = jitter[i] + scene->cams.arr[scene->act_cam]->
 		pos.y;
-		trace_pixel(scene, tmp, pixel, REFLECTION_DEPTH);
-		sum.x += pixel->color.r;
-		sum.y += pixel->color.g;
-		sum.z += pixel->color.b;
+		trace_pixel(scene, tmp, pix, REFLECTION_DEPTH);
+		sum.x += pix->color.r;
+		sum.y += pix->color.g;
+		sum.z += pix->color.b;
 	}
-	pixel->color.r = (sum.x / (MULTI_SAMPLING_RATE));
-	pixel->color.g = (sum.y / (MULTI_SAMPLING_RATE));
-	pixel->color.b = (sum.z / (MULTI_SAMPLING_RATE));
+	pix->color.r = (sum.x / (MULTI_SAMPLING_RATE));
+	pix->color.g = (sum.y / (MULTI_SAMPLING_RATE));
+	pix->color.b = (sum.z / (MULTI_SAMPLING_RATE));
 }

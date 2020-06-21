@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 13:26:43 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 16:21:55 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ void		get_multisample_color(t_scene *scene, t_pix *pixel, double *rand);
 //PIXELATION
 void		effect_pixelation(t_scene *scene);
 t_clr		get_average_color(t_scene *scene, int pitch);
-void	    draw_macro_pixel(t_scene *scene, t_clr color, int pitch);
+void		draw_macro_pixel(t_scene *scene, t_clr color, int pitch);
 
 //OTHER
 t_clr		shade_unselesected(t_scene *scene, int i, t_clr color);
 t_clr		effect_depth(t_scene *scene, int i);
-void 	    effect_anaglyph(t_scene *scene);
+void		effect_anaglyph(t_scene *scene);
 
 //COLOR
 int			unite_color_channels(t_clr color);

@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 19:16:25 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 13:52:56 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 19:34:32 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ typedef struct			s_pnt
 	t_clr				final_clr;
 }						t_pnt;
 
-typedef struct			s_t_min_max
+typedef struct			s_mn_mx
 {
 	double				t;
 	double				t_min;
 	double				t_max;
-}						t_t_min_max;
+}						t_mn_mx;
 
 typedef struct			s_cam
 {
@@ -166,7 +166,7 @@ typedef struct			s_scene
 	int					act_obj;
 	int					act_eff;
 
-	t_pix				*pixel_buffer;
+	t_pix				*pix_buff;
 
 	int					antialiasing;
 	int					k_cartoon;
@@ -182,6 +182,9 @@ typedef struct			s_scene
 
 	int					show_help;
 	int					show_info;
+
+	t_pnt				pnt;
+	t_obj				obj;
 }						t_scene;
 
 typedef struct			s_mlx

@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 12:55:58 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 13:23:04 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 14:50:11 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	effect_pixelation(t_scene *scene)
 
 t_clr	get_average_color(t_scene *scene, int pitch)
 {
-	int			i;
-	int			y;
+	int		i;
+	int		y;
 	t_vec	color;
 
 	color = (t_vec){0, 0, 0};
@@ -48,9 +48,9 @@ t_clr	get_average_color(t_scene *scene, int pitch)
 		i = pitch + y * IMG_SIZE_W - 1;
 		while (i++ < pitch + y * IMG_SIZE_W - 1 + scene->k_pixelation)
 		{
-			color.x += scene->pixel_buffer[i].color.r;
-			color.y += scene->pixel_buffer[i].color.g;
-			color.z += scene->pixel_buffer[i].color.b;
+			color.x += scene->pix_buff[i].color.r;
+			color.y += scene->pix_buff[i].color.g;
+			color.z += scene->pix_buff[i].color.b;
 		}
 		y++;
 	}
@@ -70,7 +70,7 @@ void	draw_macro_pixel(t_scene *scene, t_clr color, int pitch)
 	{
 		i = pitch + y * IMG_SIZE_W - 1;
 		while (i++ < pitch + y * IMG_SIZE_W - 1 + scene->k_pixelation)
-			scene->pixel_buffer[i].frame = color;
+			scene->pix_buff[i].frame = color;
 		y++;
 	}
 }

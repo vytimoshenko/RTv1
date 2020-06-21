@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:29:21 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 13:52:56 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 15:24:54 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_scene	*init_scene(int argc, char **argv)
 {
-	t_scene		*scene;
+	t_scene	*scene;
 
 	if (argc != 2)
 		ft_put_error("usage: RTv1 scene_name.rt");
@@ -28,7 +28,9 @@ t_scene	*init_scene(int argc, char **argv)
 	set_initial_status(scene);
 	get_lights_statistics(scene);
 	get_objects_statistics(scene);
-	init_pixel_buffer(scene);
+	if (!(scene->pix_buff = (t_pix *)ft_memalloc(sizeof(t_pix) *
+	(IMG_SIZE_W * IMG_SIZE_H))))
+		ft_put_errno(PROGRAM_NAME);
 	set_initial_angles(scene);
 	scene->file_name_with_path = ft_strdup(argv[1]);
 	return (scene);
@@ -41,6 +43,7 @@ void	set_initial_status(t_scene *scene)
 	scene->k_pixelation = PIXELATION_INIT;
 	scene->k_depth_map = DEPTH_MAP_INIT;
 	scene->act_cam = 0;
+	scene->act_light = 0;
 	scene->act_mat = 0;
 	scene->act_obj = 0;
 	scene->mat_source = NOTHING_SELECTED;

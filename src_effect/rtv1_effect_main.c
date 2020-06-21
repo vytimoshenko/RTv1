@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 22:22:39 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 13:23:04 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 14:54:51 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void		final_processing(t_mlx *mlx, t_scene *scene)
 	{
 		i = -1;
 		while (++i < IMG_SIZE_W * IMG_SIZE_H)
-			scene->pixel_buffer[i].frame = pixel_post_processing(scene, i,
-			scene->pixel_buffer[i].color);
+			scene->pix_buff[i].frame = pixel_post_processing(scene, i,
+			scene->pix_buff[i].color);
 	}
 	i = -1;
 	while (++i < IMG_SIZE_W * IMG_SIZE_H)
-		mlx->data[i] = unite_color_channels(scene->pixel_buffer[i].frame);
+		mlx->data[i] = unite_color_channels(scene->pix_buff[i].frame);
 }
 
 t_clr		pixel_post_processing(t_scene *scene, int i, t_clr color)

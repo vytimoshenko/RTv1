@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/13 07:30:13 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 13:23:04 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 14:04:20 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_vec	parse_vector(char *value)
 {
-	int			i;
-	char		*tmp;
-	char		*value_start;
+	int		i;
+	char	*tmp;
+	char	*value_start;
 	t_vec	vector;
 
 	value_start = value;
@@ -40,11 +40,11 @@ t_vec	parse_vector(char *value)
 	return (vector);
 }
 
-t_clr		parse_color(char *value)
+t_clr	parse_color(char *value)
 {
-	int			i;
-	char		*tmp;
-	char		*value_start;
+	int		i;
+	char	*tmp;
+	char	*value_start;
 	t_vec	color;
 
 	value_start = value;
@@ -69,14 +69,14 @@ t_clr		parse_color(char *value)
 	return ((t_clr){color.x, color.y, color.z});
 }
 
-void		validate_color(char *value, t_vec color)
+void	validate_color(char *value, t_vec color)
 {
 	if (color.x > 255 || color.y > 255 || color.z > 255 ||
 	color.x < 0 || color.y < 0 || color.z < 0)
 		put_error_wrong_scene_data(value, "wrong color in scene");
 }
 
-int			check_and_get_int_value(char *value)
+int		check_and_get_int_value(char *value)
 {
 	int	i;
 

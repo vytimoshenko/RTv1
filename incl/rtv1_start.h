@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/21 12:17:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/14 12:59:47 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 16:22:25 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_scene		*init_scene(int argc, char **argv);
 void		set_initial_status(t_scene *scene);
 void		get_lights_statistics(t_scene *scene);
 void		get_objects_statistics(t_scene *scene);
-void        set_initial_angles(t_scene *scene);
+void		set_initial_angles(t_scene *scene);
 
 //INIT MLX
 t_mlx		*init_mlx(void);
@@ -33,8 +33,7 @@ void		clean_mlx(t_mlx *mlx);
 void		put_mlx_error(t_mlx *mlx, char *str);
 
 //PIXEL_BUFFER
-void   		init_pixel_buffer(t_scene *scene);
-void    	clean_pixel_buffer(t_scene *scene);
+void		clean_pix_buffer(t_scene *scene);
 
 //DRAW
 void		draw(t_global *global);

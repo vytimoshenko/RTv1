@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 07:57:12 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 13:15:56 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 19:11:27 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_vec	sub(t_vec v1, t_vec v2)
 	return (result);
 }
 
-t_vec	mult_sv(double k, t_vec v)
+t_vec	mult(double k, t_vec v)
 {
 	t_vec result;
 

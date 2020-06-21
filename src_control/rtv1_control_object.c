@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 16:51:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 13:50:14 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 19:12:38 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		select_object(int x, int y, t_global *global)
 	if (x < 0 || x > IMG_SIZE_W || y < 0 || y > IMG_SIZE_H)
 		return (-1);
 	i = (int)(IMG_SIZE_W * (y - 1) + x);
-	object_id = global->scene->pixel_buffer[i].obj_id;
+	object_id = global->scene->pix_buff[i].obj_id;
 	if (object_id == NOTHING_SELECTED)
 	{
 		global->scene->act_mod = MODE_CAMERA;
@@ -112,20 +112,20 @@ void	rotate_vector(t_obj *object)
 {
 	double		temp1;
 	double		temp2;
-	t_vec	position;
+	t_vec		pos;
 
-	position = object->pos;
-	temp1 = position.y * object->cos.x + position.z * object->sin.x;
-	temp2 = -position.y * object->sin.x + position.z * object->cos.x;
+	pos = object->pos;
+	temp1 = pos.y * object->cos.x + pos.z * object->sin.x;
+	temp2 = -pos.y * object->sin.x + pos.z * object->cos.x;
 	object->dir.y = temp1;
 	object->dir.z = temp2;
-	temp1 = position.x * object->cos.y + position.z * object->sin.y;
-	temp2 = -position.x * object->sin.y + position.z * object->cos.y;
+	temp1 = pos.x * object->cos.y + pos.z * object->sin.y;
+	temp2 = -pos.x * object->sin.y + pos.z * object->cos.y;
 	object->dir.x = temp1;
 	object->dir.z = temp2;
-	temp1 = position.x * object->cos.z - position.y * object->sin.z;
-	temp2 = position.x * object->sin.z + position.y * object->cos.z;
+	temp1 = pos.x * object->cos.z - pos.y * object->sin.z;
+	temp2 = pos.x * object->sin.z + pos.y * object->cos.z;
 	object->dir.x = temp1;
 	object->dir.y = temp2;
-	object->dir = normalize(object->dir);
+	object->dir = nrm(object->dir);
 }
