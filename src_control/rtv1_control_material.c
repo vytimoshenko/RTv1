@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 07:13:46 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 14:54:51 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 20:18:25 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	get_material(int x, int y, t_global *global)
 	if (global->scene->pix_buff[i].obj_id == NOTHING_SELECTED)
 		return ;
 	global->scene->mat_source =
-	global->scene->objs.arr[global->scene->pix_buff[i].obj_id]->
-	mat;
+	global->scene->objs.arr[global->scene->pix_buff[i].obj_id]->mat;
 }
 
 int		apply_material(int x, int y, t_global *global)
@@ -69,6 +68,5 @@ int		apply_material(int x, int y, t_global *global)
 	global->scene->objs.arr[global->scene->pix_buff[i].obj_id]->
 	mat = global->scene->mat_source;
 	global->scene->mat_source = NOTHING_SELECTED;
-	system("afplay /System/Library/Sounds/Submarine.aiff");
 	return (1);
 }

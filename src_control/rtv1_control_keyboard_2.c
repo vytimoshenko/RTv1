@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 23:09:56 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 12:34:32 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 20:28:11 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@ void	rotate_item(t_global *global, int key)
 	{
 		if (global->scene->act_mod == MODE_CAMERA)
 			rotate_camera(global->scene, key);
-		else if (global->scene->act_mod == MODE_LIGHT)
-			rotate_light(global->scene, key);
-		else if (global->scene->act_mod == MODE_OBJECT)
-			rotate_object(global->scene, key);
 		else
 			return ;
 		draw(global);
@@ -75,14 +71,6 @@ void	save_actions(t_global *global, int key)
 		save_scene(global->scene, global->mlx);
 		return ;
 	}
-	// else if (key == P)
-	// {
-	// 	global->scene->show_help = FALSE;
-	// 	global->scene->show_info = FALSE;
-	// 	update_interface_only(global);
-	// 	save_screenshot(global->scene, global->mlx);
-	// 	return;
-	// }
 	else
 		return ;
 	update_interface_only(global);

@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 17:52:44 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 13:27:11 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 20:13:15 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,14 @@
 # define ARROW_DOWN						125
 # define ARROW_UP						126
 
-//MAIN
 void	loop(t_global *global);
 
-//HOOKS
 int		mouse_move(int x, int y, t_global *global);
 int		mouse_key_press(int key, int x, int y, t_global *global);
 int		mouse_key_release(int key, int x, int y, t_global *global);
 int		keyboard_key_press(int key, t_global *global);
 int		close_window(t_global *global);
 
-//GENERAL
 void	escape_key(t_global *global, int key);
 void	change_mode_1(t_global *global, int key);
 void	change_mode_2(t_global *global, int key);
@@ -96,40 +93,31 @@ void	rotate_item(t_global *global, int key);
 void	interface_actions(t_global *global, int key);
 void	save_actions(t_global *global, int key);
 
-//CAMERA
 void	change_camera(t_scene *scene, int key);
 void	move_camera(t_scene *scene, int key);
 void	rotate_camera(t_scene *scene, int key);
 void	get_sin_cos(t_cam *camera);
 
-//LIGHT
 void	change_light(t_scene *scene, int key);
 void	move_light(t_scene *scene, int key);
-void	rotate_light(t_scene *scene, int key);
 void	change_light_intensity(t_scene *scene, int key);
 
-//MATERIAL
 void	change_material(t_scene *scene, int key);
 void	get_material(int x, int y, t_global *global);
 int		apply_material(int x, int y, t_global *global);
 
-//OBJECT
 int		select_object(int x, int y, t_global *global);
 void	change_object(t_scene *scene, int key);
 void	move_object(t_scene *scene, int key);
-void	rotate_object(t_scene *scene, int key);
 void	get_sin_cos_obj(t_obj *object);
 void	rotate_vector(t_obj *object);
 
-//EFFECT
 void	change_effect(t_scene *scene, int key);
 void	change_effect_grade(t_scene *scene, int key);
 
-//INTERFACE
 void	get_mouse_position(t_scene *scene, int x, int y);
 void	pick_color(t_scene *scene, int x, int y);
 
-//RESET
 void	reset(t_global *global, int key);
 void	clean_scene(t_scene *scene);
 

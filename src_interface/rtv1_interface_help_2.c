@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/23 11:10:41 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 11:02:16 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 20:42:42 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ void	info_help_light(t_mlx *mlx, int x, int y)
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 70, TEXT_COLOR,
 	"Move light source:          arrows/[/]");
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 90, TEXT_COLOR,
-	"Rotate light source:        W/A/S/D/Z/X");
-	mlx_string_put(mlx->mlx, mlx->win, x, y + 110, TEXT_COLOR,
 	"Turn on/off light source:   B");
-	mlx_string_put(mlx->mlx, mlx->win, x, y + 130, TEXT_COLOR,
+	mlx_string_put(mlx->mlx, mlx->win, x, y + 110, TEXT_COLOR,
 	"Light source intensity:     +/-");
 }
 
@@ -56,6 +54,4 @@ void	info_help_object(t_mlx *mlx, int x, int y)
 	"Cancel selection:           ESC");
 	mlx_string_put(mlx->mlx, mlx->win, x, y + 110, TEXT_COLOR,
 	"Move object:                arrows/[/]");
-	mlx_string_put(mlx->mlx, mlx->win, x, y + 130, TEXT_COLOR,
-	"Rotate object:              W/A/S/D/Z/X");
 }

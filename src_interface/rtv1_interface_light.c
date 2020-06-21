@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 11:11:20 by vitaly            #+#    #+#             */
-/*   Updated: 2020/06/21 13:46:33 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 20:22:15 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	info_light(t_scene *scene, t_mlx *mlx)
 	info_light_1(scene, mlx, x, y);
 	info_light_2(scene, mlx, x, y);
 	info_light_3(scene, mlx, x, y);
-	info_light_4(scene, mlx, x, y);
 }
 
 void	info_light_1(t_scene *scene, t_mlx *mlx, int x, int y)
@@ -80,27 +79,6 @@ void	info_light_3(t_scene *scene, t_mlx *mlx, int x, int y)
 		free(str);
 		mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 70, TEXT_COLOR,
 		str = ft_itoa(scene->lights.arr[scene->act_light]->pos.z));
-		free(str);
-	}
-}
-
-void	info_light_4(t_scene *scene, t_mlx *mlx, int x, int y)
-{
-	char	*str;
-
-	if (scene->lights.arr[scene->act_light]->type ==
-	LIGHT_TYPE_DIRECTIONAL)
-	{
-		mlx_string_put(mlx->mlx, mlx->win, x, y + 90, TEXT_COLOR,
-		"- direction (XYZ):");
-		mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 90, TEXT_COLOR,
-		str = ft_itoa(scene->lights.arr[scene->act_light]->dir.x));
-		free(str);
-		mlx_string_put(mlx->mlx, mlx->win, x + 240, y + 90, TEXT_COLOR,
-		str = ft_itoa(scene->lights.arr[scene->act_light]->dir.y));
-		free(str);
-		mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 90, TEXT_COLOR,
-		str = ft_itoa(scene->lights.arr[scene->act_light]->dir.z));
 		free(str);
 	}
 }

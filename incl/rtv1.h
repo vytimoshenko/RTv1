@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 16:05:42 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/17 10:35:28 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 20:03:36 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@
 
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
-# include "../SDL2/headers/SDL.h"
-# include "../SDL2/headers/SDL_image.h"
-# include <OpenCL/opencl.h>
+
 # include <math.h>
 # include <sys/time.h>
 # include <stdbool.h>

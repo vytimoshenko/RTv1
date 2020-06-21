@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strindex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mperseus <mperseus@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/14 14:49:38 by mperseus          #+#    #+#             */
-/*   Updated: 2020/03/14 14:50:32 by mperseus         ###   ########.fr       */
+/*   Updated: 2020/06/21 20:46:16 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_strindex(char c, char *str)
+int	ft_strindex(char c, char *str)
 {
 	int	i;
 

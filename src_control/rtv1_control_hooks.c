@@ -73,7 +73,5 @@ int	keyboard_key_press(int key, t_global *global)
 int	close_window(t_global *global)
 {
 	clean_mlx(global->mlx);
-	// IMG_Quit();
-	// SDL_Quit();
 	exit(0);
 }

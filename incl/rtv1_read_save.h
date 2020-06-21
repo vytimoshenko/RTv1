@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 16:18:12 by vitaly            #+#    #+#             */
-/*   Updated: 2020/06/21 16:20:02 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 20:27:06 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,9 @@
 # include "rtv1.h"
 
 # define SAVE_PATH						"./saves/"
-# define SCREENSHOT_PATH				"./screenshots/"
-
 # define SCENE_FILE_EXTENSION			".rt"
-# define SCREENSHOT_FILE_EXTENSION		".png"
-# define CURRENT_TIME_STR_LENGTH		24
-
 # define SAVE_MESSAGE_TITLE				"SCENE SAVED AS"
-# define SCREENSHOT_MESSAGE_TITLE		"SCREENSHOT SAVED"
+# define CURRENT_TIME_STR_LENGTH		24
 
 # define READ_BUFF_SIZE					8192
 
@@ -63,20 +58,17 @@
 # define FILE_OBJECT_ORIENTATION		"orientation"
 # define FILE_OBJECT_RADIUS				"radius"
 
-//READ MAIN
 void		read_scene(t_scene *scene, char *file_name);
 void		divide_to_items(t_scene *scene, char *line);
 int			count_items(char *line);
 int			parse_each_item(t_scene *scene, char **items_array);
 
-//COUNT ITEMS
 int			count_items_by_type(t_scene *scene, char *item_line);
 int			define_item_type(t_scene *scene, char *type);
 void		put_error_wrong_scene_data(char *wrong_data, char *message);
 void		save_quantities(t_scene *scene);
 void		allocate_memory(t_scene *scene);
 
-//PARSE LINE
 int			parse_item_line(t_scene *scene, char *item_line);
 int			parse_item_description(t_scene *scene, int type_id,
 			char *description);
@@ -84,7 +76,6 @@ char		*prepare_value_to_write(char *value);
 char		*any_whitespace_to_space(char *value);
 void		str_free(char **property, char **value, char **prepared_value);
 
-//PARSE ITEM DESCRIPTION
 void		parse_item_by_property(t_scene *scene, int type_id, char *property,
 			char *value);
 void		parse_scene_description(t_scene *scene, char *property,
@@ -102,24 +93,20 @@ void		parse_object_description(t_scene *scene, char *property,
 int			find_object_type(char *value);
 int			find_object_material(t_scene *scene, char *value);
 
-//PARSE DATA TYPES
 t_vec		parse_vector(char *value);
 t_clr		parse_color(char *value);
 int			check_and_get_int_value(char *value);
 void		validate_color(char *value, t_vec color);
 
-//WHITESPACES
 char		*delete_whitespaces(char *line);
 int			count_whitespaces(char *line);
 int			is_whitespace(char c);
 void		copy_without_whitespaces(char *line, char *clean_line);
 
-//SAVE MAIN
 void		save_scene(t_scene *scene, t_mlx *mlx);
 void		create_save_file_name(t_scene *scene, char **file_name);
 void		get_current_time_string(char *time_string);
 
-//WRITE ALL ITEMS
 void		write_all_info(t_scene *scene, int fd);
 void		write_scene_info(t_scene *scene, int fd);
 void		write_cameras_info(t_scene *scene, int fd);
@@ -132,7 +119,6 @@ void		write_objects_info(t_scene *scene, int fd);
 void		write_objects_info_extra_1(t_scene *scene, int fd, int i);
 void		write_objects_info_extra_2(t_scene *scene, int fd, int i);
 
-//SAVE SCREENSHOT
 void		save_screenshot(t_scene *scene, t_mlx *mlx);
 void		create_screenshot_file_name(t_scene *scene, char **file_name);
 

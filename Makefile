@@ -6,7 +6,7 @@
 #    By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/06/21 13:30:36 by vitaly           ###   ########.fr        #
+#    Updated: 2020/06/21 20:07:20 by vitaly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,10 +39,8 @@ ADD_DEP =	-Wno-deprecated-declarations
 
 ADD_OPT =	-Ofast
 
-ADD_LIB =	-L ./libft				-l ft			\
-			-L ./mlx				-l mlx			\
-			# -L ./SDL2/SDL2 			-l SDL2			\
-			# -L ./SDL2/SDL2_image	-l SDL2_image
+ADD_LIB =	-L ./libft	-l ft	\
+			-L ./mlx	-l mlx
 
 ADD_FMW =	-lmlx -framework OpenGL -framework AppKit
 

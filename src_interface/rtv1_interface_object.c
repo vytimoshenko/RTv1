@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 04:02:36 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 13:33:51 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 20:21:22 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,11 @@ void	info_object_3(t_scene *scene, t_mlx *mlx, int x, int y)
 {
 	char	*str;
 
-	mlx_string_put(mlx->mlx, mlx->win, x, y + 50, TEXT_COLOR,
-	"- rotation (XYZ):");
-	mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 50, TEXT_COLOR,
-	str = ft_itoa(scene->objs.arr[scene->act_obj]->dir.x));
-	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, x + 240, y + 50, TEXT_COLOR,
-	str = ft_itoa(scene->objs.arr[scene->act_obj]->dir.y));
-	free(str);
-	mlx_string_put(mlx->mlx, mlx->win, x + 290, y + 50, TEXT_COLOR,
-	str = ft_itoa(scene->objs.arr[scene->act_obj]->dir.z));
-	free(str);
 	if (scene->objs.arr[scene->act_obj]->type != OBJECT_TYPE_PLANE)
 	{
-		mlx_string_put(mlx->mlx, mlx->win, x, y + 70, TEXT_COLOR,
+		mlx_string_put(mlx->mlx, mlx->win, x, y + 50, TEXT_COLOR,
 		"- radius:");
-		mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 70, TEXT_COLOR,
+		mlx_string_put(mlx->mlx, mlx->win, x + 190, y + 50, TEXT_COLOR,
 		str = ft_itoa(scene->objs.arr[scene->act_obj]->radius));
 		free(str);
 	}

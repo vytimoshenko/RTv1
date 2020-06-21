@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 16:51:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 19:12:38 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/06/21 20:18:49 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,34 +68,6 @@ void	move_object(t_scene *scene, int key)
 		scene->objs.arr[i]->pos.z += OBJECT_MOVEMENT_INCREMENT;
 	else if (key == BRACKET_LEFT)
 		scene->objs.arr[i]->pos.z -= OBJECT_MOVEMENT_INCREMENT;
-}
-
-void	rotate_object(t_scene *scene, int key)
-{
-	t_vec dir;
-
-	dir = scene->objs.arr[scene->act_obj]->dir;
-	if (key == W)
-		dir.y += OBJECT_ROTATION_INCREMENT;
-	else if (key == S)
-		dir.y -= OBJECT_ROTATION_INCREMENT;
-	else if (key == D)
-		dir.x += OBJECT_ROTATION_INCREMENT;
-	else if (key == A)
-		dir.x -= OBJECT_ROTATION_INCREMENT;
-	else if (key == Z)
-		dir.z += OBJECT_ROTATION_INCREMENT;
-	else if (key == X)
-		dir.z -= OBJECT_ROTATION_INCREMENT;
-	dir.x = dir.x >= 360 ? dir.x - 360 : dir.x;
-	dir.y = dir.y >= 360 ? dir.x - 360 : dir.y;
-	dir.z = dir.z >= 360 ? dir.x - 360 : dir.z;
-	dir.x = dir.x <= -360 ? dir.x + 360 : dir.x;
-	dir.y = dir.y <= -360 ? dir.x + 360 : dir.y;
-	dir.z = dir.z <= -360 ? dir.x + 360 : dir.z;
-	scene->objs.arr[scene->act_obj]->dir = dir;
-	get_sin_cos_obj(scene->objs.arr[scene->act_obj]);
-	rotate_vector(scene->objs.arr[scene->act_obj]);
 }
 
 void	get_sin_cos_obj(t_obj *object)
