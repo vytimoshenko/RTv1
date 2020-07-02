@@ -1,6 +1,7 @@
+
 scene
 {
-	name:		"New objects";
+	name:		"Shapes";
 	author:		"Meowth Perseus";
 }
 
@@ -8,18 +9,6 @@ camera
 {
 	position:	[0, 0, -10];
 	direction:	[0, 0, 0];
-}
-
-camera
-{
-	position:	[0, 100, 30];
-	direction:	[-90, 0, 0];
-}
-
-camera
-{
-	position:	[0, 100, 30];
-	direction:	[0, -75, 0];
 }
 
 light
@@ -53,8 +42,8 @@ material
 {
 	name:		"Shiny red";
 	color:		[255, 0, 0];
-	specular:	1000;
-	reflective:	5;
+	specular:	500;
+	reflective:	3;
 }
 
 material
@@ -85,8 +74,16 @@ material
 {
 	name:		"Deep magenta";
 	color:		[255, 0, 255];
-	specular:	5;
-	reflective:	5;
+	specular:	0;
+	reflective:	1;
+}
+
+material
+{
+	name:		"Sunny yellow";
+	color:		[255, 255, 0];
+	specular:	1000;
+	reflective:	3;
 }
 
 material
@@ -99,11 +96,11 @@ material
 
 object
 {
-	type:		<cylinder>;
-	material:	"Deep magenta";
-	position:	[0, 30, 50];
-	orientation:[45, 30, 90];
-	radius:		15;
+	type:		<sphere>;
+	material:	"Shiny red";
+	position:	[0, -10, 30];
+	orientation:[0, 0, 0];
+	radius:		10;
 }
 
 object
@@ -126,11 +123,29 @@ object
 
 object
 {
+	type:		<sphere>;
+	material:	"Glossy white";
+	position:	[-10, 15, 80];
+	orientation:[0, 0, 0];
+	radius:		2;
+}
+
+object
+{
+	type:		<cylinder>;
+	material:	"Sunny yellow";
+	position:	[10, 0, 120];
+	orientation:[0, 1, 0];
+	radius:		10;
+}
+
+object
+{
 	type:		<cone>;
-	material:	"Super blue";
-	position:	[-20, 0, 40];
-	orientation:	[0, 0, 0];
-	radius:		8;
+	material:	"Deep magenta";
+	position:	[-20, -30, 70];
+	orientation:[0, -1, 0.5];
+	radius:		10;
 }
 
 object

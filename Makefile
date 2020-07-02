@@ -6,7 +6,7 @@
 #    By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/16 19:45:56 by hlorrine          #+#    #+#              #
-#    Updated: 2020/06/21 20:07:20 by vitaly           ###   ########.fr        #
+#    Updated: 2020/07/02 16:35:27 by vitaly           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ FCL_FT	=	make fclean		-C libft
 MK_MLX	=	make			-C mlx
 CL_MLX	=	make clean		-C mlx
 
-MK_DIR	=	@/bin/mkdir saves screenshots
+MK_DIR	=	@/bin/mkdir saves
 
 ADD_ERR =	-Wall -Wextra -Werror
 ADD_DEP =	-Wno-deprecated-declarations

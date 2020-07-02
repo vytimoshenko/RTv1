@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 16:51:34 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 20:18:49 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/07/02 16:33:52 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,36 +68,4 @@ void	move_object(t_scene *scene, int key)
 		scene->objs.arr[i]->pos.z += OBJECT_MOVEMENT_INCREMENT;
 	else if (key == BRACKET_LEFT)
 		scene->objs.arr[i]->pos.z -= OBJECT_MOVEMENT_INCREMENT;
-}
-
-void	get_sin_cos_obj(t_obj *object)
-{
-	object->sin.x = sin(deg_to_rad(object->dir.x));
-	object->sin.y = sin(deg_to_rad(object->dir.y));
-	object->sin.z = sin(deg_to_rad(object->dir.z));
-	object->cos.x = cos(deg_to_rad(object->dir.x));
-	object->cos.y = cos(deg_to_rad(object->dir.y));
-	object->cos.z = cos(deg_to_rad(object->dir.z));
-}
-
-void	rotate_vector(t_obj *object)
-{
-	double		temp1;
-	double		temp2;
-	t_vec		pos;
-
-	pos = object->pos;
-	temp1 = pos.y * object->cos.x + pos.z * object->sin.x;
-	temp2 = -pos.y * object->sin.x + pos.z * object->cos.x;
-	object->dir.y = temp1;
-	object->dir.z = temp2;
-	temp1 = pos.x * object->cos.y + pos.z * object->sin.y;
-	temp2 = -pos.x * object->sin.y + pos.z * object->cos.y;
-	object->dir.x = temp1;
-	object->dir.z = temp2;
-	temp1 = pos.x * object->cos.z - pos.y * object->sin.z;
-	temp2 = pos.x * object->sin.z + pos.y * object->cos.z;
-	object->dir.x = temp1;
-	object->dir.y = temp2;
-	object->dir = nrm(object->dir);
 }

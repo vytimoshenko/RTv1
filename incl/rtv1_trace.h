@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 18:37:02 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 20:16:35 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/07/02 16:37:00 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # define OBJECT_TYPE_CONE				3
 
 # define REFLECTION_DEPTH				3
-# define MIN							0.001
-# define MAX							10000
+# define MIN							0.0001
+# define MAX							100000
 
 # define PI								3.14159265
 

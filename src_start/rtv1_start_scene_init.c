@@ -6,7 +6,7 @@
 /*   By: vitaly <vitaly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 14:29:21 by mperseus          #+#    #+#             */
-/*   Updated: 2020/06/21 15:24:54 by vitaly           ###   ########.fr       */
+/*   Updated: 2020/07/02 16:32:38 by vitaly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,7 @@ void	set_initial_angles(t_scene *scene)
 	{
 		if (scene->objs.arr[i]->type == OBJECT_TYPE_CYLINDER ||
 		scene->objs.arr[i]->type == OBJECT_TYPE_CONE)
-		{
-			get_sin_cos_obj(scene->objs.arr[i]);
-			rotate_vector(scene->objs.arr[i]);
-		}
+			scene->objs.arr[i]->dir = nrm(scene->objs.arr[i]->dir);
 		i++;
 	}
 }
